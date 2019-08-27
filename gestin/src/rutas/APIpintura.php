@@ -134,6 +134,42 @@ $app->post('/api/pintura/nueva',function(Request $request, Response $response){
      }
  });
 
+ //POST para modificar instalacion UPDATE BY ID
+ $app->put('/api/pintura/modificar/{id}',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+    $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+    $idInstalacion=$request->getParam('idInstalacion');
+    $idUsuario=$request->getParam('idUsuario');
+    $observaciones=$request->getParam('observaciones');
+    $fechaActuacion=$request->getParam('fechaActuacion');
+    $fechaInspeccion=$request->getParam('fechaInspeccion');
+    $resolucion=$request->getParam('resolucion');
+
+ 
+    // echo "todas las instalaciones";
+    $sql='UPDATE pintura SET idInstalacion=:idInstalacion,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion, fechaInspeccion=:fechaInspeccion, resolucion=:resolucion WHERE id='.$id;
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        //Asignar campos del SQL a las variables obtenidas
+
+        $resultado->bindParam(':idInstalacion',$idInstalacion);
+        $resultado->bindParam(':idUsuario',$idUsuario);
+        $resultado->bindParam(':observaciones',$observaciones);
+        $resultado->bindParam(':fechaActuacion',$fechaActuacion);
+        $resultado->bindParam(':fechaInspeccion',$fechaInspeccion);
+        $resultado->bindParam(':resolucion',$resolucion);
+     
+
+        $resultado->execute();
+        echo json_encode("Pintura editada con éxito",JSON_UNESCAPED_UNICODE);
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
 
 
 

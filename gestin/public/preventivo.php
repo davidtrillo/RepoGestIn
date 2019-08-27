@@ -21,15 +21,12 @@ include './login/session.php';
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <style>
       .dropdown-menu {
-         height: 500px;
+         height: 400px;
          overflow-y: auto;
       }
 
-      .btn-info {
-         width: 90px;
-      }
    </style>
-   <title>MFO</title>
+   <title>Preventivo</title>
 </head>
 
 <body>
@@ -45,9 +42,9 @@ include './login/session.php';
          <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
                <a class="nav-item nav-link text-right" href="./welcome.php">Instalaciones</a>
-               <a class="nav-item nav-link active" href="./mfo.php">MFO</a>
+               <a class="nav-item nav-link" href="./mfo.php">MFO</a>
                <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
-               <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+               <a class="nav-item nav-link active" href="./preventivo.php">Preventivo</a>
                <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
                   Sesión</a>
             </div>
@@ -63,8 +60,8 @@ include './login/session.php';
       <input type="hidden" id="inputUsuario" value="<?php echo $login_session; ?>">
       <input type="hidden" id="inputIdUsuario" value="<?php echo $id_session; ?>">
    </div>
-   <div class="container-fluid mt-0 p-1" style="background-color:Turquoise;">
-      <h3><b>MFO</b></h3>
+   <div class="container-fluid mt-0 p-1" style="background-color:LightSteelBlue;">
+      <h3><b>Preventivo</b></h3>
    </div>
    <!-- Dropdowns Menus -->
    <hr class="mt-0 mb-0">
@@ -75,13 +72,11 @@ include './login/session.php';
 
          <div class="row">
             <div class="col-1 p-1">
-
                <span><b>Instalación</b></span>
-
                <div class="input-group mt-2">
                   <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                     onclick="rellenarCruceMFO()">
+                     onclick="rellenarCrucePreventivo()">
                      Inst
                   </button>
                   <div class="dropdown-menu" id="dropInstalacionPintura">
@@ -97,43 +92,89 @@ include './login/session.php';
                <input type="text" class="form-control mt-2" name="" id="inputUbicacion" placeholder="Ubicación" value="" disabled>
             </div>
             <div class="col-xd-1 p-1">
-               <span><b>Fecha Actuación</b></span>
-               <input type="date" class="form-control mt-2" name="" id="inputFechaActuacion" value="">
+               <span><b>Fecha Preventivo</b></span>
+               <input type="date" class="form-control mt-2" name="" id="inputFechaPreventivo" value="">
             </div>
-            <div class="col-xd-1 p-1">
-               <span><b>Fecha Inspección</b></span>
-               <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccion" value="">
-            </div>
-            <div class="col-3 p-1">
-               <span><b>Observaciones</b></span>
-               <input type="text" class="form-control mt-2" name="" id="inputObservaciones" value="">
-            </div>
-            <div class="col-1 p-1">
-               <span><b>Precio</b></span>
-               <input type="text" class="form-control mt-2" name="" id="inputPrecio" value="">
-            </div>
-            <div class="col-1 p-1">
-               <span><b>Resolución Ok</b></span>
-               <br class="mt-3">
-               <input type="checkbox" class="mt-3 ml-5" name="" id="inputOk" checked>
-            </div>
-            <div class="col-1 p-1 mt-4">
-               <div class="btn btn-primary" onclick="nuevoMFO()">Guardar</div>
+            <div class="col-5 p-1">
+               <span><b>Observaciones Preventivo</b></span>
+               <input type="text" class="form-control mt-2" name="" id="inputObservacionesPreventivo" value="">
             </div>
          </div>
+
+
+
+         <div class="row">
+            <div class="col-xd-1 p-1">
+               <span><b>Fecha Insp. Vol. Sem.</b></span>
+               <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntariaSemaforo" value="">
+            </div>
+            <div class="col-2 p-1">
+               <span><b>Estado Insp. Vol. Sem.</b></span>
+               <div class="input-group ">
+                  <button type="button" class="btn btn-secondary dropdown-toggle p-1 mt-2" name="" value=""
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                     onclick="">
+                     Estado
+                  </button>
+                  <div class="dropdown-menu" id="dropEstadoSemaforo">
+                     <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo(this.value)" value="Favorable">Favorable</button>
+                     <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo(this.value)" value="Leve">Leve</button>
+                     <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo(this.value)" value="Condicional">Condicional</button>
+                     <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo(this.value)" value="No Favorable">No Favorable</button>
+                  </div>
+                     <input type="text" class="form-control mt-2" name="" id="inputEstadoInspeccionVoluntarioSemaforo" value="">
+               </div>
+            </div>
+            <div class="col-2 p-1">
+               <span><b>Observaciones Insp. Vol. Sem.</b></span>
+               <input type="text" class="form-control mt-2" name="" id="inputObservacionesInspeccionVoluntarioSemaforo" value="">
+            </div>
+            <div class="col-xd-1 p-1">
+               <span><b>Fecha Insp. Vol. Alum.</b></span>
+               <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntarioAlumbrado" value="">
+            </div>
+            <div class="col-2 p-1">
+               <span><b>Estado Insp. Vol. Alum.</b></span>
+               <div class="input-group ">
+                  <button type="button" class="btn btn-secondary dropdown-toggle p-1 mt-2" name="" value=""
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                     onclick="">
+                     Estado
+                  </button>
+                  <div class="dropdown-menu" id="dropEstadoSemaforo">
+                     <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoAlumbrado(this.value)" value="Favorable">Favorable</button>
+                     <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoAlumbrado(this.value)" value="Leve">Leve</button>
+                     <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoAlumbrado(this.value)" value="Condicional">Condicional</button>
+                     <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoAlumbrado(this.value)" value="No Favorable">No Favorable</button>
+                  </div>
+                     <input type="text" class="form-control mt-2" name="" id="inputEstadoInspeccionVoluntarioAlumbrado" value="">
+               </div>
+            </div>
+            <div class="col-2 p-1">
+               <span><b>Observaciones Insp. Vol. Alum.</b></span>
+               <input type="text" class="form-control mt-2" name="" id="inputObservacionesInspeccionVoluntarioAlumbrado" value="">
+            </div>
+            <div class="col-1 p-1 mt-2">
+               <br>
+               <div class="btn btn-primary" onclick="nuevoPreventivo()">Guardar</div>
+            </div>
+
+         </div>
+
+
       </div>
 
    </div>
    <!-- Fin FormGuardar -->
-   <hr  class="mt-1 mb-1">
+   <hr  class="mt-1 mb-1 bg-primary">
    <!-- Formulario Body Nuevo-->
    <div class="container-fluid ml-1 " id="formBody">
-     
+  
             <!-- inyeccion de codigo  -->
    </div>
   
    <!-- fin formulario Body-->
-   <hr>
+   <hr class="mt-1 mb-1 bg-primary">
    <!-- Formulario footer Nuevo-->
    <div class="mt-2 p-2" id="formFooter">
 
@@ -217,7 +258,7 @@ include './login/session.php';
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
    </script>
    <script src="../js/funciones.js"></script>
-   <script src="../js/mfo.js"></script>
+   <script src="../js/preventivo.js"></script>
 
 
 </body>

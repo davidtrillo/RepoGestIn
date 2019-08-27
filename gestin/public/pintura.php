@@ -47,7 +47,7 @@ include './login/session.php';
                <a class="nav-item nav-link text-right" href="./welcome.php">Instalaciones</a>
                <a class="nav-item nav-link" href="./mfo.php">MFO</a>
                <a class="nav-item nav-link active" href="./pintura.php">Pintura</a>
-               <a class="nav-item nav-link" href="#">Preventivo</a>
+               <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
                <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
                   Sesión</a>
             </div>
@@ -58,7 +58,7 @@ include './login/session.php';
 
 
 
-   <div class="container-fluid mt-3">
+   <div class="">
       <!-- <h4>Bienvenido <?php echo ucwords($login_session); ?></h4> -->
       <input type="hidden" id="inputUsuario" value="<?php echo $login_session; ?>">
       <input type="hidden" id="inputIdUsuario" value="<?php echo $id_session; ?>">
@@ -66,9 +66,10 @@ include './login/session.php';
 
    <!-- Dropdowns Menus -->
 
-   <div class="container mt-1 ml-1">
+   <div class="container-fluid mt-0 p-1" style="background-color:LightSkyBlue;">
       <h3><b>Pintura</b></h3>
    </div>
+
    <hr class="mt-0 mb-0">
    <!-- Container de cabecera -->
    <div class="container-fluid mt-1 ml-1">
@@ -216,7 +217,7 @@ include './login/session.php';
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
    </script>
    <script src="../js/funciones.js"></script>
-   <script src="../js/mfo.js"></script>
+   <script src="../js/pintura.js"></script>
 
 
 </body>

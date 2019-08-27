@@ -5,9 +5,9 @@
 
 //GET Todas las pinturas SELECT
 
- $app->get('/api/mfo',function(Request $request, Response $response){
+ $app->get('/api/preventivo',function(Request $request, Response $response){
 
-     $sql='SELECT p.*,i.ubicacion FROM mfo p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.fechaActuacion desc';
+     $sql='SELECT p.*,i.ubicacion FROM preventivo p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.fechaPreventivo desc';
     
      try{
          $db= new db();     
@@ -34,19 +34,22 @@
 
 //POST para crear una nueva instalación CREATE
 
-$app->post('/api/mfo/nueva',function(Request $request, Response $response){
+$app->post('/api/preventivo/nueva',function(Request $request, Response $response){
     //declaracion de las variables de recepcion desde FRONT
 
     $idInstalacion=$request->getParam('idInstalacion');
-    $fechaActuacion=$request->getParam('fechaActuacion');
-    $fechaInspeccion=$request->getParam('fechaInspeccion');
-    $observaciones=$request->getParam('observaciones');
+    $fechaPreventivo=$request->getParam('fechaPreventivo');
+    $fechaInspeccionVoluntarioSemaforo=$request->getParam('fechaInspeccionVoluntarioSemaforo');
+    $fechaInspeccionAlumbrado=$request->getParam('fechaInspeccionAlumbrado');
+    $observacionesPreventivo=$request->getParam('observacionesPreventivo');
+    $observacionesInspeccionVoluntarioSemaforo=$request->getParam('observacionesInspeccionVoluntarioSemaforo');
+    $observacionesInspeccionAlumbrado=$request->getParam('observacionesInspeccionAlumbrado');
+    $estadoInspeccionVoluntarioSemaforo=$request->getParam('estadoInspeccionVoluntarioSemaforo');
+    $estadoInspeccionAlumbrado=$request->getParam('estadoInspeccionAlumbrado');
     $idUsuario=$request->getParam('idUsuario');
-    $resolucion=$request->getParam('resolucion');
-    $precio=$request->getParam('precio');
-    
    
-    $sql='INSERT INTO mfo(idInstalacion,idUsuario,observaciones,resolucion,fechaActuacion,fechaInspeccion,precio) VALUES (:idInstalacion,:idUsuario,:observaciones,:resolucion,:fechaActuacion,:fechaInspeccion,:precio)';
+   
+    $sql='INSERT INTO preventivo(idInstalacion,idUsuario,fechaPreventivo,fechaInspeccionVoluntarioSemaforo,fechaInspeccionAlumbrado,observacionesPreventivo,observacionesInspeccionVoluntarioSemaforo,observacionesInspeccionAlumbrado,estadoInspeccionVoluntarioSemaforo,estadoInspeccionAlumbrado) VALUES (:idInstalacion,:idUsuario,:fechaPreventivo,:fechaInspeccionVoluntarioSemaforo,:fechaInspeccionAlumbrado,:observacionesPreventivo,:observacionesInspeccionVoluntarioSemaforo,:observacionesInspeccionAlumbrado,:estadoInspeccionVoluntarioSemaforo,:estadoInspeccionAlumbrado)';
 
 
 
@@ -58,13 +61,15 @@ $app->post('/api/mfo/nueva',function(Request $request, Response $response){
 
         //Asignar campos del SQL a las variables obtenidas
         $resultado->bindParam(':idInstalacion',$idInstalacion);
-        $resultado->bindParam(':fechaActuacion',$fechaActuacion);
-        $resultado->bindParam(':fechaInspeccion',$fechaInspeccion);
-        $resultado->bindParam(':observaciones',$observaciones);
+        $resultado->bindParam(':fechaPreventivo',$fechaPreventivo);
+        $resultado->bindParam(':fechaInspeccionVoluntarioSemaforo',$fechaInspeccionVoluntarioSemaforo);
+        $resultado->bindParam(':fechaInspeccionAlumbrado',$fechaInspeccionAlumbrado);
         $resultado->bindParam(':idUsuario',$idUsuario);
-        $resultado->bindParam(':resolucion',$resolucion);
-        $resultado->bindParam(':precio',$precio);
-       
+        $resultado->bindParam(':observacionesPreventivo',$observacionesPreventivo);
+        $resultado->bindParam(':observacionesInspeccionAlumbrado',$observacionesInspeccionAlumbrado);
+        $resultado->bindParam(':observacionesInspeccionVoluntarioSemaforo',$observacionesInspeccionVoluntarioSemaforo);
+        $resultado->bindParam(':estadoInspeccionVoluntarioSemaforo',$estadoInspeccionVoluntarioSemaforo);
+        $resultado->bindParam(':estadoInspeccionAlumbrado',$estadoInspeccionAlumbrado);
 
         $resultado->execute();
         echo json_encode("Registro guardado con éxito",JSON_UNESCAPED_UNICODE);
@@ -78,12 +83,12 @@ $app->post('/api/mfo/nueva',function(Request $request, Response $response){
 });
 
  //DELETE para borrar instalacion DELETE BY ID
- $app->delete('/api/mfo/borrar/{id}',function(Request $request, Response $response){
+ $app->delete('/api/preventivo/borrar/{id}',function(Request $request, Response $response){
 
      $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
   
      // echo "todas las instalaciones";
-     $sql='DELETE FROM mfo WHERE id='.$id;
+     $sql='DELETE FROM preventivo WHERE id='.$id;
      try{
          $db= new db();     
          $db=$db->conectDB();
@@ -106,7 +111,7 @@ $app->post('/api/mfo/nueva',function(Request $request, Response $response){
 
 
 //POST para modificar instalacion UPDATE BY ID
- $app->put('/api/mfo/modificar/{id}',function(Request $request, Response $response){
+ $app->put('/api/preventivo/modificar/{id}',function(Request $request, Response $response){
      //declaracion de las variables de recepcion desde FRONT
      $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
      $idInstalacion=$request->getParam('idInstalacion');
@@ -118,7 +123,7 @@ $app->post('/api/mfo/nueva',function(Request $request, Response $response){
      $precio=$request->getParam('precio');
   
      // echo "todas las instalaciones";
-     $sql='UPDATE mfo SET idInstalacion=:idInstalacion,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion, fechaInspeccion=:fechaInspeccion, resolucion=:resolucion, precio=:precio WHERE id='.$id;
+     $sql='UPDATE preventivo SET idInstalacion=:idInstalacion,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion, fechaInspeccion=:fechaInspeccion, resolucion=:resolucion, precio=:precio WHERE id='.$id;
      try{
          $db= new db();     
          $db=$db->conectDB();

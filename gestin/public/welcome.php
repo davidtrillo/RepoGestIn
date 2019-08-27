@@ -43,9 +43,9 @@ include './login/session.php';
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
          <a class="nav-item nav-link active text-right" href="./welcome.php">Instalaciones</a>
-         <a class="nav-item nav-link" href="#">MFO</a>
+         <a class="nav-item nav-link" href="./mfo.php">MFO</a>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
-         <a class="nav-item nav-link" href="#">Preventivo</a>
+         <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
          <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
       </div>
    </div>
@@ -55,18 +55,18 @@ include './login/session.php';
 
 
 
-   <div class="container-fluid mt-3">
-      <h4>Bienvenido <?php echo ucwords($login_session); ?></h4>
+   <div class="container-fluid mt-0 p-0">
+      <!-- <h4>Bienvenido <?php echo ucwords($login_session); ?></h4> -->
       <input type="hidden" id="inputUsuario" value="<?php echo $login_session; ?>">
       <input type="hidden" id="inputIdUsuario" value="<?php echo $id_session; ?>">
    </div>
 
    <!-- Dropdowns Menus -->
      
-   <div class="container mt-1 ml-1">
-      <span><b>Instalaciones</b></span>
+   <div class="container-fluid mt-0 p-1" style="background-color:powderblue;">
+      <h3><b>Instalaciones</b></h3>
    </div>
-      <hr class="mt-0">
+      <hr class=" container- fluid mt-0">
    <!-- Container de cabecera -->
    <div class="container-fluid">
       <!-- Primera Row -->
