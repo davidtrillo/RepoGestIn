@@ -23,6 +23,36 @@ function rellenarCrucePintura() { //Llamada a la API según el dato obtenido del
 
 }
 
+function rellenarCrucePintura2(param) { //Llamada a la API según el dato obtenido del primer combo
+    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            var p = document.getElementById('dropInstalacionPintura'+param);
+            p.innerHTML = '';
+            for (var i in response) {
+                p.innerHTML += `
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCrucePintura2(${param},this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+             `
+            }
+        })
+
+
+}
+
+function leerCrucePintura2(param,id, ubicacion) {
+    var p1 = document.getElementById('inputIdCruce2'+param);
+    p1.value = id;
+    var p2 = document.getElementById('inputUbicacion2'+param);
+    p2.value = ubicacion;
+}
+
 function leerCrucePintura(id, ubicacion) {
     var p1 = document.getElementById('inputIdCruce');
     p1.value = id;
@@ -112,10 +142,10 @@ function rellenarPintura() {
                             <div class="input-group mt-2">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    onclick="rellenarCrucePintura()">
+                                    onclick="rellenarCrucePintura2(${response[i]['id']})">
                                     Inst
                                 </button>
-                                <div class="dropdown-menu" id="dropInstalacionPintura">
+                                <div class="dropdown-menu" id="dropInstalacionPintura${response[i]['id']}">
                                     <!-- inyectar código -->
                                 </div>
                                 <input type="text" class="form-control" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}">                          

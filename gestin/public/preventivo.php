@@ -166,7 +166,7 @@ include './login/session.php';
 
    </div>
    <!-- Fin FormGuardar -->
-   <hr  class="mt-1 mb-1 bg-primary">
+   <hr  class="mt-1 mb-3 bg-primary">
    <!-- Formulario Body Nuevo-->
    <div class="container-fluid ml-1 " id="formBody">
   
@@ -174,7 +174,7 @@ include './login/session.php';
    </div>
   
    <!-- fin formulario Body-->
-   <hr class="mt-1 mb-1 bg-primary">
+   <hr class="mt-3 mb-1 bg-primary">
    <!-- Formulario footer Nuevo-->
    <div class="mt-2 p-2" id="formFooter">
 

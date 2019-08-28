@@ -114,16 +114,21 @@ $app->post('/api/preventivo/nueva',function(Request $request, Response $response
  $app->put('/api/preventivo/modificar/{id}',function(Request $request, Response $response){
      //declaracion de las variables de recepcion desde FRONT
      $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+
      $idInstalacion=$request->getParam('idInstalacion');
+     $fechaPreventivo=$request->getParam('fechaPreventivo');
+     $fechaInspeccionVoluntarioSemaforo=$request->getParam('fechaInspeccionVoluntarioSemaforo');
+     $fechaInspeccionAlumbrado=$request->getParam('fechaInspeccionAlumbrado');
+     $observacionesPreventivo=$request->getParam('observacionesPreventivo');
+     $observacionesInspeccionVoluntarioSemaforo=$request->getParam('observacionesInspeccionVoluntarioSemaforo');
+     $observacionesInspeccionAlumbrado=$request->getParam('observacionesInspeccionAlumbrado');
+     $estadoInspeccionVoluntarioSemaforo=$request->getParam('estadoInspeccionVoluntarioSemaforo');
+     $estadoInspeccionAlumbrado=$request->getParam('estadoInspeccionAlumbrado');
      $idUsuario=$request->getParam('idUsuario');
-     $observaciones=$request->getParam('observaciones');
-     $fechaActuacion=$request->getParam('fechaActuacion');
-     $fechaInspeccion=$request->getParam('fechaInspeccion');
-     $resolucion=$request->getParam('resolucion');
-     $precio=$request->getParam('precio');
+
   
      // echo "todas las instalaciones";
-     $sql='UPDATE preventivo SET idInstalacion=:idInstalacion,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion, fechaInspeccion=:fechaInspeccion, resolucion=:resolucion, precio=:precio WHERE id='.$id;
+     $sql='UPDATE preventivo SET idInstalacion=:idInstalacion,idUsuario=:idUsuario,fechaPreventivo=:fechaPreventivo,fechaInspeccionVoluntarioSemaforo=:fechaInspeccionVoluntarioSemaforo, fechaInspeccionAlumbrado=:fechaInspeccionAlumbrado, observacionesPreventivo=:observacionesPreventivo, observacionesInspeccionVoluntarioSemaforo=:observacionesInspeccionVoluntarioSemaforo, observacionesInspeccionAlumbrado=:observacionesInspeccionAlumbrado,estadoInspeccionVoluntarioSemaforo=:estadoInspeccionVoluntarioSemaforo,estadoInspeccionAlumbrado=:estadoInspeccionAlumbrado WHERE id='.$id;
      try{
          $db= new db();     
          $db=$db->conectDB();
@@ -131,15 +136,18 @@ $app->post('/api/preventivo/nueva',function(Request $request, Response $response
          //Asignar campos del SQL a las variables obtenidas
 
          $resultado->bindParam(':idInstalacion',$idInstalacion);
+         $resultado->bindParam(':fechaPreventivo',$fechaPreventivo);
+         $resultado->bindParam(':fechaInspeccionVoluntarioSemaforo',$fechaInspeccionVoluntarioSemaforo);
+         $resultado->bindParam(':fechaInspeccionAlumbrado',$fechaInspeccionAlumbrado);
          $resultado->bindParam(':idUsuario',$idUsuario);
-         $resultado->bindParam(':observaciones',$observaciones);
-         $resultado->bindParam(':fechaActuacion',$fechaActuacion);
-         $resultado->bindParam(':fechaInspeccion',$fechaInspeccion);
-         $resultado->bindParam(':resolucion',$resolucion);
-         $resultado->bindParam(':precio',$precio);
+         $resultado->bindParam(':observacionesPreventivo',$observacionesPreventivo);
+         $resultado->bindParam(':observacionesInspeccionAlumbrado',$observacionesInspeccionAlumbrado);
+         $resultado->bindParam(':observacionesInspeccionVoluntarioSemaforo',$observacionesInspeccionVoluntarioSemaforo);
+         $resultado->bindParam(':estadoInspeccionVoluntarioSemaforo',$estadoInspeccionVoluntarioSemaforo);
+         $resultado->bindParam(':estadoInspeccionAlumbrado',$estadoInspeccionAlumbrado);
 
          $resultado->execute();
-         echo json_encode("MFO editado con éxito",JSON_UNESCAPED_UNICODE);
+         echo json_encode("Preventivo editado con éxito",JSON_UNESCAPED_UNICODE);
          $resultado=null;
          $db=null;
      }catch(PDOException $e){

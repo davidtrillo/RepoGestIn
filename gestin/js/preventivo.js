@@ -15,7 +15,29 @@ function rellenarCrucePreventivo() { //Llamada a la API según el dato obtenido 
             p.innerHTML = '';
             for (var i in response) {
                 p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCrucePreventivo(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCrucePreventivo2(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+             `
+            }
+        })
+
+}
+
+function rellenarCrucePreventivo2(param) { //Llamada a la API según el dato obtenido del primer combo
+    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            var p = document.getElementById('dropCruce2'+param);
+            p.innerHTML = '';
+            for (var i in response) {
+                p.innerHTML += `
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion2${[i]}" name="${response[i]['ubicacion']}" onclick="leerCrucePreventivo2(${param},this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
              `
             }
         })
@@ -27,6 +49,34 @@ function leerCrucePreventivo(id, ubicacion) {
     p1.value = id;
     var p2 = document.getElementById('inputUbicacion');
     p2.value = ubicacion;
+}
+
+function leerCrucePreventivo2(param,id, ubicacion) {
+
+    var p1 = document.getElementById('inputIdCruce2'+param);
+    p1.value = id;
+    var p2 = document.getElementById('inputUbicacion2'+param);
+    p2.value = ubicacion;
+}
+
+function leerEstadoSemaforo(id) {
+    var p1 = document.getElementById('inputEstadoInspeccionVoluntarioSemaforo');
+    p1.value = id;
+}
+
+function leerEstadoAlumbrado(id) {
+    var p1 = document.getElementById('inputEstadoInspeccionVoluntarioAlumbrado');
+    p1.value = id;
+}
+
+function leerEstadoAlumbrado2(param,id) {
+    var p1 = document.getElementById('inputEstadoInspeccionVoluntarioAlumbrado2'+id);
+    p1.value = param;
+}
+
+function leerEstadoSemaforo2(param,id) {
+    var p1 = document.getElementById('inputEstadoInspeccionVoluntarioSemaforo2'+id);
+    p1.value = param;
 }
 
 function nuevoPreventivo() {
@@ -43,14 +93,14 @@ function nuevoPreventivo() {
         var inputObservacionesInspeccionVoluntarioAlumbrado = document.getElementById('inputObservacionesInspeccionVoluntarioAlumbrado').value  ? document.getElementById('inputObservacionesInspeccionVoluntarioAlumbrado').value :null;
         var idUsuario = document.getElementById('inputIdUsuario').value;
 
-        console.log(inputFechaPreventivo);
-        console.log(inputObservacionesPreventivo);
-        console.log(inputFechaInspeccionVoluntariaSemaforo);
-        console.log(inputObservacionesInspeccionVoluntarioSemaforo);
-        console.log(inputEstadoInspeccionVoluntarioSemaforo);
-        console.log(inputFechaInspeccionVoluntarioAlumbrado);
-        console.log(inputEstadoInspeccionVoluntarioAlumbrado);
-        console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
+        // console.log(inputFechaPreventivo);
+        // console.log(inputObservacionesPreventivo);
+        // console.log(inputFechaInspeccionVoluntariaSemaforo);
+        // console.log(inputObservacionesInspeccionVoluntarioSemaforo);
+        // console.log(inputEstadoInspeccionVoluntarioSemaforo);
+        // console.log(inputFechaInspeccionVoluntarioAlumbrado);
+        // console.log(inputEstadoInspeccionVoluntarioAlumbrado);
+        // console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
 
 
         var url = 'http://172.27.120.111/gestin/public/api/preventivo/nueva';
@@ -80,7 +130,9 @@ function nuevoPreventivo() {
             })
 
     }
-    rellenarPreventivo();
+    setTimeout(() => {
+        rellenarPreventivo(); 
+    }, 1000);
 }
 
 
@@ -105,11 +157,34 @@ function rellenarPreventivo() {
 
             } else {
                 var p = document.getElementById('formBody');
+                var  color;
                 p.innerHTML = '';
                 for (var i in response) {
 
+
+                    if ((i%2)==0){
+                        color="bg-light";
+                    }else{
+                        
+                        color="";
+                    }
+
+
+                    // console.log(response[i]['id']);
+                    // console.log(response[i]['idInstalacion']);
+                    // console.log(response[i]['ubicacion']);
+                    // console.log(response[i]['fechaPreventivo']);
+                    // console.log(response[i]['observacionesPreventivo']);
+                    // console.log(response[i]['fechaInspeccionVoluntarioSemaforo']);
+                    // console.log(response[i]['estadoInspeccionVoluntarioSemaforo']);
+                    // console.log(response[i]['observacionesInspeccionVoluntarioSemaforo']);
+                    // console.log(response[i]['fechaInspeccionAlumbrado']);
+                    // console.log(response[i]['estadoInspeccionAlumbrado']);
+                    // console.log(response[i]['observacionesInspeccionAlumbrado']);
+
+
                     p.innerHTML += `
-                    <div class="container-fluid mt-1 ml-1 bg-light ">
+                    <div class="container-fluid mt-1 ml-1 ${color} ">
 
                     <div class="row">
                        <div class="col-1 p-1">
@@ -117,28 +192,28 @@ function rellenarPreventivo() {
                           <div class="input-group mt-2">
                              <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                onclick="rellenarCrucePreventivo()">
+                                onclick="rellenarCrucePreventivo2(${response[i]['id']})">
                                 Inst
                              </button>
-                             <div class="dropdown-menu" id="dropInstalacionPintura">
+                             <div class="dropdown-menu" id="dropCruce2${response[i]['id']}">
                                 <!-- inyectar código -->
                              </div>
-                             <input type="text" class="form-control" name="" id="inputIdCruce" value="">
+                             <input type="text" class="form-control" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}">
                                 
                           </div>
                        </div>
                     
                        <div class="col-2 p-1">
                           <span><b>Ubicación</b></span>
-                          <input type="text" class="form-control mt-2" name="" id="inputUbicacion" placeholder="Ubicación" value="" disabled>
+                          <input type="text" class="form-control mt-2" name="" id="inputUbicacion2${response[i]['id']}" placeholder="Ubicación" value="${response[i]['ubicacion']}" disabled>
                        </div>
                        <div class="col-xd-1 p-1">
                           <span><b>Fecha Preventivo</b></span>
-                          <input type="date" class="form-control mt-2" name="" id="inputFechaPreventivo" value="${response[i]['fechaPreventivo']}">
+                          <input type="date" class="form-control mt-2" name="" id="inputFechaPreventivo2${response[i]['id']}" value="${response[i]['fechaPreventivo']}">
                        </div>
                        <div class="col-5 p-1">
                           <span><b>Observaciones Preventivo</b></span>
-                          <input type="text" class="form-control mt-2" name="" id="inputObservacionesPreventivo" value="${response[i]['observacionesPreventivo']}">
+                          <input type="text" class="form-control mt-2" name="" id="inputObservacionesPreventivo2${response[i]['id']}" value="${response[i]['observacionesPreventivo']}">
                        </div>
                     </div>
                     
@@ -147,7 +222,7 @@ function rellenarPreventivo() {
                     <div class="row">
                        <div class="col-xd-1 p-1">
                           <span><b>Fecha Insp. Vol. Sem.</b></span>
-                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntariaSemaforo" value="${response[i]['fechaInspeccionVoluntariaSemaforo']}">
+                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntariaSemaforo2${response[i]['id']}" value="${response[i]['fechaInspeccionVoluntarioSemaforo']}">
                        </div>
                        <div class="col-2 p-1">
                           <span><b>Estado Insp. Vol. Sem.</b></span>
@@ -158,21 +233,21 @@ function rellenarPreventivo() {
                                 Estado
                              </button>
                              <div class="dropdown-menu" id="dropEstadoSemaforo">
-                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo(this.value)" value="Favorable">Favorable</button>
-                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo(this.value)" value="Leve">Leve</button>
-                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo(this.value)" value="Condicional">Condicional</button>
-                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo(this.value)" value="No Favorable">No Favorable</button>
+                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo2(this.value,${response[i]['id']})" value="Favorable">Favorable</button>
+                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo2(this.value,${response[i]['id']})" value="Leve">Leve</button>
+                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo2(this.value,${response[i]['id']})" value="Condicional">Condicional</button>
+                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoSemaforo2(this.value,${response[i]['id']})" value="No Favorable">No Favorable</button>
                              </div>
-                                <input type="text" class="form-control mt-2" name="" id="inputEstadoInspeccionVoluntarioSemaforo" value="${response[i]['fechaInspeccionVoluntariaSemaforo']}">
+                                <input type="text" class="form-control mt-2" name="" id="inputEstadoInspeccionVoluntarioSemaforo2${response[i]['id']}" value="${response[i]['estadoInspeccionVoluntarioSemaforo']}">
                           </div>
                        </div>
                        <div class="col-2 p-1">
                           <span><b>Observaciones Insp. Vol. Sem.</b></span>
-                          <input type="text" class="form-control mt-2" name="" id="inputObservacionesInspeccionVoluntarioSemaforo" value="${response[i]['observacionesInspeccionVoluntarioSemaforo']}">
+                          <input type="text" class="form-control mt-2" name="" id="inputObservacionesInspeccionVoluntarioSemaforo2${response[i]['id']}" value="${response[i]['observacionesInspeccionVoluntarioSemaforo']}">
                        </div>
                        <div class="col-xd-1 p-1">
                           <span><b>Fecha Insp. Vol. Alum.</b></span>
-                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntarioAlumbrado" value="${response[i]['fechaInspeccionVoluntarioAlumbrado']}">
+                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntarioAlumbrado2${response[i]['id']}" value="${response[i]['fechaInspeccionAlumbrado']}">
                        </div>
                        <div class="col-2 p-1">
                           <span><b>Estado Insp. Vol. Alum.</b></span>
@@ -182,18 +257,18 @@ function rellenarPreventivo() {
                                 onclick="">
                                 Estado
                              </button>
-                             <div class="dropdown-menu" id="dropEstadoSemaforo">
-                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoAlumbrado(this.value)" value="Favorable">Favorable</button>
-                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoAlumbrado(this.value)" value="Leve">Leve</button>
-                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoAlumbrado(this.value)" value="Condicional">Condicional</button>
-                                <button class="dropdown-item" type="submit" id="" name="" onclick="leerEstadoAlumbrado(this.value)" value="No Favorable">No Favorable</button>
+                             <div class="dropdown-menu" id="dropEstadoAlumbrado">
+                                <button class="dropdown-item" type="submit" id="btnEstadoAlumbrado${response[i]['id']}" name="" onclick="leerEstadoAlumbrado2(this.value,${response[i]['id']})" value="Favorable">Favorable</button>
+                                <button class="dropdown-item" type="submit" id="btnEstadoAlumbrado${response[i]['id']}" name="" onclick="leerEstadoAlumbrado2(this.value,${response[i]['id']})" value="Leve">Leve</button>
+                                <button class="dropdown-item" type="submit" id="btnEstadoAlumbrado${response[i]['id']}" name="" onclick="leerEstadoAlumbrado2(this.value,${response[i]['id']})" value="Condicional">Condicional</button>
+                                <button class="dropdown-item" type="submit" id="btnEstadoAlumbrado${response[i]['id']}" name="" onclick="leerEstadoAlumbrado2(this.value,${response[i]['id']})" value="No Favorable">No Favorable</button>
                              </div>
-                                <input type="text" class="form-control mt-2" name="" id="inputEstadoInspeccionVoluntarioAlumbrado" value="${response[i]['estadoInspeccionVoluntarioAlumbrado']}">
+                                <input type="text" class="form-control mt-2" name="" id="inputEstadoInspeccionVoluntarioAlumbrado2${response[i]['id']}" value="${response[i]['estadoInspeccionAlumbrado']}">
                           </div>
                        </div>
                        <div class="col-2 p-1">
                           <span><b>Observaciones Insp. Vol. Alum.</b></span>
-                          <input type="text" class="form-control mt-2" name="" id="inputObservacionesInspeccionVoluntarioAlumbrado" value="${response[i]['observacionesInspeccionVoluntarioAlumbrado']}">
+                          <input type="text" class="form-control mt-2" name="" id="inputObservacionesInspeccionVoluntarioAlumbrado2${response[i]['id']}" value="${response[i]['observacionesInspeccionAlumbrado']}">
                        </div>
                        <div class="col-1 p-1 mt-2">
                           <br>                        
@@ -246,24 +321,27 @@ function borrarPreventivo(id) {
 
 
 function editarPreventivo(param) {
-    var id= param;
-    var inputIdCruce2 = document.getElementById('inputIdCruce2' + param).value;
-    var inputFechaActuacion2 = document.getElementById('inputFechaActuacion2' + param).value;
-    var inputFechaInspeccion2 = document.getElementById('inputFechaInspeccion2' + param).value;
-    var observaciones2 = document.getElementById('observaciones2' + param).value;
-    var resolucion2 = document.getElementById('resolucion2' + param).checked;
-    resolucion2 = String(resolucion2);
+    var idInstalacion = document.getElementById('inputIdCruce2'+param).value;
+    var inputFechaPreventivo = document.getElementById('inputFechaPreventivo2'+param).value ? document.getElementById('inputFechaPreventivo2'+param).value :null;
+    var inputObservacionesPreventivo = document.getElementById('inputObservacionesPreventivo2'+param).value ? document.getElementById('inputObservacionesPreventivo2'+param).value :null;
+    var inputFechaInspeccionVoluntariaSemaforo = document.getElementById('inputFechaInspeccionVoluntariaSemaforo2'+param).value  ? document.getElementById('inputFechaInspeccionVoluntariaSemaforo2'+param).value :null;
+    var inputObservacionesInspeccionVoluntarioSemaforo = document.getElementById('inputObservacionesInspeccionVoluntarioSemaforo2'+param).value  ? document.getElementById('inputObservacionesInspeccionVoluntarioSemaforo2'+param).value :null; 
+    var inputEstadoInspeccionVoluntarioSemaforo = document.getElementById('inputEstadoInspeccionVoluntarioSemaforo2'+param).value  ? document.getElementById('inputEstadoInspeccionVoluntarioSemaforo2'+param).value :null;
+    var inputFechaInspeccionVoluntarioAlumbrado = document.getElementById('inputFechaInspeccionVoluntarioAlumbrado2'+param).value  ? document.getElementById('inputFechaInspeccionVoluntarioAlumbrado2'+param).value :null;
+    var inputEstadoInspeccionVoluntarioAlumbrado = document.getElementById('inputEstadoInspeccionVoluntarioAlumbrado2'+param).value  ? document.getElementById('inputEstadoInspeccionVoluntarioAlumbrado2'+param).value :null;
+    var inputObservacionesInspeccionVoluntarioAlumbrado = document.getElementById('inputObservacionesInspeccionVoluntarioAlumbrado2'+param).value  ? document.getElementById('inputObservacionesInspeccionVoluntarioAlumbrado2'+param).value :null;
     var idUsuario = document.getElementById('inputIdUsuario').value;
-    var precio = document.getElementById('precio2' + param).value;
 
-     console.log(id);
-     console.log(inputIdCruce2);
-     console.log(inputFechaActuacion2);
-     console.log(inputFechaInspeccion2);
-     console.log(observaciones2);
-     console.log(resolucion2);
-     console.log(idUsuario);
-     console.log(precio);
+     console.log(param);
+     console.log(idInstalacion);
+     console.log(inputObservacionesPreventivo);
+     console.log(inputFechaInspeccionVoluntariaSemaforo);
+     console.log(inputObservacionesInspeccionVoluntarioSemaforo);
+     console.log(inputEstadoInspeccionVoluntarioSemaforo);
+     console.log(inputFechaInspeccionVoluntarioAlumbrado);
+     console.log(inputEstadoInspeccionVoluntarioAlumbrado);
+     console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
+     console.log(inputFechaPreventivo);
 
     var url = 'http://172.27.120.111/gestin/public/api/preventivo/modificar/' + param;
 
@@ -273,14 +351,16 @@ function editarPreventivo(param) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: id,
-                idInstalacion:inputIdCruce2,
-                idUsuario:idUsuario,
-                observaciones:observaciones2,
-                fechaActuacion:inputFechaActuacion2,
-                fechaInspeccion:inputFechaInspeccion2,
-                resolucion:resolucion2,
-                precio:precio    
+                    idInstalacion:idInstalacion ,
+                    fechaPreventivo:inputFechaPreventivo , 
+                    fechaInspeccionVoluntarioSemaforo: inputFechaInspeccionVoluntariaSemaforo ,
+                    fechaInspeccionAlumbrado: inputFechaInspeccionVoluntarioAlumbrado ,
+                    observacionesPreventivo: inputObservacionesPreventivo ,
+                    observacionesInspeccionVoluntarioSemaforo: inputObservacionesInspeccionVoluntarioSemaforo ,
+                    observacionesInspeccionAlumbrado: inputObservacionesInspeccionVoluntarioAlumbrado ,
+                    estadoInspeccionVoluntarioSemaforo:  inputEstadoInspeccionVoluntarioSemaforo,
+                    estadoInspeccionAlumbrado: inputEstadoInspeccionVoluntarioAlumbrado ,
+                    idUsuario: idUsuario  
             })
         })
         .then(res => res.json())
