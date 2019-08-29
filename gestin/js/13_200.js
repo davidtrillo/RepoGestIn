@@ -333,10 +333,11 @@ function rellenarFooter13_200(){//CAMBIO DE NOMENCLATURA
                 alert(response);
 
             } else {
-                var p = document.getElementById('formFooter');
+                var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML=`
-                <span class="ml-1">Total de 13_200 Activos: ${response[0]['c']}</span>
+                <h3><b>Instalaciones</b></h3>
+                <span class="ml-1">Total de <b>13_200</b> Activos: ${response[0]['c']}</span>
                 `
             }
         })

@@ -333,10 +333,11 @@ function rellenarFooter12_bici(){//CAMBIO DE NOMENCLATURA
                 alert(response);
 
             } else {
-                var p = document.getElementById('formFooter');
+                var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML=`
-                <span class="ml-1">Total de 12_bici Activos: ${response[0]['c']}</span>
+                <h3><b>Instalaciones</b></h3>
+                <span class="ml-1">Total de <b>12_BICI</b> Activos: ${response[0]['c']}</span>
                 `
             }
         })

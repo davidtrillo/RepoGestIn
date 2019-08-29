@@ -1,4 +1,4 @@
-function nueva12_pea_bici() { //CAMBIO DE NOMENCLATURA
+function nueva12_pp() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value :"1";
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
@@ -6,8 +6,8 @@ function nueva12_pea_bici() { //CAMBIO DE NOMENCLATURA
     if (idInstalacion.value != "") {
 
         //validar fecha correcta
-        if (validarFormatoFecha12_pea_bici(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
-            if (existeFecha12_pea_bici(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+        if (validarFormatoFecha12_pp(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+            if (existeFecha12_pp(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
 
             } else {
                 alert("La fecha introducida no existe.");
@@ -37,7 +37,7 @@ console.log(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/12_pea_bici/nueva';
+        var url = 'http://172.27.120.111/gestin/public/api/12_pp/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -64,12 +64,12 @@ console.log(activo);
 
     }
     setTimeout(() => {
-        rellenarTodos12_pea_bici(); //CAMBIO DE NOMENCLATURA
+        rellenarTodos12_pp(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 
 }
 
-function validarFormatoFecha12_pea_bici(campo) { //CAMBIO DE NOMENCLATURA
+function validarFormatoFecha12_pp(campo) { //CAMBIO DE NOMENCLATURA
     var RegExPattern = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
     if ((campo.match(RegExPattern)) && (campo != '')) {
 
@@ -80,7 +80,7 @@ function validarFormatoFecha12_pea_bici(campo) { //CAMBIO DE NOMENCLATURA
     }
 }
 
-function existeFecha12_pea_bici(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFecha12_pp(fecha) { //CAMBIO DE NOMENCLATURA
     var fechaf = fecha.split("/");
     var day = fechaf[2];
     var month = fechaf[1];
@@ -92,7 +92,7 @@ function existeFecha12_pea_bici(fecha) { //CAMBIO DE NOMENCLATURA
     return true;
 }
 
-function existeFecha212_pea_bici(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFecha212_pp(fecha) { //CAMBIO DE NOMENCLATURA
     var fechaf = fecha.split("/");
     var d = fechaf[2];
     var m = fechaf[1];
@@ -101,7 +101,7 @@ function existeFecha212_pea_bici(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
-function rellenarTipoActuacion212_pea_bici(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+function rellenarTipoActuacion212_pp(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
     var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -119,13 +119,13 @@ function rellenarTipoActuacion212_pea_bici(idActuacion) { //Llamada a la API seg
 
             for (var i in response) {
                 p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion212_pea_bici(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion212_pp(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
              `
             }
         })
 }
 
-function rellenarTipoActuacion12_pea_bici() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+function rellenarTipoActuacion12_pp() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
     var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -140,27 +140,27 @@ function rellenarTipoActuacion12_pea_bici() { //Llamada a la API según el dato 
             p.innerHTML = '';
             for (var i in response) {
                 p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacion12_pea_bici(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacion12_pp(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
              `
             } //CAMBIO DE NOMENCLATURA
         })
 }
 
-function leerTipoActuacion12_pea_bici(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+function leerTipoActuacion12_pp(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('idTipoActuacion');
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion');
     p2.value = descripcionTipoActuacion;
 }
 
-function leerTipoActuacion212_pea_bici(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+function leerTipoActuacion212_pp(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
     p2.value = descripcionTipoActuacion;
 }
 
-function form12_pea_bici() { //CAMBIO DE NOMENCLATURA
+function form12_pp() { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
     if (instalacion.value != "") {
@@ -225,24 +225,24 @@ function form12_pea_bici() { //CAMBIO DE NOMENCLATURA
             <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
         </div>
         <div class="col-1">
-            <div class="btn btn-primary" onclick="nueva12_pea_bici()">Guardar</div>
+            <div class="btn btn-primary" onclick="nueva12_pp()">Guardar</div>
         </div>
         </div>  
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacion12_pea_bici();//CAMBIO DE NOMENCLATURA
+        rellenarTipoActuacion12_pp();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodos12_pea_bici();//CAMBIO DE NOMENCLATURA
+        rellenarTodos12_pp();//CAMBIO DE NOMENCLATURA
     }
 }
 
 
 
-function rellenarTodos12_pea_bici() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
+function rellenarTodos12_pp() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/12_pea_bici/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/12_pp/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -303,8 +303,8 @@ function rellenarTodos12_pea_bici() { //Llamada a la API  //CAMBIO DE NOMENCLATU
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
                  </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editar12_pea_bici(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrar12_pea_bici(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editar12_pp(this.id)"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrar12_pp(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
                  
@@ -314,12 +314,12 @@ function rellenarTodos12_pea_bici() { //Llamada a la API  //CAMBIO DE NOMENCLATU
             }
         })
 
-        rellenarFooter12_pea_bici();//CAMBIO DE NOMENCLATURA
+        rellenarFooter12_pp();//CAMBIO DE NOMENCLATURA
 }
 
-function rellenarFooter12_pea_bici(){//CAMBIO DE NOMENCLATURA
+function rellenarFooter12_pp(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/12_pea_bici/activas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/12_pp/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -333,10 +333,11 @@ function rellenarFooter12_pea_bici(){//CAMBIO DE NOMENCLATURA
                 alert(response);
 
             } else {
-                var p = document.getElementById('formFooter');
+                var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML=`
-                <span class="ml-1">Total de 12_pea_bici Activos: ${response[0]['c']}</span>
+                <h3><b>Instalaciones</b></h3>
+                <span class="ml-1">Total de <b>12_PP</b> Activos: ${response[0]['c']}</span>
                 `
             }
         })
@@ -344,9 +345,9 @@ function rellenarFooter12_pea_bici(){//CAMBIO DE NOMENCLATURA
 }
 
 
-function borrar12_pea_bici(param) {
+function borrar12_pp(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/12_pea_bici/borrar/' + param
+    var url = 'http://172.27.120.111/gestin/public/api/12_pp/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -357,11 +358,11 @@ function borrar12_pea_bici(param) {
             alert(response)
         })
     setTimeout(() => {
-        rellenarTodos12_pea_bici();//CAMBIO DE NOMENCLATURA
+        rellenarTodos12_pp();//CAMBIO DE NOMENCLATURA
     }, 1000);
 }
 
-function editar12_pea_bici(param) {//CAMBIO DE NOMENCLATURA
+function editar12_pp(param) {//CAMBIO DE NOMENCLATURA
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
@@ -384,8 +385,8 @@ function editar12_pea_bici(param) {//CAMBIO DE NOMENCLATURA
 
 
     //validar fecha correcta
-    if (validarFormatoFecha12_pea_bici(inputFechaActuacionTar)) {
-        if (existeFecha12_pea_bici(inputFechaActuacionTar)) {
+    if (validarFormatoFecha12_pp(inputFechaActuacionTar)) {
+        if (existeFecha12_pp(inputFechaActuacionTar)) {
 
         } else {
             alert("La fecha introducida no existe.");
@@ -395,7 +396,7 @@ function editar12_pea_bici(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/12_pea_bici/modificar/' + param;
+    var url = 'http://172.27.120.111/gestin/public/api/12_pp/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -422,6 +423,6 @@ function editar12_pea_bici(param) {//CAMBIO DE NOMENCLATURA
 
 
     setTimeout(() => {
-        rellenarTodos12_pea_bici(); //CAMBIO DE NOMENCLATURA
+        rellenarTodos12_pp(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 }

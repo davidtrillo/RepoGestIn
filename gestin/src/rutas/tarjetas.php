@@ -2,7 +2,56 @@
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-//$app = new \Slim\App;
+//Comprobación de TODOS los números de serie
+$app->get('/api/tarjetas/numserierepetidos', function (Request $request, Response $response) {
+
+    $sql = "SELECT id,idInstalacion, idNumSerie FROM tarjetas WHERE idNumSerie in (SELECT idNumSerie FROM tarjetas WHERE activo='true'  GROUP BY idNumSerie HAVING COUNT(idNumSerie)>1)  AND activo='true';";
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});
+
+//Comprobación de UN número de serie
+$app->get('/api/tarjetas/numserierepetidos/{idNumSerie}', function (Request $request, Response $response) {
+    $idNumSerie = $request->getAttribute('idNumSerie');
+    $sql = 'SELECT id ,idInstalacion, idNumSerie FROM tarjetas WHERE activo="true" AND idNumSerie="'. $idNumSerie .'";';
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});
+
 
 //GET Todas las instalaciones SELECT
 $app->get('/api/tarjetas', function (Request $request, Response $response) {
@@ -151,7 +200,7 @@ $app->delete('/api/tarjetas/borrar/{id}', function (Request $request, Response $
         }
 
         $resultado = null;
-        $dbConexion = null;
+        $db = null;
 
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}';
@@ -204,34 +253,3 @@ $app->put('/api/tarjetas/modificar/{id}', function (Request $request, Response $
     }
 });
 
-// //DELETE para borrar instalacion DELETE BY ID
-
-// $app->delete('/api/instalaciones/borrar/{id}',function(Request $request, Response $response){
-//     //declaracion de las variables de recepcion desde FRONT
-
-//     $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
-
-//     // echo "todas las instalaciones";
-//     $sql='DELETE FROM instalaciones WHERE id="'.$id.'"';
-
-//     try{
-//         $db= new db();
-//         $db=$db->conectDB();
-//         $resultado= $db->prepare($sql);
-//         $resultado->execute();
-
-//         if($resultado->rowCount()>0){
-
-//             echo json_encode("Instalación eliminada con éxito",JSON_UNESCAPED_UNICODE);
-
-//         }else{
-//             echo json_encode("No se han encontrado resultados con el ID".$id,JSON_UNESCAPED_UNICODE);
-//         }
-
-//         $resultado=null;
-//         $dbConexion=null;
-
-//     }catch(PDOException $e){
-//         echo '{"error":{"text":'.$e->getMessage().'}';
-//     }
-// });

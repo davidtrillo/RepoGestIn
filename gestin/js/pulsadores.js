@@ -333,10 +333,11 @@ function rellenarFooterPulsadores(){//CAMBIO DE NOMENCLATURA
                 alert(response);
 
             } else {
-                var p = document.getElementById('formFooter');
+                var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML=`
-                <span class="ml-1">Total de Pulsadores Activos: ${response[0]['c']}</span>
+                <h3><b>Instalaciones</b></h3>
+                <span class="ml-1">Total de <b>Pulsadores</b> Activos: ${response[0]['c']}</span>
                 `
             }
         })

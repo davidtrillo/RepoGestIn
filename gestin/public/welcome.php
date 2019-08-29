@@ -18,6 +18,7 @@ include './login/session.php';
    <script src="https://kit.fontawesome.com/de8261cad4.js"></script>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      
    <style>
       .dropdown-menu {
          height: 500px;
@@ -63,8 +64,8 @@ include './login/session.php';
 
    <!-- Dropdowns Menus -->
      
-   <div class="container-fluid mt-0 p-1" style="background-color:powderblue;">
-      <h3><b>Instalaciones</b></h3>
+   <div class="container-fluid mt-0 p-1" style="background-color:powderblue;" id="cabecera">
+   <h3><b>Instalaciones</b></h3>
    </div>
       <hr class=" container- fluid mt-0">
    <!-- Container de cabecera -->
@@ -214,6 +215,7 @@ include './login/session.php';
          <div class="col-1">
             <button class="btn btn-info"  onclick="form12_pea_bici()">12/PE/Bic</button>
          </div>
+
       </div>
 
       <div class="row mt-2">
@@ -284,6 +286,10 @@ include './login/session.php';
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
    </script>
+
+
+
+
    <script src="../js/funciones.js"></script>
    <script src="../js/tarjetas.js"></script>
    <script src="../js/bustren.js"></script>

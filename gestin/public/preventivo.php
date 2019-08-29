@@ -180,70 +180,7 @@ include './login/session.php';
 
 
    </div>
-   <!-- fin formulario Footer-->
-
-   <!-- Formulario Modal -->
-
-   <!-- <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Sin Datos</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="container-fluid">
-               
-               <table class="table table-bordered">
-                   <thead>
-                   <tr>
-                       <table class="table table-bordered text-center">
-                       <thead>
-                           <tr>
-                           <th scope="col">REG.</th>
-                           <th scope="col">DET.</th>
-                           <th scope="col">CTV</th>
-                           <th scope="col">CEN.</th>
-                           <th scope="col">0,8M.</th>
-                           <th scope="col">2,4M.</th>
-                           <th scope="col">4M.</th>
-                           <th scope="col">BAC.</th>
-                           <th scope="col">SIM.</th>
-                           <th scope="col">DOB.</th>
-                           <th scope="col">BAJ.</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-                           <tr>        
-                           <td id="idReg">Sin Datos</td>
-                           <td id="idDet">Sin Datos</td>
-                           <td id="idCTV">Sin Datos</td>
-                           <td id="idCen">Sin Datos</td>
-                           <td id="id08m">Sin Datos</td>
-                           <td id="id24m">Sin Datos</td>
-                           <td id="id4m">Sin Datos</td>
-                           <td id="idBac">Sin Datos</td>
-                           <td id="idSim">Sin Datos</td>
-                           <td id="idDob">Sin Datos</td>
-                           <td id="idBaj">Sin Datos</td>
-                           </tr>
-                       </tbody>
-                       </table>
-                   </tr>
-                   </thead>
-               </table>
-               <p id="observaciones">Observaciones</p>
-               </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-   <!-- fin Formulario Modal -->
-
+  
 
    <!-- Optional JavaScript -->
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->

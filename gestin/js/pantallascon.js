@@ -333,10 +333,11 @@ function rellenarFooterPantallasCon(){//CAMBIO DE NOMENCLATURA
                 alert(response);
 
             } else {
-                var p = document.getElementById('formFooter');
+                var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML=`
-                <span class="ml-1">Total de PantallasCon Activos: ${response[0]['c']}</span>
+                <h3><b>Instalaciones</b></h3>
+                <span class="ml-1">Total de <b>Pantallas</b> Activas: ${response[0]['c']}</span>
                 `
             }
         })

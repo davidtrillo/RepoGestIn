@@ -1,6 +1,11 @@
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+
 function nuevaTarjeta() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value :"1";
+    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value : "1";
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
@@ -18,21 +23,18 @@ function nuevaTarjeta() {
 
             return;
         }
-        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :"0";  
-        var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
-        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
-        var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value :"0";
-        var activo = document.getElementById('inputActivo').checked; 
-        
-activo = String(activo);
-console.log(idTipoActuacion);
-console.log(idNumSerie);
-console.log(albaran);
-console.log(observaciones);
-console.log(precio);
+        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
+        var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
+        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
+        var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
+        var activo = document.getElementById('inputActivo').checked;
 
-
-
+        activo = String(activo);
+        // console.log(idTipoActuacion);
+        // console.log(idNumSerie);
+        // console.log(albaran);
+        // console.log(observaciones);
+        // console.log(precio);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
@@ -100,7 +102,7 @@ function existeFecha2Tarjeta(fecha) {
 }
 
 
-function rellenarTipoActuacion2Tarjeta(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
+function rellenarTipoActuacion2Tarjetas(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -215,7 +217,7 @@ function formTarjetas() {
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie">
+            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie()">
         </div>
         <div class="col-1">
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
@@ -254,7 +256,7 @@ function rellenarTodosTarjeta() { //Llamada a la API
             if (response == "No se han encontrado resultados") {
                 var p = document.getElementById('formBody');
                 p.innerHTML = '';
-                
+
                 alert(response);
 
             } else {
@@ -266,7 +268,7 @@ function rellenarTodosTarjeta() { //Llamada a la API
                     } else {
                         var activo = "";
                     }
-                 
+
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -306,17 +308,21 @@ function rellenarTodosTarjeta() { //Llamada a la API
                     <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarTarjeta(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
-                 
+
                  `
 
                 }
             }
         })
 
-        rellenarFooterTarjeta();
+    rellenarFooterTarjeta();
+
+    comprobarNumSerie2();
+
+
 }
 
-function rellenarFooterTarjeta(){
+function rellenarFooterTarjeta() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var url = 'http://172.27.120.111/gestin/public/api/tarjetas/activas/' + idInstalacion
     fetch(url, {
@@ -332,10 +338,18 @@ function rellenarFooterTarjeta(){
                 alert(response);
 
             } else {
-                var p = document.getElementById('formFooter');
+
+                // var p1 = document.getElementById('formFooter');
+                // p1.innerHTML = '';
+                // p1.innerHTML=`
+                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                // `
+
+                var p = document.getElementById('cabecera');
                 p.innerHTML = '';
-                p.innerHTML=`
-                <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                p.innerHTML = `
+                <h3><b>Instalaciones</b></h3>
+                <span class="ml-1">Total de <b>Tarjetas</b> Activas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -356,11 +370,14 @@ function borrarTarjeta(param) {
             alert(response)
         })
     setTimeout(() => {
-        rellenarTodos();
+        rellenarTodosTarjeta();
     }, 1000);
 }
 
 function editarTarjeta(param) {
+
+
+
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
@@ -383,8 +400,8 @@ function editarTarjeta(param) {
 
 
     //validar fecha correcta
-    if (validarFormatoFecha(inputFechaActuacionTar)) {
-        if (existeFecha(inputFechaActuacionTar)) {
+    if (validarFormatoFechaTarjeta(inputFechaActuacionTar)) {
+        if (existeFechaTarjeta(inputFechaActuacionTar)) {
 
         } else {
             alert("La fecha introducida no existe.");
@@ -405,7 +422,7 @@ function editarTarjeta(param) {
                 id: inputIdTar,
                 idTipoActuacion: inputTipoActuacionTar,
                 idNumSerie: inputNumSerieTar,
-                albaran:inputAlbaranTar,
+                albaran: inputAlbaranTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
@@ -421,6 +438,126 @@ function editarTarjeta(param) {
 
 
     setTimeout(() => {
-        rellenarTodos();
+        rellenarTodosTarjeta();
     }, 1000);
+}
+
+
+function comprobarNumSerie() {
+    var idNumSerie = document.getElementById('inputNumSerie').value;
+
+    if (idNumSerie) {
+
+        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/numserierepetidos/' + idNumSerie;
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response != "No se han encontrado resultados") && (response.length > 0)) {
+
+                    var res = "Número de Serie repetido en: ";
+
+                    for (i in response) {
+                        res += "\n Cruce: " + response[i]['idInstalacion'];
+                    }
+                    alert(res);
+                    var clase = document.getElementById('inputNumSerie');
+                    clase.classList.add("bg-danger");
+                } else {
+                    var clase = document.getElementById('inputNumSerie');
+                    clase.classList.remove("bg-danger");
+                }
+            })
+    }
+}
+
+
+
+
+function comprobarNumSerie2() {
+    var idInstalacion = document.getElementById('inputInstalacion').value;
+
+    if (idInstalacion) {
+
+        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/numserierepetidos';
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response.length > 0)) {
+
+
+                    for (i in response) {
+
+                        if (response[i]['idInstalacion'] == idInstalacion) {
+                            var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
+                            if (clase) {
+                                comprobarNumSerie3(response[i]['id'],response[i]['idNumSerie']);
+                              
+                                clase.classList.add("bg-danger");
+
+                            }
+                        } else {
+
+                            var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
+                            if (clase) {
+                                clase.classList.remove("bg-danger");
+
+
+                            }
+                        }
+                    }
+
+                } else {
+
+                }
+            })
+    }
+}
+
+
+function comprobarNumSerie3(id,idNumSerie) {
+
+    if (idNumSerie) {
+
+        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/numserierepetidos/' + idNumSerie;
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response.length > 0)) {
+
+                    var res = "Número de Serie repetido en: ";
+                    var clase = document.getElementById('inputNumSerieTar' + id);
+
+                    for (i in response) {
+                        res += "\n Cruce: " + response[i]['idInstalacion'];
+                    }
+                  
+                    clase.setAttribute("data-toggle", "tooltip");
+                    clase.setAttribute("data-placement", "top");
+                    clase.setAttribute("title", "Repetido en cruce " + res);
+                    
+                }
+
+            })
+    }
 }

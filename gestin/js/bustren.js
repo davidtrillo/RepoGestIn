@@ -333,10 +333,11 @@ function rellenarFooterBusTren(){//CAMBIO DE NOMENCLATURA
                 alert(response);
 
             } else {
-                var p = document.getElementById('formFooter');
+                var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML=`
-                <span class="ml-1">Total de Bus/Tren Activas: ${response[0]['c']}</span>
+                <h3><b>Instalaciones</b></h3>
+                <span class="ml-1">Total de <b>Bus/Tren</b> Activas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -384,8 +385,8 @@ function editarBusTren(param) {//CAMBIO DE NOMENCLATURA
 
 
     //validar fecha correcta
-    if (validarFormatoFecha(inputFechaActuacionTar)) {
-        if (existeFecha(inputFechaActuacionTar)) {
+    if (validarFormatoFechaBusTren(inputFechaActuacionTar)) {
+        if (existeFechaBusTren(inputFechaActuacionTar)) {
 
         } else {
             alert("La fecha introducida no existe.");
