@@ -2,55 +2,55 @@
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-//Comprobación de TODOS los números de serie
-$app->get('/api/tarjetas/numserierepetidos', function (Request $request, Response $response) {
+// //Comprobación de TODOS los números de serie
+// $app->get('/api/tarjetas/numserierepetidos', function (Request $request, Response $response) {
 
-    $sql = "SELECT id,idInstalacion, idNumSerie FROM tarjetas WHERE idNumSerie in (SELECT idNumSerie FROM tarjetas WHERE activo='true'  GROUP BY idNumSerie HAVING COUNT(idNumSerie)>1)  AND activo='true';";
-    try {
-        $db = new db();
-        $db = $db->conectDB();
-        $resultado = $db->prepare($sql);
-        $resultado->execute();
+//     $sql = "SELECT id,idInstalacion, idNumSerie FROM tarjetas WHERE idNumSerie in (SELECT idNumSerie FROM tarjetas WHERE activo='true'  GROUP BY idNumSerie HAVING COUNT(idNumSerie)>1)  AND activo='true';";
+//     try {
+//         $db = new db();
+//         $db = $db->conectDB();
+//         $resultado = $db->prepare($sql);
+//         $resultado->execute();
 
-        if ($resultado->rowCount() > 0) {
-            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
-            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
-        } else {
-            echo json_encode("No se han encontrado resultados");
-        }
-        $db = null;
-        $resultado = null;
+//         if ($resultado->rowCount() > 0) {
+//             $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+//             echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+//         } else {
+//             echo json_encode("No se han encontrado resultados");
+//         }
+//         $db = null;
+//         $resultado = null;
 
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}';
-    }
+//     } catch (PDOException $e) {
+//         echo '{"error":{"text":' . $e->getMessage() . '}';
+//     }
 
-});
+// });
 
-//Comprobación de UN número de serie
-$app->get('/api/tarjetas/numserierepetidos/{idNumSerie}', function (Request $request, Response $response) {
-    $idNumSerie = $request->getAttribute('idNumSerie');
-    $sql = 'SELECT id ,idInstalacion, idNumSerie FROM tarjetas WHERE activo="true" AND idNumSerie="'. $idNumSerie .'";';
-    try {
-        $db = new db();
-        $db = $db->conectDB();
-        $resultado = $db->prepare($sql);
-        $resultado->execute();
+// //Comprobación de UN número de serie
+// $app->get('/api/tarjetas/numserierepetidos/{idNumSerie}', function (Request $request, Response $response) {
+//     $idNumSerie = $request->getAttribute('idNumSerie');
+//     $sql = 'SELECT id ,idInstalacion, idNumSerie FROM tarjetas WHERE activo="true" AND idNumSerie="'. $idNumSerie .'";';
+//     try {
+//         $db = new db();
+//         $db = $db->conectDB();
+//         $resultado = $db->prepare($sql);
+//         $resultado->execute();
 
-        if ($resultado->rowCount() > 0) {
-            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
-            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
-        } else {
-            echo json_encode("No se han encontrado resultados");
-        }
-        $db = null;
-        $resultado = null;
+//         if ($resultado->rowCount() > 0) {
+//             $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+//             echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+//         } else {
+//             echo json_encode("No se han encontrado resultados");
+//         }
+//         $db = null;
+//         $resultado = null;
 
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}';
-    }
+//     } catch (PDOException $e) {
+//         echo '{"error":{"text":' . $e->getMessage() . '}';
+//     }
 
-});
+// });
 
 
 //GET Todas las instalaciones SELECT

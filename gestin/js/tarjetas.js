@@ -23,7 +23,7 @@ function nuevaTarjeta() {
 
             return;
         }
-        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
+        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : null;
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
@@ -448,7 +448,7 @@ function comprobarNumSerie() {
 
     if (idNumSerie) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -485,7 +485,7 @@ function comprobarNumSerie2() {
 
     if (idInstalacion) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/numserierepetidos';
+        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas';
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -532,7 +532,8 @@ function comprobarNumSerie3(id,idNumSerie) {
 
     if (idNumSerie) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/numserierepetidos/' + idNumSerie;
+       // var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

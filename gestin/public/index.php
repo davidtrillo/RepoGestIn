@@ -41,6 +41,7 @@ include_once '../src/rutas/camip.php';
 include_once '../src/rutas/APIpintura.php';
 include_once '../src/rutas/APIMFO.php';
 include_once '../src/rutas/APIPreventivo.php';
+include_once '../src/rutas/APINumSerie.php';
 
 
 $app->run();

@@ -216,7 +216,7 @@ function form11_322() { //CAMBIO DE NOMENCLATURA
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie">
+            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie"  onfocusout="comprobarNumSerie()">
         </div>
         <div class="col-1">
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
@@ -315,6 +315,7 @@ function rellenarTodos11_322() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
         })
 
         rellenarFooter11_322();//CAMBIO DE NOMENCLATURA
+        comprobarNumSerie2();
 }
 
 function rellenarFooter11_322(){//CAMBIO DE NOMENCLATURA
@@ -425,4 +426,125 @@ function editar11_322(param) {//CAMBIO DE NOMENCLATURA
     setTimeout(() => {
         rellenarTodos11_322(); //CAMBIO DE NOMENCLATURA
     }, 1000);
+}
+
+
+function comprobarNumSerie() {
+    var idNumSerie = document.getElementById('inputNumSerie').value;
+
+    if (idNumSerie) {
+
+        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/11_322/' + idNumSerie;
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response != "No se han encontrado resultados") && (response.length > 0)) {
+
+                    var res = "Número de Serie repetido en: ";
+
+                    for (i in response) {
+                        res += "\n Cruce: " + response[i]['idInstalacion'];
+                    }
+                    alert(res);
+                    var clase = document.getElementById('inputNumSerie');
+                    clase.classList.add("bg-danger");
+                } else {
+                    var clase = document.getElementById('inputNumSerie');
+                    clase.classList.remove("bg-danger");
+                }
+            })
+    }
+}
+
+
+
+
+function comprobarNumSerie2() {
+    var idInstalacion = document.getElementById('inputInstalacion').value;
+
+    if (idInstalacion) {
+
+        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/11_322';
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response.length > 0)) {
+
+
+                    for (i in response) {
+
+                        if (response[i]['idInstalacion'] == idInstalacion) {
+                            var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
+                            if (clase) {
+                                comprobarNumSerie3(response[i]['id'],response[i]['idNumSerie']);
+                              
+                                clase.classList.add("bg-danger");
+
+                            }
+                        } else {
+
+                            var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
+                            if (clase) {
+                                clase.classList.remove("bg-danger");
+
+
+                            }
+                        }
+                    }
+
+                } else {
+
+                }
+            })
+    }
+}
+
+
+function comprobarNumSerie3(id,idNumSerie) {
+
+    if (idNumSerie) {
+
+       // var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/11_322/' + idNumSerie;
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response.length > 0)) {
+
+                    var res = "Número de Serie repetido en: ";
+                    var clase = document.getElementById('inputNumSerieTar' + id);
+
+                    for (i in response) {
+                        res += "\n Cruce: " + response[i]['idInstalacion'];
+                    }
+                  
+                    clase.setAttribute("data-toggle", "tooltip");
+                    clase.setAttribute("data-placement", "top");
+                    clase.setAttribute("title", "Repetido en cruce " + res);
+                    
+                }
+
+            })
+    }
 }
