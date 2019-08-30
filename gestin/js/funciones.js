@@ -166,6 +166,7 @@ function leerCM(idCM, ubicacionCarlos, ubicacionNYXPalma) {
 function leerCruce(idCruce) {
     var p1 = document.getElementById('inputCruce');
     p1.value = idCruce;
+   
 }
 
 function editarInstalacion() {

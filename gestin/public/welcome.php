@@ -20,9 +20,9 @@ include './login/session.php';
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       
    <style>
-      .dropdown-menu {
-         height: 500px;
-         overflow-y: auto;
+      #dropdownInstalacion,#dropdownRegulador,#dropdownCruce,#dropdownCM{
+          height: 500px; 
+          overflow-y: auto; 
       }
 
       .btn-info {
@@ -43,12 +43,26 @@ include './login/session.php';
    </button>
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
-         <a class="nav-item nav-link active text-right" href="./welcome.php">Instalaciones</a>
+         <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
          <a class="nav-item nav-link" href="./mfo.php">MFO</a>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+
+         <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Listados
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Tipo Instalación</a>
+              <a class="dropdown-item" href="#"></a>
+              <a class="dropdown-item" href="#"></a>
+            </div>
+          </li>
+
          <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
       </div>
+
    </div>
    </nav>
 </div>
