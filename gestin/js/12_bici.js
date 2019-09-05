@@ -216,7 +216,7 @@ function form12_bici() { //CAMBIO DE NOMENCLATURA
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie()">
+            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie12_bici()">
         </div>
         <div class="col-1">
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
@@ -315,7 +315,7 @@ function rellenarTodos12_bici() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
         })
 
         rellenarFooter12_bici();//CAMBIO DE NOMENCLATURA
-        comprobarNumSerie2();
+        comprobarNumSerie12_bici2();
 }
 
 function rellenarFooter12_bici(){//CAMBIO DE NOMENCLATURA
@@ -429,7 +429,7 @@ function editar12_bici(param) {//CAMBIO DE NOMENCLATURA
 }
 
 
-function comprobarNumSerie() {
+function comprobarNumSerie12_bici() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
 
     if (idNumSerie) {
@@ -466,7 +466,7 @@ function comprobarNumSerie() {
 
 
 
-function comprobarNumSerie2() {
+function comprobarNumSerie12_bici2() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
 
     if (idInstalacion) {
@@ -490,7 +490,7 @@ function comprobarNumSerie2() {
                         if (response[i]['idInstalacion'] == idInstalacion) {
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
-                                comprobarNumSerie3(response[i]['id'],response[i]['idNumSerie']);
+                                comprobarNumSerie12_bici3(response[i]['id'],response[i]['idNumSerie']);
                               
                                 clase.classList.add("bg-danger");
 
@@ -514,7 +514,7 @@ function comprobarNumSerie2() {
 }
 
 
-function comprobarNumSerie3(id,idNumSerie) {
+function comprobarNumSerie12_bici3(id,idNumSerie) {
 
     if (idNumSerie) {
 

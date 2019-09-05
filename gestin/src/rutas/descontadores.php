@@ -5,9 +5,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //$app = new \Slim\App;
 
 //GET Todas las instalaciones SELECT
-$app->get('/api/Invidentes', function (Request $request, Response $response) {
+$app->get('/api/descontadores', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM Invidentes t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.fechaActuacion desc';
+    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM descontadores t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -30,10 +30,10 @@ $app->get('/api/Invidentes', function (Request $request, Response $response) {
 });
 
 //GET Tarjetas activas COUNT
-$app->get('/api/Invidentes/activas/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/descontadores/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT count(id) AS c FROM Invidentes WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
+    $sql = 'SELECT count(id) AS c FROM descontadores WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -56,10 +56,10 @@ $app->get('/api/Invidentes/activas/{instalacion}', function (Request $request, R
 });
 
 
-$app->get('/api/Invidentes/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/descontadores/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM Invidentes t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM descontadores t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -83,7 +83,7 @@ $app->get('/api/Invidentes/{instalacion}', function (Request $request, Response 
 });
 
 // POST para crear una nueva instalación CREATE
-$app->post('/api/Invidentes/nueva', function (Request $request, Response $response) {
+$app->post('/api/descontadores/nueva', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
     // $id=$request->getParam('id');
     $idInstalacion = $request->getParam('idInstalacion');
@@ -97,8 +97,8 @@ $app->post('/api/Invidentes/nueva', function (Request $request, Response $respon
     $activo = $request->getParam('activo');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO Invidentes (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo);';
-    // $sql='INSERT INTO Invidentes (idInstalacion) VALUES (:idInstalacion);';
+    $sql = 'INSERT INTO descontadores (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo);';
+    // $sql='INSERT INTO descontadores (idInstalacion) VALUES (:idInstalacion);';
 
     try {
         $db = new db();
@@ -130,11 +130,11 @@ $app->post('/api/Invidentes/nueva', function (Request $request, Response $respon
 
 //DELETE para borrar instalacion DELETE BY ID
 
-$app->delete('/api/Invidentes/borrar/{id}', function (Request $request, Response $response) {
+$app->delete('/api/descontadores/borrar/{id}', function (Request $request, Response $response) {
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
-    $sql = 'DELETE FROM Invidentes WHERE id=' . $id;
+    $sql = 'DELETE FROM descontadores WHERE id=' . $id;
 
     try {
         $db = new db();
@@ -160,7 +160,7 @@ $app->delete('/api/Invidentes/borrar/{id}', function (Request $request, Response
 
 //POST para modificar instalacion UPDATE BY ID
 
-$app->put('/api/Invidentes/modificar/{id}', function (Request $request, Response $response) {
+$app->put('/api/descontadores/modificar/{id}', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
@@ -174,8 +174,8 @@ $app->put('/api/Invidentes/modificar/{id}', function (Request $request, Response
     $activo = $request->getParam('activo');
     // echo "todas las instalaciones";
 
-    //  $sql='UPDATE Invidentes SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE Invidentes SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='. $id;
+    //  $sql='UPDATE descontadores SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = 'UPDATE descontadores SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='. $id;
 
     try {
         $db = new db();

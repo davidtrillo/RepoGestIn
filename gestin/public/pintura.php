@@ -36,24 +36,36 @@ include './login/session.php';
 
    <!-- Navbar -->
    <div class="container-fluid p-0">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-         <a class="navbar-brand" href="#">Gestión de Inventario</a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-         </button>
-         <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-            <div class="navbar-nav ml-auto">
-               <a class="nav-item nav-link text-right" href="./welcome.php">Instalaciones</a>
-               <a class="nav-item nav-link" href="./mfo.php">MFO</a>
-               <a class="nav-item nav-link active" href="./pintura.php">Pintura</a>
-               <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
-               <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
-                  Sesión</a>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+   <a class="navbar-brand" href="#">Gestión de Inventario</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto">
+         <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
+         <a class="nav-item nav-link" href="./mfo.php">MFO</a>
+         <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
+         <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+
+         <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Listados
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+              <a class="dropdown-item" href="#"></a>
+              <a class="dropdown-item" href="#"></a>
             </div>
-         </div>
-      </nav>
+          </li>
+
+         <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
+      </div>
+
    </div>
+   </nav>
+</div>
    <!-- Fin Navbar -->
 
 

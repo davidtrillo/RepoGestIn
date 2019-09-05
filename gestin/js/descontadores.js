@@ -37,7 +37,7 @@ console.log(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/Descontadores/nueva';
+        var url = 'http://172.27.120.111/gestin/public/api/descontadores/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -242,7 +242,7 @@ function formDescontadores() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosDescontadores() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/Descontadores/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/descontadores/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -319,7 +319,7 @@ function rellenarTodosDescontadores() { //Llamada a la API  //CAMBIO DE NOMENCLA
 
 function rellenarFooterDescontadores(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/Descontadores/activas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/descontadores/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -347,7 +347,7 @@ function rellenarFooterDescontadores(){//CAMBIO DE NOMENCLATURA
 
 function borrarDescontadores(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/Descontadores/borrar/' + param
+    var url = 'http://172.27.120.111/gestin/public/api/descontadores/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -396,7 +396,7 @@ function editarDescontadores(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/Descontadores/modificar/' + param;
+    var url = 'http://172.27.120.111/gestin/public/api/descontadores/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

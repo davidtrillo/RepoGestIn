@@ -43,18 +43,18 @@ include './login/session.php';
    </button>
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
-         <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
+         <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
          <a class="nav-item nav-link" href="./mfo.php">MFO</a>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
 
          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Listados
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
               <a class="dropdown-item" href="#"></a>
               <a class="dropdown-item" href="#"></a>
             </div>

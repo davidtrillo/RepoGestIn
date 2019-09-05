@@ -37,7 +37,7 @@ console.log(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/Espiras/nueva';
+        var url = 'http://172.27.120.111/gestin/public/api/espiras/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -242,7 +242,7 @@ function formEspiras() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/Espiras/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/espiras/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -319,7 +319,7 @@ function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterEspiras(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/Espiras/activas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/espiras/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -347,7 +347,7 @@ function rellenarFooterEspiras(){//CAMBIO DE NOMENCLATURA
 
 function borrarEspiras(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/Espiras/borrar/' + param
+    var url = 'http://172.27.120.111/gestin/public/api/espiras/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -396,7 +396,7 @@ function editarEspiras(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/Espiras/modificar/' + param;
+    var url = 'http://172.27.120.111/gestin/public/api/espiras/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

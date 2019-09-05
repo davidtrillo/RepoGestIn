@@ -37,7 +37,7 @@ console.log(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/Columnas/nueva';
+        var url = 'http://172.27.120.111/gestin/public/api/columnas/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -242,7 +242,7 @@ function formColumnas() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosColumnas() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/Columnas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/columnas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -319,7 +319,7 @@ function rellenarTodosColumnas() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterColumnas(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/Columnas/activas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/columnas/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -347,7 +347,7 @@ function rellenarFooterColumnas(){//CAMBIO DE NOMENCLATURA
 
 function borrarColumnas(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/Columnas/borrar/' + param
+    var url = 'http://172.27.120.111/gestin/public/api/columnas/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -396,7 +396,7 @@ function editarColumnas(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/Columnas/modificar/' + param;
+    var url = 'http://172.27.120.111/gestin/public/api/columnas/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

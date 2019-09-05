@@ -3,6 +3,9 @@ $(function () {
 })
 
 
+
+
+
 function nuevaTarjeta() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value : "1";
@@ -217,7 +220,7 @@ function formTarjetas() {
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie()">
+            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerieTarjeta()">
         </div>
         <div class="col-1">
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
@@ -317,7 +320,7 @@ function rellenarTodosTarjeta() { //Llamada a la API
 
     rellenarFooterTarjeta();
 
-    comprobarNumSerie2();
+    comprobarNumSerieTarjeta2();
 
 
 }
@@ -376,7 +379,7 @@ function borrarTarjeta(param) {
 
 function editarTarjeta(param) {
 
-
+ 
 
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
@@ -480,9 +483,9 @@ function comprobarNumSerie() {
 
 
 
-function comprobarNumSerie2() {
+function comprobarNumSerieTarjeta2() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-
+  
     if (idInstalacion) {
 
         var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas';
@@ -504,7 +507,7 @@ function comprobarNumSerie2() {
                         if (response[i]['idInstalacion'] == idInstalacion) {
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
-                                comprobarNumSerie3(response[i]['id'],response[i]['idNumSerie']);
+                                comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
                               
                                 clase.classList.add("bg-danger");
 
@@ -528,8 +531,8 @@ function comprobarNumSerie2() {
 }
 
 
-function comprobarNumSerie3(id,idNumSerie) {
-
+function comprobarNumSerieTarjeta3(id,idNumSerie) {
+    
     if (idNumSerie) {
 
        // var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/' + idNumSerie;

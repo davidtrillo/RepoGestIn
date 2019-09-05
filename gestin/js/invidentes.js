@@ -37,7 +37,7 @@ console.log(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/Invidentes/nueva';
+        var url = 'http://172.27.120.111/gestin/public/api/invidentes/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -216,7 +216,7 @@ function formInvidentes() { //CAMBIO DE NOMENCLATURA
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie()">
+            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerieInvidentes()">
         </div>
         <div class="col-1">
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
@@ -242,7 +242,7 @@ function formInvidentes() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosInvidentes() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/Invidentes/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/invidentes/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -315,12 +315,12 @@ function rellenarTodosInvidentes() { //Llamada a la API  //CAMBIO DE NOMENCLATUR
         })
 
         rellenarFooterInvidentes();//CAMBIO DE NOMENCLATURA
-        comprobarNumSerie2();
+        comprobarNumSerieInvidentes2();
 }
 
 function rellenarFooterInvidentes(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/Invidentes/activas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/invidentes/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -348,7 +348,7 @@ function rellenarFooterInvidentes(){//CAMBIO DE NOMENCLATURA
 
 function borrarInvidentes(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/Invidentes/borrar/' + param
+    var url = 'http://172.27.120.111/gestin/public/api/invidentes/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -397,7 +397,7 @@ function editarInvidentes(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/Invidentes/modificar/' + param;
+    var url = 'http://172.27.120.111/gestin/public/api/invidentes/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -429,7 +429,7 @@ function editarInvidentes(param) {//CAMBIO DE NOMENCLATURA
 }
 
 
-function comprobarNumSerie() {
+function comprobarNumSerieInvidentes() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
 
     if (idNumSerie) {
@@ -466,7 +466,7 @@ function comprobarNumSerie() {
 
 
 
-function comprobarNumSerie2() {
+function comprobarNumSerieInvidentes2() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
 
     if (idInstalacion) {
@@ -490,7 +490,7 @@ function comprobarNumSerie2() {
                         if (response[i]['idInstalacion'] == idInstalacion) {
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
-                                comprobarNumSerie3(response[i]['id'],response[i]['idNumSerie']);
+                                comprobarNumSerieInvidentes3(response[i]['id'],response[i]['idNumSerie']);
                               
                                 clase.classList.add("bg-danger");
 
@@ -514,7 +514,7 @@ function comprobarNumSerie2() {
 }
 
 
-function comprobarNumSerie3(id,idNumSerie) {
+function comprobarNumSerieInvidentes3(id,idNumSerie) {
 
     if (idNumSerie) {
 

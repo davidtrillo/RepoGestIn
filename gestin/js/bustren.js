@@ -216,7 +216,7 @@ function formBusTren() { //CAMBIO DE NOMENCLATURA
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie()">
+            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerieBusTren()">
         </div>
         <div class="col-1">
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
@@ -315,7 +315,7 @@ function rellenarTodosBusTren() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
         })
 
         rellenarFooterBusTren();//CAMBIO DE NOMENCLATURA
-        comprobarNumSerie2();
+        comprobarNumSerieBusTren2();
 
 }
 
@@ -430,7 +430,7 @@ function editarBusTren(param) {//CAMBIO DE NOMENCLATURA
 }
 
 
-function comprobarNumSerie() {
+function comprobarNumSerieBusTren() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
 
     if (idNumSerie) {
@@ -467,7 +467,7 @@ function comprobarNumSerie() {
 
 
 
-function comprobarNumSerie2() {
+function comprobarNumSerieBusTren2() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
 
     if (idInstalacion) {
@@ -491,7 +491,7 @@ function comprobarNumSerie2() {
                         if (response[i]['idInstalacion'] == idInstalacion) {
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
-                                comprobarNumSerie3(response[i]['id'],response[i]['idNumSerie']);
+                                comprobarNumSerieBusTren3(response[i]['id'],response[i]['idNumSerie']);
                               
                                 clase.classList.add("bg-danger");
 
@@ -515,7 +515,7 @@ function comprobarNumSerie2() {
 }
 
 
-function comprobarNumSerie3(id,idNumSerie) {
+function comprobarNumSerieBusTren3(id,idNumSerie) {
 
     if (idNumSerie) {
 

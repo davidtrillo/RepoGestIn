@@ -37,7 +37,7 @@ console.log(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/PantallasCon/nueva';
+        var url = 'http://172.27.120.111/gestin/public/api/pantallascon/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -242,7 +242,7 @@ function formPantallasCon() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/PantallasCon/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/pantallascon/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -319,7 +319,7 @@ function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLAT
 
 function rellenarFooterPantallasCon(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/PantallasCon/activas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/pantallascon/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -347,7 +347,7 @@ function rellenarFooterPantallasCon(){//CAMBIO DE NOMENCLATURA
 
 function borrarPantallasCon(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/PantallasCon/borrar/' + param
+    var url = 'http://172.27.120.111/gestin/public/api/pantallascon/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -396,7 +396,7 @@ function editarPantallasCon(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/PantallasCon/modificar/' + param;
+    var url = 'http://172.27.120.111/gestin/public/api/pantallascon/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

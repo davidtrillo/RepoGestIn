@@ -5,9 +5,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //$app = new \Slim\App;
 
 //GET Todas las instalaciones SELECT
-$app->get('/api/PantallasCon', function (Request $request, Response $response) {
+$app->get('/api/pantallascon', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM PantallasCon t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.fechaActuacion desc';
+    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM PantallasCon t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -30,7 +30,7 @@ $app->get('/api/PantallasCon', function (Request $request, Response $response) {
 });
 
 //GET Tarjetas activas COUNT
-$app->get('/api/PantallasCon/activas/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/pantallascon/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
     $sql = 'SELECT count(id) AS c FROM PantallasCon WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
@@ -56,10 +56,10 @@ $app->get('/api/PantallasCon/activas/{instalacion}', function (Request $request,
 });
 
 
-$app->get('/api/PantallasCon/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/pantallascon/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM PantallasCon t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM PantallasCon t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -83,7 +83,7 @@ $app->get('/api/PantallasCon/{instalacion}', function (Request $request, Respons
 });
 
 // POST para crear una nueva instalación CREATE
-$app->post('/api/PantallasCon/nueva', function (Request $request, Response $response) {
+$app->post('/api/pantallascon/nueva', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
     // $id=$request->getParam('id');
     $idInstalacion = $request->getParam('idInstalacion');
@@ -130,7 +130,7 @@ $app->post('/api/PantallasCon/nueva', function (Request $request, Response $resp
 
 //DELETE para borrar instalacion DELETE BY ID
 
-$app->delete('/api/PantallasCon/borrar/{id}', function (Request $request, Response $response) {
+$app->delete('/api/pantallascon/borrar/{id}', function (Request $request, Response $response) {
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
@@ -160,7 +160,7 @@ $app->delete('/api/PantallasCon/borrar/{id}', function (Request $request, Respon
 
 //POST para modificar instalacion UPDATE BY ID
 
-$app->put('/api/PantallasCon/modificar/{id}', function (Request $request, Response $response) {
+$app->put('/api/pantallascon/modificar/{id}', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE

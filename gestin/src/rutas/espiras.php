@@ -5,9 +5,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //$app = new \Slim\App;
 
 //GET Todas las instalaciones SELECT
-$app->get('/api/Espiras', function (Request $request, Response $response) {
+$app->get('/api/espiras', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM Espiras t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.fechaActuacion desc';
+    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM Espiras t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -30,7 +30,7 @@ $app->get('/api/Espiras', function (Request $request, Response $response) {
 });
 
 //GET Tarjetas activas COUNT
-$app->get('/api/Espiras/activas/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/espiras/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
     $sql = 'SELECT count(id) AS c FROM Espiras WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
@@ -56,10 +56,10 @@ $app->get('/api/Espiras/activas/{instalacion}', function (Request $request, Resp
 });
 
 
-$app->get('/api/Espiras/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/espiras/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM Espiras t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM Espiras t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -83,7 +83,7 @@ $app->get('/api/Espiras/{instalacion}', function (Request $request, Response $re
 });
 
 // POST para crear una nueva instalación CREATE
-$app->post('/api/Espiras/nueva', function (Request $request, Response $response) {
+$app->post('/api/espiras/nueva', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
     // $id=$request->getParam('id');
     $idInstalacion = $request->getParam('idInstalacion');
@@ -130,7 +130,7 @@ $app->post('/api/Espiras/nueva', function (Request $request, Response $response)
 
 //DELETE para borrar instalacion DELETE BY ID
 
-$app->delete('/api/Espiras/borrar/{id}', function (Request $request, Response $response) {
+$app->delete('/api/espiras/borrar/{id}', function (Request $request, Response $response) {
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
@@ -160,7 +160,7 @@ $app->delete('/api/Espiras/borrar/{id}', function (Request $request, Response $r
 
 //POST para modificar instalacion UPDATE BY ID
 
-$app->put('/api/Espiras/modificar/{id}', function (Request $request, Response $response) {
+$app->put('/api/espiras/modificar/{id}', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
