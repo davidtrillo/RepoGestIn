@@ -37,7 +37,12 @@ $app->get('/api/numserierepetidos/{param}/{idNumSerie}', function (Request $requ
 
     $idNumSerie = $request->getAttribute('idNumSerie');
     $param = $request->getAttribute('param');
-    $sql = 'SELECT id ,idInstalacion, idNumSerie FROM '.$param.' WHERE activo="true" AND idNumSerie="'. $idNumSerie .'";';
+
+    if ($param=='tarjetas') {
+         $sql = 'SELECT id ,idInstalacion, idNumSerie FROM '.$param.' WHERE instalada="true" AND idNumSerie="'. $idNumSerie .'";';
+    }else{
+         $sql = 'SELECT id ,idInstalacion, idNumSerie FROM '.$param.' WHERE activo="true" AND idNumSerie="'. $idNumSerie .'";';
+    }
 
     
     try {

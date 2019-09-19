@@ -19,22 +19,13 @@ function nuevaColumnas() { //CAMBIO DE NOMENCLATURA
             return;
         }
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :"0";  
+        var tipoColumna = document.getElementById('inputTipoColumna').value ? document.getElementById('inputTipoColumna').value :"";  
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value :"0";
         var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
-        
+      
 activo = String(activo);
-console.log(idTipoActuacion);
-console.log(idNumSerie);
-console.log(albaran);
-console.log(observaciones);
-console.log(precio);
-console.log(activo);
-
-
-
-
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
         var url = 'http://172.27.120.111/gestin/public/api/columnas/nueva';
@@ -48,6 +39,7 @@ console.log(activo);
                     idInstalacion: idInstalacion,
                     idTipoActuacion: idTipoActuacion,
                     idNumSerie: idNumSerie,
+                    tipoColumna: tipoColumna,
                     albaran: albaran,
                     observaciones: observaciones,
                     fechaActuacion: fechaActuacion,
@@ -169,66 +161,83 @@ function formColumnas() { //CAMBIO DE NOMENCLATURA
         
         <!-- Títulos Form Nuevo-->
         <div class="row ml-1">
-        <div class="col-2">
-            F.Actuación
-        </div>
-        <div class="col-2">
-        <div class="dropdown" >
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tipo A.
-                    </button>
-                    <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                                <!-- Aquí se iyecta el código mediante JS -->
+            <div class="col-2">
+                F.Actuación
+            </div>
+            <div class="col-2">
+            <div class="dropdown" >
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tipo A.
+                        </button>
+                        <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                                    <!-- Aquí se iyecta el código mediante JS -->
+                        </div>
+                        <input type="hidden"  value="1" id="idTipoActuacion">
                     </div>
-                    <input type="hidden"  value="1" id="idTipoActuacion">
-                </div>
-        </div>
-
-        <div class="col-3">
-            Observaciones
-        </div>
-        <div class="col-1">
-          Albarán
-        </div>
-        <div class="col-1">
-            Num. Serie
-        </div>
-        <div class="col-1">
-            Precio
-        </div>
-        <div class="col-1">
-            Activo
-        </div>
-        </div>
-        <!-- Fin Titulos -->
-        <!-- Form Introducir Nuevo -->
-        <div class="row mt-1 ml-1" id="formGuardar">
-        <div class="col-2">
-            <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
-        </div>
-        <div class="col-2">
-            <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
-        </div>
-        <div class="col-3">
-            <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
-        </div>
-        <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
-        </div>
-        <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie">
-        </div>
-        <div class="col-1">
-        <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
-        </div>
-        <div class="col-1">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
-        </div>
-        <div class="col-1">
-            <div class="btn btn-primary" onclick="nuevaColumnas()">Guardar</div>
-        </div>
-        </div>  
-        <!-- Fin Form Introducir nuevo -->
+            </div>
+            <div class="col-1">
+            <div class="dropdown" >
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tipo C.
+                        </button>
+                        <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                              <button class="dropdown-item" onclick="escribirTipoColumna('0,8 m.')" >0,8 m.</button>
+                              <button class="dropdown-item" onclick="escribirTipoColumna('2 m.')" >2 m.</button>
+                              <button class="dropdown-item" onclick="escribirTipoColumna('4 m.')" >4 m.</button>
+                              <button class="dropdown-item" onclick="escribirTipoColumna('Báculo')" >Báculo</button>
+    
+                        </div>
+                        <input type="hidden"  value="1" id="idTipoActuacion">
+                    </div>
+            </div>
+            <div class="col-2">
+                Observaciones
+            </div>
+            <div class="col-1">
+              Albarán
+            </div>
+            <div class="col-1">
+                Num. Serie
+            </div>
+            <div class="col-1">
+                Precio
+            </div>
+            <div class="col-1">
+                Activo
+            </div>
+            </div>
+            <!-- Fin Titulos -->
+            <!-- Form Introducir Nuevo -->
+            <div class="row mt-1 ml-1" id="formGuardar">
+            <div class="col-2">
+                <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
+            </div>
+            <div class="col-1">
+                <input type="text" class="form-control mt-1" name="inputTipoColumna" id="inputTipoColumna">
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
+            </div>
+            <div class="col-1">
+                <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
+            </div>
+            <div class="col-1">
+                <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie">
+            </div>
+            <div class="col-1">
+            <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
+            </div>
+            <div class="col-1">
+                <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
+            </div>
+            <div class="col-1">
+                <div class="btn btn-primary" onclick="nuevaColumnas()">Guardar</div>
+            </div>
+            </div>  
+            <!-- Fin Form Introducir nuevo -->
         
         `
         rellenarTipoActuacionColumnas();//CAMBIO DE NOMENCLATURA
@@ -269,45 +278,74 @@ function rellenarTodosColumnas() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     }
                  
                     p.innerHTML += `
-                 <div class="row mt-1 ml-1" id="">
-                 <div class="col-2">
-                   <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
-                   <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
-                 </div>
-                 <div class="col-2 mt-1" >
-                        <div class="input-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion2Columnas(this.value)">
-                                    Tipo A.
-                            </button>
-                            <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
-                               
-                            </div>
-                            <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"  value="${response[i]['descripcion']}">
-                            <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
+                    <div class="row mt-1 ml-1" id="">
+                    <div class="col-2">
+                      <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">
+                      <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}"
+                        placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
+                    </div>
+                    <div class="col-2 mt-1">
+                      <div class="input-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}"
+                          value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                          onclick="rellenarTipoActuacion2Columnas(this.value)">
+                          Tipo A.
+                        </button>
+                        <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
+                
                         </div>
-                   
-                 </div>
-                 <div class="col-3">
-                    <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
-                 </div>
-                 <div class="col-1">
-                    <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
-                 </div>
-                 <div class="col-1">
-                    <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}">
-                 </div>
-                 <div class="col-1">
-                 <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
-                 </div>
-                 <div class="col-1">
-                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                 </div>
-                 <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarColumnas(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarColumnas(this.id)"><i class="fas fa-trash-alt"></i></div>
-                 </div>
-              </div>  
-                 
+                        <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"
+                          value="${response[i]['descripcion']}">
+                        <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"
+                          value="${response[i]['idTipoActuacion']}">
+                      </div>
+                
+                    </div>
+                    <div class="col-1 mt-1">
+                            <div class="input-group">
+                              <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoColumna${response[i]['id']}" value="${response[i]['tipoColumna']}">
+                              <div class="input-group-append">
+                                <!-- <button type="button" class="btn btn-outline-secondary">Tipo C.</button> -->
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item" onclick="escribirTipoColumna2('0,8 m.',${response[i]['id']})" >0,8 m.</button>
+                                    <button class="dropdown-item" onclick="escribirTipoColumna2('2 m.',${response[i]['id']})" >2 m.</button>
+                                    <button class="dropdown-item" onclick="escribirTipoColumna2('4 m.',${response[i]['id']})" >4 m.</button>
+                                    <button class="dropdown-item" onclick="escribirTipoColumna2('Báculo',${response[i]['id']})" >Báculo</button>
+                                </div>
+                              </div>
+                            </div>
+                    </div>
+                
+                    <div class="col-2">
+                      <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"
+                        value="${response[i]['observaciones']}">
+                    </div>
+                    <div class="col-1">
+                      <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}"
+                        value="${response[i]['albaran']}">
+                    </div>
+                    <div class="col-1">
+                      <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"
+                        value="${response[i]['idNumSerie']}">
+                    </div>
+                    <div class="col-1">
+                      <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"
+                        value="${response[i]['precio']}">
+                    </div>
+                    <div class="col-1">
+                      <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}" ${activo}>
+                      </div>
+                      <div class="col-1">
+                      <div class="btn btn-primary " id="${response[i]['id']}" onclick="editarColumnas(this.id)"><i
+                          class="fas fa-pencil-alt"></i></div>
+                      <div class="btn btn-danger " id="${response[i]['id']}" onclick="borrarColumnas(this.id)"><i
+                          class="fas fa-trash-alt"></i></div>
+                    </div>
+                  </div>
                  `
 
                 }
@@ -368,6 +406,7 @@ function editarColumnas(param) {//CAMBIO DE NOMENCLATURA
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
+    var inputTipoColumna = document.getElementById('inputTipoColumna' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
@@ -412,7 +451,8 @@ function editarColumnas(param) {//CAMBIO DE NOMENCLATURA
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
-                activo: inputActivoTar
+                activo: inputActivoTar,
+                tipoColumna: inputTipoColumna
             })
         })
         .then(res => res.json())
@@ -425,4 +465,12 @@ function editarColumnas(param) {//CAMBIO DE NOMENCLATURA
     setTimeout(() => {
         rellenarTodosColumnas(); //CAMBIO DE NOMENCLATURA
     }, 1000);
+}
+function escribirTipoColumna(param) {
+    var p1=document.getElementById('inputTipoColumna');
+    p1.value=param;
+}
+function escribirTipoColumna2(param,id) {
+    var p1=document.getElementById('inputTipoColumna'+id);
+    p1.value=param;
 }

@@ -32,11 +32,13 @@ include_once '../src/rutas/invidentes.php';
 include_once '../src/rutas/descontadores.php';
 include_once '../src/rutas/baculos.php';
 include_once '../src/rutas/columnas.php';
+include_once '../src/rutas/oculta.php';
 include_once '../src/rutas/pulsadores.php';
 include_once '../src/rutas/espiras.php';
 include_once '../src/rutas/pantallascon.php';
 include_once '../src/rutas/camtv.php';
 include_once '../src/rutas/camip.php';
+include_once '../src/rutas/led.php';
 
 include_once '../src/rutas/APIpintura.php';
 include_once '../src/rutas/APIMFO.php';

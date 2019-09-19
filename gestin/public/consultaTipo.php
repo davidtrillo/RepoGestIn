@@ -3,6 +3,9 @@
 include './login/session.php';
 //include_once 'r_instalaciones.php';
 
+require '../vendor/autoload.php';
+
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -16,6 +19,7 @@ include './login/session.php';
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
    <!-- Bootstrap CSS -->
    <script src="https://kit.fontawesome.com/de8261cad4.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -47,6 +51,7 @@ include './login/session.php';
          <a class="nav-item nav-link" href="./mfo.php">MFO</a>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+         <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
@@ -130,6 +135,13 @@ include './login/session.php';
                <input type="text" class="form-control mt-2 bg-light" placeholder="" id="inputUbicacion"
                   aria-label="Ubicación" aria-describedby="basic-addon1">
             </div>
+            <div class="col-1 mt-3 p-1">
+            <br>
+               <!-- <form method="POST" action="pdf.php"> -->
+                  <button class="btn btn-primary" onclick="imprimir()">Imprimir</button>
+               <!-- </form> -->
+            </div>
+
          </div>
       </div>
    <!-- Fin Form Consulta -->
@@ -196,8 +208,15 @@ include './login/session.php';
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  
+
 
    <script src="../js/consultasTipo.js"></script>
+
+
+
+
 
 </body>
 

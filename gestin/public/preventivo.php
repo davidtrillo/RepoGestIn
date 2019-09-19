@@ -43,10 +43,11 @@ include './login/session.php';
          <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
          <a class="nav-item nav-link" href="./mfo.php">MFO</a>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
-         <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
-
+         <a class="nav-item nav-link active" href="./preventivo.php">Preventivo</a>
+         <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
+         
          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Listados
             </a>

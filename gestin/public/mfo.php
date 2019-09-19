@@ -44,12 +44,13 @@ include './login/session.php';
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
          <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
-         <a class="nav-item nav-link" href="./mfo.php">MFO</a>
+         <a class="nav-item nav-link active" href="./mfo.php">MFO</a>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+         <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Listados
             </a>

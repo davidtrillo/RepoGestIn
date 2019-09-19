@@ -31,8 +31,10 @@ function nuevaTarjeta() {
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
         var activo = document.getElementById('inputActivo').checked;
+        var instalada = document.getElementById('inputInstalada').checked;
 
         activo = String(activo);
+        instalada = String(instalada);
         // console.log(idTipoActuacion);
         // console.log(idNumSerie);
         // console.log(albaran);
@@ -57,7 +59,8 @@ function nuevaTarjeta() {
                     fechaActuacion: fechaActuacion,
                     idUsuario: idUsuario,
                     precio: precio,
-                    activo: activo
+                    activo: activo,
+                    instalada: instalada
                 })
             })
             .then(res => res.json())
@@ -201,7 +204,7 @@ function formTarjetas() {
             Precio
         </div>
         <div class="col-1">
-            Activo
+            <span>Act.</span>  <span class="ml-2">Inst.</span> 
         </div>
         </div>
         <!-- Fin Titulos -->
@@ -226,8 +229,10 @@ function formTarjetas() {
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
         </div>
         <div class="col-1">
+        <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
+            <input type="checkbox" class=" mt-3 ml-3" name="inputInstalada" id="inputInstalada" onclick="checkInstalada()"> 
             <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
-        </div>
+        </div>  
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaTarjeta()">Guardar</div>
         </div>
@@ -272,6 +277,12 @@ function rellenarTodosTarjeta() { //Llamada a la API
                         var activo = "";
                     }
 
+                    if (response[i]['instalada'] == "true") {
+                        var instalada = "checked";
+                    } else {
+                        var instalada = "";
+                    }
+
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -305,6 +316,7 @@ function rellenarTodosTarjeta() { //Llamada a la API
                  </div>
                  <div class="col-1">
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputInstaladaTar${response[i]['id']}"  ${instalada}>
                  </div>
                  <div class="col-1">
                     <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarTarjeta(this.id)"><i class="fas fa-pencil-alt"></i></div>
@@ -327,7 +339,7 @@ function rellenarTodosTarjeta() { //Llamada a la API
 
 function rellenarFooterTarjeta() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/activas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -352,7 +364,7 @@ function rellenarFooterTarjeta() {
                 p.innerHTML = '';
                 p.innerHTML = `
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>Tarjetas</b> Activas: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>Tarjetas</b> Instaladas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -389,7 +401,9 @@ function editarTarjeta(param) {
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
+    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
     inputActivoTar = String(inputActivoTar);
+    inputInstaladaTar = String(inputInstaladaTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -430,7 +444,8 @@ function editarTarjeta(param) {
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
-                activo: inputActivoTar
+                activo: inputActivoTar,
+                instalada: inputInstaladaTar
             })
         })
         .then(res => res.json())
@@ -446,7 +461,7 @@ function editarTarjeta(param) {
 }
 
 
-function comprobarNumSerie() {
+function comprobarNumSerieTarjeta() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
 
     if (idNumSerie) {
@@ -563,5 +578,11 @@ function comprobarNumSerieTarjeta3(id,idNumSerie) {
                 }
 
             })
+    }
+}
+
+function checkInstalada() {
+    if (document.getElementById('inputInstalada').checked) {
+        document.getElementById('inputActivo').checked=true;
     }
 }

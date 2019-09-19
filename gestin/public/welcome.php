@@ -43,13 +43,14 @@ include './login/session.php';
    </button>
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
-         <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
+         <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
          <a class="nav-item nav-link" href="./mfo.php">MFO</a>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+         <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Listados
             </a>
@@ -227,17 +228,20 @@ include './login/session.php';
             <button class="btn btn-info"   onclick="form12_pp()">12/PP</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"  onclick="form12_pea_bici()">12/PE/Bic</button>
+            <button class="btn btn-info"  onclick="formOculta()">S. Oculta</button>
+         </div>
+         <div class="col-1">
+            <button class="btn btn-info"  onclick="formLed()">Leds</button>
          </div>
 
       </div>
 
       <div class="row mt-2">
-         <div class="col-1">
+         <!-- <div class="col-1">
             <button class="btn btn-info"  onclick="form12_bici()">12/Bici</button>
-         </div>
+         </div> -->
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formInvidentes()">Invide.</button>
+            <button class="btn btn-info"   onclick="formInvidentes()">Sonoro</button>
          </div>
          <div class="col-1">
             <button class="btn btn-info"   onclick="formDescontadores()">Descont.</button>
@@ -316,6 +320,7 @@ include './login/session.php';
    <script src="../js/12_pea_bici.js"></script>
    <script src="../js/12_bici.js"></script>
    <script src="../js/invidentes.js"></script>
+   <script src="../js/oculta.js"></script>
    <script src="../js/descontadores.js"></script>
    <script src="../js/baculos.js"></script>
    <script src="../js/columnas.js"></script>
@@ -324,6 +329,7 @@ include './login/session.php';
    <script src="../js/pantallascon.js"></script>
    <script src="../js/camtv.js"></script>
    <script src="../js/camip.js"></script>
+   <script src="../js/led.js"></script>
 
 
 </body>

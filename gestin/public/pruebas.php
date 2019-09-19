@@ -14,82 +14,236 @@
 </head>
 
 <body>
-  <h1>Hello, world!</h1>
 
-  <div class="container-fluid ">
+  <h3>Elementos Activos según Tipo de Instalación</h3>
+  <br>
+  <h4>Tipo de Instalación: Número: Ubicación:</h4>
+  <hr>
+  <h5>Tarjetas</h5>
 
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
-
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav  ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown link
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+  <button onclick="imprimir()">Imprimir</button>
+ <!-- Títulos Form Nuevo-->
+ <div class="row ml-1">
+        <div class="col-2">
+            F.Actuación
+        </div>
+        <div class="col-1">
+            <div class="dropdown" >
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Tipo
+              </button>
+                <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                    <button class="dropdown-item" onclick="escribirTipo('100 mm')" >100 mm</button>
+                    <button class="dropdown-item" onclick="escribirTipo('200 mm')" >200 mm</button>
+                    <button class="dropdown-item" onclick="escribirTipo('200 mm Bici')" >200 mm Bici</button>
+                    <button class="dropdown-item" onclick="escribirTipo('300 mm')" >300 mm</button>
+                    <button class="dropdown-item" onclick="escribirTipo('200x200')" >200x200</button>
+                    <button class="dropdown-item" onclick="escribirTipo('200x200 Bici')" >200x200 Bici</button>
+                    <button class="dropdown-item" onclick="escribirTipo('200x200 Bici/Peatón')" >200x200 Bici/Peatón</button>
+                
+                </div>
             </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-
-
-
-  <div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-      <a class="navbar-brand" href="#">Gestión de Inventario</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-
-      <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-        <ul class="navbar-nav ml-auto">
-          <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
-          <a class="nav-item nav-link" href="./mfo.php">MFO</a>
-          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
-          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown link
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+        <div class="col-1">
+            <div class="dropdown" >
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Color
+              </button>
+                <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                    <button class="dropdown-item" onclick="escribirColor('Rojo')" >Rojo</button>
+                    <button class="dropdown-item" onclick="escribirColor('Ambar')" >Ambar</button>
+                    <button class="dropdown-item" onclick="escribirColor('Verde')" >Verde</button>
+                </div>
             </div>
-          </li>
-          <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
-        </ul>
+        </div>
+              <div class="col-1">
+                  Grupo
+              </div>
+              <div class="col-1">
+                  Num. Serie
+              </div>
+              <div class="col-1">
+                 Albarán
+              </div>
+              <div class="col-2">
+                  Observaciones
+              </div>
+              <div class="col-1">
+                  Activo
+              </div>
+        </div>
+        <!-- Fin Titulos -->
+        <!-- Form Introducir Nuevo -->
+        <div class="row mt-1 ml-1" id="formGuardar">
+              <div class="col-2">
+                  <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
+              </div>
+              <div class="col-1">
+                  <input type="text" class="form-control mt-1" name="inputTipo" id="inputTipo">
+              </div>
+              <div class="col-1">
+                  <input type="text" class="form-control mt-1" name="inputColor" id="inputColor">
+              </div>
+              <div class="col-1">
+                  <input type="text" class="form-control mt-1" name="inputGrupo" id="inputGrupo">
+              </div>
+              <div class="col-1">
+                  <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie">
+              </div>
+              <div class="col-1">
+                  <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
+              </div>
+              <div class="col-2">
+                  <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
+              </div>
+              <div class="col-1">
+                  <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
+              </div>
+              <div class="col-1">
+                  <div class="btn btn-primary" onclick="nuevaLed()">Guardar</div>
+              </div>
+        </div>  
+        <!-- Fin Form Introducir nuevo -->
+        <div class="row mt-1 ml-1" id="">
+                        
+                        <div class="col-2">
+                            <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
+                            <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
+                        </div>
 
+                        <div class="col-1 mt-1" >
+                            <div class="input-group">
+                                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipo${response[i]['id']}" value="${response[i]['tipo']}">
+                                <div class="input-group-append">
+
+                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item" onclick="escribirColor2('100 mm',${response[i]['id']})" >100 mm</button>
+                                            <button class="dropdown-item" onclick="escribirColor2('200 mm',${response[i]['id']})" >200 mm</button>
+                                            <button class="dropdown-item" onclick="escribirColor2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
+                                            <button class="dropdown-item" onclick="escribirColor2('300 mm',${response[i]['id']})" >300 mm</button>
+                                            <button class="dropdown-item" onclick="escribirColor2('200x200',${response[i]['id']})" >200x200</button>
+                                            <button class="dropdown-item" onclick="escribirColor2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
+                                            <button class="dropdown-item" onclick="escribirColor2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1 mt-1" >
+
+
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputColor${response[i]['id']}" value="${response[i]['color']}">
+                                        <div class="input-group-append">
+
+                                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+
+                                                <div class="dropdown-menu">
+                                                    <button class="dropdown-item" onclick="escribirColor2('Rojo',${response[i]['id']})" >Rojo</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Ambar',${response[i]['id']})" >Ambar</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Verde',${response[i]['id']})" >Verde</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="col-1">
+                           <input type="text" class="form-control mt-1" name="" id="inputGrupoTar${response[i]['id']}"  value="${response[i]['grupo']}">
+                        </div>
+                        <div class="col-1">
+                           <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}">
+                        </div>
+                        <div class="col-1">
+                           <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
+                        </div>
+                        <div class="col-1">
+                          <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                        </div>
+
+                        <div class="col-1">
+                           <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
+                           <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
+                        </div>
+
+              </div>  
+<!-- 
+  <div class="row mt-1 ml-1" id="">
+    <div class="col-2">
+      <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">
+      <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}"
+        placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
+    </div>
+    <div class="col-2 mt-1">
+      <div class="input-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}"
+          value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          onclick="rellenarTipoActuacion2Columnas(this.value)">
+          Tipo A.
+        </button>
+        <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
+
+        </div>
+        <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"
+          value="${response[i]['descripcion']}">
+        <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"
+          value="${response[i]['idTipoActuacion']}">
       </div>
-    </nav>
-  </div>
 
-<button class="btn" onclick="funcionar()">dale</button>
+    </div>
+    <div class="col-1 mt-1">
+            <div class="input-group">
+              <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="input">
+              <div class="input-group-append">
+         
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item" onclick="escribirTipoColumna('0,8 m.',${response[i]['id']})" >0,8 m.</button>
+                    <button class="dropdown-item" onclick="escribirTipoColumna('2 m.',${response[i]['id']})" >2 m.</button>
+                    <button class="dropdown-item" onclick="escribirTipoColumna('4 m.',${response[i]['id']})" >4 m.</button>
+                    <button class="dropdown-item" onclick="escribirTipoColumna('Báculo',${response[i]['id']})" >Báculo</button>
+                </div>
+              </div>
+            </div>
+    </div>
 
-<div class="container" id="introducir">
-
-</div>
+    <div class="col-2">
+      <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"
+        value="${response[i]['observaciones']}">
+    </div>
+    <div class="col-1">
+      <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}"
+        value="${response[i]['albaran']}">
+    </div>
+    <div class="col-1">
+      <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"
+        value="${response[i]['idNumSerie']}">
+    </div>
+    <div class="col-1">
+      <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"
+        value="${response[i]['precio']}">
+    </div>
+    <div class="col-1">
+      <input type="checkbox" class=" mt-3 ml-1" name="" id="inputActivoTar${response[i]['id']}" ${activo}>
+      <div class="btn btn-primary ml-1" id="${response[i]['id']}" onclick="editarColumnas(this.id)"><i
+          class="fas fa-pencil-alt"></i></div>
+      <div class="btn btn-danger ml-1" id="${response[i]['id']}" onclick="borrarColumnas(this.id)"><i
+          class="fas fa-trash-alt"></i></div>
+    </div>
+    <div class="col-1">
+    </div>
+  </div> -->
 
 
 
@@ -108,10 +262,52 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 
-<script src="pruebas.js">
+  <script src="pruebas.js"></script>
+  <script src="../js/columnas.js"></script>
+  <script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
+  <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
+
+  <script>
+    function imprimir() {
+      var doc = new jsPDF();
+
+      doc.text(10, 20, 'Elementos Activos según Tipo de Instalación');
+      doc.setFontSize(14);
+      doc.text(10, 30, 'Tipo de Instalación:  Número:');
+      doc.text(10, 40, 'Tarjetas');
 
 
-</script>
+      // Or use javascript directly:
+      doc.autoTable({
+        startY: 50,
+        head: [
+          ['F. Actuación', 'Tipo Actuación', 'Observaciones', 'Albarán', 'Precio']
+        ],
+        body: [
+          ['David', 'david@example.com', 'Sweden', 'Sweden', 'Sweden'],
+          ['Castille', 'castille@example.com', 'Norway', 'Sweden', 'Sweden'],
+          // ...
+        ]
+
+      });
+      var posy = doc.lastAutoTable.finalY + 30;
+      doc.text(10, posy, 'Bus/Tren');
+
+
+      doc.autoTable({
+        head: [
+          ['F. Actuación', 'Tipo Actuación', 'Observaciones', 'Albarán', 'Precio']
+        ],
+        body: [
+          ['David', 'david@example.com', 'Sweden', 'Sweden', 'Sweden'],
+          ['Castille', 'castille@example.com', 'Norway', 'Sweden', 'Sweden'],
+          // ...
+        ],
+        startY: doc.lastAutoTable.finalY + 50
+      });
+      doc.save('table.pdf');
+    }
+  </script>
 
 </body>
 

@@ -59,7 +59,7 @@ $app->get('/api/columnas/activas/{instalacion}', function (Request $request, Res
 $app->get('/api/columnas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM Columnas t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.tipoColumna FROM Columnas t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -88,6 +88,7 @@ $app->post('/api/columnas/nueva', function (Request $request, Response $response
     // $id=$request->getParam('id');
     $idInstalacion = $request->getParam('idInstalacion');
     $idTipoActuacion = $request->getParam('idTipoActuacion');
+    $tipoColumna = $request->getParam('tipoColumna');
     $idNumSerie = $request->getParam('idNumSerie');
     $albaran = $request->getParam('albaran');
     $observaciones = $request->getParam('observaciones');
@@ -97,7 +98,7 @@ $app->post('/api/columnas/nueva', function (Request $request, Response $response
     $activo = $request->getParam('activo');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO Columnas (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo);';
+    $sql = 'INSERT INTO Columnas (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,tipoColumna) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :tipoColumna);';
     // $sql='INSERT INTO Columnas (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -115,6 +116,7 @@ $app->post('/api/columnas/nueva', function (Request $request, Response $response
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
+        $resultado->bindParam(':tipoColumna', $tipoColumna);
 
         $resultado->execute();
         echo json_encode("Tarjeta guardada con éxito", JSON_UNESCAPED_UNICODE);
@@ -172,10 +174,13 @@ $app->put('/api/columnas/modificar/{id}', function (Request $request, Response $
     $idUsuario = $request->getParam('idUsuario');
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
+    $tipoColumna = $request->getParam('tipoColumna');
+
+
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE Columnas SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE Columnas SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='. $id;
+    $sql = 'UPDATE Columnas SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,tipoColumna=:tipoColumna WHERE id='. $id;
 
     try {
         $db = new db();
@@ -192,6 +197,7 @@ $app->put('/api/columnas/modificar/{id}', function (Request $request, Response $
         $resultado->bindParam(':idUsuario', $idUsuario);
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
+        $resultado->bindParam(':tipoColumna', $tipoColumna);
 
         $resultado->execute();
         echo json_encode("Tarjeta editada con éxito", JSON_UNESCAPED_UNICODE);
