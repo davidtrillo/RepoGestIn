@@ -43,20 +43,22 @@ include './login/session.php';
    </button>
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
+
          <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
-         <li class="nav-item dropdown ">
+
+            <li class="nav-item dropdown">
                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                MFO
                </a>
-               <div class="dropdown-menu bg-info navbar-dark" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
-                  <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
-                  <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>
-                  <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
-                  <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
+               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+               <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
+               <a class="dropdown-item" href="#"></a>
+               <a class="dropdown-item" href="#"></a>
                </div>
-         </li>
+            </li>
+            
+         <!-- <a class="nav-item nav-link active" href="./mfo.php">MFO</a> -->
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
          <a class="nav-item nav-link" href="./totalLed.php">Leds</a>

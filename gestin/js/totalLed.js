@@ -204,34 +204,11 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     }
                  
                     p.innerHTML += `
-                 <div class="row mt-1" id="">
+                    <div class="row mt-1" id="">
                       
-                        <div class="col-1 mt-1" >
-                                <div class="input-group">
-                                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
-                                    <div class="input-group-append">
-
-                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-
-                                            <div class="dropdown-menu dp2" id="dropdownCruce2${response[i]['id']}">
-
-                                            </div>
-                                    </div>
-                                </div>
-                        </div>
-
-
-                        <div class="col-2">
-                            <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
-                            <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
-                        </div>
-
-                        <div class="col-2 mt-1" >
+                    <div class="col-1 mt-1" >
                             <div class="input-group">
-                                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoTar${response[i]['id']}" value="${response[i]['tipo']}">
+                                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
                                 <div class="input-group-append">
 
                                         <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
@@ -239,61 +216,84 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
 
-                                        <div class="dropdown-menu">
-                                            <button class="dropdown-item" onclick="escribirTipo2('100 mm',${response[i]['id']})" >100 mm</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200 mm',${response[i]['id']})" >200 mm</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('300 mm',${response[i]['id']})" >300 mm</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200x200',${response[i]['id']})" >200x200</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
+                                        <div class="dropdown-menu dp2" id="dropdownCruce2${response[i]['id']}">
+
                                         </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-1 mt-1" >
+                    </div>
 
 
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputColorTar${response[i]['id']}" value="${response[i]['color']}">
-                                        <div class="input-group-append">
+                    <div class="col-2">
+                        <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
+                        <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
+                    </div>
 
-                                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
+                    <div class="col-2 mt-1" >
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoTar${response[i]['id']}" value="${response[i]['tipo']}">
+                            <div class="input-group-append">
 
-                                                <div class="dropdown-menu">
-                                                    <button class="dropdown-item" onclick="escribirColor2('Rojo',${response[i]['id']})" >Rojo</button>
-                                                    <button class="dropdown-item" onclick="escribirColor2('Ambar',${response[i]['id']})" >Ambar</button>
-                                                    <button class="dropdown-item" onclick="escribirColor2('Verde',${response[i]['id']})" >Verde</button>
-                                                </div>
-                                        </div>
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+
+                                    <div class="dropdown-menu">
+                                        <button class="dropdown-item" onclick="escribirTipo2('100 mm',${response[i]['id']})" >100 mm</button>
+                                        <button class="dropdown-item" onclick="escribirTipo2('200 mm',${response[i]['id']})" >200 mm</button>
+                                        <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
+                                        <button class="dropdown-item" onclick="escribirTipo2('300 mm',${response[i]['id']})" >300 mm</button>
+                                        <button class="dropdown-item" onclick="escribirTipo2('200x200',${response[i]['id']})" >200x200</button>
+                                        <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
+                                        <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
                                     </div>
+                            </div>
                         </div>
-                        <div class="col-1">
-                           <input type="text" class="form-control mt-1" name="" id="inputGrupoTar${response[i]['id']}"  value="${response[i]['grupo']}">
-                        </div>
-                        <div class="col-1">
-                           <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}" >
-                        </div>
-                        <div class="col-1">
-                           <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
-                        </div>
-                        <div class="col-2">
-                            <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
-                        </div>
-                        <div class="col-1">
-                          <input type="checkbox" class=" mt-3 ml-0" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                          <div class="btn btn-primary ml-3" id="${response[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                          <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
-                        </div>
+                    </div>
+                    <div class="col-1 mt-1" >
 
-                        <div class="col-1">
-                        </div>
 
-              </div>  
-                 
+                                <div class="input-group">
+                                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputColorTar${response[i]['id']}" value="${response[i]['color']}">
+                                    <div class="input-group-append">
+
+                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+
+                                            <div class="dropdown-menu">
+                                                <button class="dropdown-item" onclick="escribirColor2('Rojo',${response[i]['id']})" >Rojo</button>
+                                                <button class="dropdown-item" onclick="escribirColor2('Ambar',${response[i]['id']})" >Ambar</button>
+                                                <button class="dropdown-item" onclick="escribirColor2('Verde',${response[i]['id']})" >Verde</button>
+                                            </div>
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-1">
+                       <input type="text" class="form-control mt-1" name="" id="inputGrupoTar${response[i]['id']}"  value="${response[i]['grupo']}">
+                    </div>
+                    <div class="col-1">
+                       <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}" >
+                    </div>
+                    <div class="col-1">
+                       <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
+                    </div>
+                    <div class="col-1">
+                      <input type="checkbox" class=" mt-3 ml-0" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                      <div class="btn btn-primary ml-3" id="${response[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
+                      <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    </div>
+
+                    <div class="col-1">
+                    </div>
+
+          </div>  
+         
                  `
 
                  rellenarCruceLed2(response[i]['id']);
@@ -391,7 +391,7 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
 
     setTimeout(() => {
         rellenarLed(); //CAMBIO DE NOMENCLATURA
-    }, 1000);
+    }, 500);
 }
 
 function comprobarNumSerieLed() {

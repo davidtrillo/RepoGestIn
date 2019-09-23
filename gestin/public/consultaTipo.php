@@ -48,7 +48,19 @@ require '../vendor/autoload.php';
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
          <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
-         <a class="nav-item nav-link" href="./mfo.php">MFO</a>
+                  <li class="nav-item dropdown ">
+               <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               MFO
+               </a>
+               <div class="dropdown-menu bg-info navbar-dark" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
+                  <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
+                  <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>
+                  <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
+                  <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
+               </div>
+         </li>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
          <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
@@ -209,8 +221,8 @@ require '../vendor/autoload.php';
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  
-
+  <script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
+  <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
 
    <script src="../js/consultasTipo.js"></script>
 

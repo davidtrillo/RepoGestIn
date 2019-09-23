@@ -56,7 +56,7 @@ function leerCruce(idCruce) {
     
 }
 
-function leerInstalacion(idInstalacion, ubicacion) {
+ async function leerInstalacion(idInstalacion, ubicacion) {
     var inputInst = document.getElementById('inputInstalacion');
     inputInst.value = idInstalacion;
     
@@ -67,23 +67,23 @@ function leerInstalacion(idInstalacion, ubicacion) {
      var t = document.getElementById('titulo');
      t.innerHTML='';
 
-        pintarResultados("tarjetas", idInstalacion);
-        pintarResultados("bustren", idInstalacion);
-        pintarResultados("11_322", idInstalacion);
-        pintarResultados("12_300", idInstalacion);
-        pintarResultados("13_200", idInstalacion);
-        pintarResultados("12_200", idInstalacion);
-        pintarResultados("11_2in", idInstalacion);
-        pintarResultados("12_pp", idInstalacion);
-        pintarResultados("12_pea_bici", idInstalacion);
-        pintarResultados("12_bici", idInstalacion);
-        pintarResultados("invidentes", idInstalacion);
-        pintarResultados("descontadores", idInstalacion);
-        pintarResultados("baculos", idInstalacion);
-        pintarResultados("columnas", idInstalacion);
-        pintarResultados("pulsadores", idInstalacion);
-        pintarResultados("espiras", idInstalacion);
-        pintarResultados("pantallascon", idInstalacion);
+    await   pintarResultados("tarjetas", idInstalacion);
+    await   pintarResultados("bustren", idInstalacion);
+    await   pintarResultados("11_322", idInstalacion);
+    await   pintarResultados("12_300", idInstalacion);
+    await   pintarResultados("13_200", idInstalacion);
+    await   pintarResultados("12_200", idInstalacion);
+    await   pintarResultados("11_2in", idInstalacion);
+    await   pintarResultados("12_pp", idInstalacion);
+    await   pintarResultados("invidentes", idInstalacion);
+    await   pintarResultados("descontadores", idInstalacion);
+    await   pintarResultados("baculos", idInstalacion);
+    await   pintarResultados("columnas", idInstalacion);
+    await   pintarResultados("pulsadores", idInstalacion);
+    await   pintarResultados("espiras", idInstalacion);
+    await   pintarResultados("pantallascon", idInstalacion);
+    await   pintarResultados("oculta", idInstalacion);
+    await   pintarResultados("led", idInstalacion);
     
 }
 
@@ -95,11 +95,11 @@ function leerInstalacion(idInstalacion, ubicacion) {
 // }
 
 
-function pintarResultados(tipo, id) {
+async function pintarResultados(tipo, id) {
 
     console.log(tipo);
     var url = 'http://172.27.120.111/gestin/public/api/' + tipo + '/' + id;
-    fetch(url, {
+    await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -170,49 +170,262 @@ function pintarResultados(tipo, id) {
 
 }
 
-function imprimir(){
-    var pdf = new jsPDF('p', 'pt', 'A4');
-         // source can be HTML-formatted string, or a reference
-         // to an actual DOM element from which the text will be scraped.
-         var source = '<h1>Cruce:</h1>';//document.getElementById("titulo").innerHTML;
- 
-         console.log(source);
-         // we support special element handlers. Register them with jQuery-style 
-         // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
-         // There is no support for any other type of selectors 
-         // (class, of compound) at this time.
-         specialElementHandlers = {
-             // element with id of "bypass" - jQuery style selector
-             '#bypassme': function (element, renderer) {
-                 // true = "handled elsewhere, bypass text extraction"
-                 return true
-             }
-         };
-         margins = {
-             top: 50,
-             bottom: 60,
-             left: 40,
-             width: 522
-         };
-         // all coords and widths are in jsPDF instance's declared units
-         // 'inches' in this case
-         pdf.fromHTML(
-         source, // HTML string or DOM elem ref.
-         margins.left, // x coord
-         margins.top, { // y coord
-             'width': margins.width, // max width of content on PDF
-             'elementHandlers': specialElementHandlers
-         },
- 
-         function (dispose) {
-             // dispose: object with X, Y of the last line add to the PDF 
-             //          this allow the insertion of new lines after html
-             pdf.save('test.pdf');
-         }, margins);
- 
- }
- function imprimir4(){
+function getJsonAPI(tipo,id) {
+           
+            var url = 'http://172.27.120.111/gestin/public/api/' + tipo + '/' + id;
+           // var url = 'http://172.27.120.111/gestin/public/api/led/'+id;
+  let response=  fetch(url, {method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {return response});
+            return response;
+}
 
 
- }
+async function imprimir() {
+
+
+    var id=document.getElementById("inputInstalacion").value;
+    //conseguir el json
+    var rowTarjetas= await getJsonAPI('tarjetas',id);
+    var rowBusTren= await getJsonAPI('bustren',id);
+    var row11_322= await getJsonAPI('11_322',id);
+    var row12_300= await getJsonAPI('12_300',id);
+    var row13_200= await getJsonAPI('13_200',id);
+    var row12_200= await getJsonAPI('12_200',id);
+    var row11_2in= await getJsonAPI('11_2in',id);
+    var row12_pp= await getJsonAPI('12_pp',id);
+    var rowInvidentes= await getJsonAPI('invidentes',id);
+    var rowDescontadores= await getJsonAPI('descontadores',id);
+    var rowColumnas= await getJsonAPI('columnas',id);
+    var rowBaculos= await getJsonAPI('baculos',id);
+    var rowPulsadores= await getJsonAPI('pulsadores',id);
+    var rowEspiras= await getJsonAPI('espiras',id);
+    var rowPantallascon= await getJsonAPI('pantallascon',id);
+    var rowOculta= await getJsonAPI('oculta',id);
+    var rowLed= await getJsonAPI('led',id);
+
+    colLed=[
+        {header: 'Fecha Actuacion', dataKey: 'fechaActuacion'},
+        {header: 'Tipo', dataKey: 'tipo'},
+        {header: 'Color', dataKey: 'color'},
+        {header: 'Grupo', dataKey: 'grupo'},
+        {header: 'Num. Serie', dataKey: 'idNumSerie'},
+        {header: 'Albaran', dataKey: 'albaran'},
+        {header: 'Observaciones', dataKey: 'observaciones'},
+    ]
+    col=[
+        {header: 'Fecha Actuacion', dataKey: 'fechaActuacion'},
+        {header: 'Tipo Actuación', dataKey: 'descripcion'},
+        {header: 'Observaciones', dataKey: 'observaciones'},
+        {header: 'Albaran', dataKey: 'albaran'},
+        {header: 'Num. Serie', dataKey: 'idNumSerie'},
+        {header: 'Precio', dataKey: 'precio'},
+    ]
+
+
+    var doc = new jsPDF();
+    let pageNumber = doc.getNumberOfPages();
+
+    doc.setFontSize(22);
+    doc.text("Elementos de un cruce",14,20);
+
+    doc.setFontSize(18);
+    doc.text("Tarjetas",14,30);
+
+    if (rowTarjetas!='No se han encontrado resultados') {
+
+        doc.autoTable({
+            columns:col,
+            body:rowTarjetas,
+            startY:32,
+            pageBreak: 'avoid',
+        });
+    }
+        
+
+    if (rowBusTren!='No se han encontrado resultados') {
+
+        doc.text("Bus/Tren",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowBusTren,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (row11_322!='No se han encontrado resultados') {
+
+        doc.text("11_322",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:row11_322,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (row12_300!='No se han encontrado resultados') {
+
+        doc.text("12_300",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:row12_300,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (row13_200!='No se han encontrado resultados') {
+
+        doc.text("13_200",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:row13_200,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (row12_200!='No se han encontrado resultados') {
+
+        doc.text("12_200",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:row12_200,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+
+    if (row12_pp!='No se han encontrado resultados') {
+
+        doc.text("11_2in",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:row11_2in,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (row12_pp!='No se han encontrado resultados') {
+
+        doc.text("12_pp",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:row12_pp,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (rowInvidentes!='No se han encontrado resultados') {
+
+        doc.text("Sonoros",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowInvidentes,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (rowDescontadores!='No se han encontrado resultados') {
+
+        doc.text("descontadores",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowDescontadores,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (rowColumnas!='No se han encontrado resultados') {
+        doc.text("columnas",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowColumnas,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (rowBaculos!='No se han encontrado resultados') {
+        doc.text("baculos",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowBaculos,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        }); 
+    }
+
+    if (rowPulsadores!='No se han encontrado resultados') {
+        doc.text("pulsadores",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowPulsadores,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (rowEspiras!='No se han encontrado resultados') {
+        doc.text("espiras",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowEspiras,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (rowPantallascon!='No se han encontrado resultados') {
+        doc.text("pantallascon",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowPantallascon,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (rowOculta!='No se han encontrado resultados') {
+        doc.text("oculta",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:col,
+            body:rowOculta,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+
+    if (rowLed!='No se han encontrado resultados') {
+        doc.text("Leds",14,doc.autoTable.previous.finalY + 10);
+        doc.autoTable({
+            columns:colLed,
+            body:rowLed,
+            startY: doc.autoTable.previous.finalY + 12,
+            pageBreak: 'avoid',
+        });
+    }
+    doc.setPage(pageNumber);
+
+
+        //abrir PDF en otra ventana nueva
+        var string=doc.output('datauristring');
+        var embed='<embed src="'+ string +'" type="application/pdf" width="100%" height="100%">'
+        var x=window.open();
+        x.document.open(); 
+        x.document.write(embed); 
+        x.document.close();
+    }
 

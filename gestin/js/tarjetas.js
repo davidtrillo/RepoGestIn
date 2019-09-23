@@ -3,9 +3,6 @@ $(function () {
 })
 
 
-
-
-
 function nuevaTarjeta() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value : "1";
@@ -385,8 +382,8 @@ function borrarTarjeta(param) {
             alert(response)
         })
     setTimeout(() => {
-        rellenarTodosTarjeta();
-    }, 1000);
+     rellenarTodosTarjeta();
+    }, 500);
 }
 
 function editarTarjeta(param) {
@@ -457,7 +454,7 @@ function editarTarjeta(param) {
 
     setTimeout(() => {
         rellenarTodosTarjeta();
-    }, 1000);
+    }, 500);
 }
 
 
@@ -523,8 +520,7 @@ function comprobarNumSerieTarjeta2() {
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
                                 comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
-                              
-                                clase.classList.add("bg-danger");
+                               clase.classList.add("bg-danger");
 
                             }
                         } else {
@@ -546,7 +542,7 @@ function comprobarNumSerieTarjeta2() {
 }
 
 
-function comprobarNumSerieTarjeta3(id,idNumSerie) {
+ function comprobarNumSerieTarjeta3(id,idNumSerie) {
     
     if (idNumSerie) {
 
