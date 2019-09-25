@@ -20,7 +20,7 @@ include './login/session.php';
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <style>
-      #dropInstalacionPintura {
+      #dropInstalacionPintura{
          height: 500px;
          overflow-y: auto;
       }
@@ -29,7 +29,7 @@ include './login/session.php';
          width: 90px;
       }
    </style>
-   <title>Pintura</title>
+   <title>MFO Acires</title>
 </head>
 
 <body>
@@ -43,9 +43,10 @@ include './login/session.php';
    </button>
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
+
          <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
-                  <li class="nav-item dropdown ">
-               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+         <li class="nav-item dropdown ">
+               <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                MFO
                </a>
@@ -57,7 +58,9 @@ include './login/session.php';
                   <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
                </div>
          </li>
-         <a class="nav-item nav-link active" href="./pintura.php">Pintura</a>
+
+         <!-- <a class="nav-item nav-link active" href="./mfo.php">MFO</a> -->
+         <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
          <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
@@ -89,12 +92,10 @@ include './login/session.php';
       <input type="hidden" id="inputIdUsuario" value="<?php echo $id_session; ?>">
    </div>
 
-   <!-- Dropdowns Menus -->
-
-   <div class="container-fluid mt-0 p-1" style="background-color:LightSkyBlue;">
-      <h3><b>Pintura</b></h3>
+   <div class="container-fluid mt-0 p-1" style="background-color:Turquoise;">
+      <h3><b>MFO Acires</b></h3>
    </div>
-
+   <!-- Dropdowns Menus -->
    <hr class="mt-0 mb-0">
    <!-- Container de cabecera -->
    <div class="container-fluid mt-1 ml-1">
@@ -109,7 +110,7 @@ include './login/session.php';
                <div class="input-group mt-2">
                   <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                     onclick="rellenarCrucePintura()">
+                     onclick="rellenarCruceMFO()">
                      Inst
                   </button>
                   <div class="dropdown-menu" id="dropInstalacionPintura">
@@ -120,7 +121,7 @@ include './login/session.php';
                </div>
             </div>
 
-            <div class="col-3 p-1">
+            <div class="col-2 p-1">
                <span><b>Ubicación</b></span>
                <input type="text" class="form-control mt-2" name="" id="inputUbicacion" placeholder="Ubicación" value="" disabled>
             </div>
@@ -136,14 +137,17 @@ include './login/session.php';
                <span><b>Observaciones</b></span>
                <input type="text" class="form-control mt-2" name="" id="inputObservaciones" value="">
             </div>
-
+            <div class="col-1 p-1">
+               <span><b>Precio</b></span>
+               <input type="text" class="form-control mt-2" name="" id="inputPrecio" value="">
+            </div>
             <div class="col-1 p-1">
                <span><b>Resolución Ok</b></span>
                <br class="mt-3">
                <input type="checkbox" class="mt-3 ml-5" name="" id="inputOk" checked>
             </div>
             <div class="col-1 p-1 mt-4">
-               <div class="btn btn-primary" onclick="nuevaPintura()">Guardar</div>
+               <div class="btn btn-primary" onclick="nuevoMFO()">Guardar</div>
             </div>
          </div>
       </div>
@@ -168,7 +172,7 @@ include './login/session.php';
 
    <!-- Formulario Modal -->
 
-   <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <!-- <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -225,7 +229,7 @@ include './login/session.php';
       </div>
     </div>
   </div>
-</div>
+</div> -->
    <!-- fin Formulario Modal -->
 
 
@@ -242,7 +246,7 @@ include './login/session.php';
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
    </script>
    <script src="../js/funciones.js"></script>
-   <script src="../js/pintura.js"></script>
+   <script src="../js/mfoAcires.js"></script>
 
 
 </body>

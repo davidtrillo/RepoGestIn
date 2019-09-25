@@ -42,6 +42,10 @@ include_once '../src/rutas/led.php';
 
 include_once '../src/rutas/APIpintura.php';
 include_once '../src/rutas/APIMFO.php';
+include_once '../src/rutas/APIMFOPP.php';
+include_once '../src/rutas/APIMFOEspiras.php';
+include_once '../src/rutas/APIMFOCargadores.php';
+include_once '../src/rutas/APIMFOAcires.php';
 include_once '../src/rutas/APIPreventivo.php';
 include_once '../src/rutas/APINumSerie.php';
 include_once '../src/rutas/APIConsultaTipo.php';

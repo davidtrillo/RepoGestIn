@@ -3,9 +3,14 @@
  use Psr\Http\Message\ResponseInterface as Response;
 
 
+
+
+
+
 //$app = new \Slim\App;
 
 //GET Todas las instalaciones SELECT
+
 
 $app->get('/api/tipoinstalacion',function(Request $request, Response $response){
     // echo "todas las instalaciones";
@@ -59,6 +64,64 @@ $app->get('/api/cruces',function(Request $request, Response $response){
 
     
 });
+
+
+
+
+$app->get('/api/pp',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $sql='SELECT id, ubicacion FROM instalaciones where tipoInstalacion LIKE "SEÑALES%" ORDER BY 1';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $cruces= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($cruces,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+
+//GET saber que tipo de regulador es
+
+$app->get('/api/regulador/{id}',function(Request $request, Response $response){
+    $tipoInstalacion= $request->getAttribute('id');
+    // echo "todas las instalaciones";
+    $sql='SELECT r.nombre FROM gestin.inventario AS i INNER JOIN regulador AS r ON r.id=i.idRegulador WHERE i.idInstalacion="'.$tipoInstalacion.'" AND r.nombre LIKE "%CITY%";';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+           // $instalaciones= $resultado->fetchAll(PDO::FETCH_OBJ);
+           // echo json_encode($instalaciones,JSON_UNESCAPED_UNICODE);
+            echo ("true");
+        }else{
+            echo ("false");
+            // echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
 //GET Todas las instalaciones SEGUN tipo de instalación SELECT BY ID
 
 $app->get('/api/instalaciones/{tipoInstalacion}',function(Request $request, Response $response){

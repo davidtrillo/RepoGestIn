@@ -20,8 +20,8 @@ include './login/session.php';
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <style>
-      .dropdown-menu {
-         height: 400px;
+      #dropInstalacionPintura {
+         height: 500px;
          overflow-y: auto;
       }
 
@@ -42,11 +42,11 @@ include './login/session.php';
       <div class="navbar-nav ml-auto">
          <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
                   <li class="nav-item dropdown ">
-               <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                MFO
                </a>
-               <div class="dropdown-menu bg-info navbar-dark" aria-labelledby="navbarDropdownMenuLink">
+               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
                   <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
                   <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>

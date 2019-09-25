@@ -20,7 +20,7 @@ include './login/session.php';
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <style>
-      .dropdown-menu {
+      #dropInstalacionPintura{
          height: 500px;
          overflow-y: auto;
       }
@@ -29,7 +29,7 @@ include './login/session.php';
          width: 90px;
       }
    </style>
-   <title>MFO</title>
+   <title>MFO Pasos Peatones</title>
 </head>
 
 <body>
@@ -45,19 +45,20 @@ include './login/session.php';
       <div class="navbar-nav ml-auto">
 
          <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
-
-            <li class="nav-item dropdown">
+         <li class="nav-item dropdown ">
                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                MFO
                </a>
                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-               <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
-               <a class="dropdown-item" href="#"></a>
-               <a class="dropdown-item" href="#"></a>
+                  <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
+                  <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
+                  <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>
+                  <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
+                  <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
                </div>
-            </li>
-            
+         </li>
+
          <!-- <a class="nav-item nav-link active" href="./mfo.php">MFO</a> -->
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
@@ -90,8 +91,9 @@ include './login/session.php';
       <input type="hidden" id="inputUsuario" value="<?php echo $login_session; ?>">
       <input type="hidden" id="inputIdUsuario" value="<?php echo $id_session; ?>">
    </div>
+
    <div class="container-fluid mt-0 p-1" style="background-color:Turquoise;">
-      <h3><b>MFO</b></h3>
+      <h3><b>MFO Pasos de Peatones</b></h3>
    </div>
    <!-- Dropdowns Menus -->
    <hr class="mt-0 mb-0">
@@ -244,7 +246,7 @@ include './login/session.php';
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
    </script>
    <script src="../js/funciones.js"></script>
-   <script src="../js/mfo.js"></script>
+   <script src="../js/mfoPP.js"></script>
 
 
 </body>

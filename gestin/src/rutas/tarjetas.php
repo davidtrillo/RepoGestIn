@@ -78,7 +78,7 @@ $app->get('/api/tarjetas', function (Request $request, Response $response) {
 
 });
 
-//GET Tarjetas activas COUNT
+//GET Tarjetas instaladas COUNT
 $app->get('/api/tarjetas/instaladas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
@@ -104,6 +104,33 @@ $app->get('/api/tarjetas/instaladas/{instalacion}', function (Request $request, 
 
 });
 
+
+
+//GET Tarjetas activas COUNT
+$app->get('/api/tarjetas/activas/{instalacion}', function (Request $request, Response $response) {
+
+    $instalacion = $request->getAttribute('instalacion');
+    $sql = 'SELECT count(id) AS c FROM tarjetas WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});
 
 $app->get('/api/tarjetas/{instalacion}', function (Request $request, Response $response) {
 

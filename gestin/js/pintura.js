@@ -134,6 +134,15 @@ function rellenarPintura() {
                     } else {
                         var activo = "";
                     }
+                    var fechaActuacion= response[i]['fechaActuacion'] ;
+                    if (fechaActuacion==null){
+                        fechaActuacion="";
+                    }
+
+                    var fechaInspeccion= response[i]['fechaInspeccion'] ;
+                    if (fechaInspeccion==null){
+                        fechaInspeccion="";
+                    }
 
                     p.innerHTML += `
                     <div class="container-fluid mt-1 ml-1 ">
@@ -157,10 +166,10 @@ function rellenarPintura() {
                              disabled>
                        </div>
                        <div class="col-xd-1 p-1">
-                          <input type="date" class="form-control mt-2" name="" id="inputFechaActuacion2${response[i]['id']}" value="${response[i]['fechaActuacion']}">
+                          <input type="date" class="form-control mt-2" name="" id="inputFechaActuacion2${response[i]['id']}" value="${fechaActuacion}">
                        </div>
                        <div class="col-xd-1 p-1">
-                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccion2${response[i]['id']}" value="${response[i]['fechaInspeccion']}">
+                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccion2${response[i]['id']}" value="${fechaInspeccion}">
                        </div>
                        <div class="col-3 p-1">
                           <input type="text" class="form-control mt-2" name="" id="observaciones2${response[i]['id']}" value="${response[i]['observaciones']}">

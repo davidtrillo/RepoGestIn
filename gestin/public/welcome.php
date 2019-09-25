@@ -46,11 +46,11 @@ include './login/session.php';
          <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
          
          <li class="nav-item dropdown ">
-               <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                MFO
                </a>
-               <div class="dropdown-menu bg-info navbar-dark" aria-labelledby="navbarDropdownMenuLink">
+               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
                   <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
                   <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>

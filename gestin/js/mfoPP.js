@@ -1,7 +1,7 @@
 document.onload = rellenarMFO();
 
 function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+    var url = 'http://172.27.120.111/gestin/public/api/pp'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -24,7 +24,7 @@ function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del pri
 
 
 function rellenarCruceMFO2(param) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+    var url = 'http://172.27.120.111/gestin/public/api/pp'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -81,9 +81,9 @@ async function nuevoMFO() {
         console.log(precio);
 
 
-        var url = 'http://172.27.120.111/gestin/public/api/mfo/nueva';
+        var url = 'http://172.27.120.111/gestin/public/api/mfopp/nueva';
 
-     await fetch(url, {
+        await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -112,7 +112,7 @@ async function nuevoMFO() {
 
 function rellenarMFO() {
 
-    var url = 'http://172.27.120.111/gestin/public/api/mfo'
+    var url = 'http://172.27.120.111/gestin/public/api/mfopp'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -209,7 +209,7 @@ function rellenarMFO() {
 
 function borrarMFO(id) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/mfo/borrar/'+id;
+        var url = 'http://172.27.120.111/gestin/public/api/mfopp/borrar/'+id;
         fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -251,7 +251,7 @@ function editarMFO(param) {
      console.log(idUsuario);
      console.log(precio);
 
-    var url = 'http://172.27.120.111/gestin/public/api/mfo/modificar/' + param;
+    var url = 'http://172.27.120.111/gestin/public/api/mfopp/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -279,55 +279,4 @@ function editarMFO(param) {
     setTimeout(() => {
         rellenarMFO(); //CAMBIO DE NOMENCLATURA
     }, 1000);
-}
-
-function mes() {
-    var p1=document.getElementById('inputMes').value;
-    console.log(p1);
-}
-
-async function calcularPrecio() {
-
-// cuantas tarjetas activas tiene el cruce
-    var idInstalacion=document.getElementById("inputIdCruce").value;
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/activas/' + idInstalacion
-    var count= await fetch(url, {
-                                    method: 'GET',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    }
-                                })
-                                .then(res => res.json())
-                                .catch(error => console.error('Error:', error))
-                                .then(response => {
-                                    if (response == "No se han encontrado resultados") {
-                                        alert(response);
-                                    } else {
-                                      return (response[0]['c']);
-                                    }
-                                })
-    console.log(count);
-
-//que tipo de regulador es ¿es city?
-var url = 'http://172.27.120.111/gestin/public/api/regulador/' + idInstalacion
-let response=  await fetch(url, {method: 'GET',
-                    headers: {'Content-Type': 'application/json' }
-                    })
-                    .then(res => res.json())
-                    .catch(error => console.error('Error:', error))
-                    .then(response => {return response});              
-console.log(response);
-
-
-
-// switch (count) {
-//     case value:
-        
-//         break;
-
-//     default:
-//         break;
-// }
-
-
 }
