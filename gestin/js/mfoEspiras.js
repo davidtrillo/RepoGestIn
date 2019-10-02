@@ -1,7 +1,7 @@
 document.onload = rellenarMFO();
 
 function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/espiras2'
+    var url = 'http://172.27.120.111/gestin/public/api/tespiras'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -24,7 +24,7 @@ function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del pri
 
 
 function rellenarCruceMFO2(param) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/espiras2'
+    var url = 'http://172.27.120.111/gestin/public/api/tespiras'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -52,11 +52,12 @@ function leerCruceMFO(id, ubicacion) {
     p2.value = ubicacion;
 }
 
-function leerCruceMFO2(param, id, ubicacion) {
+async function leerCruceMFO2(param, id, ubicacion) {
     var p1 = document.getElementById('inputIdCruce2'+param);
     p1.value = id;
     var p2 = document.getElementById('inputUbicacion2'+param);
     p2.value = ubicacion;
+   // await calcularPrecio2(param,id);
 }
 
 async function nuevoMFO() {
@@ -72,13 +73,6 @@ async function nuevoMFO() {
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : 0;
         resolucion = String(resolucion);
 
-        console.log(idInstalacion);
-        console.log(fechaActuacion);
-        console.log(fechaInspeccion);
-        console.log(observaciones);
-        console.log(resolucion);
-        console.log(idUsuario);
-        console.log(precio);
 
 
         var url = 'http://172.27.120.111/gestin/public/api/mfoespiras/nueva';
@@ -146,7 +140,6 @@ function rellenarMFO() {
                     if (fechaInspeccion==null){
                         fechaInspeccion="";
                     }
-
 
                     p.innerHTML += `
                     <div class="container-fluid mt-1 ml-1 ">
@@ -280,4 +273,243 @@ function editarMFO(param) {
     setTimeout(() => {
         rellenarMFO(); //CAMBIO DE NOMENCLATURA
     }, 1000);
+}
+
+async function imprimir() {
+    var p1=document.getElementById('inputMes').value;
+
+    var fecha=new Date(p1);
+    var mes=fecha.getMonth()+1;
+    var año=fecha.getFullYear();
+
+    var url = 'http://172.27.120.111/gestin/public/api/mfoespiras/imprimir/' + mes +'/'+año;
+    var listado= await fetch(url, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(res => res.json())
+                                .catch(error => console.error('Error:', error))
+                                .then(response => {
+                                    if (response == "No se han encontrado resultados") {
+                                        alert(response);
+                                    } else {
+                                    return (response);
+                                    }
+                                })
+    console.log(listado);
+
+    //calcular el precio total
+    var precioTotal=0;
+   
+    for (let index = 0; index < listado.length; index++) {
+         precioTotal =precioTotal + parseInt(listado[index]['precio']);
+       
+    }
+    
+
+
+    col=[
+        {header: 'Cruce', dataKey: 'idInstalacion'},
+        {header: 'Ubicación', dataKey: 'ubicacion'},
+        {header: 'F. Actuación', dataKey: 'fechaActuacion'},
+        {header: 'Observaciones', dataKey: 'observaciones'},
+        {header: 'Precio', dataKey: 'precio'},
+    ]
+
+    var doc = new jsPDF('landscape');
+    let pageNumber = doc.getNumberOfPages();
+
+    doc.setFontSize(22);
+    doc.text("MFO de Espiras",14,20);
+
+        doc.autoTable({
+            columns:col,
+            body:listado,
+            startY:32,
+            pageBreak: 'avoid',
+            theme : 'grid',
+            styles: {overflow: 'linebreak'},
+            cellWidth: 'wrap',
+            headStyles:{
+                0:{halign: 'right'}
+            },
+            columnStyles:{
+                0: {cellWidth:15,halign: 'right'},
+                1: {cellWidth: 70}, 
+                2: {cellWidth: 15},
+                3: {cellWidth: 70},
+                4: {cellWidth: 1,halign: 'right'},             
+            },
+
+            
+
+        });
+    
+    doc.setPage(pageNumber);
+
+    doc.setFontSize(10);
+    doc.text("Precio Total: "+ precioTotal + "€",14,doc.autoTable.previous.finalY+10);
+
+    //abrir PDF en otra ventana nueva
+    var string=doc.output('datauristring');
+    var embed='<embed src="'+ string +'" type="application/pdf" width="100%" height="100%">'
+    var x=window.open();
+    x.document.open(); 
+    x.document.write(embed); 
+    x.document.close();
+
+
+}
+
+async function calcularPrecio() {
+
+                    // cuantas tarjetas activas tiene el cruce
+                        var idInstalacion=document.getElementById("inputIdCruce").value;
+                        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/activas/' + idInstalacion
+                        var count= await fetch(url, {
+                                                        method: 'GET',
+                                                        headers: {
+                                                            'Content-Type': 'application/json'
+                                                        }
+                                                    })
+                                                    .then(res => res.json())
+                                                    .catch(error => console.error('Error:', error))
+                                                    .then(response => {
+                                                        if (response == "No se han encontrado resultados") {
+                                                            alert(response);
+                                                        } else {
+                                                        return (response[0]['c']);
+                                                        }
+                                                    })
+                    
+
+                    //que tipo de regulador es ¿es city?
+                    var url = 'http://172.27.120.111/gestin/public/api/regulador/' + idInstalacion
+                    var city=  await fetch(url, {method: 'GET',
+                                        headers: {'Content-Type': 'application/json' }
+                                        })
+                                        .then(res => res.json())
+                                        .catch(error => console.error('Error:', error))
+                                        .then(response => {return response});                           
+
+                    var url = 'http://172.27.120.111/gestin/public/api/preciosmfo'
+                    var precios=  await fetch(url, {method: 'GET',
+                                        headers: {'Content-Type': 'application/json' }
+                                        })
+                                        .then(res => res.json())
+                                        .catch(error => console.error('Error:', error))
+                                        .then(response => {return response});    
+                    
+                     // console.log('Num Grupo 4 1: '+precios[0]['numerogrupo41']);
+                      if (city==true) {
+                            var x=count*4;
+  
+                        }else{
+                            var x=count*2;
+                           
+                        }
+                        
+                        console.log('Es city?: '+ city);
+                        console.log('Num Grupos del cruce: '+ x);
+
+                            switch (true) {
+                                case (x>precios[0]['numerogrupo11'] && x<precios[0]['numerogrupo12']):                                      
+                                    document.getElementById("inputPrecio").value=precios[0]['preciogrupo1'];
+                                    console.log('Precio 1: '+precios[0]['preciogrupo1']);
+                                    break;
+                                case (x>precios[0]['numerogrupo21'] && x<precios[0]['numerogrupo22']):                                       
+                                    document.getElementById("inputPrecio").value=precios[0]['preciogrupo2'];
+                                    console.log('Precio 2: '+precios[0]['preciogrupo2']);
+                                    break;
+                                case (x>precios[0]['numerogrupo31'] && x<precios[0]['numerogrupo32']):                                       
+                                    document.getElementById("inputPrecio").value=precios[0]['preciogrupo3'];
+                                    console.log('Precio 3: '+precios[0]['preciogrupo3']);
+                                break;
+                                case (x>precios[0]['numerogrupo41']):                                       
+                                    document.getElementById("inputPrecio").value=precios[0]['preciogrupo4'];
+                                    console.log('Precio 4: '+precios[0]['preciogrupo4']);
+                                break;
+
+                                default:
+                                    break;
+                            }
+
+       
+}
+
+
+async function calcularPrecio2(param,id) {
+
+    // cuantas tarjetas activas tiene el cruce
+       // var idInstalacion=document.getElementById("inputIdCruce2"+ param).value;
+        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/activas/' + id
+        var count= await fetch(url, {
+                                        method: 'GET',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    })
+                                    .then(res => res.json())
+                                    .catch(error => console.error('Error:', error))
+                                    .then(response => {
+                                        if (response == "No se han encontrado resultados") {
+                                            alert(response);
+                                        } else {
+                                        return (response[0]['c']);
+                                        }
+                                    })
+    
+
+    //que tipo de regulador es ¿es city?
+    var url = 'http://172.27.120.111/gestin/public/api/regulador/' + id
+    var city=  await fetch(url, {method: 'GET',
+                        headers: {'Content-Type': 'application/json' }
+                        })
+                        .then(res => res.json())
+                        .catch(error => console.error('Error:', error))
+                        .then(response => {return response});                           
+
+    var url = 'http://172.27.120.111/gestin/public/api/preciosmfo'
+    var precios=  await fetch(url, {method: 'GET',
+                        headers: {'Content-Type': 'application/json' }
+                        })
+                        .then(res => res.json())
+                        .catch(error => console.error('Error:', error))
+                        .then(response => {return response});    
+    
+     // console.log('Num Grupo 4 1: '+precios[0]['numerogrupo41']);
+    if (city==true) {
+        var x=count*4;
+
+    }else{
+        var x=count*2;
+        
+    }
+    console.log('Num Grupos del cruce: '+ x);
+
+        switch (true) {
+            case (x>precios[0]['numerogrupo11'] && x<precios[0]['numerogrupo12']):                                      
+                document.getElementById("precio2"+param).value=precios[0]['preciogrupo1'];
+                console.log('Precio 1: '+precios[0]['preciogrupo1']);
+                break;
+            case (x>precios[0]['numerogrupo21'] && x<precios[0]['numerogrupo22']):                                       
+                document.getElementById("precio2"+param).value=precios[0]['preciogrupo2'];
+                console.log('Precio 2: '+precios[0]['preciogrupo2']);
+                break;
+            case (x>precios[0]['numerogrupo31'] && x<precios[0]['numerogrupo32']):                                       
+                document.getElementById("precio2"+param).value=precios[0]['preciogrupo3'];
+                console.log('Precio 3: '+precios[0]['preciogrupo3']);
+            break;
+            case (x>precios[0]['numerogrupo41']):                                       
+                document.getElementById("precio2"+param).value=precios[0]['preciogrupo4'];
+                console.log('Precio 4: '+precios[0]['preciogrupo4']);
+            break;
+
+            default:
+                break;
+        }
+
+
 }

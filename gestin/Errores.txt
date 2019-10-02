@@ -1,0 +1,2 @@
+02/10/2019	En los formularios MFO el input date=month de imprimir no funcionan en Firefox69.0.1 
+02/10/2019	No se pueden bajar los PDFs creados en una página nueva de MFOs

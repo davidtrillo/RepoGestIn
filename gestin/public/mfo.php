@@ -72,7 +72,7 @@ include './login/session.php';
               <a class="dropdown-item" href="#"></a>
             </div>
           </li>
-
+          <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1" aria-disabled="true">Configuración</a>
          <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
       </div>
 
@@ -94,7 +94,7 @@ include './login/session.php';
              <h3><b>MFO Cruces</b></h3>
          </div>
          <div class="col-3">
-            <input type="month" class="form-control" id="inputMes" onfocusout="mes()">
+            <input type="month" class="form-control" id="inputMes" onfocusout="">
          </div>
          <div class="col-3">
             <button class="btn btn-primary" onclick="imprimir()">Imprimir</button>
@@ -188,6 +188,10 @@ include './login/session.php';
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
    </script>
+
+<script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
+  <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
+
    <script src="../js/funciones.js"></script>
    <script src="../js/mfo.js"></script>
 

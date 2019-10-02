@@ -33,7 +33,7 @@ $app->get('/api/acires',function(Request $request, Response $response){
 
 
 
- $app->get('/api/mfoacires/acires',function(Request $request, Response $response){
+ $app->get('/api/mfoacires',function(Request $request, Response $response){
 
      $sql='SELECT p.*,i.ubicacion FROM mfoacires p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.fechaActuacion desc';
     
@@ -169,3 +169,33 @@ $app->post('/api/mfoacires/nueva',function(Request $request, Response $response)
          echo '{"error":{"text":'.$e->getMessage().'}';
      }
  });
+
+ 
+ $app->get('/api/mfoacires/imprimir/{a}/{b}',function(Request $request, Response $response){
+    $mes= $request->getAttribute('a');
+    $año= $request->getAttribute('b');
+
+    $sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfoacires m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="'.$mes.'" AND year(m.fechaactuacion)="'.$año.'"';
+    //$sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="9" AND year(m.fechaactuacion)="2019"';
+   
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+        if($resultado->rowCount()>0){
+            $inventario= $resultado->fetchAll();
+           //// echo json_encode($inventario);
+           $ret= json_encode($inventario);
+        
+           return $ret ;
+           // echo json_encode("No se han encontrado resultados");
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});

@@ -75,7 +75,7 @@ include './login/session.php';
               <a class="dropdown-item" href="#"></a>
             </div>
           </li>
-
+          <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1" aria-disabled="true">Configuración</a>
          <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
       </div>
 
@@ -93,8 +93,19 @@ include './login/session.php';
    </div>
 
    <div class="container-fluid mt-0 p-1" style="background-color:Turquoise;">
-      <h3><b>MFO Espiras</b></h3>
+      <div class="row"> 
+         <div class="col-2">
+             <h3><b>MFO Espiras</b></h3>
+         </div>
+         <div class="col-3">
+            <input type="month" class="form-control" id="inputMes" onfocusout="">
+         </div>
+         <div class="col-3">
+            <button class="btn btn-primary" onclick="imprimir()">Imprimir</button>
+         </div>        
+      </div>
    </div>
+
    <!-- Dropdowns Menus -->
    <hr class="mt-0 mb-0">
    <!-- Container de cabecera -->
@@ -245,6 +256,10 @@ include './login/session.php';
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
    </script>
+
+   <script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
+   <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
+   
    <script src="../js/funciones.js"></script>
    <script src="../js/mfoEspiras.js"></script>
 

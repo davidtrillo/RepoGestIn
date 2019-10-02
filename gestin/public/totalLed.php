@@ -74,6 +74,8 @@ include './login/session.php';
                         </div>
                     </li>
 
+                    <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"
+                        aria-disabled="true">Configuración</a>
                     <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
                         Sesión</a>
                 </div>

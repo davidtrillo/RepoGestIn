@@ -75,7 +75,7 @@ include './login/session.php';
               <a class="dropdown-item" href="#"></a>
             </div>
           </li>
-
+          <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1" aria-disabled="true">Configuración</a>
          <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
       </div>
 
@@ -92,8 +92,19 @@ include './login/session.php';
       <input type="hidden" id="inputIdUsuario" value="<?php echo $id_session; ?>">
    </div>
 
+
    <div class="container-fluid mt-0 p-1" style="background-color:Turquoise;">
-      <h3><b>MFO Acires</b></h3>
+      <div class="row"> 
+         <div class="col-2">
+             <h3><b>MFO Acires</b></h3>
+         </div>
+         <div class="col-3">
+            <input type="month" class="form-control" id="inputMes" onfocusout="">
+         </div>
+         <div class="col-3">
+            <button class="btn btn-primary" onclick="imprimir()">Imprimir</button>
+         </div>        
+      </div>
    </div>
    <!-- Dropdowns Menus -->
    <hr class="mt-0 mb-0">
@@ -144,7 +155,7 @@ include './login/session.php';
             <div class="col-1 p-1">
                <span><b>Resolución Ok</b></span>
                <br class="mt-3">
-               <input type="checkbox" class="mt-3 ml-5" name="" id="inputOk" checked>
+               <input type="checkbox" class="mt-3 ml-5" name="" id="inputOk"  onclick="">
             </div>
             <div class="col-1 p-1 mt-4">
                <div class="btn btn-primary" onclick="nuevoMFO()">Guardar</div>
@@ -172,66 +183,7 @@ include './login/session.php';
 
    <!-- Formulario Modal -->
 
-   <!-- <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Sin Datos</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="container-fluid">
-               
-               <table class="table table-bordered">
-                   <thead>
-                   <tr>
-                       <table class="table table-bordered text-center">
-                       <thead>
-                           <tr>
-                           <th scope="col">REG.</th>
-                           <th scope="col">DET.</th>
-                           <th scope="col">CTV</th>
-                           <th scope="col">CEN.</th>
-                           <th scope="col">0,8M.</th>
-                           <th scope="col">2,4M.</th>
-                           <th scope="col">4M.</th>
-                           <th scope="col">BAC.</th>
-                           <th scope="col">SIM.</th>
-                           <th scope="col">DOB.</th>
-                           <th scope="col">BAJ.</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-                           <tr>        
-                           <td id="idReg">Sin Datos</td>
-                           <td id="idDet">Sin Datos</td>
-                           <td id="idCTV">Sin Datos</td>
-                           <td id="idCen">Sin Datos</td>
-                           <td id="id08m">Sin Datos</td>
-                           <td id="id24m">Sin Datos</td>
-                           <td id="id4m">Sin Datos</td>
-                           <td id="idBac">Sin Datos</td>
-                           <td id="idSim">Sin Datos</td>
-                           <td id="idDob">Sin Datos</td>
-                           <td id="idBaj">Sin Datos</td>
-                           </tr>
-                       </tbody>
-                       </table>
-                   </tr>
-                   </thead>
-               </table>
-               <p id="observaciones">Observaciones</p>
-               </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-   <!-- fin Formulario Modal -->
-
+ 
 
    <!-- Optional JavaScript -->
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -245,6 +197,10 @@ include './login/session.php';
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
    </script>
+
+   <script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
+   <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
+
    <script src="../js/funciones.js"></script>
    <script src="../js/mfoAcires.js"></script>
 
