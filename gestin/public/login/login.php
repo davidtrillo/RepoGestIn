@@ -1,37 +1,40 @@
 <?php
 
-   //include("../../src/config/db.php"); //Configuration BD File Conection 
+
    session_start(); //Session Started for Login  
    
-   $error='';
-   define('DB_SERVER', 'localhost');
-   define('DB_USERNAME', 'root');
-   define('DB_PASSWORD', '');
-   define('DB_DATABASE', 'gestin');
-   $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+    $error='';
+    $ldap_user='';
+    $ldap_password='';
+  
+    if(($_SERVER["REQUEST_METHOD"] == "POST") && ($_POST["username"])&& ($_POST["password"])) {
+        
+        $host = "172.27.120.108";
+        $hostIMI = "172.29.7.72";
+        $port = "389";
 
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form 
-      $myusername = mysqli_real_escape_string($db,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
-      
-      //SQL Sentence
-      $sql = "SELECT id FROM usuarios WHERE nombre = '$myusername' and contrasena = '$mypassword'";
-      $result = mysqli_query($db,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
-      if($count == 1) {
-        // session_register("myusername");
-         $_SESSION['login_user'] = $myusername;
-         header("Location: ../welcome.php");
-        }else {
-            //$error = "Nombre o Contraseña Incorrecta";
-            $error = "Nombre o Contraseña Incorrecta ";
-      }
-   }
+        $ldap_con = ldap_connect("ldap://{$host}:{$port}") or die("No se pudo conectar al servidor LDAP.");
+        ldap_set_option($ldap_con,LDAP_OPT_PROTOCOL_VERSION,3);
+        //var_dump($ldap_con); //Comprobación de estado de conexión OK #2
+         $ldap_dn="OU=Usuaris Mobilitat,DC=mobilitat,DC=local";
+         $ldap_dnIMI="OU=Entorn Municipal,DC=ajtpmi,DC=local";
+
+        // $ldap_user="dtrillo";
+        // $ldap_password="Mobilitat01";
+
+        $ldap_user=$_POST["username"];
+        $ldap_password=$_POST["password"];
+
+        //if (@ldap_bind($ldap_con, $ldap_user."@ajtpmi.local", $ldap_password)){ 
+      if (@ldap_bind($ldap_con, $ldap_user."@mobilitat.local", $ldap_password)){
+          //echo "dentro";
+          $_SESSION['login_user'] = $ldap_user;
+          header("Location: ../welcome.php");
+       }else{
+          $error = "Nombre o Contraseña Incorrecta ";
+       }
+
+    }
 ?>
 
 <!doctype html>
@@ -60,7 +63,7 @@
           </div>
       
           <!-- Login Form -->
-          <form action="" method="POST">
+          <form action="login.php" method="POST">
             <input type="text" id="login" class="fadeIn second" name="username" placeholder="usuario">
             <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
             <br>
@@ -70,9 +73,9 @@
           <?php if($error){echo $error;}  ?>
 
           <!-- Remind Passowrd -->
-          <div id="formFooter">
+          <!-- <div id="formFooter">
             <a class="underlineHover" href="agregar_usuario.php">Agregar Usuario</a>
-          </div> 
+          </div>  -->
       
         </div>
       </div>

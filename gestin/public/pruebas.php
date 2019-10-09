@@ -1,3 +1,7 @@
+
+
+
+
 <!doctype html>
 <html lang="en">
 
@@ -44,47 +48,6 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 
-  <script src="pruebas.js"></script>
-  <script src="../js/columnas.js"></script>
-  <script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
-  <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
-
-  <script>
-
-
-
-
-    function imprimir() {
-      var doc = new jsPDF();
-
-      doc.setFontSize(22);
-      doc.text("Multiple tables", 14, 20);
-
-  
-col=[
-        {header: 'id', dataKey: 'id'},
-        {header: 'idTipoActuacion', dataKey: 'idTipoActuacion'},
-        {header: 'descripcion', dataKey: 'descripcion'},
-        {header: 'idNumSerie', dataKey: 'idNumSerie'},
-        {header: 'observaciones', dataKey: 'observaciones'},
-        {header: 'fechaActuacion', dataKey: 'fechaActuacion'},
-        {header: 'activo', dataKey: 'activo'},
-        {header: 'instalada', dataKey: 'instalada'},
-    ]
-row=[{"id":"17","idTipoActuacion":"4","descripcion":"MFO","idNumSerie":"3334","albaran":"34","observaciones":"asdfsdf","fechaActuacion":"2019-09-13","precio":"0","activo":"true","instalada":"true"},{"id":"18","idTipoActuacion":"1","descripcion":"Correctivo","idNumSerie":"44","albaran":"1","observaciones":"sdf","fechaActuacion":"2019-09-13","precio":"0","activo":"true","instalada":"true"},{"id":"16","idTipoActuacion":"1","descripcion":"Correctivo","idNumSerie":"44","albaran":"66","observaciones":"ihihigijjlol","fechaActuacion":"2019-09-12","precio":"0","activo":"true","instalada":"true"},{"id":"1","idTipoActuacion":"3","descripcion":"Preventivo","idNumSerie":"1","albaran":"11","observaciones":"asdfd","fechaActuacion":"2019-08-29","precio":"0","activo":"false","instalada":"true"}]
-
-
-      doc.autoTable(col,row,{startY:30});
-
-      //abrir PDF en otra ventana nueva
-      var string=doc.output('datauristring');
-      var embed='<embed src="'+ string +'" type="application/pdf" width="100%" height="100%">'
-      var x=window.open();
-        x.document.open(); 
-        x.document.write(embed); 
-        x.document.close();
-    }
-  </script>
 
 </body>
 

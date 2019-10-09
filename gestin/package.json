@@ -1,0 +1,19 @@
+{
+  "name": "gestin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.2.4",
+    "ldapjs": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/ldapjs": "0.0.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

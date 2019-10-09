@@ -164,7 +164,7 @@ function leerTipoActuacion2Tarjeta(descripcionTipoActuacion, idTipoActuacion, id
     p2.value = descripcionTipoActuacion;
 }
 
-function formTarjetas() {
+async function formTarjetas() {
     var instalacion = document.getElementById("inputInstalacion");
 
     if (instalacion.value != "") {
@@ -237,16 +237,16 @@ function formTarjetas() {
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionTarjeta();
+       await rellenarTipoActuacionTarjeta();
 
         // rellenar todos los registros 
-        rellenarTodosTarjeta();
+        await rellenarTodosTarjeta();
     }
 }
 
 
 
-function rellenarTodosTarjeta() { //Llamada a la API 
+async function rellenarTodosTarjeta() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var url = 'http://172.27.120.111/gestin/public/api/tarjetas/' + idInstalacion
     fetch(url, {
@@ -327,9 +327,8 @@ function rellenarTodosTarjeta() { //Llamada a la API
             }
         })
 
-    rellenarFooterTarjeta();
-
-    comprobarNumSerieTarjeta2();
+   await rellenarFooterTarjeta();
+   await comprobarNumSerieTarjeta2();
 
 
 }
@@ -495,13 +494,13 @@ function comprobarNumSerieTarjeta() {
 
 
 
-function comprobarNumSerieTarjeta2() {
+ function comprobarNumSerieTarjeta2() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
   
     if (idInstalacion) {
 
         var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas';
-        fetch(url, {
+     fetch(url, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -519,7 +518,43 @@ function comprobarNumSerieTarjeta2() {
                         if (response[i]['idInstalacion'] == idInstalacion) {
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
-                                comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                var id=response[i]['id'];
+                                var idNumSerie=response[i]['idNumSerie'];
+                                // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                if (idNumSerie) {
+
+                                    // var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/' + idNumSerie;
+                                     var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
+                                     fetch(url, {
+                                             method: 'GET',
+                                             headers: {
+                                                 'Content-Type': 'application/json'
+                                             }
+                                         })
+                                         .then(res => res.json())
+                                         .catch(error => console.error('Error:', error))
+                                         .then(response => {
+                             
+                                             if ((response.length > 0)) {
+                             
+                                                 var res = "Número de Serie repetido en: ";
+                                                 var clase = document.getElementById('inputNumSerieTar' + id);
+                             
+                                                 for (i in response) {
+                                                     res += "\n Cruce: " + response[i]['idInstalacion'];
+                                                 }
+                                               
+                                                 clase.setAttribute("data-toggle", "tooltip");
+                                                 clase.setAttribute("data-placement", "top");
+                                                 clase.setAttribute("title", "Repetido en cruce " + res);
+                                                 
+                                             }
+                             
+                                         })
+                                 }
+
+
+
                                clase.classList.add("bg-danger");
 
                             }

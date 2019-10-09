@@ -82,8 +82,8 @@ include '../../public/login/session.php';
 
     <div class="container-fluid mt-0 p-0">
         <!-- <h4>Bienvenido <?php echo ucwords($login_session); ?></h4> -->
-        <input type="hidden" id="inputUsuario" value="<?php echo $login_session; ?>">
-        <input type="hidden" id="inputIdUsuario" value="<?php echo $id_session; ?>">
+        <input type="hidden" id="inputIdUsuario" value="<?php echo $login_session; ?>">
+      
     </div>
 
     <!-- Dropdowns Menus -->

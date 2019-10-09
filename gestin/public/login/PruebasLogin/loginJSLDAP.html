@@ -1,0 +1,26 @@
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<title>LDAP login</title>
+<script src="serverLDAP.js"></script>
+
+</head>
+
+<body>
+
+<div>
+<center>
+<form method="POST" id="form">
+<table>
+<tr><td>Usuario:</td><td><input id="user" type="text"></td></tr>
+<tr><td>Contraseña:</td><td><input id="pass" type="password" onkeydown="if (event.keyCode == 13) auth()"></td></tr>
+</table>
+<br />
+<input type="button" name="login" value="Login" onclick="auth()">
+</center>
+</form>
+</div>
+
+</body>
