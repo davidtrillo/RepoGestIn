@@ -23,14 +23,11 @@ function nuevaCamTV() { //CAMBIO DE NOMENCLATURA
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value :"0";
         var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
+        var almacen = document.getElementById('inputAlmacen').checked; // mirar si guarda uno o guarda true
         
 activo = String(activo);
-console.log(idTipoActuacion);
-console.log(idNumSerie);
-console.log(albaran);
-console.log(observaciones);
-console.log(precio);
-console.log(activo);
+almacen = String(almacen);
+
 
 
 
@@ -53,7 +50,8 @@ console.log(activo);
                     fechaActuacion: fechaActuacion,
                     idUsuario: idUsuario,
                     precio: precio,
-                    activo: activo
+                    activo: activo,
+                    almacen: almacen
                 })
             })
             .then(res => res.json())
@@ -163,6 +161,10 @@ function leerTipoActuacion2CamTV(descripcionTipoActuacion, idTipoActuacion, idAc
 function formCamTV() { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
+    desactivarBotones();
+    var ac=document.getElementById("btnCCTV");
+    ac.classList.add("active");
+
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `
@@ -197,7 +199,7 @@ function formCamTV() { //CAMBIO DE NOMENCLATURA
             Precio
         </div>
         <div class="col-1">
-            Activo
+            <span>Act.</span>  <span class="ml-2">Almac.</span> 
         </div>
         </div>
         <!-- Fin Titulos -->
@@ -223,6 +225,7 @@ function formCamTV() { //CAMBIO DE NOMENCLATURA
         </div>
         <div class="col-1">
             <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
+            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
         </div>
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaCamTV()">Guardar</div>
@@ -267,7 +270,11 @@ function rellenarTodosCamTV() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     } else {
                         var activo = "";
                     }
-                 
+                    if (response[i]['almacen'] == "true") {
+                        var almacen = "checked";
+                    } else {
+                        var almacen = "";
+                    }
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -301,6 +308,7 @@ function rellenarTodosCamTV() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                  </div>
                  <div class="col-1">
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                  </div>
                  <div class="col-1">
                     <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarCamTV(this.id)"><i class="fas fa-pencil-alt"></i></div>
@@ -371,7 +379,9 @@ function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
+    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
     inputActivoTar = String(inputActivoTar);
+    inputAlmacenTar = String(inputAlmacenTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -412,7 +422,8 @@ function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
-                activo: inputActivoTar
+                activo: inputActivoTar,
+                almacen: inputAlmacenTar
             })
         })
         .then(res => res.json())

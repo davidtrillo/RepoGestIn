@@ -1,6 +1,6 @@
-document.onload = rellenarCruceLed();
-document.onload = rellenarCruceLed2();
-document.onload = rellenarLed();
+ document.onload = rellenarCruceLed();
+ //document.onload = rellenarCruceLed2();
+ document.onload = rellenarLed();
 
 function rellenarCruceLed() { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://172.27.120.111/gestin/public/api/cruces'
@@ -104,6 +104,7 @@ function nuevaLed() { //CAMBIO DE NOMENCLATURA
         var grupo = document.getElementById('inputGrupo').value ? document.getElementById('inputGrupo').value :"";  
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
         var activo = document.getElementById('inputActivo').checked;
+        var almacen = document.getElementById('inputAlmacen').checked;
 
         
 activo = String(activo);
@@ -126,7 +127,8 @@ activo = String(activo);
                     idUsuario: idUsuario,
                     tipo: tipo,
                     grupo: grupo,
-                    activo: activo
+                    activo: activo,
+                    almacen: almacen
                 })
             })
             .then(res => res.json())
@@ -202,11 +204,16 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     } else {
                         var activo = "";
                     }
+                    if (response[i]['almacen'] == "true") {
+                        var almacen = "checked";
+                    } else {
+                        var almacen = "";
+                    }
                  
                     p.innerHTML += `
                     <div class="row mt-1" id="">
                       
-                    <div class="col-1 mt-1" >
+                    <div class="col-1 mt-1 ml-0" >
                             <div class="input-group">
                                 <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
                                 <div class="input-group-append">
@@ -224,14 +231,14 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     </div>
 
 
-                    <div class="col-2">
+                    <div class="col-auto">
                         <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
                         <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                     </div>
 
-                    <div class="col-2 mt-1" >
+                    <div class="col-auto mt-1" >
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoTar${response[i]['id']}" value="${response[i]['tipo']}">
+                            <input type="text" class="form-control" style="width:150px" aria-label="Text input with segmented dropdown button" id="inputTipoTar${response[i]['id']}" value="${response[i]['tipo']}">
                             <div class="input-group-append">
 
                                     <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
@@ -267,6 +274,7 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                                                 <button class="dropdown-item" onclick="escribirColor2('Rojo',${response[i]['id']})" >Rojo</button>
                                                 <button class="dropdown-item" onclick="escribirColor2('Ambar',${response[i]['id']})" >Ambar</button>
                                                 <button class="dropdown-item" onclick="escribirColor2('Verde',${response[i]['id']})" >Verde</button>
+                                                <button class="dropdown-item" onclick="escribirColor2('Blanco',${response[i]['id']})" >Blanco</button>
                                             </div>
                                     </div>
                                 </div>
@@ -280,11 +288,12 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     <div class="col-1">
                        <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
                     </div>
-                    <div class="col-1">
-                      <input type="checkbox" class=" mt-3 ml-0" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                    <div class="col-auto">
+                      <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                      <input type="checkbox" class=" mt-3 ml-2" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                       <div class="btn btn-primary ml-3" id="${response[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
                       <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
                     </div>
@@ -337,7 +346,9 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
     var inputGrupoTar = document.getElementById('inputGrupoTar' + param).value;
     var inputTipoTar = document.getElementById('inputTipoTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
+    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
     inputActivoTar = String(inputActivoTar);
+    inputAlmacenTar = String(inputAlmacenTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -379,7 +390,8 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
                 idUsuario: idUsuario,
                 grupo: inputGrupoTar,
                 tipo: inputTipoTar,
-                activo: inputActivoTar
+                activo: inputActivoTar,
+                almacen: inputAlmacenTar
             })
         })
         .then(res => res.json())
@@ -483,7 +495,7 @@ function comprobarNumSerieLed2() {
                         console.log(response[i]['id']);
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
-                                comprobarNumSerieLed3(response[i]['id'],clase.value);         
+                            //    comprobarNumSerieLed3(response[i]['id'],clase.value);         
                                 clase.classList.add("bg-danger");
                             }
                       
@@ -533,4 +545,11 @@ function comprobarNumSerieLed3(id,idNumSerie) {
 
             })
     }
+}
+
+
+function paginacion() {
+
+    var p=document.getElementById("page");
+    
 }

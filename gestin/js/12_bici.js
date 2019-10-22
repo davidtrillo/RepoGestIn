@@ -162,6 +162,10 @@ function leerTipoActuacion212_bici(descripcionTipoActuacion, idTipoActuacion, id
 
 function form12_bici() { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
+    
+    desactivarBotones();
+    var ac=document.getElementById("btn12_bici");
+    ac.classList.add("active");
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");

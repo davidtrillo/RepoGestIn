@@ -155,6 +155,10 @@ function leerTipoActuacion2Columnas(descripcionTipoActuacion, idTipoActuacion, i
 function formColumnas() { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
+    desactivarBotones();
+    var ac=document.getElementById("btnColumnas");
+    ac.classList.add("active");
+
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `

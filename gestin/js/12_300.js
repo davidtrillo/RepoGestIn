@@ -163,6 +163,10 @@ function leerTipoActuacion212_300(descripcionTipoActuacion, idTipoActuacion, idA
 function form12_300() { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
+    desactivarBotones();
+    var ac=document.getElementById("btn12_300");
+    ac.classList.add("active");
+
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `

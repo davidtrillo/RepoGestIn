@@ -56,7 +56,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //GET Todas las instalaciones SELECT
 $app->get('/api/tarjetas', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.instalada FROM tarjetas t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.instalada,t.almacen FROM tarjetas t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -135,7 +135,7 @@ $app->get('/api/tarjetas/activas/{instalacion}', function (Request $request, Res
 $app->get('/api/tarjetas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.instalada FROM tarjetas t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.instalada,t.almacen FROM tarjetas t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -172,9 +172,10 @@ $app->post('/api/tarjetas/nueva', function (Request $request, Response $response
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $instalada = $request->getParam('instalada');
+    $almacen = $request->getParam('almacen');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO tarjetas (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,instalada) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo,:instalada);';
+    $sql = 'INSERT INTO tarjetas (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,instalada,almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo,:instalada,:almacen);';
     // $sql='INSERT INTO tarjetas (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -193,6 +194,7 @@ $app->post('/api/tarjetas/nueva', function (Request $request, Response $response
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':instalada', $instalada);
+        $resultado->bindParam(':almacen', $almacen);
 
         $resultado->execute();
         echo json_encode("Tarjeta guardada con éxito", JSON_UNESCAPED_UNICODE);
@@ -251,10 +253,11 @@ $app->put('/api/tarjetas/modificar/{id}', function (Request $request, Response $
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $instalada = $request->getParam('instalada');
+    $almacen = $request->getParam('almacen');
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE tarjetas SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE tarjetas SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,instalada=:instalada WHERE id='. $id;
+    $sql = 'UPDATE tarjetas SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,instalada=:instalada,almacen=:almacen WHERE id='. $id;
 
     try {
         $db = new db();
@@ -272,6 +275,7 @@ $app->put('/api/tarjetas/modificar/{id}', function (Request $request, Response $
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':instalada', $instalada);
+        $resultado->bindParam(':almacen', $almacen);
 
         $resultado->execute();
         echo json_encode("Tarjeta editada con éxito", JSON_UNESCAPED_UNICODE);

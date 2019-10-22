@@ -1,4 +1,4 @@
-function nuevaEspiras() { //CAMBIO DE NOMENCLATURA
+function nuevaModulo() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value :"1";
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
@@ -6,8 +6,8 @@ function nuevaEspiras() { //CAMBIO DE NOMENCLATURA
     if (idInstalacion.value != "") {
 
         //validar fecha correcta
-        if (validarFormatoFechaEspiras(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
-            if (existeFechaEspiras(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+        if (validarFormatoFechaModulo(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+            if (existeFechaModulo(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
 
             } else {
                 alert("La fecha introducida no existe.");
@@ -32,9 +32,8 @@ almacen = String(almacen);
 
 
 
-
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/espiras/nueva';
+        var url = 'http://172.27.120.111/gestin/public/api/modulo/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -51,7 +50,7 @@ almacen = String(almacen);
                     idUsuario: idUsuario,
                     precio: precio,
                     activo: activo,
-                    almacen: almacen
+                    almacen: almacen,
                 })
             })
             .then(res => res.json())
@@ -62,12 +61,12 @@ almacen = String(almacen);
 
     }
     setTimeout(() => {
-        rellenarTodosEspiras(); //CAMBIO DE NOMENCLATURA
+        rellenarTodosModulo(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 
 }
 
-function validarFormatoFechaEspiras(campo) { //CAMBIO DE NOMENCLATURA
+function validarFormatoFechaModulo(campo) { //CAMBIO DE NOMENCLATURA
     var RegExPattern = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
     if ((campo.match(RegExPattern)) && (campo != '')) {
 
@@ -78,7 +77,7 @@ function validarFormatoFechaEspiras(campo) { //CAMBIO DE NOMENCLATURA
     }
 }
 
-function existeFechaEspiras(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFechaModulo(fecha) { //CAMBIO DE NOMENCLATURA
     var fechaf = fecha.split("/");
     var day = fechaf[2];
     var month = fechaf[1];
@@ -90,7 +89,7 @@ function existeFechaEspiras(fecha) { //CAMBIO DE NOMENCLATURA
     return true;
 }
 
-function existeFecha2Espiras(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFecha2Modulo(fecha) { //CAMBIO DE NOMENCLATURA
     var fechaf = fecha.split("/");
     var d = fechaf[2];
     var m = fechaf[1];
@@ -99,7 +98,7 @@ function existeFecha2Espiras(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
-function rellenarTipoActuacion2Espiras(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+function rellenarTipoActuacion2Modulo(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
     var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -117,13 +116,13 @@ function rellenarTipoActuacion2Espiras(idActuacion) { //Llamada a la API según 
 
             for (var i in response) {
                 p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2Espiras(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2Modulo(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
              `
             }
         })
 }
 
-function rellenarTipoActuacionEspiras() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+function rellenarTipoActuacionModulo() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
     var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -138,32 +137,37 @@ function rellenarTipoActuacionEspiras() { //Llamada a la API según el dato obte
             p.innerHTML = '';
             for (var i in response) {
                 p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionEspiras(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionModulo(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
              `
             } //CAMBIO DE NOMENCLATURA
         })
 }
 
-function leerTipoActuacionEspiras(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+function leerTipoActuacionModulo(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('idTipoActuacion');
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion');
     p2.value = descripcionTipoActuacion;
 }
 
-function leerTipoActuacion2Espiras(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+function leerTipoActuacion2Modulo(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
     p2.value = descripcionTipoActuacion;
 }
 
-function formEspiras() { //CAMBIO DE NOMENCLATURA
-    var instalacion = document.getElementById("inputInstalacion");
-
+function formModulo() { //CAMBIO DE NOMENCLATURA
+    
+    
     desactivarBotones();
-    var ac=document.getElementById("btnEspiras");
+
+
+    var ac=document.getElementById("btnModulo");
     ac.classList.add("active");
+
+    
+    var instalacion = document.getElementById("inputInstalacion");
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -228,24 +232,24 @@ function formEspiras() { //CAMBIO DE NOMENCLATURA
             <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
         </div>
         <div class="col-1">
-            <div class="btn btn-primary" onclick="nuevaEspiras()">Guardar</div>
+            <div class="btn btn-primary" onclick="nuevaModulo()">Guardar</div>
         </div>
         </div>  
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionEspiras();//CAMBIO DE NOMENCLATURA
+        rellenarTipoActuacionModulo();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosEspiras();//CAMBIO DE NOMENCLATURA
+        rellenarTodosModulo();//CAMBIO DE NOMENCLATURA
     }
 }
 
 
 
-function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
+function rellenarTodosModulo() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/espiras/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/modulo/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -270,14 +274,13 @@ function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     } else {
                         var activo = "";
                     }
-                 
+
                     if (response[i]['almacen'] == "true") {
                         var almacen = "checked";
                     } else {
                         var almacen = "";
                     }
-
-
+                 
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -286,7 +289,7 @@ function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                  </div>
                  <div class="col-2 mt-1" >
                         <div class="input-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion2Espiras(this.value)">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion2Modulo(this.value)">
                                     Tipo A.
                             </button>
                             <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
@@ -314,8 +317,8 @@ function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                  </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarEspiras(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarEspiras(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarModulo(this.id)"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarModulo(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
                  
@@ -325,12 +328,12 @@ function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
             }
         })
 
-        rellenarFooterEspiras();//CAMBIO DE NOMENCLATURA
+        rellenarFooterModulo();//CAMBIO DE NOMENCLATURA
 }
 
-function rellenarFooterEspiras(){//CAMBIO DE NOMENCLATURA
+function rellenarFooterModulo(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/espiras/activas/' + idInstalacion
+    var url = 'http://172.27.120.111/gestin/public/api/modulo/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -348,7 +351,7 @@ function rellenarFooterEspiras(){//CAMBIO DE NOMENCLATURA
                 p.innerHTML = '';
                 p.innerHTML=`
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>Espiras</b> Activas: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>Señales Modulos</b> Activas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -356,9 +359,9 @@ function rellenarFooterEspiras(){//CAMBIO DE NOMENCLATURA
 }
 
 
-function borrarEspiras(param) {
+function borrarModulo(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/espiras/borrar/' + param
+    var url = 'http://172.27.120.111/gestin/public/api/modulo/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -369,11 +372,11 @@ function borrarEspiras(param) {
             alert(response)
         })
     setTimeout(() => {
-        rellenarTodosEspiras();//CAMBIO DE NOMENCLATURA
+        rellenarTodosModulo();//CAMBIO DE NOMENCLATURA
     }, 1000);
 }
 
-function editarEspiras(param) {//CAMBIO DE NOMENCLATURA
+function editarModulo(param) {//CAMBIO DE NOMENCLATURA
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
@@ -398,8 +401,8 @@ function editarEspiras(param) {//CAMBIO DE NOMENCLATURA
 
 
     //validar fecha correcta
-    if (validarFormatoFechaEspiras(inputFechaActuacionTar)) {
-        if (existeFechaEspiras(inputFechaActuacionTar)) {
+    if (validarFormatoFechaModulo(inputFechaActuacionTar)) {
+        if (existeFechaModulo(inputFechaActuacionTar)) {
 
         } else {
             alert("La fecha introducida no existe.");
@@ -409,7 +412,7 @@ function editarEspiras(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/espiras/modificar/' + param;
+    var url = 'http://172.27.120.111/gestin/public/api/modulo/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -437,6 +440,6 @@ function editarEspiras(param) {//CAMBIO DE NOMENCLATURA
 
 
     setTimeout(() => {
-        rellenarTodosEspiras(); //CAMBIO DE NOMENCLATURA
+        rellenarTodosModulo(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 }

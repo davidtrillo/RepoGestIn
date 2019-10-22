@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //GET Todas las instalaciones SELECT
 $app->get('/api/led', function (Request $request, Response $response) {
 
-    $sql = 'SELECT * FROM led order by activo desc,fechaActuacion desc';
+    $sql = 'SELECT * FROM led order by activo desc,fechaActuacion desc limit 50';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -96,9 +96,10 @@ $app->post('/api/led/nueva', function (Request $request, Response $response) {
     $grupo = $request->getParam('grupo');
     $tipo = $request->getParam('tipo');
     $activo = $request->getParam('activo');
+    $almacen = $request->getParam('almacen');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO led (id, idInstalacion, color, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, grupo, tipo, activo) VALUES (NULL, :idInstalacion, :color, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :grupo,:tipo, :activo);';
+    $sql = 'INSERT INTO led (id, idInstalacion, color, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, grupo, tipo, activo, almacen) VALUES (NULL, :idInstalacion, :color, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :grupo,:tipo, :activo, :almacen);';
     // $sql='INSERT INTO led (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -117,9 +118,10 @@ $app->post('/api/led/nueva', function (Request $request, Response $response) {
         $resultado->bindParam(':tipo', $tipo);
         $resultado->bindParam(':grupo', $grupo);
         $resultado->bindParam(':activo', $activo);
+        $resultado->bindParam(':almacen', $almacen);
 
         $resultado->execute();
-        echo json_encode("Tarjeta guardada con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("Led guardado con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;
@@ -175,10 +177,11 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
     $tipo = $request->getParam('tipo');
     $grupo = $request->getParam('grupo');
     $activo = $request->getParam('activo');
+    $almacen = $request->getParam('almacen');
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE led SET color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE led SET albaran=:albaran,color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,tipo=:tipo,grupo=:grupo,activo=:activo WHERE id='. $id;
+    $sql = 'UPDATE led SET albaran=:albaran,color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,tipo=:tipo,grupo=:grupo,activo=:activo,almacen=:almacen WHERE id='. $id;
 
     try {
         $db = new db();
@@ -196,9 +199,10 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
         $resultado->bindParam(':tipo', $tipo);
         $resultado->bindParam(':grupo', $grupo);
         $resultado->bindParam(':activo', $activo);
+        $resultado->bindParam(':almacen', $almacen);
 
         $resultado->execute();
-        echo json_encode("Tarjeta editada con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("Led editado con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;

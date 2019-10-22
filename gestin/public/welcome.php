@@ -134,7 +134,7 @@ include './login/session.php';
                </div>
             </div>
             <input type="text" class="form-control mt-1 " placeholder="" id="inputInstalacion"
-               aria-label="Instalación" aria-describedby="basic-addon1">
+               aria-label="Instalación" aria-describedby="basic-addon1" onfocusout="">
          </div>
          <div class="col-6 mt-2 p-1">
             <span>Ubicación</span>
@@ -218,34 +218,34 @@ include './login/session.php';
 
       <div class="row">
          <div class="col-1">
-            <button class="btn btn-info" onclick="formTarjetas()">Tarjetas</button>
+            <button class="btn btn-info" id="btnTarjetas" onclick="formTarjetas()">Tarjetas</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info" onclick="formBusTren()">Bus/tren</button>
+            <button class="btn btn-info" id="btnBusTren" onclick="formBusTren()">Bus/tren</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info" onclick="form11_322()">11/3.2.2</button>
+            <button class="btn btn-info" id="btn11_322" onclick="form11_322()">11/3.2.2</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"  onclick="form12_300()">12/300</button>
+            <button class="btn btn-info" id="btn12_300" onclick="form12_300()">12/300</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="form13_200()">13/200</button>
+            <button class="btn btn-info" id="btn13_200"  onclick="form13_200()">13/200</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="form12_200()">12/200</button>
+            <button class="btn btn-info" id="btn12_200"  onclick="form12_200()">12/200</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="form11_2in()">11/2in</button>
+            <button class="btn btn-info" id="btn11_2in"  onclick="form11_2in()">11/2in</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="form12_pp()">12/PP</button>
+            <button class="btn btn-info" id="btn12_pp"  onclick="form12_pp()">12/PP</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"  onclick="formOculta()">S. Oculta</button>
+            <button class="btn btn-info" id="btnOculta" onclick="formOculta()">S. Oculta</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"  onclick="formLed()">Leds</button>
+            <button class="btn btn-info" id="btnLed" onclick="formLed()">Leds</button>
          </div>
 
       </div>
@@ -255,31 +255,34 @@ include './login/session.php';
             <button class="btn btn-info"  onclick="form12_bici()">12/Bici</button>
          </div> -->
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formInvidentes()">Sonoro</button>
+            <button class="btn btn-info"  id="btnInvidentes" onclick="formInvidentes()">Sonoro</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formDescontadores()">Descont.</button>
+            <button class="btn btn-info" id="btnDescontadores"  onclick="formDescontadores()">Descont.</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formBaculos()">Báculos</button>
+            <button class="btn btn-info"  id="btnBaculos" onclick="formBaculos()">Báculos</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"  onclick="formColumnas()">Column</button>
+            <button class="btn btn-info" id="btnColumnas" onclick="formColumnas()">Column</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formPulsadores()">Pulsador</button>
+            <button class="btn btn-info" id="btnPulsadores"  onclick="formPulsadores()">Pulsador</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formEspiras()">Espiras</button>
+            <button class="btn btn-info"  id="btnEspiras" onclick="formEspiras()">Espiras</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formPantallasCon()">Pant.Con.</button>
+            <button class="btn btn-info" id="btnPantallasCon"  onclick="formPantallasCon()">Pant.Con.</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formCamTV()">CCTV</button>
+            <button class="btn btn-info" id="btnCCTV"  onclick="formCamTV()">CCTV</button>
          </div>
          <div class="col-1">
-            <button class="btn btn-info"   onclick="formCamIP()">CamIP</button>
+            <button class="btn btn-info" id="btnCamIp"  onclick="formCamIP()">CamIP</button>
+         </div>
+         <div class="col-1">
+            <button class="btn btn-info" id="btnModulo"  onclick="formModulo()">Módulos</button>
          </div>
       </div>
 
@@ -345,6 +348,7 @@ include './login/session.php';
    <script src="../js/camtv.js"></script>
    <script src="../js/camip.js"></script>
    <script src="../js/led.js"></script>
+   <script src="../js/modulos.js"></script>
 
 
 </body>

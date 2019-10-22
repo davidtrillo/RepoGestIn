@@ -29,7 +29,7 @@ $app->get('/api/tipoinstalacion',function(Request $request, Response $response){
             echo json_encode("No se han encontrado resultados");
         }
         $resultado=null;
-        $dbConexion=null;
+        $db=null;
 
     }catch(PDOException $e){
         echo '{"error":{"text":'.$e->getMessage().'}';
@@ -41,7 +41,7 @@ $app->get('/api/tipoinstalacion',function(Request $request, Response $response){
 
 $app->get('/api/cruces',function(Request $request, Response $response){
     // echo "todas las instalaciones";
-    $sql='SELECT id, ubicacion FROM instalaciones where tipoInstalacion LIKE "CRUCE%" ORDER BY 1';
+    $sql='SELECT id, ubicacion,cont FROM instalaciones where tipoInstalacion LIKE "CRUCE%" OR id="000" ORDER BY 3';
     try{
         $db= new db();     
         $db=$db->conectDB();
@@ -127,7 +127,7 @@ $app->get('/api/regulador/{id}',function(Request $request, Response $response){
 $app->get('/api/instalaciones/{tipoInstalacion}',function(Request $request, Response $response){
     $tipoInstalacion= $request->getAttribute('tipoInstalacion');
     // echo "todas las instalaciones";
-    $sql='SELECT id,ubicacion FROM instalaciones WHERE tipoInstalacion="'.$tipoInstalacion.'"';
+    $sql='SELECT id,ubicacion,cont FROM instalaciones WHERE tipoInstalacion="'.$tipoInstalacion.'" ORDER BY 3;';
     try{
         $db= new db();     
         $db=$db->conectDB();

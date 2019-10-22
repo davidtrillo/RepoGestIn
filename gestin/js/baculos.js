@@ -163,6 +163,10 @@ function leerTipoActuacion2Baculos(descripcionTipoActuacion, idTipoActuacion, id
 function formBaculos() { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
+    desactivarBotones();
+    var ac=document.getElementById("btnBaculos");
+    ac.classList.add("active");
+
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `

@@ -24,9 +24,11 @@ function nuevaLed() { //CAMBIO DE NOMENCLATURA
         var grupo = document.getElementById('inputGrupo').value ? document.getElementById('inputGrupo').value :"";  
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
         var activo = document.getElementById('inputActivo').checked;
+        var almacen = document.getElementById('inputAlmacen').checked;
 
         
 activo = String(activo);
+almacen = String(almacen);
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
         var url = 'http://172.27.120.111/gestin/public/api/led/nueva';
@@ -46,7 +48,8 @@ activo = String(activo);
                     idUsuario: idUsuario,
                     tipo: tipo,
                     grupo: grupo,
-                    activo: activo
+                    activo: activo,
+                    almacen:almacen
                 })
             })
             .then(res => res.json())
@@ -99,6 +102,10 @@ function existeFecha2Led(fecha) { //CAMBIO DE NOMENCLATURA
 function formLed() { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
+    desactivarBotones();
+    var ac=document.getElementById("btnLed");
+    ac.classList.add("active");
+
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `
@@ -134,6 +141,7 @@ function formLed() { //CAMBIO DE NOMENCLATURA
                     <button class="dropdown-item" onclick="escribirColor('Rojo')" >Rojo</button>
                     <button class="dropdown-item" onclick="escribirColor('Ambar')" >Ambar</button>
                     <button class="dropdown-item" onclick="escribirColor('Verde')" >Verde</button>
+                    <button class="dropdown-item" onclick="escribirColor('Blanco')" >Blanco</button>
                 </div>
             </div>
         </div>
@@ -150,7 +158,7 @@ function formLed() { //CAMBIO DE NOMENCLATURA
                   Observaciones
               </div>
               <div class="col-1">
-                  Activo
+              <span>Act.</span>  <span class="ml-2">Almac.</span> 
               </div>
         </div>
         <!-- Fin Titulos -->
@@ -178,7 +186,8 @@ function formLed() { //CAMBIO DE NOMENCLATURA
                   <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
               </div>
               <div class="col-1">
-                  <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
+                  <input type="checkbox" class="mt-3 ml-3 name="inputActivo" id="inputActivo">
+                  <input type="checkbox" class="mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
               </div>
               <div class="col-1">
                   <div class="btn btn-primary" onclick="nuevaLed()">Guardar</div>
@@ -199,7 +208,7 @@ function escribirTipo(param) {
 }
 
 function escribirTipo2(param,id) {
-    var p1=document.getElementById("inputTipo"+id);    
+    var p1=document.getElementById("inputTipoTar"+id);    
     p1.value=param;
 }
 
@@ -209,13 +218,20 @@ function escribirColor(param) {
 }
 
 function escribirColor2(param,id) {
-    var p1=document.getElementById("inputColor"+id);    
+    var p1=document.getElementById("inputColorTar"+id);    
     p1.value=param;
 }
 
 function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
+
+    
+
     var url = 'http://172.27.120.111/gestin/public/api/led/' + idInstalacion
+    
+    
+    
+    
     fetch(url, {
             method: 'GET',
             headers: {
@@ -240,7 +256,13 @@ function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     } else {
                         var activo = "";
                     }
-                 
+            
+                    if (response[i]['almacen'] == "true") {
+                        var almacen = "checked";
+                    } else {
+                        var almacen = "";
+                    }
+                    
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                         
@@ -305,6 +327,7 @@ function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                         </div>
                         <div class="col-1">
                           <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                          <input type="checkbox" class="mt-3 ml-3 name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                         </div>
 
                         <div class="col-1">
@@ -378,7 +401,9 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
     var inputGrupoTar = document.getElementById('inputGrupoTar' + param).value;
     var inputTipoTar = document.getElementById('inputTipoTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
+    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
     inputActivoTar = String(inputActivoTar);
+    inputAlmacenTar = String(inputAlmacenTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -420,7 +445,8 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
                 idUsuario: idUsuario,
                 grupo: inputGrupoTar,
                 tipo: inputTipoTar,
-                activo: inputActivoTar
+                activo: inputActivoTar,
+                almacen:inputAlmacenTar
             })
         })
         .then(res => res.json())

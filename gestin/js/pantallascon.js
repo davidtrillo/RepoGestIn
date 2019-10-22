@@ -163,6 +163,10 @@ function leerTipoActuacion2PantallasCon(descripcionTipoActuacion, idTipoActuacio
 function formPantallasCon() { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
+    desactivarBotones();
+    var ac=document.getElementById("btnPantallasCon");
+    ac.classList.add("active");
+
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `

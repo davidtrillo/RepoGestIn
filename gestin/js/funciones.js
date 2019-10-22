@@ -207,3 +207,68 @@ function editarInstalacion() {
 
         })
 }
+
+function desactivarBotones() {
+
+  
+    var ac=document.getElementById("btnTarjetas");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnBusTren");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btn11_322");
+    ac.classList.remove("active");
+   
+    var ac=document.getElementById("btn12_300");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btn13_200");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btn12_200");
+    ac.classList.remove("active");
+   
+    var ac=document.getElementById("btn11_2in");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btn12_pp");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnOculta");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnLed");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnInvidentes");
+    ac.classList.remove("active");
+   
+    var ac=document.getElementById("btnDescontadores");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnBaculos");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnColumnas");
+    ac.classList.remove("active");
+   
+    var ac=document.getElementById("btnPulsadores");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnEspiras");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnPantallasCon");
+    ac.classList.remove("active");
+   
+    var ac=document.getElementById("btnCCTV");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnCamIp");
+    ac.classList.remove("active");
+
+    var ac=document.getElementById("btnModulo");
+    ac.classList.remove("active");
+
+}

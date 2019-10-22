@@ -5,9 +5,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //$app = new \Slim\App;
 
 //GET Todas las instalaciones SELECT
-$app->get('/api/pulsadores', function (Request $request, Response $response) {
+$app->get('/api/modulo', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM Pulsadores t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM modulo t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -30,10 +30,10 @@ $app->get('/api/pulsadores', function (Request $request, Response $response) {
 });
 
 //GET Tarjetas activas COUNT
-$app->get('/api/pulsadores/activas/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/modulo/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT count(id) AS c FROM Pulsadores WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
+    $sql = 'SELECT count(id) AS c FROM modulo WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -56,10 +56,10 @@ $app->get('/api/pulsadores/activas/{instalacion}', function (Request $request, R
 });
 
 
-$app->get('/api/pulsadores/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/modulo/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM Pulsadores t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM modulo t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -83,7 +83,7 @@ $app->get('/api/pulsadores/{instalacion}', function (Request $request, Response 
 });
 
 // POST para crear una nueva instalación CREATE
-$app->post('/api/pulsadores/nueva', function (Request $request, Response $response) {
+$app->post('/api/modulo/nueva', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
     // $id=$request->getParam('id');
     $idInstalacion = $request->getParam('idInstalacion');
@@ -98,8 +98,8 @@ $app->post('/api/pulsadores/nueva', function (Request $request, Response $respon
     $almacen = $request->getParam('almacen');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO Pulsadores (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
-    // $sql='INSERT INTO Pulsadores (idInstalacion) VALUES (:idInstalacion);';
+    $sql = 'INSERT INTO modulo (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
+    // $sql='INSERT INTO modulo (idInstalacion) VALUES (:idInstalacion);';
 
     try {
         $db = new db();
@@ -119,7 +119,7 @@ $app->post('/api/pulsadores/nueva', function (Request $request, Response $respon
         $resultado->bindParam(':almacen', $almacen);
 
         $resultado->execute();
-        echo json_encode("Pulsador guardado con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("Módulo guardado con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;
@@ -132,11 +132,11 @@ $app->post('/api/pulsadores/nueva', function (Request $request, Response $respon
 
 //DELETE para borrar instalacion DELETE BY ID
 
-$app->delete('/api/pulsadores/borrar/{id}', function (Request $request, Response $response) {
+$app->delete('/api/modulo/borrar/{id}', function (Request $request, Response $response) {
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
-    $sql = 'DELETE FROM Pulsadores WHERE id=' . $id;
+    $sql = 'DELETE FROM modulo WHERE id=' . $id;
 
     try {
         $db = new db();
@@ -146,7 +146,7 @@ $app->delete('/api/pulsadores/borrar/{id}', function (Request $request, Response
 
         if ($resultado->rowCount() > 0) {
 
-            echo json_encode("Instalación eliminada con éxito", JSON_UNESCAPED_UNICODE);
+            echo json_encode("Módulo eliminada con éxito", JSON_UNESCAPED_UNICODE);
 
         } else {
             echo json_encode("No se han encontrado resultados con el ID " . $id, JSON_UNESCAPED_UNICODE);
@@ -162,7 +162,7 @@ $app->delete('/api/pulsadores/borrar/{id}', function (Request $request, Response
 
 //POST para modificar instalacion UPDATE BY ID
 
-$app->put('/api/pulsadores/modificar/{id}', function (Request $request, Response $response) {
+$app->put('/api/modulo/modificar/{id}', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
@@ -177,8 +177,8 @@ $app->put('/api/pulsadores/modificar/{id}', function (Request $request, Response
     $almacen = $request->getParam('almacen');
     // echo "todas las instalaciones";
 
-    //  $sql='UPDATE Pulsadores SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE Pulsadores SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen WHERE id='. $id;
+    //  $sql='UPDATE modulo SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = 'UPDATE modulo SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen  WHERE id='. $id;
 
     try {
         $db = new db();
@@ -198,7 +198,7 @@ $app->put('/api/pulsadores/modificar/{id}', function (Request $request, Response
         $resultado->bindParam(':almacen', $almacen);
 
         $resultado->execute();
-        echo json_encode("Pulsador editado con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("Módulo editada con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;

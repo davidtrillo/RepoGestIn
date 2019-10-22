@@ -93,13 +93,6 @@ include './login/session.php';
       
     </div>
 
-
-
-
-</div>
-
-
-
     <!-- Dropdowns Menus -->
     <div class="container-fluid mt-0 p-1" style="background-color:LightSkyBlue;">
         <div class="row">
@@ -107,18 +100,19 @@ include './login/session.php';
                 <h3 class="ml-3"><b>Leds</b></h3>
             </div>
             <div class="col">
-                <div>
-                    <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Items por Pag.
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="pag">
-                        <a class="dropdown-item" href="#" onclick="paginacion("50")">50</a>
-                        <a class="dropdown-item" href="#">100</a>
-                        <a class="dropdown-item" href="#">150</a>
-                        <a class="dropdown-item" href="#">200</a>
-                    </div>
-                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><<</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">0-50</a></li>
+                        <li class="page-item"><a class="page-link" href="#">50-100</a></li>
+                        <li class="page-item"><a class="page-link" href="#">100-150</a></li>
+                        <li class="page-item">
+                        <a class="page-link" href="#">>></a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -129,26 +123,23 @@ include './login/session.php';
     <div class="container-fluid mt-2">
         <!-- FormGuardar -->
         <!-- Títulos Form Nuevo-->
-       
-        <!-- Fin Titulos -->
-        <!-- Form Introducir Nuevo -->
-        <div class="row mt-1" id="formGuardar">
+        <div class="row">
             <div class="col-1">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipo" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         Cruce
                     </button>
-                        <div class="dropdown-menu" id="dropdownCruce" aria-labelledby="dropdownTipoActuacion"></div>
-                </div>
-                    <input type="text" class="form-control mt-1" id="inputIdCruce">
-            </div>
+                    <div class="dropdown-menu" id="dropdownCruce" aria-labelledby="dropdownTipoActuacion">
 
-            <div class="col-auto mt-3">
-                F.Actuación
-                <input type="date" class="form-control mt-0" name="inputFechaActuacion" id="inputFechaActuacion">
+
+                    </div>
+                </div>
             </div>
-            <div class="col-auto">
+            <div class="col-2">
+                
+            </div>
+            <div class="col-2 ">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipo" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -161,15 +152,14 @@ include './login/session.php';
                         <button class="dropdown-item" onclick="escribirTipo('300 mm')">300 mm</button>
                         <button class="dropdown-item" onclick="escribirTipo('200x200')">200x200</button>
                         <button class="dropdown-item" onclick="escribirTipo('200x200 Bici')">200x200 Bici</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200x200 Bici/Peatón')">200x200 Bici/Peatón</button>
+                        <button class="dropdown-item" onclick="escribirTipo('200x200 Bici/Peatón')">200x200
+                            Bici/Peatón</button>
 
                     </div>
                 </div>
-                <input type="text" class="form-control mt-1" style="width:179px" name="inputTipo" id="inputTipo">
             </div>
-
             <div class="col-1">
-            <div class="dropdown">
+                <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Color
@@ -181,35 +171,60 @@ include './login/session.php';
                         <button class="dropdown-item" onclick="escribirColor('Blanco')">Blanco</button>
                     </div>
                 </div>
+            </div>
+            <div class="col-1">
+                Grupo
+            </div>
+            <div class="col-1">
+                Num. Serie
+            </div>
+            <div class="col-1">
+                Albarán
+            </div>
+            <div class="col-2">
+            <span class="mr-0"> Observaciones </span>
+            </div>
+            <div class="col-1">
+                <span class="ml-0"> Activo </span>
+                <span class="ml-0"> Almacen </span>
+            </div>
+        </div>
+        <!-- Fin Titulos -->
+        <!-- Form Introducir Nuevo -->
+        <div class="row mt-1" id="formGuardar">
+            <div class="col-1">
+                <input type="text" class="form-control mt-1" id="inputIdCruce">
+            </div>
+            <div class="col-auto">
+            F.Actuación
+                <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion">
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control mt-1" name="inputTipo" id="inputTipo">
+            </div>
+            <div class="col-1">
                 <input type="text" class="form-control mt-1" name="inputColor" id="inputColor">
             </div>
-            <div class="col-1 mt-3">
-            Grupo
+            <div class="col-1">
                 <input type="text" class="form-control mt-1" name="inputGrupo" id="inputGrupo">
             </div>
-            <div class="col-1 mt-3">
-            Num. Serie
+            <div class="col-1">
                 <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie"
                     onfocusout="comprobarNumSerieLed()">
             </div>
-            <div class="col-1 mt-3">
-            Albarán
+            <div class="col-1">
                 <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
             </div>
-            <div class="col-3 mt-3">
-            Observaciones
+            <div class="col-2">
                 <input type="text" class="form-control mt-1 ml-0" name="inputObservaciones" id="inputObservaciones">
             </div>
-            <div class="col-auto ml-0 ">
-             
-                <span class="" style="writing-mode: vertical-lr;transform: rotate(180deg);margin-left:0px;">Activo</span>
-                <span class="ml-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almac.</span>
-                <br>
-                <input type="checkbox" class="mt-2 ml-2" name="inputActivo" id="inputActivo">
-                <input type="checkbox" class="mt-2 ml-2" name="inputAlmacen" id="inputAlmacen">
+            <div class="col-1">
+                <input type="checkbox" class="mt-2 ml-0" name="inputActivo" id="inputActivo">
+                <input type="checkbox" class="mt-2 ml-0" name="inputAlmacen" id="inputAlmacen">
+
+                <div class="btn btn-primary mt-1 ml-3" onclick="nuevaLed()">Guardar</div>
             </div>
-            <div class="col-auto  mt-4">
-                <div class="btn btn-primary mt-3" onclick="nuevaLed()"><i class="far fa-save"></i></div>
+            <div class="col-1">
             </div>
         </div>
     </div>
@@ -221,7 +236,7 @@ include './login/session.php';
 </div>
     
     <!-- Formulario Body Nuevo-->
-    <div class="container-fluid ml-0 " id="formBody">
+    <div class="container-fluid ml-1 " id="formBody">
 
         <!-- inyeccion de codigo  -->
     </div>

@@ -29,9 +29,11 @@ function nuevaTarjeta() {
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
         var activo = document.getElementById('inputActivo').checked;
         var instalada = document.getElementById('inputInstalada').checked;
+        var almacen = document.getElementById('inputAlmacen').checked;
 
         activo = String(activo);
         instalada = String(instalada);
+        almacen = String(almacen);
         // console.log(idTipoActuacion);
         // console.log(idNumSerie);
         // console.log(albaran);
@@ -57,7 +59,8 @@ function nuevaTarjeta() {
                     idUsuario: idUsuario,
                     precio: precio,
                     activo: activo,
-                    instalada: instalada
+                    instalada: instalada,
+                    almacen: almacen
                 })
             })
             .then(res => res.json())
@@ -165,6 +168,12 @@ function leerTipoActuacion2Tarjeta(descripcionTipoActuacion, idTipoActuacion, id
 }
 
 async function formTarjetas() {
+
+    desactivarBotones();
+
+    var ac=document.getElementById("btnTarjetas");
+    ac.classList.add("active");
+
     var instalacion = document.getElementById("inputInstalacion");
 
     if (instalacion.value != "") {
@@ -198,10 +207,10 @@ async function formTarjetas() {
             Num. Serie
         </div>
         <div class="col-1">
-            Precio
+            <span class="ml-0 mb-0 p-0">Precio</span>
         </div>
         <div class="col-1">
-            <span>Act.</span>  <span class="ml-2">Inst.</span> 
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Activa</span>  <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Instalada</span> <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almacén</span> 
         </div>
         </div>
         <!-- Fin Titulos -->
@@ -227,8 +236,9 @@ async function formTarjetas() {
         </div>
         <div class="col-1">
         <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
-            <input type="checkbox" class=" mt-3 ml-3" name="inputInstalada" id="inputInstalada" onclick="checkInstalada()"> 
-            <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
+            <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkInstalada()"> 
+            <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo">
+            <input type="checkbox" class=" mt-3 ml-2" name="inputAlmacen" id="inputAlmacen">
         </div>  
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaTarjeta()">Guardar</div>
@@ -280,6 +290,12 @@ async function rellenarTodosTarjeta() { //Llamada a la API
                         var instalada = "";
                     }
 
+                    if (response[i]['almacen'] == "true") {
+                        var almacen = "checked";
+                    } else {
+                        var almacen = "";
+                    }
+
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -312,8 +328,9 @@ async function rellenarTodosTarjeta() { //Llamada a la API
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputInstaladaTar${response[i]['id']}"  ${instalada}>
+                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}"  ${instalada}>
+                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                  </div>
                  <div class="col-1">
                     <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarTarjeta(this.id)"><i class="fas fa-pencil-alt"></i></div>
@@ -398,8 +415,10 @@ function editarTarjeta(param) {
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
     var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
+    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
     inputActivoTar = String(inputActivoTar);
     inputInstaladaTar = String(inputInstaladaTar);
+    inputAlmacenTar = String(inputAlmacenTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -441,7 +460,9 @@ function editarTarjeta(param) {
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
                 activo: inputActivoTar,
-                instalada: inputInstaladaTar
+                instalada: inputInstaladaTar,
+                almacen: inputAlmacenTar
+
             })
         })
         .then(res => res.json())
