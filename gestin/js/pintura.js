@@ -148,17 +148,7 @@ function rellenarPintura() {
                     <div class="container-fluid mt-1 ml-1 ">
                     <div class="row">
                         <div class="col-1 p-1">
-                            <div class="input-group mt-2">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    onclick="rellenarCrucePintura2(${response[i]['id']})">
-                                    Inst
-                                </button>
-                                <div class="dropdown-menu" id="dropInstalacionPintura${response[i]['id']}">
-                                    <!-- inyectar código -->
-                                </div>
-                                <input type="text" class="form-control" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}">                          
-                            </div>
+                            <input type="text" class="form-control mt-2" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}" onfocusout="rellenarUbicacion(${response[i]['id']})">                          
                         </div>
            
                        <div class="col-3 p-1">
@@ -200,6 +190,31 @@ function rellenarPintura() {
 
 
 }
+
+
+function rellenarUbicacion(param) {
+
+    var p1=document.getElementById("inputIdCruce2"+param);
+
+    var url = 'http://172.27.120.111/gestin/public/api/cruce/'+p1.value;
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            //console.log(p1.value+' '+param+' '+response[0]['ubicacion']);
+            var p = document.getElementById('inputUbicacion2'+param);
+                p.innerHTML='';
+                p.value=response[0]['ubicacion'];     
+        })
+}
+
+
+
 
 function getElementos(id) {
 

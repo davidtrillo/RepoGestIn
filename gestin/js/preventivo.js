@@ -15,7 +15,7 @@ function rellenarCrucePreventivo() { //Llamada a la API según el dato obtenido 
             p.innerHTML = '';
             for (var i in response) {
                 p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCrucePreventivo2(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCrucePreventivo(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
              `
             }
         })
@@ -188,19 +188,9 @@ function rellenarPreventivo() {
 
                     <div class="row">
                        <div class="col-1 p-1">
-                          <span><b>Instalación</b></span>
-                          <div class="input-group mt-2">
-                             <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                onclick="rellenarCrucePreventivo2(${response[i]['id']})">
-                                Inst
-                             </button>
-                             <div class="dropdown-menu" id="dropCruce2${response[i]['id']}">
-                                <!-- inyectar código -->
-                             </div>
-                             <input type="text" class="form-control" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}">
-                                
-                          </div>
+                       <input type="text" class="form-control mt-2" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}" onfocusout="rellenarUbicacion(${response[i]['id']})">                          
+
+ 
                        </div>
                     
                        <div class="col-2 p-1">
@@ -294,7 +284,26 @@ function rellenarPreventivo() {
 
 }
 
+function rellenarUbicacion(param) {
 
+    var p1=document.getElementById("inputIdCruce2"+param);
+
+    var url = 'http://172.27.120.111/gestin/public/api/cruce/'+p1.value;
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            //console.log(p1.value+' '+param+' '+response[0]['ubicacion']);
+            var p = document.getElementById('inputUbicacion2'+param);
+                p.innerHTML='';
+                p.value=response[0]['ubicacion'];     
+        })
+}
 
 function borrarPreventivo(id) {
 

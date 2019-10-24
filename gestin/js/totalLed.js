@@ -2,6 +2,27 @@
  //document.onload = rellenarCruceLed2();
  document.onload = rellenarLed();
 
+cargarCruces();
+misCruces();
+
+
+function misCruces(){
+    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+   vCruces= fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {return response;})
+       
+        return vCruces;
+}
+
+
+
 function rellenarCruceLed() { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://172.27.120.111/gestin/public/api/cruces'
     fetch(url, {
@@ -23,30 +44,55 @@ function rellenarCruceLed() { //Llamada a la API según el dato obtenido del pri
             }
         })
 }
-function rellenarCruceLed2(id) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/cruces'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
+ function rellenarCruceLed2(id) { //Llamada a la API según el dato obtenido del primer combo
+//     var url = 'http://172.27.120.111/gestin/public/api/cruces'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
             
-            var p = document.getElementById('dropdownCruce2'+id);
-            if (id!=null){
-                p.innerHTML = '';
+//             var p = document.getElementById('dropdownCruce2'+id);
+//             if (id!=null){
+//                 p.innerHTML = '';
 
-                for (var i in response) {
-                    p.innerHTML += `
-                <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
-                `
-                }
+//                 for (var i in response) {
+//                     p.innerHTML += `
+//                 <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+//                 `
+//                 }
+//             }
+//         })
+                // var p = document.getElementById('dropdownCruce2'+id);
+                    
+                // p.innerHTML = '';
+                
+                // for (var i in vCruces) {
+                //     console.log(id);
+                //     console.log(vCruces[i]['id']+' - '+vCruces[i]['ubicacion']);
+                //     p.innerHTML += `
+                // <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${vCruces[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${vCruces[i]['id']}">${vCruces[i]['id']} - ${vCruces[i]['ubicacion']}</button>
+                // `
+                // }
+                console.log(vCruces[1]['id']+' - '+vCruces[1]['ubicacion']);
+            console.log(globalCruces);
+            console.log(id + '- Estoy en el segundo rellenarCruceLed2')
+            console.log(vCruces[1]['id']+' - '+vCruces[1]['ubicacion']);
+
+            var p = document.getElementById('dropdownCruce2'+id);
+            p.innerHTML = '';
+
+            for (var i in vCruces) {
+                p.innerHTML += `
+            <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${vCruces[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${vCruces[i]['id']}">${vCruces[i]['id']} - ${vCruces[i]['ubicacion']}</button>
+            `
             }
-        })
-}
+
+ }
 
 function leerCruceLed(id) {
     var p1 = document.getElementById('inputIdCruce');
@@ -176,11 +222,29 @@ function existeFecha2Led(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
-function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
+async function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputIdCruce').value;
+    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+
+    var vCruces= await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {return response;})
+
+            console.log(vCruces);
+    
+    
+    
+    
+    
     var url = 'http://172.27.120.111/gestin/public/api/led' 
     
-    fetch(url, {
+    await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -204,6 +268,7 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     } else {
                         var activo = "";
                     }
+
                     if (response[i]['almacen'] == "true") {
                         var almacen = "checked";
                     } else {
@@ -214,20 +279,7 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     <div class="row mt-1" id="">
                       
                     <div class="col-1 mt-1 ml-0" >
-                            <div class="input-group">
-                                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
-                                <div class="input-group-append">
-
-                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-
-                                        <div class="dropdown-menu dp2" id="dropdownCruce2${response[i]['id']}">
-
-                                        </div>
-                                </div>
-                            </div>
+                         <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
                     </div>
 
 
@@ -305,7 +357,16 @@ function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
          
                  `
 
-                 rellenarCruceLed2(response[i]['id']);
+                //script para rellenar los números de cruce en cada registro
+
+                //  var p3 = document.getElementById('dropdownCruce2'+response[i]['id']);
+                //  p3.innerHTML = '';
+
+                //  for (var a in vCruces) {
+                //          p3.innerHTML += `<button class="dropdown-item" type="submit" id="dropBtnCruce${[a]}" name="${vCruces[a]['ubicacion']}" onclick="leerCruceLed2(this.value,${vCruces[a]['id']})" value="${vCruces[a]['id']}">${vCruces[a]['id']} - ${vCruces[a]['ubicacion']}</button>`
+                //  }
+
+                //  rellenarCruceLed2(response[i]['id']); 
                  
                 }
             }
@@ -548,8 +609,17 @@ function comprobarNumSerieLed3(id,idNumSerie) {
 }
 
 
-function paginacion() {
+function paginacion(param) {
 
-    var p=document.getElementById("page");
+    var p=document.getElementById("dropdownItems");
+    p.innerText=param;
+    
+}
+
+
+async function cargarCruces(){
+    globalCruces=  await misCruces();
+    console.log('Función Cargar Cruce '+ globalCruces[0]['id']);
+    return globalCruces;
     
 }

@@ -15,7 +15,9 @@ include './login/session.php';
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
-    <script src="https://kit.fontawesome.com/de8261cad4.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
+    <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="../fontawesome/css/solid.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -106,19 +108,19 @@ include './login/session.php';
             <div class="col">
                 <h3 class="ml-3"><b>Leds</b></h3>
             </div>
-            <div class="col">
-                <div>
+            <div class="">
+                
                     <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Items por Pag.
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="pag">
-                        <a class="dropdown-item" href="#" onclick="paginacion("50")">50</a>
-                        <a class="dropdown-item" href="#">100</a>
-                        <a class="dropdown-item" href="#">150</a>
-                        <a class="dropdown-item" href="#">200</a>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownItems" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Items por Pag.
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="pag">
+                            <a class="dropdown-item" href="#" onclick="paginacion('50')">50</a>
+                            <a class="dropdown-item" href="#" onclick="paginacion('100')">100</a>
+                            <a class="dropdown-item" href="#" onclick="paginacion('150')">150</a>
+                            <a class="dropdown-item" href="#" onclick="paginacion('200')">200</a>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -209,7 +211,7 @@ include './login/session.php';
                 <input type="checkbox" class="mt-2 ml-2" name="inputAlmacen" id="inputAlmacen">
             </div>
             <div class="col-auto  mt-4">
-                <div class="btn btn-primary mt-3" onclick="nuevaLed()"><i class="far fa-save"></i></div>
+                <div class="btn btn-primary mt-3" onclick="nuevaLed()"><i class="fas fa-save"></i></div>
             </div>
         </div>
     </div>

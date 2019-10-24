@@ -65,7 +65,32 @@ $app->get('/api/cruces',function(Request $request, Response $response){
     
 });
 
+$app->get('/api/cruce/{id}',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $id= $request->getAttribute('id');
+    $sql="SELECT ubicacion FROM instalaciones where id ='".$id."'";
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
 
+        if($resultado->rowCount()>0){
+            $cruces= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($cruces,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
 
 
 $app->get('/api/pp',function(Request $request, Response $response){
@@ -93,6 +118,9 @@ $app->get('/api/pp',function(Request $request, Response $response){
 
     
 });
+
+
+
 
 //GET saber que tipo de regulador es
 

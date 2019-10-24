@@ -1,2 +1,38 @@
 02/10/2019	En los formularios MFO el input date=month de imprimir no funcionan en Firefox69.0.1 
 02/10/2019	No se pueden bajar los PDFs creados en una página nueva de MFOs
+24/10/2019	Se deshabilitan los dropdown de edición de cruce. Se deberán introducir manualmente. El procedimiento está hecho en totalLeds pero comentado. 
+			Al cargar la página con los registros limitados a paginación se cargaban en cada dropdown todos los cruces, esto realintizaba la carga. He decidido eliminarlos.
+			Se modifica el código :			
+			
+			 <div class="input-group">
+                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
+					<div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span></button>
+                            <div class="dropdown-menu dp2" id="dropdownCruce2${response[i]['id']}">
+                            </div>
+                    </div>
+             </div>
+			 
+			 por:
+			 
+			   <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
+
+			   De los MFOs se sustituye el codigo:
+				<div class="input-group mt-2">
+					<button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+						onclick="rellenarCruceMFO2(${response[i]['id']})">
+						Inst
+					</button>
+					<div class="dropdown-menu" id="dropInstalacionPintura${response[i]['id']}">
+						<!-- inyectar código -->
+					</div>
+					<input type="text" class="form-control" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}">                          
+				</div>
+							
+			por:
+				<input type="text" class="form-control" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}">    
+				
+				
+	
+			
