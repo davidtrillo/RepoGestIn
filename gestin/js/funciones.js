@@ -4,16 +4,19 @@ $("#dropdown-menu1 button").click(function () {
     $("#inputTipologia").val($(this).text());
     var datoInput = document.getElementById('inputTipologia').value;
     enviarInput(datoInput);
-
+   // desactivarBotones();
 })
 
 function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/instalaciones/' + datoInput;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/instalaciones/' + datoInput;
     fetch(url, {
-            method: 'GET',
+        method: 'GET',
+       
             headers: {
+                'Access-Control-Allow-Origin': 'http://webserver.mobilitat.local',
                 'Content-Type': 'application/json'
-            }
+            },
+           
         })
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
@@ -26,10 +29,12 @@ function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del
              `
             }
         })
-
 }
 
-function leerInstalacion(idInstalacion, ubicacion) {
+async function leerInstalacion(idInstalacion, ubicacion) {
+
+ // await  desactivarBotones();
+
     var inputInst = document.getElementById('inputInstalacion');
     inputInst.value = idInstalacion;
 
@@ -43,17 +48,18 @@ function leerInstalacion(idInstalacion, ubicacion) {
     var f3 = document.getElementById("formFooter");
     f3.innerHTML = "";
 
-    llamadaAPIInventario(idInstalacion);
-    rellenarRegulador();
-    rellenarCM();
-    rellenarCruce();
+  await  llamadaAPIInventario(idInstalacion);
+  await  rellenarRegulador();
+  await  rellenarCM();
+  await  rellenarCruce();
 }
 
 function llamadaAPIInventario(idInstalacion) {
-    var url = 'http://172.27.120.111/gestin/public/api/inventario/' + idInstalacion;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/inventario/' + idInstalacion;
     fetch(url, {
             method: 'GET',
             headers: {
+                'Access-Control-Allow-Origin': 'http://webserver.mobilitat.local',
                 'Content-Type': 'application/json'
             }
         })
@@ -73,11 +79,11 @@ function llamadaAPIInventario(idInstalacion) {
             var p5 = document.getElementById('inputUbicacionNYXPalma');
             p5.value = response[0]['ubicacionNYXPalma'];
 
-            console.log('regulador:' + response[0]['nombre']);
-            console.log('idCM:' + response[0]['idCM']);
-            console.log('watios:' + response[0]['watios']);
-            console.log('ubicacion:' + response[0]['ubicacion']);
-            console.log('ubicacionNYXPalma:' + response[0]['ubicacionNYXPalma']);
+            // console.log('regulador:' + response[0]['nombre']);
+            // console.log('idCM:' + response[0]['idCM']);
+            // console.log('watios:' + response[0]['watios']);
+            // console.log('ubicacion:' + response[0]['ubicacion']);
+            // console.log('ubicacionNYXPalma:' + response[0]['ubicacionNYXPalma']);
 
 
         })
@@ -85,7 +91,7 @@ function llamadaAPIInventario(idInstalacion) {
 }
 
 function rellenarRegulador() {
-    var url = 'http://172.27.120.111/gestin/public/api/regulador';
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/regulador';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -106,7 +112,7 @@ function rellenarRegulador() {
 }
 
 function rellenarCM() {
-    var url = 'http://172.27.120.111/gestin/public/api/cm';
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cm';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -127,7 +133,7 @@ function rellenarCM() {
 }
 
 function rellenarCruce() {
-    var url = 'http://172.27.120.111/gestin/public/api/cruces';
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -178,14 +184,14 @@ function editarInstalacion() {
     var watios = document.getElementById('inputWatios').value ? document.getElementById('inputWatios').value : null;
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
-    console.log(idInstalacion);
-    console.log(idRegulador);
-    console.log(idCM);
-    console.log(alimentacion);
-    console.log(watios);
+    // console.log(idInstalacion);
+    // console.log(idRegulador);
+    // console.log(idCM);
+    // console.log(alimentacion);
+    // console.log(watios);
 
 
-    var url = 'http://172.27.120.111/gestin/public/api/inventario/modificar/' + idInstalacion;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/inventario/modificar/' + idInstalacion;
     fetch(url, {
             method: 'PUT',
             headers: {
@@ -208,67 +214,67 @@ function editarInstalacion() {
         })
 }
 
-function desactivarBotones() {
+// function desactivarBotones() {
 
   
-    var ac=document.getElementById("btnTarjetas");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnTarjetas");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnBusTren");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnBusTren");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btn11_322");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btn11_322");
+//     ac.classList.remove("active");
    
-    var ac=document.getElementById("btn12_300");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btn12_300");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btn13_200");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btn13_200");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btn12_200");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btn12_200");
+//     ac.classList.remove("active");
    
-    var ac=document.getElementById("btn11_2in");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btn11_2in");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btn12_pp");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btn12_pp");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnOculta");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnOculta");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnLed");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnLed");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnInvidentes");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnInvidentes");
+//     ac.classList.remove("active");
    
-    var ac=document.getElementById("btnDescontadores");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnDescontadores");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnBaculos");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnBaculos");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnColumnas");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnColumnas");
+//     ac.classList.remove("active");
    
-    var ac=document.getElementById("btnPulsadores");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnPulsadores");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnEspiras");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnEspiras");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnPantallasCon");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnPantallasCon");
+//     ac.classList.remove("active");
    
-    var ac=document.getElementById("btnCCTV");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnCCTV");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnCamIp");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnCamIp");
+//     ac.classList.remove("active");
 
-    var ac=document.getElementById("btnModulo");
-    ac.classList.remove("active");
+//     var ac=document.getElementById("btnModulo");
+//     ac.classList.remove("active");
 
-}
+// }

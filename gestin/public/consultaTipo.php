@@ -18,7 +18,9 @@ require '../vendor/autoload.php';
    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
    <!-- Bootstrap CSS -->
-   <script src="https://kit.fontawesome.com/de8261cad4.js"></script>
+       <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
+   <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
+   <link href="../fontawesome/css/solid.css" rel="stylesheet">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -41,7 +43,7 @@ require '../vendor/autoload.php';
    <!-- Navbar -->
 <div class="container-fluid p-0">
    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-   <a class="navbar-brand" href="#">Gestión de Inventario</a>
+   <a class="navbar-brand" href="#">Gestión del Inventario del Servei de Regulació i Control del Trànsit</a>
    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
    </button>
@@ -115,7 +117,7 @@ require '../vendor/autoload.php';
                </button>
                <div class="dropdown-menu" id="dropdown-menu1" aria-labelledby="dropdownMenu2">
                   <?php
-                              $apiUrl = "http://172.27.120.111/gestin/public/api/tipoinstalacion"; //llamamos al EndPoint de la API
+                              $apiUrl = "http://webserver.mobilitat.local/gestin/public/api/tipoinstalacion"; //llamamos al EndPoint de la API
                               $json = file_get_contents($apiUrl); //capturamos la informacion
                               $datosAPI = json_decode($json, true); //transformamos el json a array
                               for ($i = 0; $i < count($datosAPI); ++$i) {?>
@@ -201,9 +203,8 @@ require '../vendor/autoload.php';
    <!-- fin formulario Body-->
    <hr>
    <!-- Formulario footer Nuevo-->
-   <div class="mt-2 p-2" id="formFooter">
-
-
+   <div class="mt-2 p-2 fixed-bottom" id="formFooter">
+            <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right" style="height:50px">
    </div>
    <!-- fin formulario Footer-->
 

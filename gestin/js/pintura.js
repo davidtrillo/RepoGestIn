@@ -1,7 +1,7 @@
-document.onload = rellenarPintura();
+//document.onload = rellenarPintura();
 
 function rellenarCrucePintura() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -24,7 +24,7 @@ function rellenarCrucePintura() { //Llamada a la API según el dato obtenido del
 }
 
 function rellenarCrucePintura2(param) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -79,7 +79,7 @@ function nuevaPintura() {
         // console.log(idUsuario);
 
 
-        var url = 'http://172.27.120.111/gestin/public/api/pintura/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/pintura/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -102,14 +102,14 @@ function nuevaPintura() {
             })
 
     }
-    rellenarPintura();
+    //rellenarPintura();
 }
 
 
 
 function rellenarPintura() {
 
-    var url = 'http://172.27.120.111/gestin/public/api/pintura'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/pintura'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -196,7 +196,7 @@ function rellenarUbicacion(param) {
 
     var p1=document.getElementById("inputIdCruce2"+param);
 
-    var url = 'http://172.27.120.111/gestin/public/api/cruce/'+p1.value;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruce/'+p1.value;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -218,7 +218,7 @@ function rellenarUbicacion(param) {
 
 function getElementos(id) {
 
-     var url = 'http://172.27.120.111/gestin/public/api/elementospintura/'+id;
+     var url = 'http://webserver.mobilitat.local/gestin/public/api/elementospintura/'+id;
      fetch(url, {
              method: 'GET',
              headers: {
@@ -265,7 +265,7 @@ function getElementos(id) {
 
 function borrarPintura(id) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/pintura/borrar/'+id;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/pintura/borrar/'+id;
         fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -303,7 +303,7 @@ function editarPintura(param) {//CAMBIO DE NOMENCLATURA
      console.log(resolucion2);
      console.log(idUsuario);
 
-    var url = 'http://172.27.120.111/gestin/public/api/pintura/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/pintura/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

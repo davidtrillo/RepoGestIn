@@ -25,19 +25,19 @@ function nuevaDescontadores() { //CAMBIO DE NOMENCLATURA
         var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
         
 activo = String(activo);
-console.log(idTipoActuacion);
-console.log(idNumSerie);
-console.log(albaran);
-console.log(observaciones);
-console.log(precio);
-console.log(activo);
+// console.log(idTipoActuacion);
+// console.log(idNumSerie);
+// console.log(albaran);
+// console.log(observaciones);
+// console.log(precio);
+// console.log(activo);
 
 
 
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/descontadores/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/descontadores/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -102,7 +102,7 @@ function existeFecha2Descontadores(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Descontadores(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -126,7 +126,7 @@ function rellenarTipoActuacion2Descontadores(idActuacion) { //Llamada a la API s
 }
 
 function rellenarTipoActuacionDescontadores() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -160,12 +160,11 @@ function leerTipoActuacion2Descontadores(descripcionTipoActuacion, idTipoActuaci
     p2.value = descripcionTipoActuacion;
 }
 
-function formDescontadores() { //CAMBIO DE NOMENCLATURA
+async function formDescontadores(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
-    desactivarBotones();
-    var ac=document.getElementById("btnDescontadores");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -235,10 +234,10 @@ function formDescontadores() { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionDescontadores();//CAMBIO DE NOMENCLATURA
+       await rellenarTipoActuacionDescontadores();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosDescontadores();//CAMBIO DE NOMENCLATURA
+        await rellenarTodosDescontadores();//CAMBIO DE NOMENCLATURA
     }
 }
 
@@ -246,7 +245,7 @@ function formDescontadores() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosDescontadores() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/descontadores/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/descontadores/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -323,7 +322,7 @@ function rellenarTodosDescontadores() { //Llamada a la API  //CAMBIO DE NOMENCLA
 
 function rellenarFooterDescontadores(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/descontadores/activas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/descontadores/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -351,7 +350,7 @@ function rellenarFooterDescontadores(){//CAMBIO DE NOMENCLATURA
 
 function borrarDescontadores(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/descontadores/borrar/' + param
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/descontadores/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -400,7 +399,7 @@ function editarDescontadores(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/descontadores/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/descontadores/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

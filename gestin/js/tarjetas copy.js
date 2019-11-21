@@ -36,7 +36,7 @@ console.log(precio);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -101,7 +101,7 @@ function existeFecha2(fecha) {
 
 
 function rellenarTipoActuacion2(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -125,7 +125,7 @@ function rellenarTipoActuacion2(idActuacion) { //Llamada a la API según el dato
 }
 
 function rellenarTipoActuacion() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -241,7 +241,7 @@ function formTarjetas() {
 
 function rellenarTodos() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -315,7 +315,7 @@ function rellenarTodos() { //Llamada a la API
 
 function rellenarFooter(){
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/activas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -342,7 +342,7 @@ function rellenarFooter(){
 
 function borrarTarjeta(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/borrar/' + param
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -391,7 +391,7 @@ function editarTarjeta(param) {
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

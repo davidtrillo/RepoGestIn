@@ -25,19 +25,19 @@ function nueva11_322() { //CAMBIO DE NOMENCLATURA
         var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
         
 activo = String(activo);
-console.log(idTipoActuacion);
-console.log(idNumSerie);
-console.log(albaran);
-console.log(observaciones);
-console.log(precio);
-console.log(activo);
+// console.log(idTipoActuacion);
+// console.log(idNumSerie);
+// console.log(albaran);
+// console.log(observaciones);
+// console.log(precio);
+// console.log(activo);
 
 
 
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/11_322/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/11_322/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -102,7 +102,7 @@ function existeFecha211_322(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion211_322(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -126,7 +126,7 @@ function rellenarTipoActuacion211_322(idActuacion) { //Llamada a la API según e
 }
 
 function rellenarTipoActuacion11_322() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -160,13 +160,11 @@ function leerTipoActuacion211_322(descripcionTipoActuacion, idTipoActuacion, idA
     p2.value = descripcionTipoActuacion;
 }
 
-function form11_322() { //CAMBIO DE NOMENCLATURA
+function form11_322(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
-    desactivarBotones();
-
-    var ac=document.getElementById("btn11_322");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -247,7 +245,7 @@ function form11_322() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodos11_322() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/11_322/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/11_322/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -325,7 +323,7 @@ function rellenarTodos11_322() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooter11_322(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/11_322/activas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/11_322/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -353,7 +351,7 @@ function rellenarFooter11_322(){//CAMBIO DE NOMENCLATURA
 
 function borrar11_322(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/11_322/borrar/' + param
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/11_322/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -402,7 +400,7 @@ function editar11_322(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/11_322/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/11_322/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -439,7 +437,7 @@ function comprobarNumSerie11_322() {
 
     if (idNumSerie) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/11_322/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/11_322/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -476,7 +474,7 @@ function comprobarNumSerie11_3222() {
 
     if (idInstalacion) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/11_322';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/11_322';
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -523,8 +521,8 @@ function comprobarNumSerie11_3223(id,idNumSerie) {
 
     if (idNumSerie) {
 
-       // var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/11_322/' + idNumSerie;
+       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/11_322/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

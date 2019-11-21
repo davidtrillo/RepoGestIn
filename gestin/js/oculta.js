@@ -33,7 +33,7 @@ almacen = String(almacen);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/oculta/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/oculta/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -99,7 +99,7 @@ function existeFecha2Oculta(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Oculta(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -123,7 +123,7 @@ function rellenarTipoActuacion2Oculta(idActuacion) { //Llamada a la API según e
 }
 
 function rellenarTipoActuacionOculta() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -157,12 +157,11 @@ function leerTipoActuacion2Oculta(descripcionTipoActuacion, idTipoActuacion, idA
     p2.value = descripcionTipoActuacion;
 }
 
-function formOculta() { //CAMBIO DE NOMENCLATURA
+async function formOculta(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
-    desactivarBotones();
-    var ac=document.getElementById("btnOculta");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -233,10 +232,10 @@ function formOculta() { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionOculta();//CAMBIO DE NOMENCLATURA
+        await rellenarTipoActuacionOculta();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosOculta();//CAMBIO DE NOMENCLATURA
+       await rellenarTodosOculta();//CAMBIO DE NOMENCLATURA
     }
 }
 
@@ -244,7 +243,7 @@ function formOculta() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosOculta() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/oculta/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/oculta/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -326,7 +325,7 @@ function rellenarTodosOculta() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterOculta(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/oculta/activas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/oculta/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -354,7 +353,7 @@ function rellenarFooterOculta(){//CAMBIO DE NOMENCLATURA
 
 function borrarOculta(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/oculta/borrar/' + param
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/oculta/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -405,7 +404,7 @@ function editarOculta(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/oculta/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/oculta/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

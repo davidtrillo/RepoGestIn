@@ -104,7 +104,7 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
     }
 
     /**
-     * URL path to tcpdf installation folder (http://localhost/tcpdf/).
+     * URL path to tcpdf installation folder (http://webserver.mobilitat.local/tcpdf/).
      * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
      */
     define('K_PATH_URL', $k_path_url);

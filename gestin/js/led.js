@@ -27,11 +27,11 @@ function nuevaLed() { //CAMBIO DE NOMENCLATURA
         var almacen = document.getElementById('inputAlmacen').checked;
 
         
-activo = String(activo);
-almacen = String(almacen);
+        activo = String(activo);
+        almacen = String(almacen);
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/led/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/led/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -99,12 +99,14 @@ function existeFecha2Led(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 
-function formLed() { //CAMBIO DE NOMENCLATURA
+ function formLed(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
-    desactivarBotones();
-    var ac=document.getElementById("btnLed");
-    ac.classList.add("active");
+    //desactivarBotones();
+   // var ac=document.getElementById("btnLed");
+    //ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -222,17 +224,13 @@ function escribirColor2(param,id) {
     p1.value=param;
 }
 
-function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
+async function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
 
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/led/' + idInstalacion
+     
     
-
-    var url = 'http://172.27.120.111/gestin/public/api/led/' + idInstalacion
-    
-    
-    
-    
-    fetch(url, {
+   await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -342,13 +340,13 @@ function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                 }
             }
         })
-        comprobarNumSerieLed2();
-        rellenarFooterLed();//CAMBIO DE NOMENCLATURA
+      await  comprobarNumSerieLed2();
+       await  rellenarFooterLed();//CAMBIO DE NOMENCLATURA
 }
 
 function rellenarFooterLed(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/led/activas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/activas/1' //+ idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -358,7 +356,7 @@ function rellenarFooterLed(){//CAMBIO DE NOMENCLATURA
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
-            if (response == "No se han encontrado resultados") {
+            if (response == "No se han encontrado resultados activos") {
                 alert(response);
 
             } else {
@@ -376,7 +374,7 @@ function rellenarFooterLed(){//CAMBIO DE NOMENCLATURA
 
 function borrarLed(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/led/borrar/' + param
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/led/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -428,7 +426,7 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/led/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/led/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -466,7 +464,7 @@ function comprobarNumSerieLed() {
 
     if (idNumSerie) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/led/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/led/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -503,7 +501,7 @@ function comprobarNumSerieLed2() {
   
     if (idInstalacion) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/led';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/led';
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -550,8 +548,8 @@ function comprobarNumSerieLed3(id,idNumSerie) {
     
     if (idNumSerie) {
 
-       // var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/led/' + idNumSerie;
+       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/led/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

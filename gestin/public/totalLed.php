@@ -15,9 +15,10 @@ include './login/session.php';
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
-    <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
-    <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
-    <link href="../fontawesome/css/solid.css" rel="stylesheet">
+    <!--    <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
+   <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
+   <link href="../fontawesome/css/solid.css" rel="stylesheet">
+
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -25,10 +26,19 @@ include './login/session.php';
     <style>
         #dropdownCruce,
         #dropdownCruce2,
-        .dp2 {
+        .dp2,
+        .pag {
             height: 500px;
+           
             overflow-y: auto;
         }
+
+
+        #pag {
+                width: 80px !important;
+                /* height: 400px !important; */
+                min-width:2rem;
+            }
     </style>
     <title>Leds</title>
 </head>
@@ -38,7 +48,7 @@ include './login/session.php';
     <!-- Navbar -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-            <a class="navbar-brand" href="#">Gestión de Inventario</a>
+            <a class="navbar-brand" href="#">Gestión del Inventario del Servei de Regulació i Control del Trànsit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -103,24 +113,43 @@ include './login/session.php';
 
 
     <!-- Dropdowns Menus -->
-    <div class="container-fluid mt-0 p-1" style="background-color:LightSkyBlue;">
+    <div class="container-fluid mt-0 p-0" style="background-color:LightSkyBlue;">
         <div class="row">
-            <div class="col">
-                <h3 class="ml-3"><b>Leds</b></h3>
+            <div class="col-auto">
+                <h3 class="ml-3 mt-2"><b>Leds</b></h3>
+
             </div>
-            <div class="">
-                
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownItems" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Items por Pag.
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="pag">
-                            <a class="dropdown-item" href="#" onclick="paginacion('50')">50</a>
-                            <a class="dropdown-item" href="#" onclick="paginacion('100')">100</a>
-                            <a class="dropdown-item" href="#" onclick="paginacion('150')">150</a>
-                            <a class="dropdown-item" href="#" onclick="paginacion('200')">200</a>
-                        </div>
+
+            <!-- <div class="p-2 mr-4 ml-4">
+                    <div class="col">
+
                     </div>
+            </div> -->
+
+
+            <div class="col-auto">
+                 <div class="ml-1 mt-3" id="">
+                    <input type="checkbox" name="" id="repes" onclick="repes()"> Núm. de serie Repetidos
+                 </div>
+            </div>
+
+            <div class="col-auto">
+                 <div class="ml-1 mt-3" id="spinner">
+                    <!-- Aquí inyecto el código del spinner -->
+                 </div>
+            </div>
+            <div class="col mt-3 ">
+                <p class="text-right">Filtro Cruce</p> 
+            </div>
+
+            <div class="col-1 mt-1 ml-0">
+                <input type="text" class="form-control mt-1 bg-warning" id="inputIdFiltroCruce">
+            </div>
+
+            <div class="col-1 mt-2 ml-0">
+
+                <div class="btn btn-primary" onclick="filtrarCruce()">Aplicar Filtro</i></div>
+
             </div>
         </div>
     </div>
@@ -223,17 +252,49 @@ include './login/session.php';
 </div>
     
     <!-- Formulario Body Nuevo-->
-    <div class="container-fluid ml-0 " id="formBody">
+    <div class="container-fluid ml-0 mb-2 " id="formBody">
 
         <!-- inyeccion de codigo  -->
     </div>
 
     <!-- fin formulario Body-->
 
+   <!-- Formulario footer-->
+   <div class="container-fluid mt-2 p-2 fixed-bottom bg-white" id="formFooter" style="height:50px;">
+      <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right" style="height:50px">
 
+        <div class="row">
+            <div class="col">
+                            <div class="dropdown" >
+                                        <span><b>Paginación</b></span>
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownLimit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            50
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="pag">
+                                            <a class="dropdown-item" href="#" onclick="paginacion('50')">50</a>
+                                            <a class="dropdown-item" href="#" onclick="paginacion('100')">100</a>
+                                            <a class="dropdown-item" href="#" onclick="paginacion('150')">150</a>
+                                            <a class="dropdown-item" href="#" onclick="paginacion('200')">200</a>
+                                        </div>
+                            </div>  
+            </div>
+            <div class="col">
+                            <nav aria-label="Page navigation example">
+                                    <ul class="pagination" id="nPag">
+                                            <!-- inyeccion de codigo por JS -->
+             
+
+                                    </ul>
+                            </nav>
+                </div>            
+        </div>
+
+    </div>
     <!-- fin formulario Footer-->
 
     <!-- Formulario Modal -->
+
+           
 
 
 

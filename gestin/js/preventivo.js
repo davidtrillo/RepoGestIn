@@ -1,7 +1,7 @@
-document.onload = rellenarPreventivo();
+//document.onload = rellenarPreventivo();
 
 function rellenarCrucePreventivo() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -23,7 +23,7 @@ function rellenarCrucePreventivo() { //Llamada a la API según el dato obtenido 
 }
 
 function rellenarCrucePreventivo2(param) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/cruces'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -85,10 +85,10 @@ function nuevoPreventivo() {
     if (idInstalacion.value != "") {
         var inputFechaPreventivo = document.getElementById('inputFechaPreventivo').value ? document.getElementById('inputFechaPreventivo').value :null;
         var inputObservacionesPreventivo = document.getElementById('inputObservacionesPreventivo').value ? document.getElementById('inputObservacionesPreventivo').value :null;
-        var inputFechaInspeccionVoluntariaSemaforo = document.getElementById('inputFechaInspeccionVoluntariaSemaforo').value  ? document.getElementById('inputFechaInspeccionVoluntariaSemaforo').value :null;
+        var inputFechaInspeccionVoluntariaSemaforo = document.getElementById('inputFechaInspeccionVoluntariaSemaforo').value ? document.getElementById('inputFechaInspeccionVoluntariaSemaforo').value :null;
         var inputObservacionesInspeccionVoluntarioSemaforo = document.getElementById('inputObservacionesInspeccionVoluntarioSemaforo').value  ? document.getElementById('inputObservacionesInspeccionVoluntarioSemaforo').value :null; 
         var inputEstadoInspeccionVoluntarioSemaforo = document.getElementById('inputEstadoInspeccionVoluntarioSemaforo').value  ? document.getElementById('inputEstadoInspeccionVoluntarioSemaforo').value :null;
-        var inputFechaInspeccionVoluntarioAlumbrado = document.getElementById('inputFechaInspeccionVoluntarioAlumbrado').value  ? document.getElementById('inputFechaInspeccionVoluntarioAlumbrado').value :null;
+        var inputFechaInspeccionVoluntarioAlumbrado = document.getElementById('inputFechaInspeccionVoluntarioAlumbrado').value ? document.getElementById('inputFechaInspeccionVoluntarioAlumbrado').value :null;
         var inputEstadoInspeccionVoluntarioAlumbrado = document.getElementById('inputEstadoInspeccionVoluntarioAlumbrado').value  ? document.getElementById('inputEstadoInspeccionVoluntarioAlumbrado').value :null;
         var inputObservacionesInspeccionVoluntarioAlumbrado = document.getElementById('inputObservacionesInspeccionVoluntarioAlumbrado').value  ? document.getElementById('inputObservacionesInspeccionVoluntarioAlumbrado').value :null;
         var idUsuario = document.getElementById('inputIdUsuario').value;
@@ -103,7 +103,7 @@ function nuevoPreventivo() {
         // console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
 
 
-        var url = 'http://172.27.120.111/gestin/public/api/preventivo/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -131,7 +131,7 @@ function nuevoPreventivo() {
 
     }
     setTimeout(() => {
-        rellenarPreventivo(); 
+       // rellenarPreventivo(); 
     }, 1000);
 }
 
@@ -139,7 +139,7 @@ function nuevoPreventivo() {
 
 function rellenarPreventivo() {
 
-    var url = 'http://172.27.120.111/gestin/public/api/preventivo'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -169,7 +169,26 @@ function rellenarPreventivo() {
                         color="";
                     }
 
+                    if (response[i]['fechaPreventivo']==null){
+                        fechaPreventivoN="";
+                    }else{
+                        fechaPreventivoN=response[i]['fechaPreventivo'];
+                        
+                    }
+                    if (response[i]['fechaInspeccionVoluntarioSemaforo']==null){
+                        fechaInspeccionVoluntarioSemaforoN="";
+                    }else{
+                        fechaInspeccionVoluntarioSemaforoN=response[i]['fechaInspeccionVoluntarioSemaforo'];
+                        
+                    }
 
+                    if (response[i]['fechaInspeccionAlumbrado']==null){
+                        fechaInspeccionAlumbradoN="";
+                    }else{
+                        fechaInspeccionVoluntarioSemaforoN=response[i]['fechaInspeccionAlumbrado'];
+                        
+                    }
+                    
                     // console.log(response[i]['id']);
                     // console.log(response[i]['idInstalacion']);
                     // console.log(response[i]['ubicacion']);
@@ -188,6 +207,7 @@ function rellenarPreventivo() {
 
                     <div class="row">
                        <div class="col-1 p-1">
+                       <span><b>Instalación</b></span>
                        <input type="text" class="form-control mt-2" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}" onfocusout="rellenarUbicacion(${response[i]['id']})">                          
 
  
@@ -199,7 +219,7 @@ function rellenarPreventivo() {
                        </div>
                        <div class="col-xd-1 p-1">
                           <span><b>Fecha Preventivo</b></span>
-                          <input type="date" class="form-control mt-2" name="" id="inputFechaPreventivo2${response[i]['id']}" value="${response[i]['fechaPreventivo']}">
+                          <input type="date" class="form-control mt-2" name="" id="inputFechaPreventivo2${response[i]['id']}" value="${fechaPreventivoN}">
                        </div>
                        <div class="col-5 p-1">
                           <span><b>Observaciones Preventivo</b></span>
@@ -212,7 +232,7 @@ function rellenarPreventivo() {
                     <div class="row">
                        <div class="col-xd-1 p-1">
                           <span><b>Fecha Insp. Vol. Sem.</b></span>
-                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntariaSemaforo2${response[i]['id']}" value="${response[i]['fechaInspeccionVoluntarioSemaforo']}">
+                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntariaSemaforo2${response[i]['id']}" value="${fechaInspeccionVoluntarioSemaforoN}">
                        </div>
                        <div class="col-2 p-1">
                           <span><b>Estado Insp. Vol. Sem.</b></span>
@@ -237,7 +257,7 @@ function rellenarPreventivo() {
                        </div>
                        <div class="col-xd-1 p-1">
                           <span><b>Fecha Insp. Vol. Alum.</b></span>
-                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntarioAlumbrado2${response[i]['id']}" value="${response[i]['fechaInspeccionAlumbrado']}">
+                          <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntarioAlumbrado2${response[i]['id']}" value="${fechaInspeccionAlumbradoN}">
                        </div>
                        <div class="col-2 p-1">
                           <span><b>Estado Insp. Vol. Alum.</b></span>
@@ -288,7 +308,7 @@ function rellenarUbicacion(param) {
 
     var p1=document.getElementById("inputIdCruce2"+param);
 
-    var url = 'http://172.27.120.111/gestin/public/api/cruce/'+p1.value;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruce/'+p1.value;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -307,7 +327,7 @@ function rellenarUbicacion(param) {
 
 function borrarPreventivo(id) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/preventivo/borrar/'+id;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/borrar/'+id;
         fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -352,7 +372,7 @@ function editarPreventivo(param) {
      console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
      console.log(inputFechaPreventivo);
 
-    var url = 'http://172.27.120.111/gestin/public/api/preventivo/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

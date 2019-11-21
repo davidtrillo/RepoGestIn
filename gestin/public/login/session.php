@@ -1,5 +1,5 @@
 <?php
-   //  define('DB_SERVER', 'localhost');
+   //  define('DB_SERVER', 'webserver.mobilitat.local');
    //  define('DB_USERNAME', 'root');
    //  define('DB_PASSWORD', '');
    //  define('DB_DATABASE', 'gestin');

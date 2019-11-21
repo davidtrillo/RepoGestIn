@@ -37,7 +37,7 @@ console.log(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/pantallascon/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/pantallascon/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -102,7 +102,7 @@ function existeFecha2PantallasCon(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2PantallasCon(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -126,7 +126,7 @@ function rellenarTipoActuacion2PantallasCon(idActuacion) { //Llamada a la API se
 }
 
 function rellenarTipoActuacionPantallasCon() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -246,7 +246,7 @@ function formPantallasCon() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/pantallascon/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/pantallascon/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -323,7 +323,7 @@ function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLAT
 
 function rellenarFooterPantallasCon(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/pantallascon/activas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/pantallascon/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -351,7 +351,7 @@ function rellenarFooterPantallasCon(){//CAMBIO DE NOMENCLATURA
 
 function borrarPantallasCon(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/pantallascon/borrar/' + param
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/pantallascon/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -400,7 +400,7 @@ function editarPantallasCon(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/pantallascon/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/pantallascon/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

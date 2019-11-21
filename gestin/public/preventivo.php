@@ -15,7 +15,9 @@ include './login/session.php';
    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
    <!-- Bootstrap CSS -->
-   <script src="https://kit.fontawesome.com/de8261cad4.js"></script>
+       <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
+   <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
+   <link href="../fontawesome/css/solid.css" rel="stylesheet">
 
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -34,7 +36,7 @@ include './login/session.php';
    <!-- Navbar -->
 <div class="container-fluid p-0">
    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-   <a class="navbar-brand" href="#">Gestión de Inventario</a>
+   <a class="navbar-brand" href="#">Gestión del Inventario del Servei de Regulació i Control del Trànsit</a>
    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
    </button>
@@ -151,15 +153,15 @@ include './login/session.php';
                </div>
             </div>
             <div class="col-2 p-1">
-               <span><b>Observaciones Insp. Vol. Sem.</b></span>
+               <span><b>Observaciones Vol. Insp. Sem.</b></span>
                <input type="text" class="form-control mt-2" name="" id="inputObservacionesInspeccionVoluntarioSemaforo" value="">
             </div>
             <div class="col-xd-1 p-1">
-               <span><b>Fecha Insp. Vol. Alum.</b></span>
+               <span><b>Fecha Insp. Alum.</b></span>
                <input type="date" class="form-control mt-2" name="" id="inputFechaInspeccionVoluntarioAlumbrado" value="">
             </div>
             <div class="col-2 p-1">
-               <span><b>Estado Insp. Vol. Alum.</b></span>
+               <span><b>Estado Insp. Alum.</b></span>
                <div class="input-group ">
                   <button type="button" class="btn btn-secondary dropdown-toggle p-1 mt-2" name="" value=""
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -176,7 +178,7 @@ include './login/session.php';
                </div>
             </div>
             <div class="col-2 p-1">
-               <span><b>Observaciones Insp. Vol. Alum.</b></span>
+               <span><b>Observaciones Insp. Alum.</b></span>
                <input type="text" class="form-control mt-2" name="" id="inputObservacionesInspeccionVoluntarioAlumbrado" value="">
             </div>
             <div class="col-1 p-1 mt-2">
@@ -201,9 +203,8 @@ include './login/session.php';
    <!-- fin formulario Body-->
    <hr class="mt-3 mb-1 bg-primary">
    <!-- Formulario footer Nuevo-->
-   <div class="mt-2 p-2" id="formFooter">
-
-
+   <div class="mt-2 p-2 fixed-bottom bg-white" id="formFooter">
+            <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right" style="height:50px">
    </div>
   
 

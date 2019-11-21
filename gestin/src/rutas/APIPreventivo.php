@@ -7,7 +7,7 @@
 
  $app->get('/api/preventivo',function(Request $request, Response $response){
 
-     $sql='SELECT p.*,i.ubicacion FROM preventivo p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.fechaPreventivo desc';
+     $sql='SELECT p.*,i.ubicacion FROM preventivo p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.idInstalacion asc';
     
      try{
          $db= new db();     

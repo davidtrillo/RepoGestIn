@@ -48,7 +48,7 @@
 //define ('K_PATH_MAIN', '');
 
 /**
- * URL path to tcpdf installation folder (http://localhost/tcpdf/).
+ * URL path to tcpdf installation folder (http://webserver.mobilitat.local/tcpdf/).
  * By default it is automatically set but you can also set it as a fixed string to improve performances.
  */
 //define ('K_PATH_URL', '');

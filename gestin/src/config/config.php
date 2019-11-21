@@ -15,7 +15,11 @@ include '../../public/login/session.php';
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
-    <script src="https://kit.fontawesome.com/de8261cad4.js"></script>
+        <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
+   <link href="../../fontawesome/css/fontawesome.css" rel="stylesheet">
+   <link href="../../fontawesome/css/solid.css" rel="stylesheet">
+
+   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -28,7 +32,7 @@ include '../../public/login/session.php';
     <!-- Navbar -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-            <a class="navbar-brand" href="#">Gestión de Inventario</a>
+            <a class="navbar-brand" href="#">Gestión de Inventario del Servei de Regulació i Control del Trànsit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

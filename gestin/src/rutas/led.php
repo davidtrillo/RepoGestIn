@@ -4,10 +4,86 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 //$app = new \Slim\App;
 
-//GET Todas las instalaciones SELECT
-$app->get('/api/led', function (Request $request, Response $response) {
 
-    $sql = 'SELECT * FROM led order by activo desc,fechaActuacion desc limit 50';
+//GET Todas las instalaciones SELECT
+$app->get('/api/led/{instalacion}/{limit}', function (Request $request, Response $response) {
+
+    
+    $limit = $request->getAttribute('limit');
+    $instalacion = $request->getAttribute('instalacion');
+
+   
+        $sql = 'SELECT * FROM led where idInstalacion="' .$instalacion.  '" ORDER BY activo DESC,fechaActuacion DESC limit '. $limit;
+  
+
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});
+
+
+//GET Todas las instalaciones SELECT
+$app->get('/api/led/cont/{limit}', function (Request $request, Response $response) {
+
+    
+    $limit = $request->getAttribute('limit');
+
+    if ($limit==0) {
+        $sql = 'SELECT count(*) as c FROM led';
+    }else{
+        $sql = 'SELECT * FROM led order by activo desc,fechaActuacion desc limit '. $limit;
+    }
+
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});
+
+$app->get('/api/led/repes/{limit}', function (Request $request, Response $response) {
+
+    $limit = $request->getAttribute('limit');
+
+
+    if ($limit==0) {
+        $sql = 'SELECT count(*) as c from led where idnumserie in (SELECT idnumserie FROM gestin.led where idNumSerie<>0 and activo="true" group by idNumSerie having (count(idNumSerie)>=2))';
+    }else{
+        $sql = 'SELECT * from led where idnumserie in (SELECT idnumserie FROM gestin.led where idNumSerie<>0 and activo="true" group by idNumSerie having (count(idNumSerie)>=2)) order by idNumSerie limit '. $limit;
+    }
+
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -30,7 +106,7 @@ $app->get('/api/led', function (Request $request, Response $response) {
 });
 
 //GET Tarjetas activas COUNT
-$app->get('/api/led/activas/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/ledi/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
     $sql = 'SELECT count(id) AS c FROM led WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
@@ -44,7 +120,7 @@ $app->get('/api/led/activas/{instalacion}', function (Request $request, Response
             $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
             echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
         } else {
-            echo json_encode("No se han encontrado resultados");
+            echo json_encode("No se han encontrado resultados2");
         }
         $db = null;
         $resultado = null;

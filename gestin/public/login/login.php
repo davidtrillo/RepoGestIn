@@ -47,7 +47,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
     <link rel="stylesheet" href="../../css/styles.css">
-    <script src="https://kit.fontawesome.com/de8261cad4.js"></script> 
+        <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
+   <link href="../../fontawesome/css/fontawesome.css" rel="stylesheet">
+   <link href="../../fontawesome/css/solid.css" rel="stylesheet"> 
     <title>LogIn</title>
   </head>
   <body>
@@ -57,8 +59,12 @@
            <!-- Icon -->
           <div class="fadeIn first p-3 "  >
               <span style="font-size:3rem;">
-                     <h4>Log In</h4>
-                     <i class="far fa-user"  id="icon"></i>
+                <img src="..\..\img\logoajuntament.jpg" alt="" class="img-fluid mb-0">
+                     <h4>Gestión de Invertario</h4>
+                     <h5>Servei de Regulación i Control del Trànsit</h5>
+                     <h5>Departament de Mobilitat</h5>
+                     <h5 class="pt-3"><b>Log In</b></h5>
+                     <!-- <i class="far fa-user"  id="icon"></i> -->
               </span>
           </div>
       

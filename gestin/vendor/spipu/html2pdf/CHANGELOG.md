@@ -123,7 +123,7 @@ Lots of classes / methods have been renamed, moved, deleted, exploded.
   * add automatic generation of pdf test files
 
     * script ./test/generate.sh
-    * You must have the html2pdf folder in http:/localhost/html2pdf/
+    * You must have the html2pdf folder in http:/webserver.mobilitat.local/html2pdf/
 
   * fix: Set default font from PDF_FONT_NAME_MAIN constant from TCPDF, if available
   * fix: Make space-collapsing regexp Unicode-aware

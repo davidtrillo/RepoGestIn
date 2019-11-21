@@ -42,7 +42,7 @@ function nuevaTarjeta() {
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.111/gestin/public/api/tarjetas/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -109,7 +109,7 @@ function existeFecha2Tarjeta(fecha) {
 
 
 function rellenarTipoActuacion2Tarjetas(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -133,7 +133,7 @@ function rellenarTipoActuacion2Tarjetas(idActuacion) { //Llamada a la API según
 }
 
 function rellenarTipoActuacionTarjeta() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/tipoactuacion'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -167,16 +167,26 @@ function leerTipoActuacion2Tarjeta(descripcionTipoActuacion, idTipoActuacion, id
     p2.value = descripcionTipoActuacion;
 }
 
-async function formTarjetas() {
+async function formTarjetas(elemento) {
 
-    desactivarBotones();
+    //desactivarBotones();
 
-    var ac=document.getElementById("btnTarjetas");
-    ac.classList.add("active");
+    // var ac=document.getElementById("btnTarjetas");
+    // ac.classList.add("active");
 
+    
+    
+    
+    
     var instalacion = document.getElementById("inputInstalacion");
-
+    
     if (instalacion.value != "") {
+        
+            var inputElemento = document.getElementById("inputElemento");
+                inputElemento.value=elemento;
+        
+
+
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `
         
@@ -258,7 +268,7 @@ async function formTarjetas() {
 
 async function rellenarTodosTarjeta() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -352,7 +362,7 @@ async function rellenarTodosTarjeta() { //Llamada a la API
 
 function rellenarFooterTarjeta() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/instaladas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -387,7 +397,7 @@ function rellenarFooterTarjeta() {
 
 function borrarTarjeta(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/borrar/' + param
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -443,7 +453,7 @@ function editarTarjeta(param) {
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.111/gestin/public/api/tarjetas/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -483,7 +493,7 @@ function comprobarNumSerieTarjeta() {
 
     if (idNumSerie) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -520,7 +530,7 @@ function comprobarNumSerieTarjeta() {
   
     if (idInstalacion) {
 
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetas';
      fetch(url, {
                 method: 'GET',
                 headers: {
@@ -544,8 +554,8 @@ function comprobarNumSerieTarjeta() {
                                 // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
-                                    // var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/' + idNumSerie;
-                                     var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
+                                    // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
+                                     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
                                      fetch(url, {
                                              method: 'GET',
                                              headers: {
@@ -602,8 +612,8 @@ function comprobarNumSerieTarjeta() {
     
     if (idNumSerie) {
 
-       // var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://172.27.120.111/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
+       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetas/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
