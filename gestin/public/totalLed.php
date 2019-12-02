@@ -125,7 +125,7 @@ include './login/session.php';
 
                     </div>
             </div> -->
-
+ 
 
             <div class="col-auto">
                  <div class="ml-1 mt-3" id="">
@@ -260,11 +260,13 @@ include './login/session.php';
     <!-- fin formulario Body-->
 
    <!-- Formulario footer-->
-   <div class="container-fluid mt-2 p-2 fixed-bottom bg-white" id="formFooter" style="height:50px;">
-      <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right" style="height:50px">
+
+   <div class="container-fluid mt-1 p-1 fixed-bottom bg-white" id="formFooter" style="height:50px;">
+   <hr class="mt-0 mb-1 bg-dark">
+
 
         <div class="row">
-            <div class="col">
+            <div class="col-2">
                             <div class="dropdown" >
                                         <span><b>Paginación</b></span>
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownLimit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -278,6 +280,10 @@ include './login/session.php';
                                         </div>
                             </div>  
             </div>
+            <div class="col mt-1" id="footerTotal">
+
+                
+            </div>
             <div class="col">
                             <nav aria-label="Page navigation example">
                                     <ul class="pagination" id="nPag">
@@ -286,7 +292,10 @@ include './login/session.php';
 
                                     </ul>
                             </nav>
-                </div>            
+            </div>   
+            <div class="col-2">
+                 <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right mt-0" style="height:50px">
+            </div>         
         </div>
 
     </div>

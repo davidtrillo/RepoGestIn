@@ -241,7 +241,10 @@ include './login/session.php';
                      Elementos
                   </button>
                   <div class="dropdown-menu" id="dropdownElemento">
-                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS')">TARJETAS</button>
+                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS SALIDA')">TARJETAS SALIDA</button>
+                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS CPU')">TARJETAS CPU</button>
+                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS AMPLIACIÓN')">TARJETAS AMPLIACIÓN</button>
+                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS F.A.')">TARJETAS F.A.</button>
                      <button class="dropdown-item" type="button" id="btnBusTren" onclick="formBusTren('BUS/TREN')">BUS/TREN</button>
                      <button class="dropdown-item" type="button" id="btn11_322" onclick="form11_322('11/300')">11/300</button>
                      <button class="dropdown-item" type="button" id="btn12_300" onclick="form12_300('12/300')">12/300</button>
@@ -252,7 +255,7 @@ include './login/session.php';
                      <button class="dropdown-item" type="button" id="btnOculta" onclick="formOculta('SEÑAL OCULTA')">SEÑAL OCULTA</button>
                      <button class="dropdown-item" type="button" id="btnLed" onclick="formLed('LEDS')">LEDS</button>
                      <button class="dropdown-item" type="button" id="btnInvidentes" onclick="formInvidentes('SONORO')">SONORO</button>
-                     <button class="dropdown-item" type="button" id="btnDescontadores" onclick="formDescontadores('DESCONTARES')">DESCONTADORES</button>
+                     <button class="dropdown-item" type="button" id="btnDescontadores" onclick="formDescontadores('DESCONTADORES')">DESCONTADORES</button>
                      <button class="dropdown-item" type="button" id="btnBaculos" onclick="formBaculos()">Báculos</button>
                      <button class="dropdown-item" type="button" id="btnColumnas" onclick="formColumnas()">Columnas</button>
                      <button class="dropdown-item" type="button" id="btnPulsadores" onclick="formPulsadores()">Pulsadores</button>

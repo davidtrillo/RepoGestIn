@@ -38,18 +38,17 @@ $app->get('/api/led/{instalacion}/{limit}', function (Request $request, Response
 
 });
 
-
-//GET Todas las instalaciones SELECT
-$app->get('/api/led/cont/{limit}', function (Request $request, Response $response) {
+//GET count todos los leds de un cruce
+$app->get('/api/ledc/cont/{cruce}', function (Request $request, Response $response) {
 
     
-    $limit = $request->getAttribute('limit');
+    // $limit = $request->getAttribute('limit');
+    // $offset = $request->getAttribute('offset');
+    $cruce = $request->getAttribute('cruce');
 
-    if ($limit==0) {
-        $sql = 'SELECT count(*) as c FROM led';
-    }else{
-        $sql = 'SELECT * FROM led order by activo desc,fechaActuacion desc limit '. $limit;
-    }
+
+        $sql = 'SELECT count(*) as c FROM led WHERE idInstalacion="' . $cruce . '"';
+   
 
 
     try {
@@ -73,16 +72,50 @@ $app->get('/api/led/cont/{limit}', function (Request $request, Response $respons
 
 });
 
-$app->get('/api/led/repes/{limit}', function (Request $request, Response $response) {
+//GET Todas las instalaciones SELECT
+$app->get('/api/ledi/{cruce}/{offset}/{limit}', function (Request $request, Response $response) {
+
+    
+    $limit = $request->getAttribute('limit');
+    $offset = $request->getAttribute('offset');
+  //  $paginacion = $request->getAttribute('paginacion');
+    $cruce = $request->getAttribute('cruce');
+
+
+        $sql = 'SELECT * FROM led WHERE idInstalacion="' . $cruce . '" order by activo desc,fechaActuacion desc limit '. $offset .','.$limit;
+   
+
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});
+
+$app->get('/api/ledi/repes/{limit}', function (Request $request, Response $response) {
 
     $limit = $request->getAttribute('limit');
 
-
-    if ($limit==0) {
-        $sql = 'SELECT count(*) as c from led where idnumserie in (SELECT idnumserie FROM gestin.led where idNumSerie<>0 and activo="true" group by idNumSerie having (count(idNumSerie)>=2))';
-    }else{
-        $sql = 'SELECT * from led where idnumserie in (SELECT idnumserie FROM gestin.led where idNumSerie<>0 and activo="true" group by idNumSerie having (count(idNumSerie)>=2)) order by idNumSerie limit '. $limit;
-    }
+     if ($limit==0) {
+         $sql = 'SELECT count(*) as c from led where idnumserie in (SELECT idnumserie FROM gestin.led where idNumSerie<>0 and activo="true" group by idNumSerie having (count(idNumSerie)>=2))';
+     }else{
+        $sql = 'SELECT * from led where idnumserie in (SELECT idnumserie FROM gestin.led where (idNumSerie<>"0" and idNumSerie<>"") and activo="true" group by idNumSerie having (count(idNumSerie)>=2)) order by idNumSerie limit '. $limit;
+     }
 
     try {
         $db = new db();

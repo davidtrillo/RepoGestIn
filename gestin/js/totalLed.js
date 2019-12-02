@@ -1,25 +1,103 @@
  document.onload = rellenarCruceLed();
  //document.onload = rellenarCruceLed2();
- document.onload = rellenarLed();
+ //document.onload = rellenarLed();
  //document.onload = nPaginas("led");
 
-async function nPaginas(param){
-if (param=="led") {
+ async function nPaginas(param,total) {
+    var p = document.getElementById("nPag");
+    p.innerHTML="";
+
+     var cruce = document.getElementById("inputIdFiltroCruce").value;
+
+
+     if (param == "led") {
+
+        var nTotal = total;
+  
+     } else {
+         var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/repes/0';
+         vCount = await fetch(url, {
+                 method: 'GET',
+                 headers: {
+                     'Content-Type': 'application/json'
+                 }
+             })
+             .then(res => res.json())
+             .catch(error => console.error('Error:', error))
+             .then(response => {
+                 return response;
+             })
+             var nTotal = vCount[0]['c'];
+     }
+
+
+     
+     console.log('nTotal:' + nTotal);
+     var muestra = document.getElementById("dropdownLimit").innerText;
+
+     var x = parseInt(nTotal) / parseInt(muestra);
+
+     console.log(parseInt(nTotal) + "-----" + muestra + "-----" + x);
+
+     if (parseInt(x) < 1) {
+
+         x = 1
+     } else {
+
+         if (parseInt(nTotal) % parseInt(muestra) > 0) {
+           //  x = x + 1;
+         }
+     };
+     console.log(x);
+     if (x > 10) {
+         alert("La paginación es mayor a 10, se recomienda aumentar el número de registros por página.");
+         //return;
+     }
+
+
+     console.log("x= " + x);
+
+     var p = document.getElementById("nPag");
+    //  p.innerHTML = `<li class="page-item">
+    //                 <a class="page-link" href="#" aria-label="Previous">
+    //                     <span aria-hidden="true">&laquo;</span>
+    //                 </a>
+    //                 </li>`
+
+     let line = "";
+     for (let index = 0; index < x; index++) {
+         if (index < x-1){
+            line += '<li class="page-item"><a class="page-link" href="#" onclick="filtrarCruce(this.id)" id="' + parseInt(muestra)*(parseInt(index)) +' ">' + (parseInt(index) + parseInt(1)) + '</a></l>';
+         }else{
+             console.log('Estoy en la última linea, regis: '+(Math.floor(x)* parseInt(muestra)));
+            line += '<li class="page-item"><a class="page-link" href="#" onclick="filtrarCruce(this.id)" id="' + (Math.floor(x)* parseInt(muestra)) +' ">' + (parseInt(index) + parseInt(1)) + '</a></l>';
+         }
+     }
+
+     p.innerHTML += line;
+    //devuelve el número total de páginas
     
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/led/cont/0';
-    vCount = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            return response;
-        })
-    }else{
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/led/repes/0';
+    //  p.innerHTML += `  <li class="page-item">
+    //                 <a class="page-link" href="#" aria-label="Next">
+    //                     <span aria-hidden="true">&raquo;</span>
+    //                 </a>
+    //                 </li>
+    //              `
+
+ }
+
+
+ async function repes() {
+
+     //borrado de input del filtro
+     document.getElementById('inputIdFiltroCruce').value = "";
+     //proceso de repetidos      
+     var ac = document.getElementById("repes").checked;
+
+
+     if (ac) {
+        //pintar footer del total de repetidos
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/repes/0';
         vCount = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -31,87 +109,45 @@ if (param=="led") {
             .then(response => {
                 return response;
             })
-    }
+            var totalLedsRepes=vCount[0]['c'];
+            var ftTotal= document.getElementById('footerTotal');
+            ftTotal.innerHTML=` <span>Total de Leds: ${totalLedsRepes}</span>`
 
-    
-    var nTotal=vCount[0]['c'];
-    
-    var muestra=document.getElementById("dropdownLimit").innerText;
+        //pintar los repetidos
+         var s = document.getElementById("spinner");
+         s.innerHTML = `   <span class="spinner-border spinner-border-sm mr-2 style="width: 2rem; height: 2rem;"" role="status" aria-hidden="true"></span> Cargando Datos...`;
 
-    var x= parseInt(nTotal)/parseInt(muestra);
-    
-    console.log(parseInt(nTotal)+"-----"+muestra+"-----"+x);
-    
-    if (x<1){
-      
-        x=1
-    }else{
-            
-                if(parseInt(nTotal)%parseInt(muestra)>0){
-                    x=x+1;
-                }
-            };
-            console.log(x);
-        if (x>10) {
-            alert("La paginación es mayor a 10, se recomienda aumentar el número de registros por página.");
-            return;
-        }
+         var limite = document.getElementById('dropdownLimit').innerText;
 
+         var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/repes/' + limite;
+         vRepes = await fetch(url, {
+                 method: 'GET',
+                 headers: {
+                     'Content-Type': 'application/json'
+                 }
+             })
+             .then(res => res.json())
+             .catch(error => console.error('Error:', error))
+             .then(response => {
+                 return response;
+             })
 
-    console.log("en medio "+x);
-
-    var p=document.getElementById("nPag");
-    p.innerHTML=`<li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                    </li>`
-                    
-    let line="";
-    for (let index = 0; index < x; index++) {
-             line += '<li class="page-item"><a class="page-link" href="#" onclick="mostrarValores("'+ (parseInt(index)+parseInt(1)) +'")">' + (parseInt(index)+parseInt(1)) + '</a></l>'; 
-        }
-
-    p.innerHTML+=line;
-
-    p.innerHTML+=`  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                    </li>
-                 `
-
-}
-
-
- async function repes() {
-    var s = document.getElementById("spinner");
-    s.innerHTML = `   <span class="spinner-border spinner-border-sm mr-2 style="width: 2rem; height: 2rem;"" role="status" aria-hidden="true"></span> Cargando Datos...`;
-
-     var limite = document.getElementById('dropdownLimit').innerText;
-
-     var url = 'http://webserver.mobilitat.local/gestin/public/api/led/repes/' + limite;
-     vRepes = await fetch(url, {
-             method: 'GET',
-             headers: {
-                 'Content-Type': 'application/json'
-             }
-         })
-         .then(res => res.json())
-         .catch(error => console.error('Error:', error))
-         .then(response => {
-             return response;
-         })
-
-     //  console.log(vRepes);
-     await rellenarRepes(vRepes);
-     s.innerHTML=""
+         //  console.log(vRepes);
+         await rellenarRepes(vRepes);
+         s.innerHTML = ""
+     } else {
+         var p = document.getElementById('formBody');
+         p.innerHTML = '';
+     }
  }
 
 
 
  function rellenarRepes(param) {
      var c = document.getElementById('repes');
+
+
+
 
      if (c.checked) {
          // console.log(param);
@@ -213,7 +249,7 @@ if (param=="led") {
      `
          }
      } else {
-         rellenarLed();
+         //rellenarLed();
      }
 
  }
@@ -238,9 +274,27 @@ if (param=="led") {
  //         return vCruces;
  // }
 
-function filtrarCruce(){
-    
-}
+ function filtrarCruce2() {
+     var url = 'http://webserver.mobilitat.local/gestin/public/api/led/1/50'
+     fetch(url, {
+             method: 'GET',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+         .then(res => res.json())
+         .catch(error => console.error('Error:', error))
+         .then(response => {
+             var p = document.getElementById('dropdownCruce');
+             p.innerHTML = '';
+
+             for (var i in response) {
+                 p.innerHTML += `
+            <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+            `
+             }
+         })
+ }
 
 
 
@@ -255,8 +309,8 @@ function filtrarCruce(){
          .then(res => res.json())
          .catch(error => console.error('Error:', error))
          .then(response => {
-            var p = document.getElementById('dropdownCruce');
-            p.innerHTML = '';
+             var p = document.getElementById('dropdownCruce');
+             p.innerHTML = '';
 
              for (var i in response) {
                  p.innerHTML += `
@@ -266,55 +320,55 @@ function filtrarCruce(){
          })
  }
 
-//  function rellenarCruceLed2(id) { //Llamada a la API según el dato obtenido del primer combo
-     //     var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
-     //     fetch(url, {
-     //             method: 'GET',
-     //             headers: {
-     //                 'Content-Type': 'application/json'
-     //             }
-     //         })
-     //         .then(res => res.json())
-     //         .catch(error => console.error('Error:', error))
-     //         .then(response => {
+ //  function rellenarCruceLed2(id) { //Llamada a la API según el dato obtenido del primer combo
+ //     var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
+ //     fetch(url, {
+ //             method: 'GET',
+ //             headers: {
+ //                 'Content-Type': 'application/json'
+ //             }
+ //         })
+ //         .then(res => res.json())
+ //         .catch(error => console.error('Error:', error))
+ //         .then(response => {
 
-     //             var p = document.getElementById('dropdownCruce2'+id);
-     //             if (id!=null){
-     //                 p.innerHTML = '';
+ //             var p = document.getElementById('dropdownCruce2'+id);
+ //             if (id!=null){
+ //                 p.innerHTML = '';
 
-     //                 for (var i in response) {
-     //                     p.innerHTML += `
-     //                 <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
-     //                 `
-     //                 }
-     //             }
-     //         })
-     // var p = document.getElementById('dropdownCruce2'+id);
+ //                 for (var i in response) {
+ //                     p.innerHTML += `
+ //                 <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+ //                 `
+ //                 }
+ //             }
+ //         })
+ // var p = document.getElementById('dropdownCruce2'+id);
 
-     // p.innerHTML = '';
+ // p.innerHTML = '';
 
-     // for (var i in vCruces) {
-     //     console.log(id);
-     //     console.log(vCruces[i]['id']+' - '+vCruces[i]['ubicacion']);
-     //     p.innerHTML += `
-     // <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${vCruces[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${vCruces[i]['id']}">${vCruces[i]['id']} - ${vCruces[i]['ubicacion']}</button>
-     // `
-     // }
-//      console.log(vCruces[1]['id'] + ' - ' + vCruces[1]['ubicacion']);
-//      console.log(globalCruces);
-//      console.log(id + '- Estoy en el segundo rellenarCruceLed2')
-//      console.log(vCruces[1]['id'] + ' - ' + vCruces[1]['ubicacion']);
+ // for (var i in vCruces) {
+ //     console.log(id);
+ //     console.log(vCruces[i]['id']+' - '+vCruces[i]['ubicacion']);
+ //     p.innerHTML += `
+ // <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${vCruces[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${vCruces[i]['id']}">${vCruces[i]['id']} - ${vCruces[i]['ubicacion']}</button>
+ // `
+ // }
+ //      console.log(vCruces[1]['id'] + ' - ' + vCruces[1]['ubicacion']);
+ //      console.log(globalCruces);
+ //      console.log(id + '- Estoy en el segundo rellenarCruceLed2')
+ //      console.log(vCruces[1]['id'] + ' - ' + vCruces[1]['ubicacion']);
 
-//      var p = document.getElementById('dropdownCruce2' + id);
-//      p.innerHTML = '';
+ //      var p = document.getElementById('dropdownCruce2' + id);
+ //      p.innerHTML = '';
 
-//      for (var i in vCruces) {
-//          p.innerHTML += `
-//             <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${vCruces[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${vCruces[i]['id']}">${vCruces[i]['id']} - ${vCruces[i]['ubicacion']}</button>
-//             `
-//      }
+ //      for (var i in vCruces) {
+ //          p.innerHTML += `
+ //             <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${vCruces[i]['ubicacion']}" onclick="leerCruceLed2(this.value,${id})" value="${vCruces[i]['id']}">${vCruces[i]['id']} - ${vCruces[i]['ubicacion']}</button>
+ //             `
+ //      }
 
-//  }
+ //  }
 
  function leerCruceLed(id) {
      var p1 = document.getElementById('inputIdCruce');
@@ -408,9 +462,9 @@ function filtrarCruce(){
              })
 
      }
-     setTimeout(() => {
-         rellenarLed(); //CAMBIO DE NOMENCLATURA
-     }, 1000);
+
+     var p = document.getElementById('formBody');
+     p.innerHTML = '';
 
  }
 
@@ -446,20 +500,59 @@ function filtrarCruce(){
  }
 
 
- async function rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
-  
+ async function filtrarCruce(offset) { //rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
+    console.log('Offset:'+offset);
+
+     //quitar check de Repetidos
+     document.getElementById("repes").checked = false;
+
      //activar spinner
      var s = document.getElementById("spinner");
      s.innerHTML = `   <span class="spinner-border spinner-border-sm mr-2 style="width: 2rem; height: 2rem;"" role="status" aria-hidden="true"></span> Cargando Datos...`;
 
-
+     
      var limite = document.getElementById('dropdownLimit').innerText;
+     var cruceFil = document.getElementById('inputIdFiltroCruce').value;
+     
+     
+     //consultar total de leds
+     var url = 'http://webserver.mobilitat.local/gestin/public/api/ledc/cont/' + cruceFil;
+     vCount = await fetch(url, {
+             method: 'GET',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+         .then(res => res.json())
+         .catch(error => console.error('Error:', error))
+         .then(response => {
+             return response;
+         })
+         var totalLedsRepes=vCount[0]['c'];
+         var ftTotal= document.getElementById('footerTotal');
+         ftTotal.innerHTML=` <span class="mt-0">Total de Leds: ${totalLedsRepes}</span>`
+
+
+//pinta las páginas que tendrá según el límite a mostrar
+    
+      await nPaginas('led',totalLedsRepes);
+
+      
+
+         if (offset==null){
+            var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/' + cruceFil + '/0/'+ limite;
+           
+         }else{
+            // offset= offset*limite;
+            var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/' + cruceFil + '/'+ offset +'/'+ limite;
+         }
+
 
      //Borrado de la pantalla
      var p = document.getElementById('formBody');
      p.innerHTML = '';
 
-     var url = 'http://webserver.mobilitat.local/gestin/public/api/led/cont/' + limite;
+
 
      await fetch(url, {
              method: 'GET',
@@ -833,13 +926,13 @@ function filtrarCruce(){
 
      var p = document.getElementById("dropdownLimit");
      p.innerText = param;
-     
+
      if (c.checked) {
-         
+
          await repes();
          await nPaginas("repe");
      } else {
-         await rellenarLed();
+         await filtrarCruce();
          await nPaginas("led");
      }
 
