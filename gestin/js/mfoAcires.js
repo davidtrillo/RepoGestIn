@@ -23,6 +23,29 @@ function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del pri
 }
 
 
+function rellenarCruceMFOFiltro() { //Llamada a la API según el dato obtenido del primer combo
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/acires'
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            var p = document.getElementById('dropAcire');
+            p.innerHTML = '';
+            for (var i in response) {
+                p.innerHTML += `
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceMFO3('${response[i]['id']}')" value="">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+             `
+            }
+        })
+
+}
+
+
 function rellenarCruceMFO2(param) { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
     fetch(url, {
@@ -58,6 +81,12 @@ async function leerCruceMFO2(param, id, ubicacion) {
     var p2 = document.getElementById('inputUbicacion2'+param);
     p2.value = ubicacion;
    // await calcularPrecio2(param,id);
+}
+
+function leerCruceMFO3(id) {
+    var p1 = document.getElementById('inputIdAcire');
+    p1.value = id;
+
 }
 
 async function nuevoMFO() {
@@ -104,9 +133,13 @@ async function nuevoMFO() {
 
 
 
-function rellenarMFO() {
+//function rellenarMFO() {
+function filtrarCruce() {
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/mfoacires'
+    //   var cruceFil = document.getElementById('inputIdFiltroCruce').value;
+      var cruceFil = document.getElementById('inputIdAcire').value;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/mfoacires/'+cruceFil;
+
     fetch(url, {
             method: 'GET',
             headers: {
@@ -229,9 +262,10 @@ function borrarMFO(id) {
                 alert("Registro Borrado con éxito")
                }
             })
-            setTimeout(() => {
-                rellenarMFO(); 
-            }, 1000);
+            filtrarCruce();
+            // setTimeout(() => {
+            //     rellenarMFO(); 
+            // }, 1000);
 }
 
 
@@ -280,9 +314,10 @@ function editarMFO(param) {
         })
 
 
-    setTimeout(() => {
-        rellenarMFO(); //CAMBIO DE NOMENCLATURA
-    }, 1000);
+        filtrarCruce();
+        // setTimeout(() => {
+        //     rellenarMFO(); 
+        // }, 1000);
 }
 
 async function imprimir() {

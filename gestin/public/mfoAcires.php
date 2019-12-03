@@ -15,14 +15,15 @@ include './login/session.php';
    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
    <!-- Bootstrap CSS -->
-       <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
+   <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
    <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
    <link href="../fontawesome/css/solid.css" rel="stylesheet">
 
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <style>
-      #dropInstalacionPintura{
+      #dropInstalacionPintura,
+      #dropAcire {
          height: 500px;
          overflow-y: auto;
       }
@@ -38,52 +39,55 @@ include './login/session.php';
 
    <!-- Navbar -->
    <div class="container-fluid p-0">
-   <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-   <a class="navbar-brand" href="#">Gestión del Inventario del Servei de Regulació i Control del Trànsit</a>
-   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-   </button>
-   <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-      <div class="navbar-nav ml-auto">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+         <a class="navbar-brand" href="#">Gestión del Inventario del Servei de Regulació i Control del Trànsit</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
 
-         <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
-         <li class="nav-item dropdown ">
-               <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               MFO
-               </a>
-               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
-                  <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
-                  <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>
-                  <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
-                  <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
-               </div>
-         </li>
+               <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
+               <li class="nav-item dropdown ">
+                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     MFO
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
+                     <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
+                     <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>
+                     <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
+                     <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
+                  </div>
+               </li>
 
-         <!-- <a class="nav-item nav-link active" href="./mfo.php">MFO</a> -->
-         <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
-         <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
-         <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
+               <!-- <a class="nav-item nav-link active" href="./mfo.php">MFO</a> -->
+               <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
+               <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+               <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
-         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Listados
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
-              <a class="dropdown-item" href="#"></a>
-              <a class="dropdown-item" href="#"></a>
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Listados
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+                     <a class="dropdown-item" href="#"></a>
+                     <a class="dropdown-item" href="#"></a>
+                  </div>
+               </li>
+               <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"
+                  aria-disabled="true">Configuración</a>
+               <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
+                  Sesión</a>
             </div>
-          </li>
-          <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1" aria-disabled="true">Configuración</a>
-         <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
-      </div>
 
+         </div>
+      </nav>
    </div>
-   </nav>
-</div>
    <!-- Fin Navbar -->
 
 
@@ -91,21 +95,37 @@ include './login/session.php';
    <div class="">
       <!-- <h4>Bienvenido <?php echo ucwords($login_session); ?></h4> -->
       <input type="hidden" id="inputIdUsuario" value="<?php echo $login_session; ?>">
-    
+
    </div>
 
 
    <div class="container-fluid mt-0 p-1" style="background-color:Turquoise;">
-      <div class="row"> 
-         <div class="col-2">
-             <h3><b>MFO Acires</b></h3>
+      <div class="row">
+         <div class="col">
+            <h3><b>MFO Acires</b></h3>
          </div>
-         <div class="col-3">
+
+         <div class="col">
             <input type="month" class="form-control" id="inputMes" onfocusout="">
          </div>
-         <div class="col-3">
+
+         <div class="col">
             <button class="btn btn-primary" onclick="imprimir()">Imprimir</button>
          </div>        
+  
+         <div class="col">
+              <div class="input-group ">
+               <button type="button" class="btn btn-secondary dropdown-toggle " name="" value="" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" onclick="rellenarCruceMFOFiltro()">
+                  Acire
+               </button>
+               <div class="dropdown-menu" id="dropAcire">
+                  <!-- inyectar código -->
+               </div>
+               <input type="text" class="form-control bg-warning " name="" id="inputIdAcire" value="">
+               <div class="btn btn-primary ml-2" onclick="filtrarCruce()">Aplicar Filtro</i></div>
+            </div>
+         </div>
       </div>
    </div>
    <!-- Dropdowns Menus -->
@@ -118,25 +138,25 @@ include './login/session.php';
          <div class="row">
             <div class="col-1 p-1">
 
-               <span><b>Instalación</b></span>
+               <span><b>Acire</b></span>
 
                <div class="input-group mt-2">
                   <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                     onclick="rellenarCruceMFO()">
-                     Inst
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarCruceMFO()">
+                     Acire
                   </button>
                   <div class="dropdown-menu" id="dropInstalacionPintura">
                      <!-- inyectar código -->
                   </div>
                   <input type="text" class="form-control" name="" id="inputIdCruce" value="">
-                     
+
                </div>
             </div>
 
             <div class="col-2 p-1">
                <span><b>Ubicación</b></span>
-               <input type="text" class="form-control mt-2" name="" id="inputUbicacion" placeholder="Ubicación" value="" disabled>
+               <input type="text" class="form-control mt-2" name="" id="inputUbicacion" placeholder="Ubicación" value=""
+                  disabled>
             </div>
             <div class="col-xd-1 p-1">
                <span><b>Fecha Actuación</b></span>
@@ -157,7 +177,7 @@ include './login/session.php';
             <div class="col-1 p-1">
                <span><b>Resolución Ok</b></span>
                <br class="mt-3">
-               <input type="checkbox" class="mt-3 ml-5" name="" id="inputOk"  onclick="">
+               <input type="checkbox" class="mt-3 ml-5" name="" id="inputOk" onclick="">
             </div>
             <div class="col-1 p-1 mt-4">
                <div class="btn btn-primary" onclick="nuevoMFO()">Guardar</div>
@@ -167,24 +187,24 @@ include './login/session.php';
 
    </div>
    <!-- Fin FormGuardar -->
-   <hr  class="mt-1 mb-1">
+   <hr class="mt-1 mb-1">
    <!-- Formulario Body Nuevo-->
    <div class="container-fluid ml-1 " id="formBody">
-     
-            <!-- inyeccion de codigo  -->
+
+      <!-- inyeccion de codigo  -->
    </div>
-  
+
    <!-- fin formulario Body-->
    <hr>
    <!-- Formulario footer Nuevo-->
    <div class="mt-2 p-2 fixed-bottom" id="formFooter">
-            <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right" style="height:50px">
+      <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right" style="height:50px">
    </div>
    <!-- fin formulario Footer-->
 
    <!-- Formulario Modal -->
 
- 
+
 
    <!-- Optional JavaScript -->
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->

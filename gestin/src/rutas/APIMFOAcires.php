@@ -33,9 +33,11 @@ $app->get('/api/acires',function(Request $request, Response $response){
 
 
 
- $app->get('/api/mfoacires',function(Request $request, Response $response){
+ $app->get('/api/mfoacires/{cruce}',function(Request $request, Response $response){
 
-     $sql='SELECT p.*,i.ubicacion FROM mfoacires p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.fechaActuacion desc';
+     $cruce= $request->getAttribute('cruce');
+    
+     $sql='SELECT p.*,i.ubicacion FROM mfoacires p  INNER JOIN instalaciones i ON p.idInstalacion =i.id WHERE idInstalacion="'.$cruce.'" order by p.fechaActuacion desc';
     
      try{
          $db= new db();     

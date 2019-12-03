@@ -8,9 +8,11 @@
 
 
 
-$app->get('/api/mfopp/pp',function(Request $request, Response $response){
+$app->get('/api/mfopp/pp/{cruce}',function(Request $request, Response $response){
 
-    $sql='SELECT p.*,i.ubicacion FROM mfopp p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.fechaActuacion desc';
+    $cruce= $request->getAttribute('cruce'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+
+    $sql='SELECT p.*,i.ubicacion FROM mfopp p INNER JOIN instalaciones i ON p.idInstalacion =i.id WHERE idInstalacion="'.$cruce.'" order by p.fechaActuacion desc';
    
     try{
         $db= new db();     

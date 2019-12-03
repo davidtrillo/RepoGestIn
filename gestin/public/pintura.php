@@ -94,9 +94,28 @@ include './login/session.php';
    <!-- Dropdowns Menus -->
 
    <div class="container-fluid mt-0 p-1" style="background-color:LightSkyBlue;">
-      <h3><b>Pintura</b></h3>
-   </div>
+      <div class="row">
+         <div class="col mt-2">
+            <h3><b>Pintura</b></h3>
+         </div>
 
+         <div class="col mt-3 ">
+                <p class="text-right">Filtro Cruce</p> 
+            </div>
+
+            <div class="col-1 mt-1 ml-0">
+                <input type="text" class="form-control mt-1 bg-warning" id="inputIdFiltroCruce">
+            </div>
+
+            <div class="col-1 mt-2 ml-0">
+
+                <div class="btn btn-primary" onclick="filtrarCruce()">Aplicar Filtro</i></div>
+
+            </div>
+
+      </div>
+
+   </div>
    <hr class="mt-0 mb-0">
    <!-- Container de cabecera -->
    <div class="container-fluid mt-1 ml-1">

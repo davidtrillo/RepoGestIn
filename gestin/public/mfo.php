@@ -22,7 +22,8 @@ include './login/session.php';
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <style>
-      #dropInstalacionPintura{
+      #dropInstalacionPintura,
+      #dropCruces{
          height: 500px;
          overflow-y: auto;
       }
@@ -92,14 +93,28 @@ include './login/session.php';
    </div>
    <div class="container-fluid mt-0 p-1" style="background-color:Turquoise;">
       <div class="row"> 
-         <div class="col-2">
+         <div class="col">
              <h3><b>MFO Cruces</b></h3>
          </div>
-         <div class="col-3">
+         <div class="col">
             <input type="month" class="form-control" id="inputMes" onfocusout="">
          </div>
-         <div class="col-3">
+         <div class="col">
             <button class="btn btn-primary" onclick="imprimir()">Imprimir</button>
+         </div>
+
+         <div class="col">
+            <div class="input-group ">
+               <button type="button" class="btn btn-secondary dropdown-toggle " name="" value="" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" onclick="rellenarCruceMFOFiltro()">
+                  Cru.
+               </button>
+               <div class="dropdown-menu" id="dropCruces">
+                  <!-- inyectar código -->
+               </div>
+               <input type="text" class="form-control bg-warning " name="" id="inputIdCruces" value="">
+               <div class="btn btn-primary ml-2" onclick="filtrarCruce()">Aplicar Filtro</i></div>
+            </div>
          </div>        
       </div>
    </div>

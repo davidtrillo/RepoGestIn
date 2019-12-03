@@ -37,9 +37,10 @@
 });
 //GET Todas las pinturas SELECT
 
- $app->get('/api/pintura',function(Request $request, Response $response){
-
-     $sql='SELECT p.*,i.ubicacion FROM pintura p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.fechaActuacion desc';
+ $app->get('/api/pintura/{cruce}',function(Request $request, Response $response){
+     
+     $cruce= $request->getAttribute('cruce');
+     $sql='SELECT p.*,i.ubicacion FROM pintura p INNER JOIN instalaciones i ON p.idInstalacion =i.id WHERE idInstalacion="'. $cruce .'"order by p.fechaActuacion desc';
     
      try{
          $db= new db();     

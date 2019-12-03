@@ -107,9 +107,11 @@ function nuevaPintura() {
 
 
 
-function rellenarPintura() {
+//function rellenarPintura() {
+    function filtrarCruce() {
+        var cruceFil = document.getElementById('inputIdFiltroCruce').value;
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/pintura'
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/pintura/'+cruceFil
     fetch(url, {
             method: 'GET',
             headers: {

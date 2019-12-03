@@ -501,7 +501,7 @@
 
 
  async function filtrarCruce(offset) { //rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
-    console.log('Offset:'+offset);
+    
 
      //quitar check de Repetidos
      document.getElementById("repes").checked = false;

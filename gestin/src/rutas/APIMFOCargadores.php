@@ -33,9 +33,12 @@ $app->get('/api/cargadores',function(Request $request, Response $response){
 
 
 
- $app->get('/api/mfocargadores/cargadores',function(Request $request, Response $response){
+ $app->get('/api/mfocargadores/cargadores/{cruce}',function(Request $request, Response $response){
+    
+     $cruce= $request->getAttribute('cruce'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
-     $sql='SELECT p.*,i.ubicacion FROM mfocargadores p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.fechaActuacion desc';
+     $sql='SELECT p.*,i.ubicacion FROM mfocargadores p INNER JOIN instalaciones i ON p.idInstalacion =i.id WHERE idInstalacion LIKE "'.$cruce.'" order by p.fechaActuacion desc';
+     
     
      try{
          $db= new db();     

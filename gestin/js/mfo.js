@@ -45,6 +45,30 @@ function rellenarCruceMFO2(param) { //Llamada a la API según el dato obtenido d
 
 }
 
+function rellenarCruceMFOFiltro() { //Llamada a la API según el dato obtenido del primer combo
+
+
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces';
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            var p = document.getElementById('dropCruces');
+            p.innerHTML = '';
+            for (var i in response) {
+                p.innerHTML += `
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceMFO3(this.value)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+             `
+            }
+        })
+
+}
+
 function leerCruceMFO(id, ubicacion) {
     var p1 = document.getElementById('inputIdCruce');
     p1.value = id;
@@ -58,6 +82,12 @@ async function leerCruceMFO2(param, id, ubicacion) {
     var p2 = document.getElementById('inputUbicacion2'+param);
     p2.value = ubicacion;
     await calcularPrecio2(param,id);
+}
+
+function leerCruceMFO3(id) {
+    var p1 = document.getElementById('inputIdCruces');
+    p1.value = id;
+
 }
 
 async function nuevoMFO() {
@@ -111,9 +141,11 @@ async function nuevoMFO() {
 
 
 
-function rellenarMFO() {
+function filtrarCruce() {
+    var cruceFil = document.getElementById('inputIdCruces').value;
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/mfo'
+
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/mfo/'+cruceFil;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -219,10 +251,10 @@ function rellenarUbicacion(param) {
         })
 }
 
-function borrarMFO(id) {
+async function borrarMFO(id) {
 
         var url = 'http://webserver.mobilitat.local/gestin/public/api/mfo/borrar/'+id;
-        fetch(url, {
+        await fetch(url, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -237,13 +269,15 @@ function borrarMFO(id) {
                 alert("Registro Borrado con éxito")
                }
             })
-            setTimeout(() => {
-                rellenarMFO(); 
-            }, 1000);
+
+            filtrarCruce();
+            // setTimeout(() => {
+            //     rellenarMFO(); 
+            // }, 1000);
 }
 
 
-function editarMFO(param) {
+async function editarMFO(param) {
     var id= param;
     var inputIdCruce2 = document.getElementById('inputIdCruce2' + param).value ? document.getElementById('inputIdCruce2' + param).value : null ;
     var inputFechaActuacion2 = document.getElementById('inputFechaActuacion2' + param).value ? document.getElementById('inputFechaActuacion2' + param).value : null ;
@@ -254,18 +288,18 @@ function editarMFO(param) {
     var idUsuario = document.getElementById('inputIdUsuario').value ;
     var precio = document.getElementById('precio2' + param).value ? document.getElementById('precio2' + param).value : 0 ;
 
-     console.log(id);
-     console.log(inputIdCruce2);
-     console.log(inputFechaActuacion2);
-     console.log(inputFechaInspeccion2);
-     console.log(observaciones2);
-     console.log(resolucion2);
-     console.log(idUsuario);
-     console.log(precio);
+    //  console.log(id);
+    //  console.log(inputIdCruce2);
+    //  console.log(inputFechaActuacion2);
+    //  console.log(inputFechaInspeccion2);
+    //  console.log(observaciones2);
+    //  console.log(resolucion2);
+    //  console.log(idUsuario);
+    //  console.log(precio);
 
     var url = 'http://webserver.mobilitat.local/gestin/public/api/mfo/modificar/' + param;
-
-    fetch(url, {
+    
+    await fetch(url, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -287,10 +321,10 @@ function editarMFO(param) {
             alert(response)
         })
 
-
-    setTimeout(() => {
-        rellenarMFO(); //CAMBIO DE NOMENCLATURA
-    }, 1000);
+        filtrarCruce();
+    // setTimeout(() => {
+    //     rellenarMFO(); //CAMBIO DE NOMENCLATURA
+    // }, 1000);
 }
 
 async function imprimir() {
