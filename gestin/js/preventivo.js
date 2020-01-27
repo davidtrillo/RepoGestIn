@@ -1,5 +1,15 @@
 //document.onload = rellenarPreventivo();
 
+document.getElementById("inputIdCruces")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        filtrarCruce();
+    }
+});
+
+
+
 function rellenarCrucePreventivo() { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
     fetch(url, {
@@ -41,6 +51,36 @@ function rellenarCrucePreventivo2(param) { //Llamada a la API según el dato obt
              `
             }
         })
+
+}
+
+function rellenarCruceMFOFiltro() { //Llamada a la API según el dato obtenido del primer combo
+
+
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces';
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            var p = document.getElementById('dropCruces');
+            p.innerHTML = '';
+            for (var i in response) {
+                p.innerHTML += `
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceMFO3(this.value)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+             `
+            }
+        })
+
+}
+
+function leerCruceMFO3(id) {
+    var p1 = document.getElementById('inputIdCruces');
+    p1.value = id;
 
 }
 
@@ -137,9 +177,12 @@ function nuevoPreventivo() {
 
 
 
-function rellenarPreventivo() {
+function filtrarCruce() {
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo'
+    var cruceFil = document.getElementById('inputIdCruces').value;
+
+
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/'+cruceFil;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -343,9 +386,10 @@ function borrarPreventivo(id) {
                 alert("Registro Borrado con éxito")
                }
             })
-            setTimeout(() => {
-                rellenarPreventivo(); 
-            }, 1000);
+            filtrarCruce();
+            // setTimeout(() => {
+            //     rellenarPreventivo(); 
+            // }, 1000);
 }
 
 
@@ -361,16 +405,16 @@ function editarPreventivo(param) {
     var inputObservacionesInspeccionVoluntarioAlumbrado = document.getElementById('inputObservacionesInspeccionVoluntarioAlumbrado2'+param).value  ? document.getElementById('inputObservacionesInspeccionVoluntarioAlumbrado2'+param).value :null;
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
-     console.log(param);
-     console.log(idInstalacion);
-     console.log(inputObservacionesPreventivo);
-     console.log(inputFechaInspeccionVoluntariaSemaforo);
-     console.log(inputObservacionesInspeccionVoluntarioSemaforo);
-     console.log(inputEstadoInspeccionVoluntarioSemaforo);
-     console.log(inputFechaInspeccionVoluntarioAlumbrado);
-     console.log(inputEstadoInspeccionVoluntarioAlumbrado);
-     console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
-     console.log(inputFechaPreventivo);
+    //  console.log(param);
+    //  console.log(idInstalacion);
+    //  console.log(inputObservacionesPreventivo);
+    //  console.log(inputFechaInspeccionVoluntariaSemaforo);
+    //  console.log(inputObservacionesInspeccionVoluntarioSemaforo);
+    //  console.log(inputEstadoInspeccionVoluntarioSemaforo);
+    //  console.log(inputFechaInspeccionVoluntarioAlumbrado);
+    //  console.log(inputEstadoInspeccionVoluntarioAlumbrado);
+    //  console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
+    //  console.log(inputFechaPreventivo);
 
     var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/modificar/' + param;
 
@@ -399,7 +443,8 @@ function editarPreventivo(param) {
         })
 
 
-    setTimeout(() => {
-        rellenarPreventivo(); //CAMBIO DE NOMENCLATURA
-    }, 1000);
+        filtrarCruce();
+        // setTimeout(() => {
+        //     rellenarPreventivo(); 
+        // }, 1000);
 }

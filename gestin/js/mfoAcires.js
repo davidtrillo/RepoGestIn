@@ -1,5 +1,13 @@
 //document.onload = rellenarMFO();
 
+document.getElementById("inputIdAcire")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        filtrarCruce();
+    }
+});
+
 function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://webserver.mobilitat.local/gestin/public/api/acires'
     fetch(url, {

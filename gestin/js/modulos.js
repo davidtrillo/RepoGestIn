@@ -157,15 +157,11 @@ function leerTipoActuacion2Modulo(descripcionTipoActuacion, idTipoActuacion, idA
     p2.value = descripcionTipoActuacion;
 }
 
-function formModulo() { //CAMBIO DE NOMENCLATURA
+async function formModulo(elemento) { //CAMBIO DE NOMENCLATURA
     
-    
-    desactivarBotones();
 
-
-    var ac=document.getElementById("btnModulo");
-    ac.classList.add("active");
-
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
     
     var instalacion = document.getElementById("inputInstalacion");
 
@@ -238,10 +234,10 @@ function formModulo() { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionModulo();//CAMBIO DE NOMENCLATURA
+        await rellenarTipoActuacionModulo();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosModulo();//CAMBIO DE NOMENCLATURA
+        await rellenarTodosModulo();//CAMBIO DE NOMENCLATURA
     }
 }
 

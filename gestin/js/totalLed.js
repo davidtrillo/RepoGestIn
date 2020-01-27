@@ -172,7 +172,10 @@
         <div class="col-1 mt-1 ml-0" >
              <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${param[i]['id']}" value="${param[i]['idInstalacion']}">
         </div>
-
+        
+        <div class="col-1 pl-0">
+        <input type="text" class="form-control mt-1" name="" id="inputNIDTar${param[i]['id']}"  value="${param[i]['nid']}">
+        </div>
 
         <div class="col-auto">
             <input type="hidden" id="inputIdTar${param[i]['id']}" value="${param[i]['id']}">       
@@ -231,7 +234,7 @@
         <div class="col-1">
            <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${param[i]['id']}" value="${param[i]['albaran']}">
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${param[i]['id']}"  value="${param[i]['observaciones']}">
         </div>
         <div class="col-auto">
@@ -318,8 +321,40 @@
              `
              }
          })
+
+        
  }
 
+ function rellenarNIDTotalLed(id) { //NID
+
+
+    //var cr=document.getElementById("inputInstalacion");
+    
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/nid/'+ id;
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            var p = document.getElementById('dropdownNID');
+            p.innerHTML = '';
+            for (var i in response) {
+                
+                p.innerHTML += `
+                    <button class="dropdown-item" type="submit" id="dropBtnNID${[i]}" name="${response[i]['nid']}" onclick="leerNIDTotalLed(this.name)">${response[i]['nid']}</button> 
+                    `
+                
+            }
+        })
+}
+function leerNIDTotalLed(NID) { //NID
+    var p1 = document.getElementById('inputNID');
+    p1.value = NID;
+}
  //  function rellenarCruceLed2(id) { //Llamada a la API según el dato obtenido del primer combo
  //     var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
  //     fetch(url, {
@@ -373,6 +408,7 @@
  function leerCruceLed(id) {
      var p1 = document.getElementById('inputIdCruce');
      p1.value = id;
+     rellenarNIDTotalLed(id);
  }
 
  function leerCruceLed2(id, value) {
@@ -591,6 +627,9 @@
                          <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
                     </div>
 
+                    <div class="col-1 pl-0">
+                        <input type="text" class="form-control mt-1" name="inputNID" id="inputNID${response[i]['id']}">
+                    </div>
 
                     <div class="col-auto">
                         <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
@@ -649,7 +688,7 @@
                     <div class="col-1">
                        <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
                     </div>
                     <div class="col-auto">
@@ -706,8 +745,13 @@
                  alert("Registro Borrado con éxito")
              }
          })
+         
+         var c=document.getElementById("inputIdFiltroCruce");
+         if (c.value){
+            filtrarCruce(c.value);
+         }
 
-     rellenarLed();
+     //rellenarLed();
  }
 
  function editarLed(param) { //CAMBIO DE NOMENCLATURA
@@ -776,7 +820,10 @@
 
 
      setTimeout(() => {
-         rellenarLed(); //CAMBIO DE NOMENCLATURA
+        var c=document.getElementById("inputIdFiltroCruce");
+        if (c.value){
+           filtrarCruce(c.value);
+        }
      }, 500);
  }
 

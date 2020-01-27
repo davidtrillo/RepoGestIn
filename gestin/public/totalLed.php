@@ -26,6 +26,7 @@ include './login/session.php';
     <style>
         #dropdownCruce,
         #dropdownCruce2,
+        #dropdownNID,
         .dp2,
         .pag {
             height: 500px;
@@ -175,9 +176,24 @@ include './login/session.php';
                     <input type="text" class="form-control mt-1" id="inputIdCruce">
             </div>
 
+            <div class="col-1 pl-0">
+                    <div class="dropdown" >
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="btnNID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                NID
+                            </button>
+                            <div class="dropdown-menu" id="dropdownNID" aria-labelledby="dropdownNID">
+                                        <!-- Aquí se iyecta el código mediante JS -->
+                            </div>
+                            <input type="hidden"  value="1" id="idTipoActuacion">
+                        </div>
+                      
+                <input type="text" class="form-control mt-1" name="inputNID" id="inputNID">
+              
+           </div>
+
             <div class="col-auto mt-3">
                 F.Actuación
-                <input type="date" class="form-control mt-0" name="inputFechaActuacion" id="inputFechaActuacion">
+                <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion">
             </div>
             <div class="col-auto">
                 <div class="dropdown">
@@ -227,7 +243,7 @@ include './login/session.php';
             Albarán
                 <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
             </div>
-            <div class="col-3 mt-3">
+            <div class="col-2 mt-3">
             Observaciones
                 <input type="text" class="form-control mt-1 ml-0" name="inputObservaciones" id="inputObservaciones">
             </div>

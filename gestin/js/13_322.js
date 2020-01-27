@@ -1,4 +1,4 @@
-function nueva12_200() { //CAMBIO DE NOMENCLATURA
+function nueva13_322() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value :"1";
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
@@ -6,8 +6,8 @@ function nueva12_200() { //CAMBIO DE NOMENCLATURA
     if (idInstalacion.value != "") {
 
         //validar fecha correcta
-        if (validarFormatoFecha12_200(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
-            if (existeFecha12_200(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+        if (validarFormatoFecha13_322(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+            if (existeFecha13_322(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
 
             } else {
                 alert("La fecha introducida no existe.");
@@ -28,7 +28,7 @@ function nueva12_200() { //CAMBIO DE NOMENCLATURA
 activo = String(activo);
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/12_200/nueva';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/13_322/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -56,12 +56,12 @@ activo = String(activo);
 
     }
     setTimeout(() => {
-      rellenarTodos12_200(); //CAMBIO DE NOMENCLATURA
+      rellenarTodos13_322(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 
 }
 
-function validarFormatoFecha12_200(campo) { //CAMBIO DE NOMENCLATURA
+function validarFormatoFecha13_322(campo) { //CAMBIO DE NOMENCLATURA
     var RegExPattern = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
     if ((campo.match(RegExPattern)) && (campo != '')) {
 
@@ -72,7 +72,7 @@ function validarFormatoFecha12_200(campo) { //CAMBIO DE NOMENCLATURA
     }
 }
 
-function existeFecha12_200(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFecha13_322(fecha) { //CAMBIO DE NOMENCLATURA
     var fechaf = fecha.split("/");
     var day = fechaf[2];
     var month = fechaf[1];
@@ -84,7 +84,7 @@ function existeFecha12_200(fecha) { //CAMBIO DE NOMENCLATURA
     return true;
 }
 
-function existeFecha212_200(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFecha213_322(fecha) { //CAMBIO DE NOMENCLATURA
     var fechaf = fecha.split("/");
     var d = fechaf[2];
     var m = fechaf[1];
@@ -93,7 +93,7 @@ function existeFecha212_200(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
-function rellenarTipoActuacion212_200(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+function rellenarTipoActuacion213_322(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -111,13 +111,13 @@ function rellenarTipoActuacion212_200(idActuacion) { //Llamada a la API según e
 
             for (var i in response) {
                 p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion212_200(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion213_322(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
              `
             }
         })
 }
 
-function rellenarTipoActuacion12_200() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+function rellenarTipoActuacion13_322() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -132,13 +132,13 @@ function rellenarTipoActuacion12_200() { //Llamada a la API según el dato obten
             p.innerHTML = '';
             for (var i in response) {
                 p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacion12_200(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacion13_322(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
              `
             } //CAMBIO DE NOMENCLATURA
         })
 }
 
-function rellenarNID12_200() { //NID
+function rellenarNID13_322() { //NID
 
 
     var cr=document.getElementById("inputInstalacion");
@@ -157,35 +157,35 @@ function rellenarNID12_200() { //NID
             p.innerHTML = '';
             for (var i in response) {
                 var str=response[i]['nid'];
-                if (str.substring(9,14)=='12200'){
+                if (str.substring(9,14)=='13322'){
                 p.innerHTML += `
-                    <button class="dropdown-item" type="submit" id="dropBtnNID${[i]}" name="${response[i]['nid']}" onclick="leerNID12_200(this.name)">${response[i]['nid']}</button> 
+                    <button class="dropdown-item" type="submit" id="dropBtnNID${[i]}" name="${response[i]['nid']}" onclick="leerNID13_322(this.name)">${response[i]['nid']}</button> 
                     `
                 }
             }
         })
 }
 
-function leerNID12_200(NID) { //NID
+function leerNID13_322(NID) { //NID
     var p1 = document.getElementById('inputNID');
     p1.value = NID;
 }
 
-function leerTipoActuacion12_200(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+function leerTipoActuacion13_322(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('idTipoActuacion');
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion');
     p2.value = descripcionTipoActuacion;
 }
 
-function leerTipoActuacion212_200(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+function leerTipoActuacion213_322(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
     p2.value = descripcionTipoActuacion;
 }
 
-async function form12_200(elemento) { //CAMBIO DE NOMENCLATURA
+async function form13_322(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
     var inputElemento = document.getElementById("inputElemento");
     inputElemento.value=elemento;
@@ -261,7 +261,7 @@ async function form12_200(elemento) { //CAMBIO DE NOMENCLATURA
                     <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
                 </div>
                 <div class="col-1 pl-1">
-                    <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie12_200()">
+                    <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie13_322()">
                 </div>
                 <div class="col-1 pl-1">
                 <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
@@ -270,23 +270,23 @@ async function form12_200(elemento) { //CAMBIO DE NOMENCLATURA
                     <input type="checkbox" class="mt-3 ml-3" name="inputActivo" id="inputActivo">
                 </div>
                 <div class="col-1 pl-1">
-                <div class="btn btn-primary mt-0 ml-3" onclick="nueva12_200()"><i class="fas fa-save"></i></div>
+                <div class="btn btn-primary mt-0 ml-3" onclick="nueva13_322()"><i class="fas fa-save"></i></div>
             </div>
         </div>  
         <!-- Fin Form Introducir nuevo -->
         
         `
-     await rellenarTipoActuacion12_200();
-     await rellenarNID12_200();//NID
-     await rellenarTodos12_200();//rellenar todos
+     await rellenarTipoActuacion13_322();
+     await rellenarNID13_322();//NID
+     await rellenarTodos13_322();//rellenar todos
     }
 }
 
 
 
-function rellenarTodos12_200() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
+function rellenarTodos13_322() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/12_200/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/13_322/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -324,7 +324,7 @@ function rellenarTodos12_200() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                  </div>
                  <div class="col-2 mt-1 pl-0" >
                         <div class="input-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion212_200(this.value)">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion213_322(this.value)">
                                     Tipo A.
                             </button>
                             <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
@@ -351,8 +351,8 @@ function rellenarTodos12_200() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
                  </div>
                  <div class="col-1 pl-0">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editar12_200(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrar12_200(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editar13_322(this.id)"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrar13_322(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
                  
               </div>  
@@ -363,13 +363,13 @@ function rellenarTodos12_200() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
             }
         })
 
-        rellenarFooter12_200();//CAMBIO DE NOMENCLATURA
-        comprobarNumSerie12_2002();
+        rellenarFooter13_322();//CAMBIO DE NOMENCLATURA
+        comprobarNumSerie13_3222();
 }
 
-function rellenarFooter12_200(){//CAMBIO DE NOMENCLATURA
+function rellenarFooter13_322(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/12_200/activas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/13_322/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -387,7 +387,7 @@ function rellenarFooter12_200(){//CAMBIO DE NOMENCLATURA
                 p.innerHTML = '';
                 p.innerHTML=`
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>12_200</b> Activos: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>13_322</b> Activos: ${response[0]['c']}</span>
                 `
             }
         })
@@ -395,9 +395,9 @@ function rellenarFooter12_200(){//CAMBIO DE NOMENCLATURA
 }
 
 
-function borrar12_200(param) {
+function borrar13_322(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/12_200/borrar/' + param
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/13_322/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -408,11 +408,11 @@ function borrar12_200(param) {
             alert(response)
         })
     setTimeout(() => {
-        rellenarTodos12_200();//CAMBIO DE NOMENCLATURA
+        rellenarTodos13_322();//CAMBIO DE NOMENCLATURA
     }, 1000);
 }
 
-function editar12_200(param) {//CAMBIO DE NOMENCLATURA
+function editar13_322(param) {//CAMBIO DE NOMENCLATURA
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
@@ -427,8 +427,8 @@ function editar12_200(param) {//CAMBIO DE NOMENCLATURA
 
 
     //validar fecha correcta
-    if (validarFormatoFecha12_200(inputFechaActuacionTar)) {
-        if (existeFecha12_200(inputFechaActuacionTar)) {
+    if (validarFormatoFecha13_322(inputFechaActuacionTar)) {
+        if (existeFecha13_322(inputFechaActuacionTar)) {
 
         } else {
             alert("La fecha introducida no existe.");
@@ -438,7 +438,7 @@ function editar12_200(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/12_200/modificar/' + param;
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/13_322/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -465,16 +465,16 @@ function editar12_200(param) {//CAMBIO DE NOMENCLATURA
 
 
     setTimeout(() => {
-        rellenarTodos12_200(); //CAMBIO DE NOMENCLATURA
+        rellenarTodos13_322(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 }
 
-function comprobarNumSerie12_200() {
+function comprobarNumSerie13_322() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
 
     if (idNumSerie) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/12_200/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/13_322/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -506,12 +506,12 @@ function comprobarNumSerie12_200() {
 
 
 
-function comprobarNumSerie12_2002() {
+function comprobarNumSerie13_3222() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
 
     if (idInstalacion) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/12_200';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/13_322';
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -530,7 +530,7 @@ function comprobarNumSerie12_2002() {
                         if (response[i]['idInstalacion'] == idInstalacion) {
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
-                                comprobarNumSerie12_2003(response[i]['id'],response[i]['idNumSerie']);
+                                comprobarNumSerie13_3223(response[i]['id'],response[i]['idNumSerie']);
                               
                                 clase.classList.add("bg-danger");
 
@@ -554,12 +554,12 @@ function comprobarNumSerie12_2002() {
 }
 
 
-function comprobarNumSerie12_2003(id,idNumSerie) {
+function comprobarNumSerie13_3223(id,idNumSerie) {
 
     if (idNumSerie) {
 
        // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/12_200/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/13_322/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

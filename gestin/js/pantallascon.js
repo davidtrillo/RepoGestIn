@@ -25,12 +25,7 @@ function nuevaPantallasCon() { //CAMBIO DE NOMENCLATURA
         var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
         
 activo = String(activo);
-console.log(idTipoActuacion);
-console.log(idNumSerie);
-console.log(albaran);
-console.log(observaciones);
-console.log(precio);
-console.log(activo);
+
 
 
 
@@ -160,12 +155,11 @@ function leerTipoActuacion2PantallasCon(descripcionTipoActuacion, idTipoActuacio
     p2.value = descripcionTipoActuacion;
 }
 
-function formPantallasCon() { //CAMBIO DE NOMENCLATURA
+async function formPantallasCon(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
-    desactivarBotones();
-    var ac=document.getElementById("btnPantallasCon");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -235,10 +229,10 @@ function formPantallasCon() { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionPantallasCon();//CAMBIO DE NOMENCLATURA
+       await rellenarTipoActuacionPantallasCon();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosPantallasCon();//CAMBIO DE NOMENCLATURA
+       await rellenarTodosPantallasCon();//CAMBIO DE NOMENCLATURA
     }
 }
 

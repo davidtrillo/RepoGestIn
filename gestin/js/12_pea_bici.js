@@ -25,12 +25,7 @@ function nueva12_pea_bici() { //CAMBIO DE NOMENCLATURA
         var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
         
 activo = String(activo);
-console.log(idTipoActuacion);
-console.log(idNumSerie);
-console.log(albaran);
-console.log(observaciones);
-console.log(precio);
-console.log(activo);
+
 
 
 

@@ -5,9 +5,12 @@
 
 //GET Todas las pinturas SELECT
 
- $app->get('/api/preventivo',function(Request $request, Response $response){
+ $app->get('/api/preventivo/{cruce}',function(Request $request, Response $response){
 
-     $sql='SELECT p.*,i.ubicacion FROM preventivo p INNER JOIN instalaciones i ON p.idInstalacion =i.id order by p.idInstalacion asc';
+    $cruce= $request->getAttribute('cruce'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+
+
+     $sql='SELECT p.*,i.ubicacion FROM preventivo p INNER JOIN instalaciones i ON p.idInstalacion =i.id WHERE idInstalacion="'.$cruce.'" order by p.idInstalacion asc';
     
      try{
          $db= new db();     

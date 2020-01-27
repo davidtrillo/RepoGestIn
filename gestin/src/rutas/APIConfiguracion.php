@@ -32,6 +32,50 @@
  });
 
 
+
+ $app->get('/api/inca',function(Request $request, Response $response){
+
+
+    function conectDBSQLServerPDO(){
+        $serverName = "188.165.135.168\SQL2008,1433"; //serverName\instanceName
+        $conn = new PDO( "sqlsrv:server=$serverName ; Database=Palma", "dtrillo", "Mobilitat01");  
+        $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+    }
+
+    $sql='SELECT TOP 1000 [Crz_ID]
+    ,[Part]
+    ,[Crz_X1]
+    ,[Crz_X2]
+    ,[Crz_Y1]
+    ,[Crz_Y2]
+    ,[Crz_Emplazamiento]
+    ,[Crz_Barrio]
+    ,[Crz_Distrito]
+    ,[Crz_Lote]
+FROM [Palma].[dbo].[Cruce]';
+   
+    try{
+        //$db= new dbSQLServer();     
+        $db=conectDBSQLServerPDO();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+        if($resultado->rowCount()>0){
+            $inventario= $resultado->fetchAll();
+           //// echo json_encode($inventario);
+           $ret= json_encode($inventario);
+        
+           return $ret ;
+           // echo json_encode("No se han encontrado resultados");
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
 // //POST para crear una nueva instalación CREATE
 
 // $app->post('/api/mfo/nueva',function(Request $request, Response $response){

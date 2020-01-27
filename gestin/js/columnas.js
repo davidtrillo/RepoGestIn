@@ -152,12 +152,11 @@ function leerTipoActuacion2Columnas(descripcionTipoActuacion, idTipoActuacion, i
     p2.value = descripcionTipoActuacion;
 }
 
-function formColumnas() { //CAMBIO DE NOMENCLATURA
+async function formColumnas(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
-
-    desactivarBotones();
-    var ac=document.getElementById("btnColumnas");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
+    
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -244,10 +243,10 @@ function formColumnas() { //CAMBIO DE NOMENCLATURA
             <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionColumnas();//CAMBIO DE NOMENCLATURA
+      await rellenarTipoActuacionColumnas();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosColumnas();//CAMBIO DE NOMENCLATURA
+      await rellenarTodosColumnas();//CAMBIO DE NOMENCLATURA
     }
 }
 
@@ -417,14 +416,7 @@ function editarColumnas(param) {//CAMBIO DE NOMENCLATURA
     inputActivoTar = String(inputActivoTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
-    // console.log(inputIdTar);
-    // console.log(inputFechaActuacionTar);
-    // console.log(inputTipoActuacionTar);
-    // console.log(inputObservacionesTar);
-    // console.log(inputNumSerieTar);
-    // console.log(inputPrecioTar);
-    // console.log(inputActivoTar);
-    // console.log(idUsuario);
+
 
 
     //validar fecha correcta

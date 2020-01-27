@@ -22,7 +22,7 @@ include './login/session.php';
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <style>
-      #dropInstalacionPintura {
+      #dropInstalacionPintura,#dropCruces {
          height: 500px;
          overflow-y: auto;
       }
@@ -87,9 +87,37 @@ include './login/session.php';
       <input type="hidden" id="inputIdUsuario" value="<?php echo $login_session; ?>">
     
    </div>
-   <div class="container-fluid mt-0 p-1" style="background-color:LightSteelBlue;">
+   <!-- <div class="container-fluid mt-0 p-1" style="background-color:LightSteelBlue;">
       <h3><b>Preventivo</b></h3>
+   </div> -->
+
+   <div class="container-fluid mt-0 p-1" style="background-color:LightSteelBlue;">
+      <div class="row"> 
+         <div class="col">
+             <h3><b>Preventivo</b></h3>
+         </div>
+         <div class="col">
+         </div>
+         <div class="col">
+         </div>         
+         <div class="col">
+         </div>
+         <div class="col">
+            <div class="input-group ">
+               <button type="button" class="btn btn-secondary dropdown-toggle " name="" value="" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" onclick="rellenarCruceMFOFiltro()">
+                  Cru.
+               </button>
+               <div class="dropdown-menu" id="dropCruces">
+                  <!-- inyectar código -->
+               </div>
+               <input type="text" class="form-control bg-warning " name="" id="inputIdCruces" value="">
+               <div class="btn btn-primary ml-2" onclick="filtrarCruce()">Aplicar Filtro</i></div>
+            </div>
+         </div>        
+      </div>
    </div>
+
    <!-- Dropdowns Menus -->
    <hr class="mt-0 mb-0">
    <!-- Container de cabecera -->

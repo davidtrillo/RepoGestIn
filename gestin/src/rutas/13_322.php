@@ -4,119 +4,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 //$app = new \Slim\App;
 
-
 //GET Todas las instalaciones SELECT
-$app->get('/api/led/{instalacion}/{limit}', function (Request $request, Response $response) {
+$app->get('/api/13_322', function (Request $request, Response $response) {
 
-    
-    $limit = $request->getAttribute('limit');
-    $instalacion = $request->getAttribute('instalacion');
-
-   
-        $sql = 'SELECT * FROM led where idInstalacion="' .$instalacion.  '" ORDER BY activo DESC,fechaActuacion DESC limit '. $limit;
-  
-
-
-    try {
-        $db = new db();
-        $db = $db->conectDB();
-        $resultado = $db->prepare($sql);
-        $resultado->execute();
-
-        if ($resultado->rowCount() > 0) {
-            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
-            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
-        } else {
-            echo json_encode("No se han encontrado resultados");
-        }
-        $db = null;
-        $resultado = null;
-
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}';
-    }
-
-});
-
-//GET count todos los leds de un cruce
-$app->get('/api/ledc/cont/{cruce}', function (Request $request, Response $response) {
-
-    
-    // $limit = $request->getAttribute('limit');
-    // $offset = $request->getAttribute('offset');
-    $cruce = $request->getAttribute('cruce');
-
-
-        $sql = 'SELECT count(*) as c FROM led WHERE idInstalacion="' . $cruce . '"';
-   
-
-
-    try {
-        $db = new db();
-        $db = $db->conectDB();
-        $resultado = $db->prepare($sql);
-        $resultado->execute();
-
-        if ($resultado->rowCount() > 0) {
-            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
-            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
-        } else {
-            echo json_encode("No se han encontrado resultados");
-        }
-        $db = null;
-        $resultado = null;
-
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}';
-    }
-
-});
-
-//GET Todas las instalaciones SELECT
-$app->get('/api/ledi/{cruce}/{offset}/{limit}', function (Request $request, Response $response) {
-
-    
-    $limit = $request->getAttribute('limit');
-    $offset = $request->getAttribute('offset');
-  //  $paginacion = $request->getAttribute('paginacion');
-    $cruce = $request->getAttribute('cruce');
-
-
-        $sql = 'SELECT * FROM led WHERE idInstalacion="' . $cruce . '" order by activo desc,fechaActuacion desc limit '. $offset .','.$limit;
-   
-
-
-    try {
-        $db = new db();
-        $db = $db->conectDB();
-        $resultado = $db->prepare($sql);
-        $resultado->execute();
-
-        if ($resultado->rowCount() > 0) {
-            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
-            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
-        } else {
-            echo json_encode("No se han encontrado resultados");
-        }
-        $db = null;
-        $resultado = null;
-
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}';
-    }
-
-});
-
-$app->get('/api/ledi/repes/{limit}', function (Request $request, Response $response) {
-
-    $limit = $request->getAttribute('limit');
-
-     if ($limit==0) {
-         $sql = 'SELECT count(*) as c from led where idnumserie in (SELECT idnumserie FROM gestin.led where idNumSerie<>0 and activo="true" group by idNumSerie having (count(idNumSerie)>=2))';
-     }else{
-        $sql = 'SELECT * from led where idnumserie in (SELECT idnumserie FROM gestin.led where (idNumSerie<>"0" and idNumSerie<>"") and activo="true" group by idNumSerie having (count(idNumSerie)>=2)) order by idNumSerie limit '. $limit;
-     }
-
+    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM 13_322 t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -139,10 +30,10 @@ $app->get('/api/ledi/repes/{limit}', function (Request $request, Response $respo
 });
 
 //GET Tarjetas activas COUNT
-$app->get('/api/ledi/activas/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/13_322/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT count(id) AS c FROM led WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
+    $sql = 'SELECT count(id) AS c FROM 13_322 WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -153,7 +44,7 @@ $app->get('/api/ledi/activas/{instalacion}', function (Request $request, Respons
             $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
             echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
         } else {
-            echo json_encode("No se han encontrado resultados2");
+            echo json_encode("No se han encontrado resultados");
         }
         $db = null;
         $resultado = null;
@@ -165,10 +56,10 @@ $app->get('/api/ledi/activas/{instalacion}', function (Request $request, Respons
 });
 
 
-$app->get('/api/led/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/13_322/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT * FROM led WHERE idInstalacion="' . $instalacion . '" order by activo desc,fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM 13_322 t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -192,25 +83,22 @@ $app->get('/api/led/{instalacion}', function (Request $request, Response $respon
 });
 
 // POST para crear una nueva instalación CREATE
-$app->post('/api/led/nueva', function (Request $request, Response $response) {
+$app->post('/api/13_322/nueva', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
     // $id=$request->getParam('id');
     $idInstalacion = $request->getParam('idInstalacion');
-    $color = $request->getParam('color');
+    $idTipoActuacion = $request->getParam('idTipoActuacion');
     $idNumSerie = $request->getParam('idNumSerie');
     $albaran = $request->getParam('albaran');
     $observaciones = $request->getParam('observaciones');
     $fechaActuacion = $request->getParam('fechaActuacion');
     $idUsuario = $request->getParam('idUsuario');
-    $grupo = $request->getParam('grupo');
-    $tipo = $request->getParam('tipo');
+    $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
-    $almacen = $request->getParam('almacen');
-    $nid = $request->getParam('nid');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO led (id, idInstalacion, color, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, grupo, tipo, activo, almacen, nid) VALUES (NULL, :idInstalacion, :color, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :grupo,:tipo, :activo, :almacen, :nid);';
-    // $sql='INSERT INTO led (idInstalacion) VALUES (:idInstalacion);';
+    $sql = 'INSERT INTO 13_322 (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo);';
+    // $sql='INSERT INTO 13_322 (idInstalacion) VALUES (:idInstalacion);';
 
     try {
         $db = new db();
@@ -219,20 +107,17 @@ $app->post('/api/led/nueva', function (Request $request, Response $response) {
         //Asignar campos del SQL a las variables obtenidas
         // $resultado->bindParam(':id',$id);
         $resultado->bindParam(':idInstalacion', $idInstalacion);
-        $resultado->bindParam(':color', $color);
+        $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
         $resultado->bindParam(':albaran', $albaran);
         $resultado->bindParam(':idNumSerie', $idNumSerie);
         $resultado->bindParam(':idUsuario', $idUsuario);
         $resultado->bindParam(':observaciones', $observaciones);
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);
-        $resultado->bindParam(':tipo', $tipo);
-        $resultado->bindParam(':grupo', $grupo);
+        $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
-        $resultado->bindParam(':almacen', $almacen);
-        $resultado->bindParam(':nid', $nid);
 
         $resultado->execute();
-        echo json_encode("Led guardado con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("Tarjeta guardada con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;
@@ -245,11 +130,11 @@ $app->post('/api/led/nueva', function (Request $request, Response $response) {
 
 //DELETE para borrar instalacion DELETE BY ID
 
-$app->delete('/api/led/borrar/{id}', function (Request $request, Response $response) {
+$app->delete('/api/13_322/borrar/{id}', function (Request $request, Response $response) {
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
-    $sql = 'DELETE FROM led WHERE id=' . $id;
+    $sql = 'DELETE FROM 13_322 WHERE id=' . $id;
 
     try {
         $db = new db();
@@ -275,25 +160,22 @@ $app->delete('/api/led/borrar/{id}', function (Request $request, Response $respo
 
 //POST para modificar instalacion UPDATE BY ID
 
-$app->put('/api/led/modificar/{id}', function (Request $request, Response $response) {
+$app->put('/api/13_322/modificar/{id}', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
-    $color = $request->getParam('color');
+    $idTipoActuacion = $request->getParam('idTipoActuacion');
     $idNumSerie = $request->getParam('idNumSerie');
     $albaran = $request->getParam('albaran');
     $observaciones = $request->getParam('observaciones');
     $fechaActuacion = $request->getParam('fechaActuacion');
     $idUsuario = $request->getParam('idUsuario');
-    $tipo = $request->getParam('tipo');
-    $grupo = $request->getParam('grupo');
+    $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
-    $almacen = $request->getParam('almacen');
-    $nid = $request->getParam('nid');
     // echo "todas las instalaciones";
 
-    //  $sql='UPDATE led SET color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE led SET albaran=:albaran,color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,tipo=:tipo,grupo=:grupo,activo=:activo,almacen=:almacen,nid=:nid WHERE id='. $id;
+    //  $sql='UPDATE 13_322 SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = 'UPDATE 13_322 SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='. $id;
 
     try {
         $db = new db();
@@ -302,20 +184,17 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
 
         //Asignar campos del SQL a las variables obtenidas
        // $resultado->bindParam(':id',$id);
-        $resultado->bindParam(':color', $color);
+        $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
         $resultado->bindParam(':idNumSerie', $idNumSerie);
         $resultado->bindParam(':albaran', $albaran);
         $resultado->bindParam(':observaciones', $observaciones);
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);
         $resultado->bindParam(':idUsuario', $idUsuario);
-        $resultado->bindParam(':tipo', $tipo);
-        $resultado->bindParam(':grupo', $grupo);
+        $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
-        $resultado->bindParam(':almacen', $almacen);
-        $resultado->bindParam(':nid', $nid);
 
         $resultado->execute();
-        echo json_encode("Led editado con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("Tarjeta editada con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;

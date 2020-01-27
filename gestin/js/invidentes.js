@@ -158,12 +158,11 @@ function leerTipoActuacion2Invidentes(descripcionTipoActuacion, idTipoActuacion,
     p2.value = descripcionTipoActuacion;
 }
 
-function formInvidentes() { //CAMBIO DE NOMENCLATURA
+function formInvidentes(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
-    desactivarBotones();
-    var ac=document.getElementById("btnInvidentes");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");

@@ -159,12 +159,11 @@ function leerTipoActuacion2CamIP(descripcionTipoActuacion, idTipoActuacion, idAc
     p2.value = descripcionTipoActuacion;
 }
 
-function formCamIP() { //CAMBIO DE NOMENCLATURA
+async function formCamIP(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
-    desactivarBotones();
-    var ac=document.getElementById("btnCamIp");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -235,10 +234,10 @@ function formCamIP() { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionCamIP();//CAMBIO DE NOMENCLATURA
+       await rellenarTipoActuacionCamIP();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosCamIP();//CAMBIO DE NOMENCLATURA
+        await rellenarTodosCamIP();//CAMBIO DE NOMENCLATURA
     }
 }
 

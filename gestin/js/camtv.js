@@ -158,12 +158,10 @@ function leerTipoActuacion2CamTV(descripcionTipoActuacion, idTipoActuacion, idAc
     p2.value = descripcionTipoActuacion;
 }
 
-function formCamTV() { //CAMBIO DE NOMENCLATURA
+async function formCamTV(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
-
-    desactivarBotones();
-    var ac=document.getElementById("btnCCTV");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -234,10 +232,10 @@ function formCamTV() { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionCamTV();//CAMBIO DE NOMENCLATURA
+       await rellenarTipoActuacionCamTV();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosCamTV();//CAMBIO DE NOMENCLATURA
+        await rellenarTodosCamTV();//CAMBIO DE NOMENCLATURA
     }
 }
 

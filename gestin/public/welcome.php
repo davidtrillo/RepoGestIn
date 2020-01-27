@@ -36,6 +36,9 @@ include './login/session.php';
          overflow-y: auto;
          
       }
+      #dropdownNID{
+         overflow-y: auto;
+      }
       .btn-info{
          min-height: 0px !important;         
       }
@@ -234,7 +237,7 @@ include './login/session.php';
    <div class="container-fluid mt-2 ml-1">
       <div class="row">
 
-      <div class="col">
+      <div class="col-3">
                <div class="btn-group">
                   <button type="button" class="btn btn-info h-25 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                      aria-expanded="false">
@@ -242,28 +245,34 @@ include './login/session.php';
                   </button>
                   <div class="dropdown-menu" id="dropdownElemento">
                      <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS SALIDA')">TARJETAS SALIDA</button>
-                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS CPU')">TARJETAS CPU</button>
-                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS AMPLIACIÓN')">TARJETAS AMPLIACIÓN</button>
-                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS F.A.')">TARJETAS F.A.</button>
+                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasCpu('TARJETAS CPU')">TARJETAS CPU</button>
+                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasAmp('TARJETAS AMPLIACIÓN')">TARJETAS AMPLIACIÓN</button>
+                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasFa('TARJETAS F.A.')">TARJETAS F.A.</button>
                      <button class="dropdown-item" type="button" id="btnBusTren" onclick="formBusTren('BUS/TREN')">BUS/TREN</button>
-                     <button class="dropdown-item" type="button" id="btn11_322" onclick="form11_322('11/300')">11/300</button>
-                     <button class="dropdown-item" type="button" id="btn12_300" onclick="form12_300('12/300')">12/300</button>
-                     <button class="dropdown-item" type="button" id="btn13_200"  onclick="form13_200('13/200')">13/200</button>
-                     <button class="dropdown-item" type="button" id="btn12_200"  onclick="form12_200('12/200')">12/200</button>
-                     <button class="dropdown-item" type="button" id="btn11_2in"  onclick="form11_2in('11/200')">11/200</button>
-                     <button class="dropdown-item" type="button" id="btn12_pp"  onclick="form12_pp('12/PP')">12/PP</button>
+                     <div class="dropdown-divider"></div>
+                     <button class="dropdown-item" type="button" id="btn11_200"  onclick="form11_200('11-200')">11-200</button>
+                     <button class="dropdown-item" type="button" id="btn11_300" onclick="form11_300('11-300')">11-300</button>
+                     <button class="dropdown-item" type="button" id="btn12_100"  onclick="form12_100('12-100')">12-100</button>
+                     <button class="dropdown-item" type="button" id="btn12_200"  onclick="form12_200('12-200')">12-200</button>
+                     <!-- <button class="dropdown-item" type="button" id="btn12_pp"  onclick="form12_pp('12-200 PEA')">12-200 PEA</button> -->
+                     <!-- <button class="dropdown-item" type="button" id="btn12_bici"  onclick="form12_bici('12-200 BICI')">12-200 BICI</button> -->
+                     <button class="dropdown-item" type="button" id="btn12_300" onclick="form12_300('12-300')">12-300</button>
+                     <button class="dropdown-item" type="button" id="btn13_200"  onclick="form13_200('13-200')">13-200</button>
+                     <button class="dropdown-item" type="button" id="btn13_322" onclick="form13_322('13-322')">13-322</button>
+                     <button class="dropdown-item" type="button" id="btn13_332" onclick="form13_322('13-332')">13-332</button>
+                     <div class="dropdown-divider"></div>
                      <button class="dropdown-item" type="button" id="btnOculta" onclick="formOculta('SEÑAL OCULTA')">SEÑAL OCULTA</button>
                      <button class="dropdown-item" type="button" id="btnLed" onclick="formLed('LEDS')">LEDS</button>
                      <button class="dropdown-item" type="button" id="btnInvidentes" onclick="formInvidentes('SONORO')">SONORO</button>
                      <button class="dropdown-item" type="button" id="btnDescontadores" onclick="formDescontadores('DESCONTADORES')">DESCONTADORES</button>
-                     <button class="dropdown-item" type="button" id="btnBaculos" onclick="formBaculos()">Báculos</button>
-                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formColumnas()">Columnas</button>
-                     <button class="dropdown-item" type="button" id="btnPulsadores" onclick="formPulsadores()">Pulsadores</button>
-                     <button class="dropdown-item" type="button" id="btnEspiras" onclick="formEspiras()">Espiras</button>
-                     <button class="dropdown-item" type="button" id="btnPantallasCon" onclick="formPantallasCon()">Pantallas Contraste</button>
-                     <button class="dropdown-item" type="button" id="btnCCTV" onclick="formCamTV()">CCTV</button>
-                     <button class="dropdown-item" type="button" id="btnCamIp" onclick="formCamIP()">CamIP</button>
-                     <button class="dropdown-item" type="button" id="btnModulo" onclick="formModulo()">Módulos</button>
+                     <button class="dropdown-item" type="button" id="btnBaculos" onclick="formBaculos('BÁCULOS')">BÁCULOS</button>
+                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formColumnas('COLUMNAS')">COLUMNAS</button>
+                     <button class="dropdown-item" type="button" id="btnPulsadores" onclick="formPulsadores('PULSADORES')">PULSADORES</button>
+                     <button class="dropdown-item" type="button" id="btnEspiras" onclick="formEspiras('ESPIRAS')">ESPIRAS</button>
+                     <button class="dropdown-item" type="button" id="btnPantallasCon" onclick="formPantallasCon('PANTALLAS CONTRASTE')">PANTALLAS CONTRASTE</button>
+                     <button class="dropdown-item" type="button" id="btnCCTV" onclick="formCamTV('CCTV')">CCTV</button>
+                     <button class="dropdown-item" type="button" id="btnCamIp" onclick="formCamIP('CAM. IP')">CAM. IP</button>
+                     <button class="dropdown-item" type="button" id="btnModulo" onclick="formModulo('MÓDULOS')">MÓDULOS</button>
                      
                         <!-- <div class="dropdown-divider"></div>
                      <button class="dropdown-item" type="button">Something else here</button> -->
@@ -271,6 +280,8 @@ include './login/session.php';
                <input type="text" class="form-control ml-3 bg-light" value="" id="inputElemento" disabled>
                </div>
       </div>
+
+
 
          <!-- <div class="col-1">
             <button class="btn btn-info" id="btnTarjetas" onclick="formTarjetas()">Tarjetas</button>
@@ -305,7 +316,7 @@ include './login/session.php';
 
       </div>
 
-      <div class="row mt-2">
+      <div class="row mt-0">
          <!-- <div class="col-1">
             <button class="btn btn-info"  onclick="form12_bici()">12/Bici</button>
          </div> -->
@@ -345,7 +356,7 @@ include './login/session.php';
    <!-- Fin botones de selección -->
    <hr>
    <!-- Formulario Introducir Nuevo-->
-   <div class="mt-2 p-2" id="formIntroducir">
+   <div class="mt-1 p-1" id="formIntroducir">
 
    </div>
    <!-- fin formulario Nuevo-->
@@ -382,12 +393,17 @@ include './login/session.php';
    <script src="../js/funciones.js"></script>
 
    <script src="../js/tarjetas.js"></script>
+   <script src="../js/tarjetascpu.js"></script>
+   <script src="../js/tarjetasAmp.js"></script>
+   <script src="../js/tarjetasFa.js"></script>
    <script src="../js/bustren.js"></script>
-   <script src="../js/11_322.js"></script>
+   <script src="../js/13_322.js"></script>
+   <script src="../js/11_300.js"></script>
    <script src="../js/12_300.js"></script>
    <script src="../js/13_200.js"></script>
+   <script src="../js/12_100.js"></script>
    <script src="../js/12_200.js"></script>
-   <script src="../js/11_2in.js"></script>
+   <script src="../js/11_200.js"></script>
    <script src="../js/12_pp.js"></script>
    <script src="../js/12_pea_bici.js"></script>
    <script src="../js/12_bici.js"></script>

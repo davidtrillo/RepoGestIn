@@ -158,12 +158,12 @@ function leerTipoActuacion2Espiras(descripcionTipoActuacion, idTipoActuacion, id
     p2.value = descripcionTipoActuacion;
 }
 
-function formEspiras() { //CAMBIO DE NOMENCLATURA
+async function formEspiras(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
 
-    desactivarBotones();
-    var ac=document.getElementById("btnEspiras");
-    ac.classList.add("active");
+    var inputElemento = document.getElementById("inputElemento");
+    inputElemento.value=elemento;
+
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -234,10 +234,10 @@ function formEspiras() { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacionEspiras();//CAMBIO DE NOMENCLATURA
+        await  rellenarTipoActuacionEspiras();//CAMBIO DE NOMENCLATURA
 
         // rellenar todos los registros 
-        rellenarTodosEspiras();//CAMBIO DE NOMENCLATURA
+        await rellenarTodosEspiras();//CAMBIO DE NOMENCLATURA
     }
 }
 

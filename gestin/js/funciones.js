@@ -4,7 +4,6 @@ $("#dropdown-menu1 button").click(function () {
     $("#inputTipologia").val($(this).text());
     var datoInput = document.getElementById('inputTipologia').value;
     enviarInput(datoInput);
-   // desactivarBotones();
 })
 
 function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del primer combo

@@ -69,11 +69,11 @@ function leerCruce(idCruce) {
 
     await   pintarResultados("tarjetas", idInstalacion);
     await   pintarResultados("bustren", idInstalacion);
-    await   pintarResultados("11_322", idInstalacion);
+    await   pintarResultados("13_322", idInstalacion);
     await   pintarResultados("12_300", idInstalacion);
     await   pintarResultados("13_200", idInstalacion);
     await   pintarResultados("12_200", idInstalacion);
-    await   pintarResultados("11_2in", idInstalacion);
+    await   pintarResultados("11_200", idInstalacion);
     await   pintarResultados("12_pp", idInstalacion);
     await   pintarResultados("invidentes", idInstalacion);
     await   pintarResultados("descontadores", idInstalacion);
@@ -193,11 +193,11 @@ async function imprimir() {
     //conseguir el json
     var rowTarjetas= await getJsonAPI('tarjetas',id);
     var rowBusTren= await getJsonAPI('bustren',id);
-    var row11_322= await getJsonAPI('11_322',id);
+    var row11_322= await getJsonAPI('13_322',id);
     var row12_300= await getJsonAPI('12_300',id);
     var row13_200= await getJsonAPI('13_200',id);
     var row12_200= await getJsonAPI('12_200',id);
-    var row11_2in= await getJsonAPI('11_2in',id);
+    var row11_2in= await getJsonAPI('11_200',id);
     var row12_pp= await getJsonAPI('12_pp',id);
     var rowInvidentes= await getJsonAPI('invidentes',id);
     var rowDescontadores= await getJsonAPI('descontadores',id);
@@ -261,7 +261,7 @@ async function imprimir() {
 
     if (row11_322!='No se han encontrado resultados') {
 
-        doc.text("11_322",14,doc.autoTable.previous.finalY + 10);
+        doc.text("13_322",14,doc.autoTable.previous.finalY + 10);
         doc.autoTable({
             columns:col,
             body:row11_322,
@@ -306,7 +306,7 @@ async function imprimir() {
 
     if (row12_pp!='No se han encontrado resultados') {
 
-        doc.text("11_2in",14,doc.autoTable.previous.finalY + 10);
+        doc.text("11_200",14,doc.autoTable.previous.finalY + 10);
         doc.autoTable({
             columns:col,
             body:row11_2in,
