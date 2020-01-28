@@ -267,6 +267,9 @@ include './login/session.php';
                      <button class="dropdown-item" type="button" id="btnDescontadores" onclick="formDescontadores('DESCONTADORES')">DESCONTADORES</button>
                      <button class="dropdown-item" type="button" id="btnBaculos" onclick="formBaculos('BÁCULOS')">BÁCULOS</button>
                      <button class="dropdown-item" type="button" id="btnColumnas" onclick="formColumnas('COLUMNAS')">COLUMNAS</button>
+                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBrazos('BRAZOS')">BRAZOS</button>
+                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBajantes('BAJANTES')">BAJANTES</button>
+                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formAlargaderas('ALARGADERAS')">ALARGADERAS</button>
                      <button class="dropdown-item" type="button" id="btnPulsadores" onclick="formPulsadores('PULSADORES')">PULSADORES</button>
                      <button class="dropdown-item" type="button" id="btnEspiras" onclick="formEspiras('ESPIRAS')">ESPIRAS</button>
                      <button class="dropdown-item" type="button" id="btnPantallasCon" onclick="formPantallasCon('PANTALLAS CONTRASTE')">PANTALLAS CONTRASTE</button>
@@ -419,6 +422,9 @@ include './login/session.php';
    <script src="../js/camip.js"></script>
    <script src="../js/led.js"></script>
    <script src="../js/modulos.js"></script>
+   <script src="../js/brazos.js"></script>
+   <script src="../js/bajantes.js"></script>
+   <script src="../js/alargaderas.js"></script>
 
 
 </body>

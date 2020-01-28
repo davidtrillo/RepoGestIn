@@ -42,6 +42,9 @@ include_once '../src/rutas/camtv.php';
 include_once '../src/rutas/camip.php';
 include_once '../src/rutas/led.php';
 include_once '../src/rutas/modulo.php';
+include_once '../src/rutas/brazos.php';
+include_once '../src/rutas/bajantes.php';
+include_once '../src/rutas/alargaderas.php';
 
 include_once '../src/rutas/APIpintura.php';
 include_once '../src/rutas/APIMFO.php';
@@ -54,6 +57,7 @@ include_once '../src/rutas/APINumSerie.php';
 include_once '../src/rutas/APIConsultaTipo.php';
 include_once '../src/rutas/APIConfiguracion.php';
 include_once '../src/rutas/APINID.php';
+
 
 
 $app->run();
