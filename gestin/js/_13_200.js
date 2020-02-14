@@ -20,21 +20,12 @@ function nueva13_200() { //CAMBIO DE NOMENCLATURA
         }
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :"0";  
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
+        var nid = document.getElementById('inputNID').value ? document.getElementById('inputNID').value :"0";  
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value :"0";
         var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
         
 activo = String(activo);
-// console.log(idTipoActuacion);
-// console.log(idNumSerie);
-// console.log(albaran);
-// console.log(observaciones);
-// console.log(precio);
-// console.log(activo);
-
-
-
-
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
         var url = 'http://webserver.mobilitat.local/gestin/public/api/13_200/nueva';
@@ -49,6 +40,7 @@ activo = String(activo);
                     idTipoActuacion: idTipoActuacion,
                     idNumSerie: idNumSerie,
                     albaran: albaran,
+                    nid: nid,
                     observaciones: observaciones,
                     fechaActuacion: fechaActuacion,
                     idUsuario: idUsuario,
@@ -64,7 +56,7 @@ activo = String(activo);
 
     }
     setTimeout(() => {
-        rellenarTodos13_200(); //CAMBIO DE NOMENCLATURA
+      rellenarTodos13_200(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 
 }
@@ -146,6 +138,39 @@ function rellenarTipoActuacion13_200() { //Llamada a la API según el dato obten
         })
 }
 
+function rellenarNID13_200() { //NID
+
+
+    var cr=document.getElementById("inputInstalacion");
+    
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/nid/'+cr.value;
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            var p = document.getElementById('dropdownNID');
+            p.innerHTML = '';
+            for (var i in response) {
+                var str=response[i]['nid'];
+                if (str.substring(9,14)=='13200'){
+                p.innerHTML += `
+                    <button class="dropdown-item" type="submit" id="dropBtnNID${[i]}" name="${response[i]['nid']}" onclick="leerNID13_200(this.name)">${response[i]['nid']}</button> 
+                    `
+                }
+            }
+        })
+}
+
+function leerNID13_200(NID) { //NID
+    var p1 = document.getElementById('inputNID');
+    p1.value = NID;
+}
+
 function leerTipoActuacion13_200(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('idTipoActuacion');
     p1.value = idTipoActuacion;
@@ -160,14 +185,10 @@ function leerTipoActuacion213_200(descripcionTipoActuacion, idTipoActuacion, idA
     p2.value = descripcionTipoActuacion;
 }
 
-function form13_200(elemento) { //CAMBIO DE NOMENCLATURA
+async function form13_200(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
-
-        
     var inputElemento = document.getElementById("inputElemento");
     inputElemento.value=elemento;
-
-
 
 
     if (instalacion.value != "") {
@@ -175,73 +196,89 @@ function form13_200(elemento) { //CAMBIO DE NOMENCLATURA
         f1.innerHTML = `
         
         <!-- Títulos Form Nuevo-->
-        <div class="row ml-1">
-        <div class="col-2">
-            F.Actuación
-        </div>
-        <div class="col-2">
-        <div class="dropdown" >
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tipo A.
+        <div class="row mt-1 pl-1">
+
+            <div class="col-1 pl-1">
+                <div class="dropdown" >
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnNID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        NID
                     </button>
-                    <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                    <div class="dropdown-menu" id="dropdownNID" aria-labelledby="dropdownNID">
                                 <!-- Aquí se iyecta el código mediante JS -->
                     </div>
                     <input type="hidden"  value="1" id="idTipoActuacion">
                 </div>
-        </div>
+            </div>
 
-        <div class="col-3">
-            Observaciones
-        </div>
-        <div class="col-1">
-          Albarán
-        </div>
-        <div class="col-1">
-            Num. Serie
-        </div>
-        <div class="col-1">
-            Precio
-        </div>
-        <div class="col-1">
-            Activo
-        </div>
+            <div class="col-2 pl-1 mt-3">
+                F.Actuación
+            </div>
+
+            <div class="col-2 pl-1">
+                    <div class="dropdown" >
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tipo A.
+                        </button>
+                        <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                                    <!-- Aquí se iyecta el código mediante JS -->
+                        </div>
+ 
+                    </div>
+            </div>
+
+            <div class="col-2 pl-1  mt-3">
+                Observaciones
+            </div>
+            <div class="col-1 pl-1  mt-3">
+            Albarán
+            </div>
+            <div class="col-1 pl-1  mt-3">
+                Num. Serie
+            </div>
+            <div class="col-1 pl-1  mt-3">
+                Precio
+            </div>
+            <div class="col-1 pl-1  mt-3">
+                Activo
+            </div>
         </div>
         <!-- Fin Titulos -->
         <!-- Form Introducir Nuevo -->
-        <div class="row mt-1 ml-1" id="formGuardar">
-        <div class="col-2">
-            <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
-        </div>
-        <div class="col-2">
-            <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
-        </div>
-        <div class="col-3">
-            <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
-        </div>
-        <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
-        </div>
-        <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie13_200()">
-        </div>
-        <div class="col-1">
-        <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
-        </div>
-        <div class="col-1">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
-        </div>
-        <div class="col-1">
-            <div class="btn btn-primary" onclick="nueva13_200()">Guardar</div>
-        </div>
+        <div class="row mt-1 pl-1" id="formGuardar">
+                <div class="col-1 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputNID" id="inputNID">
+                </div>
+                <div class="col-2 pl-1">
+                    <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
+                </div>
+                <div class="col-2 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
+                </div>
+                <div class="col-2 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
+                </div>
+                <div class="col-1 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
+                </div>
+                <div class="col-1 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerie13_200()">
+                </div>
+                <div class="col-1 pl-1">
+                <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
+                </div>
+                <div class="col-1 pl-1">
+                    <input type="checkbox" class="mt-3 ml-3" name="inputActivo" id="inputActivo">
+                </div>
+                <div class="col-1 pl-1">
+                <div class="btn btn-primary mt-0 ml-3" onclick="nueva13_200()"><i class="fas fa-save"></i></div>
+            </div>
         </div>  
         <!-- Fin Form Introducir nuevo -->
         
         `
-        rellenarTipoActuacion13_200();//CAMBIO DE NOMENCLATURA
 
-        // rellenar todos los registros 
-        rellenarTodos13_200();//CAMBIO DE NOMENCLATURA
+     await rellenarNID13_200();//NID
+     await rellenarTodos13_200();//rellenar todos
     }
 }
 
@@ -276,12 +313,16 @@ function rellenarTodos13_200() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     }
                  
                     p.innerHTML += `
-                 <div class="row mt-1 ml-1" id="">
-                 <div class="col-2">
+             <div class="row ml-1" id="">
+                 <div class="col-1 pl-0">
+                 <input type="text" class="form-control mt-1" name="" id="inputNIDTar${response[i]['id']}"  value="${response[i]['nid']}">
+              
+                 </div>
+                 <div class="col-2 pl-0">
                    <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
-                 <div class="col-2 mt-1" >
+                 <div class="col-2 mt-1 pl-0" >
                         <div class="input-group">
                             <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion213_200(this.value)">
                                     Tipo A.
@@ -289,30 +330,30 @@ function rellenarTodos13_200() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                             <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
                                
                             </div>
-                            <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"  value="${response[i]['descripcion']}">
-                            <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
+                             <input type="text" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">                             <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
                         </div>
                    
                  </div>
-                 <div class="col-3">
+                 <div class="col-2 pl-0">
                     <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                     <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                     <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}">
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                     <div class="btn btn-primary" id="${response[i]['id']}" onclick="editar13_200(this.id)"><i class="fas fa-pencil-alt"></i></div>
                     <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrar13_200(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
+                 
               </div>  
                  
                  `
@@ -382,14 +423,6 @@ function editar13_200(param) {//CAMBIO DE NOMENCLATURA
     inputActivoTar = String(inputActivoTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
-    // console.log(inputIdTar);
-    // console.log(inputFechaActuacionTar);
-    // console.log(inputTipoActuacionTar);
-    // console.log(inputObservacionesTar);
-    // console.log(inputNumSerieTar);
-    // console.log(inputPrecioTar);
-    // console.log(inputActivoTar);
-    // console.log(idUsuario);
 
 
     //validar fecha correcta
@@ -434,8 +467,6 @@ function editar13_200(param) {//CAMBIO DE NOMENCLATURA
         rellenarTodos13_200(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 }
-
-
 
 function comprobarNumSerie13_200() {
     var idNumSerie = document.getElementById('inputNumSerie').value;

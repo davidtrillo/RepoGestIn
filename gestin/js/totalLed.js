@@ -112,7 +112,7 @@
             var totalLedsRepes=vCount[0]['c'];
             var ftTotal= document.getElementById('footerTotal');
             ftTotal.innerHTML=` <span>Total de Leds: ${totalLedsRepes}</span>`
-
+    if (totalLedsRepes>0){
         //pintar los repetidos
          var s = document.getElementById("spinner");
          s.innerHTML = `   <span class="spinner-border spinner-border-sm mr-2 style="width: 2rem; height: 2rem;"" role="status" aria-hidden="true"></span> Cargando Datos...`;
@@ -139,6 +139,7 @@
          var p = document.getElementById('formBody');
          p.innerHTML = '';
      }
+    }
  }
 
 
@@ -195,9 +196,10 @@
                         <div class="dropdown-menu">
                             <button class="dropdown-item" onclick="escribirTipo2('100 mm',${param[i]['id']})" >100 mm</button>
                             <button class="dropdown-item" onclick="escribirTipo2('200 mm',${param[i]['id']})" >200 mm</button>
+                            <button class="dropdown-item" onclick="escribirTipo2('200 mm Peatón',${param[i]['id']})" >200 mm Peatón</button>
                             <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${param[i]['id']})" >200 mm Bici</button>
                             <button class="dropdown-item" onclick="escribirTipo2('300 mm',${param[i]['id']})" >300 mm</button>
-                            <button class="dropdown-item" onclick="escribirTipo2('200x200',${param[i]['id']})" >200x200</button>
+                            <button class="dropdown-item" onclick="escribirTipo2('200x200 Peatón',${param[i]['id']})" >200x200 Peatón</button>
                             <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${param[i]['id']})" >200x200 Bici</button>
                             <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${param[i]['id']})" >200x200 Bici/Peatón</button>
                         </div>
@@ -218,16 +220,17 @@
 
                                 <div class="dropdown-menu">
                                     <button class="dropdown-item" onclick="escribirColor2('Rojo',${param[i]['id']})" >Rojo</button>
-                                    <button class="dropdown-item" onclick="escribirColor2('Ambar',${param[i]['id']})" >Ambar</button>
+                                    <button class="dropdown-item" onclick="escribirColor2('Ámbar',${param[i]['id']})" >Ámbar</button>
                                     <button class="dropdown-item" onclick="escribirColor2('Verde',${param[i]['id']})" >Verde</button>
+                                    <button class="dropdown-item" onclick="escribirColor2('Rojo Flecha',${param[i]['id']})" >Rojo Flecha</button>
+                                    <button class="dropdown-item" onclick="escribirColor2('Ámbar Flecha',${param[i]['id']})" >Ámbar Flecha</button>
+                                    <button class="dropdown-item" onclick="escribirColor2('Verde Flecha',${param[i]['id']})" >Verde Flecha</button>
                                     <button class="dropdown-item" onclick="escribirColor2('Blanco',${param[i]['id']})" >Blanco</button>
                                 </div>
                         </div>
                     </div>
         </div>
-        <div class="col-1">
-           <input type="text" class="form-control mt-1" name="" id="inputGrupoTar${param[i]['id']}"  value="${param[i]['grupo']}">
-        </div>
+
         <div class="col-1">
            <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${param[i]['id']}"  value="${param[i]['idNumSerie']}" >
         </div>
@@ -647,14 +650,22 @@ function leerNIDTotalLed(NID) { //NID
                                     </button>
 
                                     <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="escribirTipo2('100 mm',${response[i]['id']})" >100 mm</button>
-                                        <button class="dropdown-item" onclick="escribirTipo2('200 mm',${response[i]['id']})" >200 mm</button>
-                                        <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
-                                        <button class="dropdown-item" onclick="escribirTipo2('300 mm',${response[i]['id']})" >300 mm</button>
-                                        <button class="dropdown-item" onclick="escribirTipo2('200x200',${response[i]['id']})" >200x200</button>
-                                        <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
-                                        <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
-                                    </div>
+                                    <button class="dropdown-item" onclick="escribirTipo2('100 mm',${response[i]['id']})" >100 mm</button>
+                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm',${response[i]['id']})" >200 mm</button>
+                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm Peatón',${response[i]['id']})" >200 mm Peatón</button>
+                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
+                                    <button class="dropdown-item" onclick="escribirTipo2('300 mm',${response[i]['id']})" >300 mm</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Peatón',${response[i]['id']})" >200x200 Peatón</button>
+                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
+                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item" onclick="escribirTipo('Descontador Verde',${response[i]['id']})" >Descontador Verde</button>
+                                    <button class="dropdown-item" onclick="escribirTipo('Descontador Rojo/Verde',${response[i]['id']})" >Descontador Rojo/Verde</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item" onclick="escribirTipo('CyberPass',${response[i]['id']})" >CyberPass</button>
+                                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón',${response[i]['id']})" >PassBlue Peatón</button>                                    </div>
+                                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici',${response[i]['id']})" >PassBlue Peatón/Bici</button>                                    </div>
                             </div>
                         </div>
                     </div>
@@ -672,16 +683,17 @@ function leerNIDTotalLed(NID) { //NID
 
                                             <div class="dropdown-menu">
                                                 <button class="dropdown-item" onclick="escribirColor2('Rojo',${response[i]['id']})" >Rojo</button>
-                                                <button class="dropdown-item" onclick="escribirColor2('Ambar',${response[i]['id']})" >Ambar</button>
+                                                <button class="dropdown-item" onclick="escribirColor2('Ámbar',${response[i]['id']})" >Ámbar</button>
                                                 <button class="dropdown-item" onclick="escribirColor2('Verde',${response[i]['id']})" >Verde</button>
+                                                <button class="dropdown-item" onclick="escribirColor2('Rojo Flecha',${response[i]['id']})" >Rojo Flecha</button>
+                                                <button class="dropdown-item" onclick="escribirColor2('Ámbar Flecha',${response[i]['id']})" >Ámbar Flecha</button>
+                                                <button class="dropdown-item" onclick="escribirColor2('Verde Flecha',${response[i]['id']})" >Verde Flecha</button>
                                                 <button class="dropdown-item" onclick="escribirColor2('Blanco',${response[i]['id']})" >Blanco</button>
                                             </div>
                                     </div>
                                 </div>
                     </div>
-                    <div class="col-1">
-                       <input type="text" class="form-control mt-1" name="" id="inputGrupoTar${response[i]['id']}"  value="${response[i]['grupo']}">
-                    </div>
+
                     <div class="col-1">
                        <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}" >
                     </div>

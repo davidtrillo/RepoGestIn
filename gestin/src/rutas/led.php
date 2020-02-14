@@ -202,14 +202,14 @@ $app->post('/api/led/nueva', function (Request $request, Response $response) {
     $observaciones = $request->getParam('observaciones');
     $fechaActuacion = $request->getParam('fechaActuacion');
     $idUsuario = $request->getParam('idUsuario');
-    $grupo = $request->getParam('grupo');
+    $fabricacion = $request->getParam('fabricacion');
     $tipo = $request->getParam('tipo');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
     $nid = $request->getParam('nid');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO led (id, idInstalacion, color, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, grupo, tipo, activo, almacen, nid) VALUES (NULL, :idInstalacion, :color, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :grupo,:tipo, :activo, :almacen, :nid);';
+    $sql = 'INSERT INTO led (id, idInstalacion, color, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, fabricacion, tipo, activo, almacen, nid) VALUES (NULL, :idInstalacion, :color, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :fabricacion,:tipo, :activo, :almacen, :nid);';
     // $sql='INSERT INTO led (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -226,7 +226,7 @@ $app->post('/api/led/nueva', function (Request $request, Response $response) {
         $resultado->bindParam(':observaciones', $observaciones);
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);
         $resultado->bindParam(':tipo', $tipo);
-        $resultado->bindParam(':grupo', $grupo);
+        $resultado->bindParam(':fabricacion', $fabricacion);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
         $resultado->bindParam(':nid', $nid);
@@ -259,7 +259,7 @@ $app->delete('/api/led/borrar/{id}', function (Request $request, Response $respo
 
         if ($resultado->rowCount() > 0) {
 
-            echo json_encode("Instalación eliminada con éxito", JSON_UNESCAPED_UNICODE);
+            echo json_encode("Led eliminado con éxito", JSON_UNESCAPED_UNICODE);
 
         } else {
             echo json_encode("No se han encontrado resultados con el ID " . $id, JSON_UNESCAPED_UNICODE);
@@ -286,14 +286,14 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
     $fechaActuacion = $request->getParam('fechaActuacion');
     $idUsuario = $request->getParam('idUsuario');
     $tipo = $request->getParam('tipo');
-    $grupo = $request->getParam('grupo');
+    $fabricacion = $request->getParam('fabricacion');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
     $nid = $request->getParam('nid');
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE led SET color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE led SET albaran=:albaran,color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,tipo=:tipo,grupo=:grupo,activo=:activo,almacen=:almacen,nid=:nid WHERE id='. $id;
+    $sql = 'UPDATE led SET albaran=:albaran,color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,tipo=:tipo,fabricacion=:fabricacion,activo=:activo,almacen=:almacen,nid=:nid WHERE id='. $id;
 
     try {
         $db = new db();
@@ -309,7 +309,7 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);
         $resultado->bindParam(':idUsuario', $idUsuario);
         $resultado->bindParam(':tipo', $tipo);
-        $resultado->bindParam(':grupo', $grupo);
+        $resultado->bindParam(':fabricacion', $fabricacion);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
         $resultado->bindParam(':nid', $nid);

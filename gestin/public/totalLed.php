@@ -184,7 +184,7 @@ include './login/session.php';
                             <div class="dropdown-menu" id="dropdownNID" aria-labelledby="dropdownNID">
                                         <!-- Aquí se iyecta el código mediante JS -->
                             </div>
-                            <input type="hidden"  value="1" id="idTipoActuacion">
+     
                         </div>
                       
                 <input type="text" class="form-control mt-1" name="inputNID" id="inputNID">
@@ -202,13 +202,22 @@ include './login/session.php';
                         Tipo
                     </button>
                     <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                        <button class="dropdown-item" onclick="escribirTipo('100 mm')">100 mm</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200 mm')">200 mm</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200 mm Bici')">200 mm Bici</button>
-                        <button class="dropdown-item" onclick="escribirTipo('300 mm')">300 mm</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200x200')">200x200</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200x200 Bici')">200x200 Bici</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200x200 Bici/Peatón')">200x200 Bici/Peatón</button>
+                        <button class="dropdown-item" onclick="escribirTipo('100 mm')" >100 mm</button>
+                        <button class="dropdown-item" onclick="escribirTipo('200 mm')" >200 mm</button>
+                        <button class="dropdown-item" onclick="escribirTipo('200 mm Peatón')" >200 mm Peatón</button>
+                        <button class="dropdown-item" onclick="escribirTipo('200 mm Bici')" >200 mm Bici</button>
+                        <button class="dropdown-item" onclick="escribirTipo('300 mm')" >300 mm</button>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" onclick="escribirTipo('200x200 Peatón')" >200x200 Peatón</button>
+                        <button class="dropdown-item" onclick="escribirTipo('200x200 Bici')" >200x200 Bici</button>
+                        <button class="dropdown-item" onclick="escribirTipo('200x200 Bici/Peatón')" >200x200 Bici/Peatón</button>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" onclick="escribirTipo('Descontador Verde')" >Descontador Verde</button>
+                        <button class="dropdown-item" onclick="escribirTipo('Descontador Rojo/Verde')" >Descontador Rojo/Verde</button>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" onclick="escribirTipo('CyberPass')" >CyberPass</button>
+                        <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón')" >PassBlue Peatón</button>
+                        <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici')" >PassBlue Peatón/Bici</button>
 
                     </div>
                 </div>
@@ -223,17 +232,20 @@ include './login/session.php';
                     </button>
                     <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
                         <button class="dropdown-item" onclick="escribirColor('Rojo')">Rojo</button>
-                        <button class="dropdown-item" onclick="escribirColor('Ambar')">Ambar</button>
+                        <button class="dropdown-item" onclick="escribirColor('Ámbar')">Ámbar</button>
                         <button class="dropdown-item" onclick="escribirColor('Verde')">Verde</button>
+                        <button class="dropdown-item" onclick="escribirColor('Rojo Flecha')">Rojo Flecha</button>
+                        <button class="dropdown-item" onclick="escribirColor('Ámbar Flecha')">Ámbar Flecha</button>
+                        <button class="dropdown-item" onclick="escribirColor('Verde Flecha')">Verde Flecha</button>
                         <button class="dropdown-item" onclick="escribirColor('Blanco')">Blanco</button>
                     </div>
                 </div>
                 <input type="text" class="form-control mt-1" name="inputColor" id="inputColor">
             </div>
-            <div class="col-1 mt-3">
+            <!-- <div class="col-1 mt-3">
             Grupo
                 <input type="text" class="form-control mt-1" name="inputGrupo" id="inputGrupo">
-            </div>
+            </div> -->
             <div class="col-1 mt-3">
             Num. Serie
                 <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie"

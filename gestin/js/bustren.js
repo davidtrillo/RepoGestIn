@@ -1,13 +1,18 @@
-function nuevaBusTren() { //CAMBIO DE NOMENCLATURA
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+
+function nuevaBusTren() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value :"1";
+    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value : "1";
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
 
         //validar fecha correcta
-        if (validarFormatoFechaBusTren(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
-            if (existeFechaBusTren(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+        if (validarFormatoFechaBusTren(fechaActuacion)) {
+            if (existeFechaBusTren(fechaActuacion)) {
 
             } else {
                 alert("La fecha introducida no existe.");
@@ -18,19 +23,22 @@ function nuevaBusTren() { //CAMBIO DE NOMENCLATURA
 
             return;
         }
-        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :null;  
-        var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
-        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
-        var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value :"0";
-        var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
-        var almacen = document.getElementById('inputAlmacen').checked; // mirar si guarda uno o guarda true
-        
-activo = String(activo);
-almacen = String(almacen);
+        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : null;
+        var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
+        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
+        var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
+        var activo = document.getElementById('inputActivo').checked;
+        var instalada = document.getElementById('inputInstalada').checked;
+        var almacen = document.getElementById('inputAlmacen').checked;
 
-
-
-
+        activo = String(activo);
+        instalada = String(instalada);
+        almacen = String(almacen);
+        // console.log(idTipoActuacion);
+        // console.log(idNumSerie);
+        // console.log(albaran);
+        // console.log(observaciones);
+        // console.log(precio);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
@@ -51,6 +59,7 @@ almacen = String(almacen);
                     idUsuario: idUsuario,
                     precio: precio,
                     activo: activo,
+                    instalada: instalada,
                     almacen: almacen
                 })
             })
@@ -62,12 +71,12 @@ almacen = String(almacen);
 
     }
     setTimeout(() => {
-        rellenarTodosBusTren(); //CAMBIO DE NOMENCLATURA
+        rellenarTodosBusTren();
     }, 1000);
 
 }
 
-function validarFormatoFechaBusTren(campo) { //CAMBIO DE NOMENCLATURA
+function validarFormatoFechaBusTren(campo) {
     var RegExPattern = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
     if ((campo.match(RegExPattern)) && (campo != '')) {
 
@@ -78,7 +87,7 @@ function validarFormatoFechaBusTren(campo) { //CAMBIO DE NOMENCLATURA
     }
 }
 
-function existeFechaBusTren(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFechaBusTren(fecha) {
     var fechaf = fecha.split("/");
     var day = fechaf[2];
     var month = fechaf[1];
@@ -90,7 +99,7 @@ function existeFechaBusTren(fecha) { //CAMBIO DE NOMENCLATURA
     return true;
 }
 
-function existeFecha2BusTren(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFecha2BusTren(fecha) {
     var fechaf = fecha.split("/");
     var d = fechaf[2];
     var m = fechaf[1];
@@ -99,7 +108,7 @@ function existeFecha2BusTren(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
-function rellenarTipoActuacion2BusTren(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+function rellenarTipoActuacion2BusTren(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -117,13 +126,13 @@ function rellenarTipoActuacion2BusTren(idActuacion) { //Llamada a la API según 
 
             for (var i in response) {
                 p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2BusTren(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
              `
             }
         })
 }
 
-function rellenarTipoActuacionBusTren() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+function rellenarTipoActuacionBusTren() { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
@@ -138,33 +147,46 @@ function rellenarTipoActuacionBusTren() { //Llamada a la API según el dato obte
             p.innerHTML = '';
             for (var i in response) {
                 p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionBusTren(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionBusTren(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button>
              `
-            } //CAMBIO DE NOMENCLATURA
+            }
         })
 }
 
-function leerTipoActuacionBusTren(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+function leerTipoActuacionBusTren(descripcionTipoActuacion, idTipoActuacion) {
     var p1 = document.getElementById('idTipoActuacion');
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion');
     p2.value = descripcionTipoActuacion;
 }
 
-function leerTipoActuacion2BusTren(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+function leerTipoActuacion2BusTren(descripcionTipoActuacion, idTipoActuacion, idActuacion) {
     var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
     p2.value = descripcionTipoActuacion;
 }
 
-async function formBusTren(elemento) { //CAMBIO DE NOMENCLATURA
+async function formBusTren(elemento) {
+
+    //desactivarBotones();
+
+    // var ac=document.getElementById("btnTarjetas");
+    // ac.classList.add("active");
+
+    
+    
+    
+    
     var instalacion = document.getElementById("inputInstalacion");
-
-    var inputElemento = document.getElementById("inputElemento");
-    inputElemento.value=elemento;
-
+    
     if (instalacion.value != "") {
+        
+            var inputElemento = document.getElementById("inputElemento");
+                inputElemento.value=elemento;
+        
+
+
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `
         
@@ -195,10 +217,10 @@ async function formBusTren(elemento) { //CAMBIO DE NOMENCLATURA
             Num. Serie
         </div>
         <div class="col-1">
-            Precio
+            <span class="ml-0 mb-0 p-0">Precio</span>
         </div>
         <div class="col-1">
-            <span>Act.</span>  <span class="ml-2">Almac.</span> 
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Activa</span>  <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Instalada</span> <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almacén</span> 
         </div>
         </div>
         <!-- Fin Titulos -->
@@ -223,9 +245,11 @@ async function formBusTren(elemento) { //CAMBIO DE NOMENCLATURA
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
         </div>
         <div class="col-1">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
-        </div>
+        <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
+            <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkInstalada()"> 
+            <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo">
+            <input type="checkbox" class=" mt-3 ml-2" name="inputAlmacen" id="inputAlmacen">
+        </div>  
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaBusTren()">Guardar</div>
         </div>
@@ -233,16 +257,16 @@ async function formBusTren(elemento) { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-       await rellenarTipoActuacionBusTren();//CAMBIO DE NOMENCLATURA
+  BusTren();
 
         // rellenar todos los registros 
-       await rellenarTodosBusTren();//CAMBIO DE NOMENCLATURA
+        await rellenarTodosBusTren();
     }
 }
 
 
 
-function rellenarTodosBusTren() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
+async function rellenarTodosBusTren() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var url = 'http://webserver.mobilitat.local/gestin/public/api/bustren/' + idInstalacion
     fetch(url, {
@@ -255,9 +279,9 @@ function rellenarTodosBusTren() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
         .catch(error => console.error('Error:', error))
         .then(response => {
             if (response == "No se han encontrado resultados") {
-
                 var p = document.getElementById('formBody');
                 p.innerHTML = '';
+
                 alert(response);
 
             } else {
@@ -269,12 +293,19 @@ function rellenarTodosBusTren() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     } else {
                         var activo = "";
                     }
+
+                    if (response[i]['instalada'] == "true") {
+                        var instalada = "checked";
+                    } else {
+                        var instalada = "";
+                    }
+
                     if (response[i]['almacen'] == "true") {
                         var almacen = "checked";
                     } else {
                         var almacen = "";
                     }
-                 
+
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -289,8 +320,7 @@ function rellenarTodosBusTren() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                             <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
                                
                             </div>
-                            <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"  value="${response[i]['descripcion']}">
-                            <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
+                             <input type="text" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">                             <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
                         </div>
                    
                  </div>
@@ -307,29 +337,31 @@ function rellenarTodosBusTren() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
+                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}"  ${instalada}>
+                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                  </div>
                  <div class="col-1">
                     <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarBusTren(this.id)"><i class="fas fa-pencil-alt"></i></div>
                     <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarBusTren(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
-                 
+
                  `
 
                 }
             }
         })
 
-        rellenarFooterBusTren();//CAMBIO DE NOMENCLATURA
-        comprobarNumSerieBusTren2();
+   await rellenarFooterBusTren();
+   await comprobarNumSerieBusTren2();
+
 
 }
 
-function rellenarFooterBusTren(){//CAMBIO DE NOMENCLATURA
+function rellenarFooterBusTren() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bustren/activas/' + idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/bustren/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -343,11 +375,18 @@ function rellenarFooterBusTren(){//CAMBIO DE NOMENCLATURA
                 alert(response);
 
             } else {
+
+                // var p1 = document.getElementById('formFooter');
+                // p1.innerHTML = '';
+                // p1.innerHTML=`
+                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                // `
+
                 var p = document.getElementById('cabecera');
                 p.innerHTML = '';
-                p.innerHTML=`
+                p.innerHTML = `
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>Bus/Tren</b> Activas: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>BusTren</b> Instaladas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -368,11 +407,14 @@ function borrarBusTren(param) {
             alert(response)
         })
     setTimeout(() => {
-        rellenarTodosBusTren();//CAMBIO DE NOMENCLATURA
-    }, 1000);
+     rellenarTodosBusTren();
+    }, 500);
 }
 
-function editarBusTren(param) {//CAMBIO DE NOMENCLATURA
+function editarBusTren(param) {
+
+ 
+
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
@@ -381,8 +423,10 @@ function editarBusTren(param) {//CAMBIO DE NOMENCLATURA
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
+    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
     var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
     inputActivoTar = String(inputActivoTar);
+    inputInstaladaTar = String(inputInstaladaTar);
     inputAlmacenTar = String(inputAlmacenTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
@@ -419,14 +463,15 @@ function editarBusTren(param) {//CAMBIO DE NOMENCLATURA
                 id: inputIdTar,
                 idTipoActuacion: inputTipoActuacionTar,
                 idNumSerie: inputNumSerieTar,
-                albaran:inputAlbaranTar,
+                albaran: inputAlbaranTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
                 activo: inputActivoTar,
+                instalada: inputInstaladaTar,
                 almacen: inputAlmacenTar
-                
+
             })
         })
         .then(res => res.json())
@@ -437,8 +482,8 @@ function editarBusTren(param) {//CAMBIO DE NOMENCLATURA
 
 
     setTimeout(() => {
-        rellenarTodosBusTren(); //CAMBIO DE NOMENCLATURA
-    }, 1000);
+        rellenarTodosBusTren();
+    }, 500);
 }
 
 
@@ -479,13 +524,13 @@ function comprobarNumSerieBusTren() {
 
 
 
-function comprobarNumSerieBusTren2() {
+ function comprobarNumSerieBusTren2() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-
+  
     if (idInstalacion) {
 
         var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/bustren';
-        fetch(url, {
+     fetch(url, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -503,9 +548,44 @@ function comprobarNumSerieBusTren2() {
                         if (response[i]['idInstalacion'] == idInstalacion) {
                             var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
                             if (clase) {
-                                comprobarNumSerieBusTren3(response[i]['id'],response[i]['idNumSerie']);
-                              
-                                clase.classList.add("bg-danger");
+                                var id=response[i]['id'];
+                                var idNumSerie=response[i]['idNumSerie'];
+                                // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                if (idNumSerie) {
+
+                                    // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
+                                     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
+                                     fetch(url, {
+                                             method: 'GET',
+                                             headers: {
+                                                 'Content-Type': 'application/json'
+                                             }
+                                         })
+                                         .then(res => res.json())
+                                         .catch(error => console.error('Error:', error))
+                                         .then(response => {
+                             
+                                             if ((response.length > 0)) {
+                             
+                                                 var res = "Número de Serie repetido en: ";
+                                                 var clase = document.getElementById('inputNumSerieTar' + id);
+                             
+                                                 for (i in response) {
+                                                     res += "\n Cruce: " + response[i]['idInstalacion'];
+                                                 }
+                                               
+                                                 clase.setAttribute("data-toggle", "tooltip");
+                                                 clase.setAttribute("data-placement", "top");
+                                                 clase.setAttribute("title", "Repetido en cruce " + res);
+                                                 
+                                             }
+                             
+                                         })
+                                 }
+
+
+
+                               clase.classList.add("bg-danger");
 
                             }
                         } else {
@@ -527,8 +607,8 @@ function comprobarNumSerieBusTren2() {
 }
 
 
-function comprobarNumSerieBusTren3(id,idNumSerie) {
-
+ function comprobarNumSerieBusTren3(id,idNumSerie) {
+    
     if (idNumSerie) {
 
        // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
@@ -559,5 +639,11 @@ function comprobarNumSerieBusTren3(id,idNumSerie) {
                 }
 
             })
+    }
+}
+
+function checkInstalada() {
+    if (document.getElementById('inputInstalada').checked) {
+        document.getElementById('inputActivo').checked=true;
     }
 }

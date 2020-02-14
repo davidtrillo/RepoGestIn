@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //GET Todas las instalaciones SELECT
 $app->get('/api/12_300', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM 12_300 t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM 12_300 t   order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -59,7 +59,7 @@ $app->get('/api/12_300/activas/{instalacion}', function (Request $request, Respo
 $app->get('/api/12_300/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM 12_300 t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.nid,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM 12_300 t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -90,6 +90,7 @@ $app->post('/api/12_300/nueva', function (Request $request, Response $response) 
     $idTipoActuacion = $request->getParam('idTipoActuacion');
     $idNumSerie = $request->getParam('idNumSerie');
     $albaran = $request->getParam('albaran');
+    $nid = $request->getParam('nid');
     $observaciones = $request->getParam('observaciones');
     $fechaActuacion = $request->getParam('fechaActuacion');
     $idUsuario = $request->getParam('idUsuario');
@@ -97,7 +98,7 @@ $app->post('/api/12_300/nueva', function (Request $request, Response $response) 
     $activo = $request->getParam('activo');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO 12_300 (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo);';
+    $sql = 'INSERT INTO 12_300 (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, nid, observaciones, fechaActuacion, precio, activo) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran , :nid,:observaciones, :fechaActuacion, :precio, :activo);';
     // $sql='INSERT INTO 12_300 (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -109,6 +110,7 @@ $app->post('/api/12_300/nueva', function (Request $request, Response $response) 
         $resultado->bindParam(':idInstalacion', $idInstalacion);
         $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
         $resultado->bindParam(':albaran', $albaran);
+        $resultado->bindParam(':nid', $nid);
         $resultado->bindParam(':idNumSerie', $idNumSerie);
         $resultado->bindParam(':idUsuario', $idUsuario);
         $resultado->bindParam(':observaciones', $observaciones);
@@ -117,7 +119,7 @@ $app->post('/api/12_300/nueva', function (Request $request, Response $response) 
         $resultado->bindParam(':activo', $activo);
 
         $resultado->execute();
-        echo json_encode("Tarjeta guardada con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("12-300 guardado con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;
@@ -144,7 +146,7 @@ $app->delete('/api/12_300/borrar/{id}', function (Request $request, Response $re
 
         if ($resultado->rowCount() > 0) {
 
-            echo json_encode("Instalación eliminada con éxito", JSON_UNESCAPED_UNICODE);
+            echo json_encode("12-300 eliminado con éxito", JSON_UNESCAPED_UNICODE);
 
         } else {
             echo json_encode("No se han encontrado resultados con el ID " . $id, JSON_UNESCAPED_UNICODE);
@@ -167,6 +169,7 @@ $app->put('/api/12_300/modificar/{id}', function (Request $request, Response $re
     $idTipoActuacion = $request->getParam('idTipoActuacion');
     $idNumSerie = $request->getParam('idNumSerie');
     $albaran = $request->getParam('albaran');
+    $nid = $request->getParam('nid');
     $observaciones = $request->getParam('observaciones');
     $fechaActuacion = $request->getParam('fechaActuacion');
     $idUsuario = $request->getParam('idUsuario');
@@ -175,7 +178,7 @@ $app->put('/api/12_300/modificar/{id}', function (Request $request, Response $re
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE 12_300 SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE 12_300 SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='. $id;
+    $sql = 'UPDATE 12_300 SET albaran=:albaran,nid=:nid,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='. $id;
 
     try {
         $db = new db();
@@ -187,6 +190,7 @@ $app->put('/api/12_300/modificar/{id}', function (Request $request, Response $re
         $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
         $resultado->bindParam(':idNumSerie', $idNumSerie);
         $resultado->bindParam(':albaran', $albaran);
+        $resultado->bindParam(':nid', $nid);
         $resultado->bindParam(':observaciones', $observaciones);
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);
         $resultado->bindParam(':idUsuario', $idUsuario);
@@ -194,7 +198,7 @@ $app->put('/api/12_300/modificar/{id}', function (Request $request, Response $re
         $resultado->bindParam(':activo', $activo);
 
         $resultado->execute();
-        echo json_encode("Tarjeta editada con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("12-300 editado con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;

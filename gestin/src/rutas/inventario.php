@@ -77,7 +77,7 @@ $app->post('/api/inventario/nueva',function(Request $request, Response $response
         $resultado->bindParam(':resolucion',$resolucion);
 
         $resultado->execute();
-        echo json_encode("Instalación guardad con éxito",JSON_UNESCAPED_UNICODE);
+        echo json_encode("Inventario guardado con éxito",JSON_UNESCAPED_UNICODE);
 
         $resultado=null;
         $dbConexion=null;

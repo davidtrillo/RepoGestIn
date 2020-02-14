@@ -56,7 +56,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //GET Todas las instalaciones SELECT
 $app->get('/api/tarjetascpu', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.instalada,t.almacen FROM tarjetascpu t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.tipo,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.instalada,t.almacen FROM tarjetascpu t   order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -135,7 +135,7 @@ $app->get('/api/tarjetascpu/activas/{instalacion}', function (Request $request, 
 $app->get('/api/tarjetascpu/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.instalada,t.almacen FROM tarjetascpu t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,t.tipo, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.instalada,t.almacen FROM tarjetascpu t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -165,6 +165,7 @@ $app->post('/api/tarjetascpu/nueva', function (Request $request, Response $respo
     $idInstalacion = $request->getParam('idInstalacion');
     $idTipoActuacion = $request->getParam('idTipoActuacion');
     $idNumSerie = $request->getParam('idNumSerie');
+    $tipo = $request->getParam('tipo');
     $albaran = $request->getParam('albaran');
     $observaciones = $request->getParam('observaciones');
     $fechaActuacion = $request->getParam('fechaActuacion');
@@ -175,7 +176,7 @@ $app->post('/api/tarjetascpu/nueva', function (Request $request, Response $respo
     $almacen = $request->getParam('almacen');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO tarjetascpu (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,instalada,almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo,:instalada,:almacen);';
+    $sql = 'INSERT INTO tarjetascpu (id, idInstalacion, idTipoActuacion, tipo, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,instalada,almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :tipo, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo,:instalada,:almacen);';
     // $sql='INSERT INTO tarjetascpu (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -188,6 +189,7 @@ $app->post('/api/tarjetascpu/nueva', function (Request $request, Response $respo
         $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
         $resultado->bindParam(':albaran', $albaran);
         $resultado->bindParam(':idNumSerie', $idNumSerie);
+        $resultado->bindParam(':tipo', $idNumSerie);
         $resultado->bindParam(':idUsuario', $idUsuario);
         $resultado->bindParam(':observaciones', $observaciones);
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);
@@ -246,6 +248,7 @@ $app->put('/api/tarjetascpu/modificar/{id}', function (Request $request, Respons
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
     $idTipoActuacion = $request->getParam('idTipoActuacion');
     $idNumSerie = $request->getParam('idNumSerie');
+    $tipo = $request->getParam('tipo');
     $albaran = $request->getParam('albaran');
     $observaciones = $request->getParam('observaciones');
     $fechaActuacion = $request->getParam('fechaActuacion');
@@ -257,7 +260,7 @@ $app->put('/api/tarjetascpu/modificar/{id}', function (Request $request, Respons
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE tarjetascpu SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE tarjetascpu SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,instalada=:instalada,almacen=:almacen WHERE id='. $id;
+    $sql = 'UPDATE tarjetascpu SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,tipo=:tipo,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,instalada=:instalada,almacen=:almacen WHERE id='. $id;
 
     try {
         $db = new db();
@@ -268,6 +271,7 @@ $app->put('/api/tarjetascpu/modificar/{id}', function (Request $request, Respons
        // $resultado->bindParam(':id',$id);
         $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
         $resultado->bindParam(':idNumSerie', $idNumSerie);
+        $resultado->bindParam(':tipo', $tipo);
         $resultado->bindParam(':albaran', $albaran);
         $resultado->bindParam(':observaciones', $observaciones);
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);

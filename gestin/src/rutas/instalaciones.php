@@ -201,7 +201,7 @@ $app->post('/api/instalaciones/nueva',function(Request $request, Response $respo
         $resultado->bindParam(':idUsuario',$idUsuario);
 
         $resultado->execute();
-        echo json_encode("Instalación guardad con éxito",JSON_UNESCAPED_UNICODE);
+        echo json_encode("Instalación guardada con éxito",JSON_UNESCAPED_UNICODE);
 
         $resultado=null;
         $dbConexion=null;

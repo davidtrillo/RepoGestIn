@@ -1,6 +1,6 @@
 function nuevaOculta() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value :"1";
+    var idTipoActuacion = document.getElementById('inputTipoActuacion').value
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
@@ -98,70 +98,33 @@ function existeFecha2Oculta(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
-function rellenarTipoActuacion2Oculta(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
 
-            var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
-
-            p2.innerHTML = '';
-
-            for (var i in response) {
-                p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2Oculta(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
-
-function rellenarTipoActuacionOculta() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            var p = document.getElementById('dropdownTipoActuacion');
-            p.innerHTML = '';
-            for (var i in response) {
-                p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionOculta(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
-             `
-            } //CAMBIO DE NOMENCLATURA
-        })
-}
-
-function leerTipoActuacionOculta(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
-    var p1 = document.getElementById('idTipoActuacion');
-    p1.value = idTipoActuacion;
+function escribirTipoActuacionOculta(descripcionTipoActuacion) { //CAMBIO DE NOMENCLATURA
     var p2 = document.getElementById('inputTipoActuacion');
     p2.value = descripcionTipoActuacion;
 }
 
-function leerTipoActuacion2Oculta(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+
+function leerTipoActuacionOculta(idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+    var p1 = document.getElementById('idTipoActuacion');
+    p1.value = idTipoActuacion;
+}
+
+function rellenarTipoActuacion2Oculta(idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
     p1.value = idTipoActuacion;
-    var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
-    p2.value = descripcionTipoActuacion;
 }
 
 async function formOculta(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
-
     var inputElemento = document.getElementById("inputElemento");
     inputElemento.value=elemento;
+
+    var tipo="";
+    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoActuacion13_332(this.value)" >'+ value +'</button>';
+         
+    });
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -173,15 +136,14 @@ async function formOculta(elemento) { //CAMBIO DE NOMENCLATURA
             F.Actuación
         </div>
         <div class="col-2">
-        <div class="dropdown" >
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tipo A.
-                    </button>
-                    <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                                <!-- Aquí se iyecta el código mediante JS -->
-                    </div>
-                    <input type="hidden"  value="1" id="idTipoActuacion">
+            <div class="dropdown" >
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tipo A.
+                </button>
+                <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                `+ tipo +`
                 </div>
+            </div>
         </div>
 
         <div class="col-3">
@@ -232,7 +194,7 @@ async function formOculta(elemento) { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-        await rellenarTipoActuacionOculta();//CAMBIO DE NOMENCLATURA
+
 
         // rellenar todos los registros 
        await rellenarTodosOculta();//CAMBIO DE NOMENCLATURA
@@ -273,6 +235,13 @@ function rellenarTodosOculta() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     } else {
                         var almacen = "";
                     }
+
+                    var tipo="";
+                    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+            
+                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion213_332(this.value,this.name)" >'+ value +'</button>';
+                        
+                    });
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -280,16 +249,17 @@ function rellenarTodosOculta() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
                  <div class="col-2 mt-1" >
-                        <div class="input-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion2Oculta(this.value)">
-                                    Tipo A.
-                            </button>
-                            <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
-                               
+           
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoActuacionTar${response[i]['id']}" value="${response[i]['idTipoActuacion']}">
+                        <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                            <div class="dropdown-menu">
+                                `+ tipo +`
                             </div>
-                            <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"  value="${response[i]['descripcion']}">
-                            <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
+                        
                         </div>
+                    </div>
                    
                  </div>
                  <div class="col-3">

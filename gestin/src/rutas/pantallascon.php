@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //GET Todas las instalaciones SELECT
 $app->get('/api/pantallascon', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id, ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM PantallasCon t inner join tipoactuacion ta on t.idTipoActuacion=ta.id order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen  FROM pantallascon t   order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -33,7 +33,7 @@ $app->get('/api/pantallascon', function (Request $request, Response $response) {
 $app->get('/api/pantallascon/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT count(id) AS c FROM PantallasCon WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
+    $sql = 'SELECT count(id) AS c FROM pantallascon WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -59,7 +59,7 @@ $app->get('/api/pantallascon/activas/{instalacion}', function (Request $request,
 $app->get('/api/pantallascon/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion,ta.descripcion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo FROM PantallasCon t inner join tipoactuacion ta on t.idTipoActuacion=ta.id WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen  FROM pantallascon t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -95,10 +95,11 @@ $app->post('/api/pantallascon/nueva', function (Request $request, Response $resp
     $idUsuario = $request->getParam('idUsuario');
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
+    $almacen = $request->getParam('almacen');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO PantallasCon (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo);';
-    // $sql='INSERT INTO PantallasCon (idInstalacion) VALUES (:idInstalacion);';
+    $sql = 'INSERT INTO pantallascon (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
+    // $sql='INSERT INTO pantallascon (idInstalacion) VALUES (:idInstalacion);';
 
     try {
         $db = new db();
@@ -115,9 +116,10 @@ $app->post('/api/pantallascon/nueva', function (Request $request, Response $resp
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
+        $resultado->bindParam(':almacen', $almacen);
 
         $resultado->execute();
-        echo json_encode("Tarjeta guardada con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("S. PantallasCon guardada con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;
@@ -134,7 +136,7 @@ $app->delete('/api/pantallascon/borrar/{id}', function (Request $request, Respon
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
-    $sql = 'DELETE FROM PantallasCon WHERE id=' . $id;
+    $sql = 'DELETE FROM pantallascon WHERE id=' . $id;
 
     try {
         $db = new db();
@@ -172,10 +174,11 @@ $app->put('/api/pantallascon/modificar/{id}', function (Request $request, Respon
     $idUsuario = $request->getParam('idUsuario');
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
+    $almacen = $request->getParam('almacen');
     // echo "todas las instalaciones";
 
-    //  $sql='UPDATE PantallasCon SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE PantallasCon SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='. $id;
+    //  $sql='UPDATE pantallascon SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = 'UPDATE pantallascon SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen WHERE id='. $id;
 
     try {
         $db = new db();
@@ -192,9 +195,10 @@ $app->put('/api/pantallascon/modificar/{id}', function (Request $request, Respon
         $resultado->bindParam(':idUsuario', $idUsuario);
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
+        $resultado->bindParam(':almacen', $almacen);
 
         $resultado->execute();
-        echo json_encode("Tarjeta editada con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("S. Pantalla editada con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;
@@ -227,6 +231,7 @@ $app->put('/api/pantallascon/modificar/{id}', function (Request $request, Respon
 //         }else{
 //             echo json_encode("No se han encontrado resultados con el ID".$id,JSON_UNESCAPED_UNICODE);
 //         }
+
 
 //         $resultado=null;
 //         $dbConexion=null;

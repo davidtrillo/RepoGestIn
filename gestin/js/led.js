@@ -2,6 +2,7 @@ function nuevaLed() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var color = document.getElementById('inputColor').value ? document.getElementById('inputColor').value :"";
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
+    var nid = document.getElementById('inputNID').value;
 
     if (idInstalacion.value != "") {
 
@@ -21,7 +22,7 @@ function nuevaLed() { //CAMBIO DE NOMENCLATURA
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :"0";  
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
         var tipo = document.getElementById('inputTipo').value ? document.getElementById('inputTipo').value :"";  
-        var grupo = document.getElementById('inputGrupo').value ? document.getElementById('inputGrupo').value :"";  
+        var fabricacion = document.getElementById('inputFabricacion').value ? document.getElementById('inputFabricacion').value :"";  
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
         var activo = document.getElementById('inputActivo').checked;
         var almacen = document.getElementById('inputAlmacen').checked;
@@ -43,11 +44,12 @@ function nuevaLed() { //CAMBIO DE NOMENCLATURA
                     color: color,
                     idNumSerie: idNumSerie,
                     albaran: albaran,
+                    nid: nid,
                     observaciones: observaciones,
                     fechaActuacion: fechaActuacion,
                     idUsuario: idUsuario,
                     tipo: tipo,
-                    grupo: grupo,
+                    fabricacion: fabricacion,
                     activo: activo,
                     almacen:almacen
                 })
@@ -112,7 +114,7 @@ function rellenarNIDLed() { //NID
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
-            var p = document.getElementById('dropdownNID');
+            var p = document.getElementById('dropdownNIDLed');
             p.innerHTML = '';
             for (var i in response) {
                 //var str=response[i]['nid'];
@@ -151,10 +153,10 @@ function leerNIDLed(NID) { //NID
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="btnNID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     NID
                 </button>
-                <div class="dropdown-menu" id="dropdownNID" aria-labelledby="dropdownNID">
+                <div class="dropdown-menu" id="dropdownNIDLed" aria-labelledby="dropdownNID">
                             <!-- Aquí se iyecta el código mediante JS -->
                 </div>
-                <input type="hidden"  value="1" id="idTipoActuacion">
+         
             </div>
         </div>
 
@@ -166,15 +168,23 @@ function leerNIDLed(NID) { //NID
               <button class="btn btn-secondary dropdown-toggle" type="button"  id="btnTipo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Tipo
               </button>
-                <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                <div class="dropdown-menu" id="dropdownTipo" aria-labelledby="dropdownTipo">
                     <button class="dropdown-item" onclick="escribirTipo('100 mm')" >100 mm</button>
                     <button class="dropdown-item" onclick="escribirTipo('200 mm')" >200 mm</button>
+                    <button class="dropdown-item" onclick="escribirTipo('200 mm Peatón')" >200 mm Peatón</button>
                     <button class="dropdown-item" onclick="escribirTipo('200 mm Bici')" >200 mm Bici</button>
                     <button class="dropdown-item" onclick="escribirTipo('300 mm')" >300 mm</button>
-                    <button class="dropdown-item" onclick="escribirTipo('200x200')" >200x200</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" onclick="escribirTipo('200x200 Peatón')" >200x200 Peatón</button>
                     <button class="dropdown-item" onclick="escribirTipo('200x200 Bici')" >200x200 Bici</button>
-                    <button class="dropdown-item" onclick="escribirTipo('200x200 Bici/Peatón')" >200x200 Bici/Peatón</button>
-                
+                    <button class="dropdown-item" onclick="escribirTipo('200x200 Peatón/Bici')" >200x200 Bici/Peatón</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" onclick="escribirTipo('Descontador Verde')" >Descontador Verde</button>
+                    <button class="dropdown-item" onclick="escribirTipo('Descontador Rojo/Verde')" >Descontador Rojo/Verde</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" onclick="escribirTipo('CyberPass')" >CyberPass</button>
+                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón')" >PassBlue Peatón</button>
+                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici')" >PassBlue Peatón/Bici</button>
                 </div>
             </div>
         </div>
@@ -185,17 +195,30 @@ function leerNIDLed(NID) { //NID
               </button>
                 <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
                     <button class="dropdown-item" onclick="escribirColor('Rojo')" >Rojo</button>
-                    <button class="dropdown-item" onclick="escribirColor('Ambar')" >Ambar</button>
+                    <button class="dropdown-item" onclick="escribirColor('Ámbar')" >Ámbar</button>
                     <button class="dropdown-item" onclick="escribirColor('Verde')" >Verde</button>
-                    <button class="dropdown-item" onclick="escribirColor('Blanco')" >Blanco</button>
+                    <button class="dropdown-item" onclick="escribirColor('Rojo Flecha')" >Rojo Flecha</button>
+                    <button class="dropdown-item" onclick="escribirColor('Ámbar Flecha')" >Ámbar Flecha</button>
+                    <button class="dropdown-item" onclick="escribirColor('Verde Flecha')" >Verde Flecha</button>
+                    <button class="dropdown-item" onclick="escribirColor('Blanco Horizontal')" >Blanco Horizontal</button>
+                    <button class="dropdown-item" onclick="escribirColor('Blanco Vertical')" >Blanco Vertical</button>
+                    <button class="dropdown-item" onclick="escribirColor('Blanco Triángulo')" >Blanco Triángulo</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-1 pl-0">
+            <div class="dropdown" >
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="btnFabricacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Fabricacion
+              </button>
+                <div class="dropdown-menu" id="dropdownFabricacion" aria-labelledby="dropdownFabricacion">
+                    <button class="dropdown-item" onclick="escribirFabricacion('Matricial')" >Matricial</button>
+                    <button class="dropdown-item" onclick="escribirFabricacion('Alta Potencia')" >Alta Potencia</button>
                 </div>
             </div>
         </div>
               <div class="col-1 pl-0">
-                  Grupo
-              </div>
-              <div class="col-1 pl-0">
-                  Num. Serie
+              Num. Serie     
               </div>
               <div class="col-1 pl-0">
                  Albarán
@@ -223,7 +246,7 @@ function leerNIDLed(NID) { //NID
                   <input type="text" class="form-control mt-1" name="inputColor" id="inputColor">
               </div>
               <div class="col-1  pl-0">
-                  <input type="text" class="form-control mt-1" name="inputGrupo" id="inputGrupo">
+                    <input type="text" class="form-control mt-1" name="inputFabricacion" id="inputFabricacion">
               </div>
               <div class="col-1  pl-0">
                   <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerieLed()">
@@ -269,8 +292,18 @@ function escribirColor(param) {
     p1.value=param;
 }
 
+
 function escribirColor2(param,id) {
     var p1=document.getElementById("inputColorTar"+id);    
+    p1.value=param;
+}
+
+function escribirFabricacion(param) {
+    var p1=document.getElementById("inputFabricacion");    
+    p1.value=param;
+}
+function escribirFabricacion2(param,id) {
+    var p1=document.getElementById("inputFabricacionTar"+id);    
     p1.value=param;
 }
 
@@ -333,13 +366,22 @@ async function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                                         </button>
 
                                         <div class="dropdown-menu">
-                                            <button class="dropdown-item" onclick="escribirTipo2('100 mm',${response[i]['id']})" >100 mm</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200 mm',${response[i]['id']})" >200 mm</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('300 mm',${response[i]['id']})" >300 mm</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200x200',${response[i]['id']})" >200x200</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
-                                            <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('100 mm',${response[i]['id']})" >100 mm</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('200 mm',${response[i]['id']})" >200 mm</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('200 mm Peatón',${response[i]['id']})" >200 mm Peatón</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('300 mm',${response[i]['id']})" >300 mm</button>
+                                            <div class="dropdown-divider"></div>
+                                                <button class="dropdown-item" onclick="escribirTipo2('200x200 Peatón',${response[i]['id']})" >200x200 Peatón</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
+                                            <div class="dropdown-divider"></div>
+                                                <button class="dropdown-item" onclick="escribirTipo2('Descontador Verde',${response[i]['id']})" >Descontador Verde</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('Descontador Rojo/Verde',${response[i]['id']})" >Descontador Rojo/Verde</button>
+                                            <div class="dropdown-divider"></div>
+                                                <button class="dropdown-item" onclick="escribirTipo2('CyberPass',${response[i]['id']})" >CyberPass</button>
+                                                <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón',${response[i]['id']})" >PassBlue Peatón</button>
+                                                <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici',${response[i]['id']})" >PassBlue Peatón/Bici</button>
                                         </div>
                                 </div>
                             </div>
@@ -358,14 +400,37 @@ async function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
                                                 <div class="dropdown-menu">
                                                     <button class="dropdown-item" onclick="escribirColor2('Rojo',${response[i]['id']})" >Rojo</button>
-                                                    <button class="dropdown-item" onclick="escribirColor2('Ambar',${response[i]['id']})" >Ambar</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Ámbar',${response[i]['id']})" >Ámbar</button>
                                                     <button class="dropdown-item" onclick="escribirColor2('Verde',${response[i]['id']})" >Verde</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Rojo Flecha',${response[i]['id']})" >Rojo Flecha</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Ámbar Flecha',${response[i]['id']})" >Ámbar Flecha</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Verde Flecha',${response[i]['id']})" >Verde Flecha</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Blanco Horizontal',${response[i]['id']})" >Blanco Horizontal</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Blanco Vertical',${response[i]['id']})" >Blanco Vertical</button>
+                                                    <button class="dropdown-item" onclick="escribirColor2('Blanco Triángulo',${response[i]['id']})" >Blanco Triángulo</button>
                                                 </div>
                                         </div>
                                     </div>
                         </div>
-                        <div class="col-1 pl-0">
-                           <input type="text" class="form-control mt-1" name="" id="inputGrupoTar${response[i]['id']}"  value="${response[i]['grupo']}">
+                        <div class="col-1 mt-1 pl-0">
+                                <div class="dropdown" >
+                                
+                                        <div class="input-group">
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputFabricacionTar${response[i]['id']}" value="${response[i]['fabricacion']}">
+                                            <div class="input-group-append">
+
+                                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+
+                                                    <div class="dropdown-menu">
+                                                    <button class="dropdown-item" onclick="escribirFabricacion2('Matricial',${response[i]['id']})" >Matricial</button>
+                                                    <button class="dropdown-item" onclick="escribirFabricacion2('Alta Potencia',${response[i]['id']})" >Alta Potencia</button>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                </div>
                         </div>
                         <div class="col-1 pl-0">
                            <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}" onfocusout="comprobarNumSerieLed()">
@@ -392,8 +457,8 @@ async function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                 }
             }
         })
-      await  comprobarNumSerieLed2();
-       await  rellenarFooterLed();//CAMBIO DE NOMENCLATURA
+        await  comprobarNumSerieLed2();
+        await  rellenarFooterLed();//CAMBIO DE NOMENCLATURA
 }
 
 function rellenarFooterLed(){//CAMBIO DE NOMENCLATURA
@@ -448,7 +513,7 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
-    var inputGrupoTar = document.getElementById('inputGrupoTar' + param).value;
+    var inputFabricacionTar = document.getElementById('inputFabricacionTar' + param).value;
     var inputTipoTar = document.getElementById('inputTipoTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
     var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
@@ -461,7 +526,7 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
     // console.log(inputColorTar);
     // console.log(inputObservacionesTar);
     // console.log(inputNumSerieTar);
-    // console.log(inputGrupoTar);
+    // console.log(inputFabricacionTar);
     // console.log(inputActivoTar);
     // console.log(idUsuario);
 
@@ -493,7 +558,7 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
-                grupo: inputGrupoTar,
+                fabricacion: inputFabricacionTar,
                 tipo: inputTipoTar,
                 activo: inputActivoTar,
                 almacen:inputAlmacenTar
@@ -544,8 +609,6 @@ function comprobarNumSerieLed() {
             })
     }
 }
-
-
 
 
 function comprobarNumSerieLed2() {

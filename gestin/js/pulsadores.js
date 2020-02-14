@@ -1,6 +1,6 @@
 function nuevaPulsadores() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value :"1";
+    var idTipoActuacion = document.getElementById('inputTipoActuacion').value
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
@@ -27,7 +27,6 @@ function nuevaPulsadores() { //CAMBIO DE NOMENCLATURA
         
         activo = String(activo);
         almacen = String(almacen);
-
 
 
 
@@ -99,70 +98,33 @@ function existeFecha2Pulsadores(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
-function rellenarTipoActuacion2Pulsadores(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
 
-            var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
-
-            p2.innerHTML = '';
-
-            for (var i in response) {
-                p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2Pulsadores(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
-
-function rellenarTipoActuacionPulsadores() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            var p = document.getElementById('dropdownTipoActuacion');
-            p.innerHTML = '';
-            for (var i in response) {
-                p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionPulsadores(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
-             `
-            } //CAMBIO DE NOMENCLATURA
-        })
-}
-
-function leerTipoActuacionPulsadores(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
-    var p1 = document.getElementById('idTipoActuacion');
-    p1.value = idTipoActuacion;
+function escribirTipoActuacionPulsadores(descripcionTipoActuacion) { //CAMBIO DE NOMENCLATURA
     var p2 = document.getElementById('inputTipoActuacion');
     p2.value = descripcionTipoActuacion;
 }
 
-function leerTipoActuacion2Pulsadores(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+
+function leerTipoActuacionPulsadores(idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+    var p1 = document.getElementById('idTipoActuacion');
+    p1.value = idTipoActuacion;
+}
+
+function rellenarTipoActuacion2Pulsadores(idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
     var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
     p1.value = idTipoActuacion;
-    var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
-    p2.value = descripcionTipoActuacion;
 }
 
 async function formPulsadores(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
-
     var inputElemento = document.getElementById("inputElemento");
     inputElemento.value=elemento;
+
+    var tipo="";
+    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoActuacion13_332(this.value)" >'+ value +'</button>';
+         
+    });
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -174,15 +136,14 @@ async function formPulsadores(elemento) { //CAMBIO DE NOMENCLATURA
             F.Actuación
         </div>
         <div class="col-2">
-        <div class="dropdown" >
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tipo A.
-                    </button>
-                    <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                                <!-- Aquí se iyecta el código mediante JS -->
-                    </div>
-                    <input type="hidden"  value="1" id="idTipoActuacion">
+            <div class="dropdown" >
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tipo A.
+                </button>
+                <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                `+ tipo +`
                 </div>
+            </div>
         </div>
 
         <div class="col-3">
@@ -233,10 +194,10 @@ async function formPulsadores(elemento) { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-       await rellenarTipoActuacionPulsadores();//CAMBIO DE NOMENCLATURA
+
 
         // rellenar todos los registros 
-        await rellenarTodosPulsadores();//CAMBIO DE NOMENCLATURA
+       await rellenarTodosPulsadores();//CAMBIO DE NOMENCLATURA
     }
 }
 
@@ -274,7 +235,13 @@ function rellenarTodosPulsadores() { //Llamada a la API  //CAMBIO DE NOMENCLATUR
                     } else {
                         var almacen = "";
                     }
-                 
+
+                    var tipo="";
+                    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+            
+                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion213_332(this.value,this.name)" >'+ value +'</button>';
+                        
+                    });
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -282,16 +249,17 @@ function rellenarTodosPulsadores() { //Llamada a la API  //CAMBIO DE NOMENCLATUR
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
                  <div class="col-2 mt-1" >
-                        <div class="input-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion2Pulsadores(this.value)">
-                                    Tipo A.
-                            </button>
-                            <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
-                               
+           
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoActuacionTar${response[i]['id']}" value="${response[i]['idTipoActuacion']}">
+                        <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                            <div class="dropdown-menu">
+                                `+ tipo +`
                             </div>
-                            <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"  value="${response[i]['descripcion']}">
-                            <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
+                        
                         </div>
+                    </div>
                    
                  </div>
                  <div class="col-3">
@@ -345,7 +313,7 @@ function rellenarFooterPulsadores(){//CAMBIO DE NOMENCLATURA
                 p.innerHTML = '';
                 p.innerHTML=`
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>Pulsadores</b> Activos: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>Señales Pulsadoress</b> Activas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -380,8 +348,8 @@ function editarPulsadores(param) {//CAMBIO DE NOMENCLATURA
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
     var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-    inputActivoTar = String(inputActivoTar);
     inputAlmacenTar = String(inputAlmacenTar);
+    inputActivoTar = String(inputActivoTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -423,7 +391,7 @@ function editarPulsadores(param) {//CAMBIO DE NOMENCLATURA
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
                 activo: inputActivoTar,
-                almacen: inputAlmacenTar,
+                almacen: inputAlmacenTar
             })
         })
         .then(res => res.json())

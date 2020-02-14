@@ -1,6 +1,6 @@
 function nueva12_100() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value :"1";
+    var idTipoActuacion = document.getElementById('inputTipoActuacion').value;
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
@@ -93,50 +93,50 @@ function existeFecha212_100(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
-function rellenarTipoActuacion212_100(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
+// function rellenarTipoActuacion212_100(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
 
-            var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
+//             var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
 
-            p2.innerHTML = '';
+//             p2.innerHTML = '';
 
-            for (var i in response) {
-                p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion212_100(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
+//             for (var i in response) {
+//                 p2.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion212_100(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+//              `
+//             }
+//         })
+// }
 
-function rellenarTipoActuacion12_100() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            var p = document.getElementById('dropdownTipoActuacion');
-            p.innerHTML = '';
-            for (var i in response) {
-                p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacion12_100(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
-             `
-            } //CAMBIO DE NOMENCLATURA
-        })
-}
+// function rellenarTipoActuacion12_100() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
+//             var p = document.getElementById('dropdownTipoActuacion');
+//             p.innerHTML = '';
+//             for (var i in response) {
+//                 p.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacion12_100(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
+//              `
+//             } //CAMBIO DE NOMENCLATURA
+//         })
+// }
 
 function rellenarNID12_100() { //NID
 
@@ -157,7 +157,8 @@ function rellenarNID12_100() { //NID
             p.innerHTML = '';
             for (var i in response) {
                 var str=response[i]['nid'];
-                if (str.substring(9,14)=='12100'){
+                //console.log(str+"-"+str.substring(3,5));
+                if (str.substring(9,14)=='12100'){// CAMBIAR TIPO DE CARCASA
                 p.innerHTML += `
                     <button class="dropdown-item" type="submit" id="dropBtnNID${[i]}" name="${response[i]['nid']}" onclick="leerNID12_100(this.name)">${response[i]['nid']}</button> 
                     `
@@ -171,17 +172,21 @@ function leerNID12_100(NID) { //NID
     p1.value = NID;
 }
 
-function leerTipoActuacion12_100(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
-    var p1 = document.getElementById('idTipoActuacion');
-    p1.value = idTipoActuacion;
+function escribirTipoActuacion12_100(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+
     var p2 = document.getElementById('inputTipoActuacion');
     p2.value = descripcionTipoActuacion;
 }
 
+
 function leerTipoActuacion212_100(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
-    var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
-    p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
+    p2.value = descripcionTipoActuacion;
+}
+
+function rellenarTipoActuacion212_100(descripcionTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+
+    var p2 = document.getElementById('inputTipoActuacionTar' + idActuacion);
     p2.value = descripcionTipoActuacion;
 }
 
@@ -189,7 +194,12 @@ async function form12_100(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
     var inputElemento = document.getElementById("inputElemento");
     inputElemento.value=elemento;
-
+    
+    var tipo="";
+    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoActuacion12_100(this.value)" >'+ value +'</button>';
+         
+    });
 
     if (instalacion.value != "") {
         var f1 = document.getElementById("formIntroducir");
@@ -204,9 +214,9 @@ async function form12_100(elemento) { //CAMBIO DE NOMENCLATURA
                         NID
                     </button>
                     <div class="dropdown-menu" id="dropdownNID" aria-labelledby="dropdownNID">
-                                <!-- Aquí se iyecta el código mediante JS -->
+                           
                     </div>
-                    <input type="hidden"  value="1" id="idTipoActuacion">
+     
                 </div>
             </div>
 
@@ -220,9 +230,9 @@ async function form12_100(elemento) { //CAMBIO DE NOMENCLATURA
                             Tipo A.
                         </button>
                         <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                                    <!-- Aquí se iyecta el código mediante JS -->
+                        `+ tipo +`
                         </div>
-                        <input type="hidden"  value="1" id="idTipoActuacion">
+ 
                     </div>
             </div>
 
@@ -276,7 +286,7 @@ async function form12_100(elemento) { //CAMBIO DE NOMENCLATURA
         <!-- Fin Form Introducir nuevo -->
         
         `
-     await rellenarTipoActuacion12_100();
+    // await rellenarTipoActuacion12_100();
      await rellenarNID12_100();//NID
      await rellenarTodos12_100();//rellenar todos
     }
@@ -311,9 +321,16 @@ function rellenarTodos12_100() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                     } else {
                         var activo = "";
                     }
+
+                    var tipo="";
+                    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+            
+                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion212_100(this.value,this.name)" >'+ value +'</button>';
+                        
+                    });
                  
                     p.innerHTML += `
-             <div class="row ml-1" id="">
+             <div class="row ml-0 pl-0" id="">
                  <div class="col-1 pl-0">
                  <input type="text" class="form-control mt-1" name="" id="inputNIDTar${response[i]['id']}"  value="${response[i]['nid']}">
               
@@ -323,16 +340,16 @@ function rellenarTodos12_100() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
                  <div class="col-2 mt-1 pl-0" >
-                        <div class="input-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion212_100(this.value)">
-                                    Tipo A.
-                            </button>
-                            <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
-                               
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoActuacionTar${response[i]['id']}" value="${response[i]['idTipoActuacion']}">
+                        <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                            <div class="dropdown-menu">
+                                `+ tipo +`
                             </div>
-                            <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"  value="${response[i]['descripcion']}">
-                            <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
+                        
                         </div>
+                    </div>
                    
                  </div>
                  <div class="col-2 pl-0">
@@ -418,12 +435,12 @@ function editar12_100(param) {//CAMBIO DE NOMENCLATURA
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
+    var inputNIDTar = document.getElementById('inputNIDTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
     inputActivoTar = String(inputActivoTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
-
 
 
     //validar fecha correcta
@@ -450,6 +467,7 @@ function editar12_100(param) {//CAMBIO DE NOMENCLATURA
                 idTipoActuacion: inputTipoActuacionTar,
                 idNumSerie: inputNumSerieTar,
                 albaran:inputAlbaranTar,
+                nid:inputNIDTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,

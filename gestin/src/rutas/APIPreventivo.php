@@ -99,7 +99,7 @@ $app->post('/api/preventivo/nueva',function(Request $request, Response $response
          $resultado->execute();
       
          if($resultado->rowCount()>0){
-             echo json_encode("MFO eliminado con éxito",JSON_UNESCAPED_UNICODE);
+             echo json_encode("Preventivo eliminado con éxito",JSON_UNESCAPED_UNICODE);
           
          }else{
              echo json_encode("No se han encontrado resultados con el ID".$id,JSON_UNESCAPED_UNICODE);

@@ -5,7 +5,7 @@ $(function () {
 
 function nuevaTarjetaAmp() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value : "1";
+    var idTipoActuacion = document.getElementById('inputTipoActuacion').value;
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
@@ -34,11 +34,7 @@ function nuevaTarjetaAmp() {
         activo = String(activo);
         instalada = String(instalada);
         almacen = String(almacen);
-        // console.log(idTipoActuacion);
-        // console.log(idNumSerie);
-        // console.log(albaran);
-        // console.log(observaciones);
-        // console.log(precio);
+
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
@@ -108,56 +104,56 @@ function existeFecha2TarjetaAmp(fecha) {
 }
 
 
-function rellenarTipoActuacion2TarjetaAmp(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
+// function rellenarTipoActuacion2TarjetaAmps(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
+//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
 
-            var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
+//             var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
 
-            p2.innerHTML = '';
+//             p2.innerHTML = '';
 
-            for (var i in response) {
-                p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
+//             for (var i in response) {
+//                 p2.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+//              `
+//             }
+//         })
+// }
 
-function rellenarTipoActuacionTarjetaAmp() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            var p = document.getElementById('dropdownTipoActuacion');
-            p.innerHTML = '';
-            for (var i in response) {
-                p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionTarjetaAmp(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
+// function rellenarTipoActuacionTarjetaAmp() { //Llamada a la API según el dato obtenido del primer combo
+//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
+//             var p = document.getElementById('dropdownTipoActuacion');
+//             p.innerHTML = '';
+//             for (var i in response) {
+//                 p.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionTarjetaAmp(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button>
+//              `
+//             }
+//         })
+// }
 
-function leerTipoActuacionTarjetaAmp(descripcionTipoActuacion, idTipoActuacion) {
+function leerTipoActuacionTarjetaAmp(idTipoActuacion) {
     var p1 = document.getElementById('idTipoActuacion');
     p1.value = idTipoActuacion;
-    var p2 = document.getElementById('inputTipoActuacion');
-    p2.value = descripcionTipoActuacion;
+    // var p2 = document.getElementById('inputTipoActuacion');
+    // p2.value = descripcionTipoActuacion;
 }
 
 function leerTipoActuacion2TarjetaAmp(descripcionTipoActuacion, idTipoActuacion, idActuacion) {
@@ -167,15 +163,23 @@ function leerTipoActuacion2TarjetaAmp(descripcionTipoActuacion, idTipoActuacion,
     p2.value = descripcionTipoActuacion;
 }
 
+function rellenarTipoActuacion2TarjetaAmp(idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+    var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
+    p1.value = idTipoActuacion;
+}
 async function formTarjetasAmp(elemento) {
 
     //desactivarBotones();
 
-    // var ac=document.getElementById("btnTarjetas");
+    // var ac=document.getElementById("btnTarjetaAmps");
     // ac.classList.add("active");
 
     
-    
+    var tipo="";
+    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoActuacion13_332(this.value)" >'+ value +'</button>';
+         
+    });
     
     
     var instalacion = document.getElementById("inputInstalacion");
@@ -201,9 +205,9 @@ async function formTarjetasAmp(elemento) {
                         Tipo A.
                     </button>
                     <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                                <!-- Aquí se iyecta el código mediante JS -->
+                    `+ tipo +`
                     </div>
-                    <input type="hidden"  value="1" id="idTipoActuacion">
+            
                 </div>
         </div>
 
@@ -257,8 +261,7 @@ async function formTarjetasAmp(elemento) {
         <!-- Fin Form Introducir nuevo -->
         
         `
-       await rellenarTipoActuacionTarjetaAmp();
-
+ 
         // rellenar todos los registros 
         await rellenarTodosTarjetaAmp();
     }
@@ -305,7 +308,12 @@ async function rellenarTodosTarjetaAmp() { //Llamada a la API
                     } else {
                         var almacen = "";
                     }
-
+                    var tipo="";
+                    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+            
+                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion213_332(this.value,this.name)" >'+ value +'</button>';
+                        
+                    });
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -313,16 +321,16 @@ async function rellenarTodosTarjetaAmp() { //Llamada a la API
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
                  <div class="col-2 mt-1" >
-                        <div class="input-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion2TarjetaAmp(this.value)">
-                                    Tipo A.
-                            </button>
-                            <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
-                               
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoActuacionTar${response[i]['id']}" value="${response[i]['idTipoActuacion']}">
+                        <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                            <div class="dropdown-menu">
+                                `+ tipo +`
                             </div>
-                            <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"  value="${response[i]['descripcion']}">
-                            <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
+                        
                         </div>
+                    </div>
                    
                  </div>
                  <div class="col-3">
@@ -380,14 +388,14 @@ function rellenarFooterTarjetaAmp() {
                 // var p1 = document.getElementById('formFooter');
                 // p1.innerHTML = '';
                 // p1.innerHTML=`
-                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                // <span class="ml-1">Total de TarjetaAmps Activas: ${response[0]['c']}</span>
                 // `
 
                 var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML = `
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>TarjetasAmp</b> Instaladas: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>TarjetaAmps</b> Instaladas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -551,7 +559,7 @@ function comprobarNumSerieTarjetaAmp() {
                             if (clase) {
                                 var id=response[i]['id'];
                                 var idNumSerie=response[i]['idNumSerie'];
-                                // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                // comprobarNumSerieTarjetaAmp3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
                                     // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;

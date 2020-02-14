@@ -31,13 +31,15 @@ include './login/session.php';
       #dropdownElemento,
       #dropdownRegulador,
       #dropdownCruce,
-      #dropdownCM {
+      #dropdownCM,
+      #dropdownNIDLed {
          height: 500px;
          overflow-y: auto;
          
       }
       #dropdownNID{
          overflow-y: auto;
+         height: 400px;
       }
       .btn-info{
          min-height: 0px !important;         
@@ -259,17 +261,18 @@ include './login/session.php';
                      <button class="dropdown-item" type="button" id="btn12_300" onclick="form12_300('12-300')">12-300</button>
                      <button class="dropdown-item" type="button" id="btn13_200"  onclick="form13_200('13-200')">13-200</button>
                      <button class="dropdown-item" type="button" id="btn13_322" onclick="form13_322('13-322')">13-322</button>
-                     <button class="dropdown-item" type="button" id="btn13_332" onclick="form13_322('13-332')">13-332</button>
+                     <button class="dropdown-item" type="button" id="btn13_332" onclick="form13_332('13-332')">13-332</button>
                      <div class="dropdown-divider"></div>
+                     <button class="dropdown-item" type="button" id="btnSoportes" onclick="formSoportes('SOPORTES')">SOPORTES</button>
                      <button class="dropdown-item" type="button" id="btnOculta" onclick="formOculta('SEÑAL OCULTA')">SEÑAL OCULTA</button>
                      <button class="dropdown-item" type="button" id="btnLed" onclick="formLed('LEDS')">LEDS</button>
-                     <button class="dropdown-item" type="button" id="btnInvidentes" onclick="formInvidentes('SONORO')">SONORO</button>
-                     <button class="dropdown-item" type="button" id="btnDescontadores" onclick="formDescontadores('DESCONTADORES')">DESCONTADORES</button>
-                     <button class="dropdown-item" type="button" id="btnBaculos" onclick="formBaculos('BÁCULOS')">BÁCULOS</button>
-                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formColumnas('COLUMNAS')">COLUMNAS</button>
-                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBrazos('BRAZOS')">BRAZOS</button>
-                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBajantes('BAJANTES')">BAJANTES</button>
-                     <button class="dropdown-item" type="button" id="btnColumnas" onclick="formAlargaderas('ALARGADERAS')">ALARGADERAS</button>
+                     <!-- <button class="dropdown-item" type="button" id="btnInvidentes" onclick="formInvidentes('SONORO')">SONORO</button> -->
+                     <!-- <button class="dropdown-item" type="button" id="btnDescontadores" onclick="formDescontadores('DESCONTADORES')">DESCONTADORES</button> -->
+                     <!-- <button class="dropdown-item" type="button" id="btnBaculos" onclick="formBaculos('BÁCULOS')">BÁCULOS</button> -->
+                     <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formColumnas('COLUMNAS')">COLUMNAS</button> -->
+                     <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBrazos('BRAZOS')">BRAZOS</button> -->
+                     <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBajantes('BAJANTES')">BAJANTES</button> -->
+                     <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formAlargaderas('ALARGADERAS')">ALARGADERAS</button> -->
                      <button class="dropdown-item" type="button" id="btnPulsadores" onclick="formPulsadores('PULSADORES')">PULSADORES</button>
                      <button class="dropdown-item" type="button" id="btnEspiras" onclick="formEspiras('ESPIRAS')">ESPIRAS</button>
                      <button class="dropdown-item" type="button" id="btnPantallasCon" onclick="formPantallasCon('PANTALLAS CONTRASTE')">PANTALLAS CONTRASTE</button>
@@ -394,27 +397,29 @@ include './login/session.php';
 
 
    <script src="../js/funciones.js"></script>
+   <script src="../js/tablas.js"></script>
 
    <script src="../js/tarjetas.js"></script>
-   <script src="../js/tarjetascpu.js"></script>
+   <script src="../js/tarjetasCPU.js"></script>
    <script src="../js/tarjetasAmp.js"></script>
-   <script src="../js/tarjetasFa.js"></script>
+   <script src="../js/tarjetasFA.js"></script>
    <script src="../js/bustren.js"></script>
    <script src="../js/13_322.js"></script>
+   <script src="../js/13_332.js"></script>
    <script src="../js/11_300.js"></script>
    <script src="../js/12_300.js"></script>
    <script src="../js/13_200.js"></script>
    <script src="../js/12_100.js"></script>
    <script src="../js/12_200.js"></script>
    <script src="../js/11_200.js"></script>
-   <script src="../js/12_pp.js"></script>
-   <script src="../js/12_pea_bici.js"></script>
+   <!-- <script src="../js/12_pp.js"></script> -->
+   <!-- <script src="../js/12_pea_bici.js"></script>
    <script src="../js/12_bici.js"></script>
-   <script src="../js/invidentes.js"></script>
+   <script src="../js/invidentes.js"></script> -->
    <script src="../js/oculta.js"></script>
-   <script src="../js/descontadores.js"></script>
-   <script src="../js/baculos.js"></script>
-   <script src="../js/columnas.js"></script>
+   <!-- <script src="../js/descontadores.js"></script> -->
+   <!-- <script src="../js/baculos.js"></script> -->
+   <script src="../js/soportes.js"></script>
    <script src="../js/pulsadores.js"></script>
    <script src="../js/espiras.js"></script>
    <script src="../js/pantallascon.js"></script>
@@ -422,9 +427,9 @@ include './login/session.php';
    <script src="../js/camip.js"></script>
    <script src="../js/led.js"></script>
    <script src="../js/modulos.js"></script>
-   <script src="../js/brazos.js"></script>
-   <script src="../js/bajantes.js"></script>
-   <script src="../js/alargaderas.js"></script>
+   <!-- <script src="../js/brazos.js"></script> -->
+   <!-- <script src="../js/bajantes.js"></script> -->
+   <!-- <script src="../js/alargaderas.js"></script> -->
 
 
 </body>

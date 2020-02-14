@@ -5,7 +5,7 @@ $(function () {
 
 function nuevaTarjetaCpu() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value : "1";
+    var idTipoActuacion = document.getElementById('inputTipoActuacion').value;
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
@@ -34,11 +34,7 @@ function nuevaTarjetaCpu() {
         activo = String(activo);
         instalada = String(instalada);
         almacen = String(almacen);
-        // console.log(idTipoActuacion);
-        // console.log(idNumSerie);
-        // console.log(albaran);
-        // console.log(observaciones);
-        // console.log(precio);
+
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
@@ -108,56 +104,56 @@ function existeFecha2TarjetaCpu(fecha) {
 }
 
 
-function rellenarTipoActuacion2TarjetasCpu(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
+// function rellenarTipoActuacion2TarjetaCpus(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
+//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
 
-            var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
+//             var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
 
-            p2.innerHTML = '';
+//             p2.innerHTML = '';
 
-            for (var i in response) {
-                p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
+//             for (var i in response) {
+//                 p2.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+//              `
+//             }
+//         })
+// }
 
-function rellenarTipoActuacionTarjetaCpu() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            var p = document.getElementById('dropdownTipoActuacion');
-            p.innerHTML = '';
-            for (var i in response) {
-                p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionTarjetaCpu(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
+// function rellenarTipoActuacionTarjetaCpu() { //Llamada a la API según el dato obtenido del primer combo
+//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
+//             var p = document.getElementById('dropdownTipoActuacion');
+//             p.innerHTML = '';
+//             for (var i in response) {
+//                 p.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionTarjetaCpu(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button>
+//              `
+//             }
+//         })
+// }
 
-function leerTipoActuacionTarjetaCpu(descripcionTipoActuacion, idTipoActuacion) {
+function leerTipoActuacionTarjetaCpu(idTipoActuacion) {
     var p1 = document.getElementById('idTipoActuacion');
     p1.value = idTipoActuacion;
-    var p2 = document.getElementById('inputTipoActuacion');
-    p2.value = descripcionTipoActuacion;
+    // var p2 = document.getElementById('inputTipoActuacion');
+    // p2.value = descripcionTipoActuacion;
 }
 
 function leerTipoActuacion2TarjetaCpu(descripcionTipoActuacion, idTipoActuacion, idActuacion) {
@@ -167,16 +163,38 @@ function leerTipoActuacion2TarjetaCpu(descripcionTipoActuacion, idTipoActuacion,
     p2.value = descripcionTipoActuacion;
 }
 
+function rellenarTipoActuacion2TarjetaCpu(idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+    var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
+    p1.value = idTipoActuacion;
+}
+
+function escribirTipoCPU(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+
+    var p2 = document.getElementById('inputTipoCpu');
+    p2.value = descripcionTipoActuacion;
+}
+
+
 async function formTarjetasCpu(elemento) {
 
     //desactivarBotones();
 
-    // var ac=document.getElementById("btnTarjetas");
+    // var ac=document.getElementById("btnTarjetaCpus");
     // ac.classList.add("active");
 
     
+    var tipo="";
+    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoActuacion13_332(this.value)" >'+ value +'</button>';
+         
+    });
     
-    
+
+    var tipoC="";
+        tipoCpu.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+        tipoC += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoCPU(this.value)" >'+ value +'</button>';
+         
+    });
     
     var instalacion = document.getElementById("inputInstalacion");
     
@@ -195,17 +213,28 @@ async function formTarjetasCpu(elemento) {
         <div class="col-2">
             F.Actuación
         </div>
-        <div class="col-2">
-        <div class="dropdown" >
+        <div class="col-1">
+            <div class="dropdown" >
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Tipo A.
                     </button>
                     <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                                <!-- Aquí se iyecta el código mediante JS -->
+                    `+ tipo +`
                     </div>
-                    <input type="hidden"  value="1" id="idTipoActuacion">
+            </div>
+        </div>
+
+        <div class="col-1">
+        <div class="dropdown" >
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoCPU" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tipo CPU
+                </button>
+                <div class="dropdown-menu">
+                `+ tipoC +`
                 </div>
         </div>
+    </div>
+
 
         <div class="col-3">
             Observaciones
@@ -229,9 +258,17 @@ async function formTarjetasCpu(elemento) {
         <div class="col-2">
             <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
         </div>
-        <div class="col-2">
+        <div class="col-1">
             <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
         </div>
+
+        <div class="col-1">
+            <input type="text" class="form-control mt-1" name="inputTipoCpu" id="inputTipoCpu">
+        </div>
+
+
+
+        
         <div class="col-3">
             <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
         </div>
@@ -257,14 +294,18 @@ async function formTarjetasCpu(elemento) {
         <!-- Fin Form Introducir nuevo -->
         
         `
-       await rellenarTipoActuacionTarjetaCpu();
-
+ 
         // rellenar todos los registros 
         await rellenarTodosTarjetaCpu();
     }
 }
 
 
+function rellenarTipoCPU(descripcionTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+
+    var p2 = document.getElementById('inputTipoCpuTar' + idActuacion);
+    p2.value = descripcionTipoActuacion;
+}
 
 async function rellenarTodosTarjetaCpu() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
@@ -305,6 +346,19 @@ async function rellenarTodosTarjetaCpu() { //Llamada a la API
                     } else {
                         var almacen = "";
                     }
+                    var tipo="";
+                    tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+            
+                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion213_332(this.value,this.name)" >'+ value +'</button>';
+                        
+                    });
+
+                    var tipoC="";
+                    tipoCpu.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+                    tipoC += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoCPU(this.value,this.name)" >'+ value +'</button>';
+                     
+                        });
+
 
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
@@ -312,19 +366,33 @@ async function rellenarTodosTarjetaCpu() { //Llamada a la API
                    <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
-                 <div class="col-2 mt-1" >
-                        <div class="input-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" name="btnTipoActuacion${response[i]['id']}" value="${response[i]['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarTipoActuacion2TarjetasCpu(this.value)">
-                                    Tipo A.
-                            </button>
-                            <div class="dropdown-menu" id="dropTipoActuacion2${response[i]['id']}">
-                               
+                 <div class="col-1 mt-1" >
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoActuacionTar${response[i]['id']}" value="${response[i]['idTipoActuacion']}">
+                        <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                            <div class="dropdown-menu">
+                                `+ tipo +`
                             </div>
-                            <input type="text" class="form-control" name="" id="inputTipoActuacion2${response[i]['id']}"  value="${response[i]['descripcion']}">
-                            <input type="hidden" class="form-control" name="" id="inputTipoActuacionTar${response[i]['id']}"  value="${response[i]['idTipoActuacion']}">
+                        
                         </div>
+                    </div>
                    
                  </div>
+
+                 <div class="col-1 mt-1" >
+                 <div class="input-group">
+                     <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoCpuTar${response[i]['id']}" value="${response[i]['tipo']}">
+                     <div class="input-group-append">
+                             <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                         <div class="dropdown-menu">
+                             `+ tipoC +`
+                         </div>
+                     
+                     </div>
+                 </div>
+                
+              </div>
                  <div class="col-3">
                     <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
                  </div>
@@ -380,14 +448,14 @@ function rellenarFooterTarjetaCpu() {
                 // var p1 = document.getElementById('formFooter');
                 // p1.innerHTML = '';
                 // p1.innerHTML=`
-                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                // <span class="ml-1">Total de TarjetaCpus Activas: ${response[0]['c']}</span>
                 // `
 
                 var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML = `
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>TarjetasCpu</b> Instaladas: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>TarjetaCpus</b> Instaladas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -421,6 +489,7 @@ function editarTarjetaCpu(param) {
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
+    var inputTipoCpuTar = document.getElementById('inputTipoCpuTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
@@ -465,6 +534,7 @@ function editarTarjetaCpu(param) {
                 idTipoActuacion: inputTipoActuacionTar,
                 idNumSerie: inputNumSerieTar,
                 albaran: inputAlbaranTar,
+                tipo: inputTipoCpuTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
@@ -493,7 +563,7 @@ function comprobarNumSerieTarjetaCpu() {
 
     if (idNumSerie) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasCpu/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -530,7 +600,7 @@ function comprobarNumSerieTarjetaCpu() {
   
     if (idInstalacion) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasCpu';
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetascpu';
      fetch(url, {
                 method: 'GET',
                 headers: {
@@ -551,11 +621,11 @@ function comprobarNumSerieTarjetaCpu() {
                             if (clase) {
                                 var id=response[i]['id'];
                                 var idNumSerie=response[i]['idNumSerie'];
-                                // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                // comprobarNumSerieTarjetaCpu3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
                                     // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-                                     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasCpu/' + idNumSerie;
+                                     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
                                      fetch(url, {
                                              method: 'GET',
                                              headers: {
@@ -613,7 +683,7 @@ function comprobarNumSerieTarjetaCpu() {
     if (idNumSerie) {
 
        // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasCpu/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
