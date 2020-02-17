@@ -1,6 +1,19 @@
 <?php
 
 include '../../public/login/session.php';
+
+
+
+
+
+
+
+
+//}
+
+
+
+
 //include_once 'r_instalaciones.php';
 
 ?>
@@ -188,8 +201,9 @@ include '../../public/login/session.php';
     <!-- Fin botones de selección -->
     <hr>
     <!-- Formulario Introducir Nuevo-->
-    <div class="mt-2 p-2" id="formIntroducir">
-
+    <div class="mt-2 p-2">
+        <!-- <div class="btn btn-primary ml-1" id="" onclick="">Importar NID</div>
+        <p></p> -->
     </div>
     <!-- fin formulario Nuevo-->
     <hr>

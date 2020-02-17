@@ -33,44 +33,82 @@
 
 
 
- $app->get('/api/inca',function(Request $request, Response $response){
+ $app->get('/api/nid',function(Request $request, Response $response){
+
+        // conexion SQLServer
+        function conectDBSQLServer(){
+            $serverName = "188.165.135.168\SQL2008,1433"; //serverName\instanceName
+            $connectionInfo = array( "Database"=>"Palma", "UID"=>"dtrillo", "PWD"=>"Mobilitat01",'CharacterSet' => 'UTF-8');
+            $connSQLServer = sqlsrv_connect( $serverName, $connectionInfo);
+            if( $connSQLServer ) {
+                return $connSQLServer; 
+            }else{
+                die( print_r( sqlsrv_errors(), true));
+            }
+        }
+        // conexion MySQL
+        function conectDBMySQL(){
+            $dbUser='root';
+            $dbPass='';
+            $mysqlConnect="mysql:charset=utf8;host=localhost;dbname=gestin";
+            $connMySQL= new PDO($mysqlConnect,$dbUser,$dbPass);
+            $connMySQL->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            if (!$connMySQL) {
+                die("Connection failed: " . mysqli_connect_error());
+          }
+           
+          echo "Connected successfully";
+            return $connMySQL; 
+        }
 
 
-    function conectDBSQLServerPDO(){
-        $serverName = "188.165.135.168\SQL2008,1433"; //serverName\instanceName
-        $conn = new PDO( "sqlsrv:server=$serverName ; Database=Palma", "dtrillo", "Mobilitat01");  
-        $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-    }
 
-    $sql='SELECT TOP 1000 [Crz_ID]
-    ,[Part]
-    ,[Crz_X1]
-    ,[Crz_X2]
-    ,[Crz_Y1]
-    ,[Crz_Y2]
-    ,[Crz_Emplazamiento]
-    ,[Crz_Barrio]
-    ,[Crz_Distrito]
-    ,[Crz_Lote]
-FROM [Palma].[dbo].[Cruce]';
    
     try{
-        //$db= new dbSQLServer();     
-        $db=conectDBSQLServerPDO();
-        $resultado= $db->prepare($sql);
-        $resultado->execute();
-        if($resultado->rowCount()>0){
-            $inventario= $resultado->fetchAll();
-           //// echo json_encode($inventario);
-           $ret= json_encode($inventario);
+        //CONECTAR CON SQLSERVER
+        $connSQLServer = conectDBSQLServer();  
+        $sqlSQLServer="select Elm_CódigoNID from Cruce_Link_Elemento where (Elm_CódigoNID is not null) AND (Elm_FechaHasta IS NULL) LIMIT 10;";
+        $getNID = sqlsrv_query($connSQLServer, $sqlSQLServer);  
         
-           return $ret ;
-           // echo json_encode("No se han encontrado resultados");
-        }else{
-            echo json_encode("No se han encontrado resultados");
-        }
-        $resultado=null;
-        $db=null;
+        //CONECTAR CON MYSQL
+        $connMySQL = conectDBMySQL();  
+       // $sqlMySQL="select Elm_CódigoNID from Cruce_Link_Elemento where (Elm_CódigoNID is not null) AND (Elm_FechaHasta IS NULL);";
+
+
+//    $result=array();
+
+         if ($getNID == FALSE)  
+             die(FormatErrors(sqlsrv_errors()));  
+
+              $count = 0;  
+              while($row = sqlsrv_fetch_array($getNID, SQLSRV_FETCH_ASSOC))  
+              {  
+
+                $sqlMySQL="INSERT INTO `gestin`.`nid` (`nid`) VALUES ('". $row['Elm_CódigoNID']."')";
+                mysqli_query($connMySQL, $sqlMySQL);
+                $st = mysqli_prepare($connMySQL, $sqlMySQL);
+
+                // bind variables to insert query params
+                //mysqli_stmt_bind_param($st, 'ssss', $firstname, $lastname, $gender, $username);
+            
+                // executing insert query
+                mysqli_stmt_execute($st);
+
+
+
+
+
+                 echo($row['Elm_CódigoNID']);
+                  $count++;  
+              } 
+         
+        
+
+        sqlsrv_free_stmt($getNID);  
+        sqlsrv_close($connSQLServer); 
+
+      //  echo json_encode($result);
+
     }catch(PDOException $e){
         echo '{"error":{"text":'.$e->getMessage().'}';
     }

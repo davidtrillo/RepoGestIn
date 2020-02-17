@@ -1,7 +1,9 @@
 <?php
 
 include './login/session.php';
-//include_once 'r_instalaciones.php';
+include_once '../src/config/getNID.php';
+getNID(); // CÓDIGO PARA IMPORTAR DE INCA HACIA MYSQL TODOS LOS NIDS INTRODUCIDOS EN EL INCA QUE NO ESTÁN DE BAJA
+
 
 ?>
 <!doctype html>
