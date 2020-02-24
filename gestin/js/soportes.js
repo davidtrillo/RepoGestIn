@@ -205,8 +205,11 @@ async function formSoportes(elemento) { //CAMBIO DE NOMENCLATURA
                               <button class="dropdown-item" onclick="escribirTipoSoporte('Alargadera 0.5 m.')" >Alargadera 0.5 m.</button>
                               <button class="dropdown-item" onclick="escribirTipoSoporte('Alargadera 1 m.')" >Alargadera 1 m.</button>
                               <button class="dropdown-item" onclick="escribirTipoSoporte('Alargadera 1.5 m.')" >Alargadera 1.5 m.</button>
-                              <button class="dropdown-item" onclick="escribirTipoSoporte('Alargadera 2 m.')" >Alargadera 2 m.</button>
+                              <button class="dropdown-item" onclick="escribirTipoSoporte('Alargadera 3 m.')" >Alargadera 3 m.</button>
                               <button class="dropdown-item" onclick="escribirTipoSoporte('Alargadera Otros')" >Alargadera Otros</button>
+                              <div class="dropdown-divider"></div>
+                              <button class="dropdown-item" onclick="escribirTipoSoporte('Aluminio')" >Aluminio</button>
+                              <button class="dropdown-item" onclick="escribirTipoSoporte('Columna de Acero')" >Columna de Acero</button>
                         </div>
                       
                     </div>
@@ -346,8 +349,12 @@ function rellenarTodosSoportes() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                                     <button class="dropdown-item" onclick="escribirTipoSoporte2('Alargadera 0.5 m.',${response[i]['id']})" >Alargadera 0.5 m.</button>
                                     <button class="dropdown-item" onclick="escribirTipoSoporte2('Alargadera 1 m.',${response[i]['id']})" >Alargadera 1 m.</button>
                                     <button class="dropdown-item" onclick="escribirTipoSoporte2('Alargadera 1.5 m.',${response[i]['id']})" >Alargadera 1.5 m.</button>
-                                    <button class="dropdown-item" onclick="escribirTipoSoporte2('Alargadera 2 m.',${response[i]['id']})" >Alargadera 2 m.</button>
+                                    <button class="dropdown-item" onclick="escribirTipoSoporte2('Alargadera 3 m.',${response[i]['id']})" >Alargadera 3 m.</button>
                                     <button class="dropdown-item" onclick="escribirTipoSoporte2('Alargadera Otros',${response[i]['id']})" >Alargadera Otros</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item" onclick="escribirTipoSoporte2('Aluminio',${response[i]['id']})" >Aluminio</button>
+                                    <button class="dropdown-item" onclick="escribirTipoSoporte2('Columna de Acero',${response[i]['id']})" >Columna de Acero</button>
+
                                 </div>
                               </div>
                             </div>

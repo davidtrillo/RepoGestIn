@@ -463,7 +463,7 @@ async function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterLed(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/activas/1' //+ idInstalacion
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/activas/'+ idInstalacion;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -512,6 +512,7 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
     var inputColorTar = document.getElementById('inputColorTar' + param).value;
     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
+    var inputNIDTar = document.getElementById('inputNIDTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputFabricacionTar = document.getElementById('inputFabricacionTar' + param).value;
     var inputTipoTar = document.getElementById('inputTipoTar' + param).value;
@@ -521,14 +522,15 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
     inputAlmacenTar = String(inputAlmacenTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
-    // console.log(inputIdTar);
-    // console.log(inputFechaActuacionTar);
-    // console.log(inputColorTar);
-    // console.log(inputObservacionesTar);
-    // console.log(inputNumSerieTar);
-    // console.log(inputFabricacionTar);
-    // console.log(inputActivoTar);
-    // console.log(idUsuario);
+    //  console.log(inputIdTar);
+    //  console.log(inputFechaActuacionTar);
+    //  console.log(inputColorTar);
+    //  console.log(inputObservacionesTar);
+    //  console.log(inputNumSerieTar);
+    //  console.log(inputFabricacionTar);
+    //  console.log(inputActivoTar);
+    //  console.log(idUsuario);
+    //  console.log(inputNIDTar);
 
 
     //validar fecha correcta
@@ -555,6 +557,7 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
                 color: inputColorTar,
                 idNumSerie: inputNumSerieTar,
                 albaran:inputAlbaranTar,
+                nid:inputNIDTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,

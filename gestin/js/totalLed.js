@@ -1,4 +1,4 @@
- document.onload = rellenarCruceLed();
+ //document.onload =   function rellenarNIDTotalLed()();
  //document.onload = rellenarCruceLed2();
  //document.onload = rellenarLed();
  //document.onload = nPaginas("led");
@@ -304,29 +304,38 @@
 
 
 
- function rellenarCruceLed() { //Llamada a la API según el dato obtenido del primer combo
-     var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
-     fetch(url, {
-             method: 'GET',
-             headers: {
-                 'Content-Type': 'application/json'
-             }
-         })
-         .then(res => res.json())
-         .catch(error => console.error('Error:', error))
-         .then(response => {
-             var p = document.getElementById('dropdownCruce');
-             p.innerHTML = '';
+//  function rellenarCruceLed() { //Llamada a la API según el dato obtenido del primer combo
+//      var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
+//      fetch(url, {
+//              method: 'GET',
+//              headers: {
+//                  'Content-Type': 'application/json'
+//              }
+//          })
+//          .then(res => res.json())
+//          .catch(error => console.error('Error:', error))
+//          .then(response => {
+//              var p = document.getElementById('dropdownCruce');
+//              p.innerHTML = '';
 
-             for (var i in response) {
-                 p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
-             `
-             }
-         })
+//              for (var i in response) {
+//                  p.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+//              `
+//              }
+//          })
 
         
- }
+//  }
+
+function escribirFabricacion(param) {
+    var p1=document.getElementById("inputFabricacion");    
+    p1.value=param;
+}
+function escribirFabricacion2(param,id) {
+    var p1=document.getElementById("inputFabricacionTar"+id);    
+    p1.value=param;
+}
 
  function rellenarNIDTotalLed(id) { //NID
 
@@ -343,7 +352,7 @@
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
-            var p = document.getElementById('dropdownNID');
+            var p = document.getElementById('dropdownNIDTotalLed');
             p.innerHTML = '';
             for (var i in response) {
                 
@@ -464,7 +473,7 @@ function leerNIDTotalLed(NID) { //NID
          var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
          var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
          var tipo = document.getElementById('inputTipo').value ? document.getElementById('inputTipo').value : "";
-         var grupo = document.getElementById('inputGrupo').value ? document.getElementById('inputGrupo').value : "";
+         var fabricacion = document.getElementById('inputFabricacion').value ? document.getElementById('inputFabricacion').value : "";
          var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
          var activo = document.getElementById('inputActivo').checked;
          var almacen = document.getElementById('inputAlmacen').checked;
@@ -489,7 +498,7 @@ function leerNIDTotalLed(NID) { //NID
                      fechaActuacion: fechaActuacion,
                      idUsuario: idUsuario,
                      tipo: tipo,
-                     grupo: grupo,
+                     fabricacion: fabricacion,
                      activo: activo,
                      almacen: almacen
                  })
@@ -552,7 +561,7 @@ function leerNIDTotalLed(NID) { //NID
      
      var limite = document.getElementById('dropdownLimit').innerText;
      var cruceFil = document.getElementById('inputIdFiltroCruce').value;
-     
+     rellenarNIDTotalLed(cruceFil);
      
      //consultar total de leds
      var url = 'http://webserver.mobilitat.local/gestin/public/api/ledc/cont/' + cruceFil;
@@ -624,97 +633,116 @@ function leerNIDTotalLed(NID) { //NID
                      }
 
                      p.innerHTML += `
-                    <div class="row mt-1" id="">
-                      
-                    <div class="col-1 mt-1 ml-0" >
-                         <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
-                    </div>
-
-                    <div class="col-1 pl-0">
-                        <input type="text" class="form-control mt-1" name="inputNID" id="inputNID${response[i]['id']}">
-                    </div>
-
-                    <div class="col-auto">
-                        <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
-                        <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
-                    </div>
-
-                    <div class="col-auto mt-1" >
-                        <div class="input-group">
-                            <input type="text" class="form-control" style="width:150px" aria-label="Text input with segmented dropdown button" id="inputTipoTar${response[i]['id']}" value="${response[i]['tipo']}">
-                            <div class="input-group-append">
-
-                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-
-                                    <div class="dropdown-menu">
-                                    <button class="dropdown-item" onclick="escribirTipo2('100 mm',${response[i]['id']})" >100 mm</button>
-                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm',${response[i]['id']})" >200 mm</button>
-                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm Peatón',${response[i]['id']})" >200 mm Peatón</button>
-                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
-                                    <button class="dropdown-item" onclick="escribirTipo2('300 mm',${response[i]['id']})" >300 mm</button>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Peatón',${response[i]['id']})" >200x200 Peatón</button>
-                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
-                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item" onclick="escribirTipo('Descontador Verde',${response[i]['id']})" >Descontador Verde</button>
-                                    <button class="dropdown-item" onclick="escribirTipo('Descontador Rojo/Verde',${response[i]['id']})" >Descontador Rojo/Verde</button>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item" onclick="escribirTipo('CyberPass',${response[i]['id']})" >CyberPass</button>
-                                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón',${response[i]['id']})" >PassBlue Peatón</button>                                    </div>
-                                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici',${response[i]['id']})" >PassBlue Peatón/Bici</button>                                    </div>
+                     <div class="row mt-1 ml-1" id="">
+                     <div class="col-1 mt-1 pl-0" >
+                          <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
+                      </div>
+                     <div class="col-1 pl-0">
+                         <input type="text" class="form-control mt-1" name="" id="inputNIDTar${response[i]['id']}"  value="${response[i]['nid']}">
+                     </div>
+    
+                            <div class="col-2 pl-0">
+                                <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
+                                <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-1 mt-1" >
-
-
+    
+                            <div class="col-1 mt-1 pl-1" >
                                 <div class="input-group">
-                                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputColorTar${response[i]['id']}" value="${response[i]['color']}">
+                                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoTar${response[i]['id']}" value="${response[i]['tipo']}">
                                     <div class="input-group-append">
-
+    
                                             <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
-
+    
                                             <div class="dropdown-menu">
-                                                <button class="dropdown-item" onclick="escribirColor2('Rojo',${response[i]['id']})" >Rojo</button>
-                                                <button class="dropdown-item" onclick="escribirColor2('Ámbar',${response[i]['id']})" >Ámbar</button>
-                                                <button class="dropdown-item" onclick="escribirColor2('Verde',${response[i]['id']})" >Verde</button>
-                                                <button class="dropdown-item" onclick="escribirColor2('Rojo Flecha',${response[i]['id']})" >Rojo Flecha</button>
-                                                <button class="dropdown-item" onclick="escribirColor2('Ámbar Flecha',${response[i]['id']})" >Ámbar Flecha</button>
-                                                <button class="dropdown-item" onclick="escribirColor2('Verde Flecha',${response[i]['id']})" >Verde Flecha</button>
-                                                <button class="dropdown-item" onclick="escribirColor2('Blanco',${response[i]['id']})" >Blanco</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('100 mm',${response[i]['id']})" >100 mm</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm',${response[i]['id']})" >200 mm</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm Peatón',${response[i]['id']})" >200 mm Peatón</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('200 mm Bici',${response[i]['id']})" >200 mm Bici</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('300 mm',${response[i]['id']})" >300 mm</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Peatón',${response[i]['id']})" >200x200 Peatón</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici',${response[i]['id']})" >200x200 Bici</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('200x200 Bici/Peatón',${response[i]['id']})" >200x200 Bici/Peatón</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('Descontador Verde',${response[i]['id']})" >Descontador Verde</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('Descontador Rojo/Verde',${response[i]['id']})" >Descontador Rojo/Verde</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('CyberPass',${response[i]['id']})" >CyberPass</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón',${response[i]['id']})" >PassBlue Peatón</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici',${response[i]['id']})" >PassBlue Peatón/Bici</button>
                                             </div>
                                     </div>
                                 </div>
-                    </div>
-
-                    <div class="col-1">
-                       <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}" >
-                    </div>
-                    <div class="col-1">
-                       <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
-                    </div>
-                    <div class="col-2">
-                        <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
-                    </div>
-                    <div class="col-auto">
-                      <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                      <input type="checkbox" class=" mt-3 ml-2" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
-                      <div class="btn btn-primary ml-3" id="${response[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                      <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
-                    </div>
-
-                    <div class="col-1">
-                    </div>
-
-          </div>  
-         
+                            </div>
+                            <div class="col-1 mt-1 pl-1" >
+    
+    
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputColorTar${response[i]['id']}" value="${response[i]['color']}">
+                                            <div class="input-group-append">
+    
+                                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+    
+                                                    <div class="dropdown-menu">
+                                                        <button class="dropdown-item" onclick="escribirColor2('Rojo',${response[i]['id']})" >Rojo</button>
+                                                        <button class="dropdown-item" onclick="escribirColor2('Ámbar',${response[i]['id']})" >Ámbar</button>
+                                                        <button class="dropdown-item" onclick="escribirColor2('Verde',${response[i]['id']})" >Verde</button>
+                                                        <button class="dropdown-item" onclick="escribirColor2('Rojo Flecha',${response[i]['id']})" >Rojo Flecha</button>
+                                                        <button class="dropdown-item" onclick="escribirColor2('Ámbar Flecha',${response[i]['id']})" >Ámbar Flecha</button>
+                                                        <button class="dropdown-item" onclick="escribirColor2('Verde Flecha',${response[i]['id']})" >Verde Flecha</button>
+                                                        <button class="dropdown-item" onclick="escribirColor2('Blanco Horizontal',${response[i]['id']})" >Blanco Horizontal</button>
+                                                        <button class="dropdown-item" onclick="escribirColor2('Blanco Vertical',${response[i]['id']})" >Blanco Vertical</button>
+                                                        <button class="dropdown-item" onclick="escribirColor2('Blanco Triángulo',${response[i]['id']})" >Blanco Triángulo</button>
+                                                    </div>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class="col-1 mt-1 pl-2">
+                                    <div class="dropdown" >
+                                    
+                                            <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputFabricacionTar${response[i]['id']}" value="${response[i]['fabricacion']}">
+                                                <div class="input-group-append">
+    
+                                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                        </button>
+    
+                                                        <div class="dropdown-menu">
+                                                        <button class="dropdown-item" onclick="escribirFabricacion2('Matricial',${response[i]['id']})" >Matricial</button>
+                                                        <button class="dropdown-item" onclick="escribirFabricacion2('Alta Potencia',${response[i]['id']})" >Alta Potencia</button>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="col-1 pl-2">
+                               <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}" onfocusout="comprobarNumSerieLed()">
+                            </div>
+                            <div class="col-1 pl-2">
+                               <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
+                            </div>
+                            <div class="col-1 pl-2">
+                                <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
+                            </div>
+                            <div class="col-1 pl-2">
+                              <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
+                              <input type="checkbox" class="mt-3 ml-3 name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
+                            </div>
+                            <div class="col-1 pl-0">
+                                <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
+                                <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+    
+                  </div>  
+                     
                  `
 
                      //script para rellenar los números de cruce en cada registro
@@ -768,13 +796,15 @@ function leerNIDTotalLed(NID) { //NID
 
  function editarLed(param) { //CAMBIO DE NOMENCLATURA
      var inputIdTar = param;
+//var inputIdCruceTar = document.getElementById('inputIdCruceTar' + param).value;
      var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
-     var inputColorTar = document.getElementById('inputColorTar' + param).value;
-     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
-     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
-     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
-     var inputGrupoTar = document.getElementById('inputGrupoTar' + param).value;
-     var inputTipoTar = document.getElementById('inputTipoTar' + param).value;
+     var inputColorTar = document.getElementById('inputColorTar' + param).value ? document.getElementById('inputColorTar' + param).value:"";
+     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value ? document.getElementById('inputObservacionesTar' + param).value:"";
+     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value ?document.getElementById('inputAlbaranTar' + param).value:0;
+     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value?document.getElementById('inputNumSerieTar' + param).value:0;
+     var inputFabricacionTar = document.getElementById('inputFabricacionTar' + param).value?document.getElementById('inputFabricacionTar' + param).value:"";
+     var inputTipoTar = document.getElementById('inputTipoTar' + param).value?document.getElementById('inputTipoTar' + param).value:"";
+     var inputNIDTar = document.getElementById('inputNIDTar' + param).value?document.getElementById('inputNIDTar' + param).value:"";
      var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
      var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
      inputActivoTar = String(inputActivoTar);
@@ -812,13 +842,15 @@ function leerNIDTotalLed(NID) { //NID
              },
              body: JSON.stringify({
                  id: inputIdTar,
+//idInstalacion:inputIdCruceTar,
                  color: inputColorTar,
                  idNumSerie: inputNumSerieTar,
                  albaran: inputAlbaranTar,
+                 nid: inputNIDTar,
                  observaciones: inputObservacionesTar,
                  fechaActuacion: inputFechaActuacionTar,
                  idUsuario: idUsuario,
-                 grupo: inputGrupoTar,
+                 fabricacion: inputFabricacionTar,
                  tipo: inputTipoTar,
                  activo: inputActivoTar,
                  almacen: inputAlmacenTar
@@ -1004,3 +1036,7 @@ function leerNIDTotalLed(NID) { //NID
  //     return globalCruces;
 
  // }
+ function leerNIDTotalLed(NID) { //NID
+    var p1 = document.getElementById('inputNID');
+    p1.value = NID;
+}

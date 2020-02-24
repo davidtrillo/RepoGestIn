@@ -7,7 +7,7 @@ $app->get('/api/numserierepetidos/{param}', function (Request $request, Response
     
     $param = $request->getAttribute('param');
     
-    $sql = "SELECT id,idInstalacion, idNumSerie FROM ".$param." WHERE idNumSerie in (SELECT idNumSerie FROM ".$param." WHERE activo='true'  GROUP BY idNumSerie HAVING COUNT(idNumSerie)>1)  AND activo='true';";
+    $sql = "SELECT id,idInstalacion, idNumSerie FROM ".$param." WHERE idNumSerie in (SELECT idNumSerie FROM ".$param." WHERE idNumSerie<>0 and activo='true'  GROUP BY idNumSerie HAVING COUNT(idNumSerie)>1)  AND activo='true';";
     
     
     try {
