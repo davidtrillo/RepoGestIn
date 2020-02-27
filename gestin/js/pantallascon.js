@@ -1,6 +1,6 @@
 function nuevaPantallasCon() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('inputTipoActuacion').value
+    var idTipoActuacion = document.getElementById('inputTipoActuacion').value;
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
@@ -20,6 +20,7 @@ function nuevaPantallasCon() { //CAMBIO DE NOMENCLATURA
         }
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :"0";  
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
+        var nid = document.getElementById('inputNID').value ? document.getElementById('inputNID').value :"0";  
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value :"0";
         var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
@@ -27,10 +28,6 @@ function nuevaPantallasCon() { //CAMBIO DE NOMENCLATURA
         
 activo = String(activo);
 almacen = String(almacen);
-
-
-
-
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
         var url = 'http://webserver.mobilitat.local/gestin/public/api/pantallascon/nueva';
@@ -45,6 +42,7 @@ almacen = String(almacen);
                     idTipoActuacion: idTipoActuacion,
                     idNumSerie: idNumSerie,
                     albaran: albaran,
+                    nid: nid,
                     observaciones: observaciones,
                     fechaActuacion: fechaActuacion,
                     idUsuario: idUsuario,
@@ -61,7 +59,7 @@ almacen = String(almacen);
 
     }
     setTimeout(() => {
-        rellenarTodosPantallasCon(); //CAMBIO DE NOMENCLATURA
+      rellenarTodosPantallasCon(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 
 }
@@ -98,31 +96,112 @@ function existeFecha2PantallasCon(fecha) { //CAMBIO DE NOMENCLATURA
 }
 
 
+// function rellenarTipoActuacion2PantallasCon(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
 
-function escribirTipoActuacionPantallasCon(descripcionTipoActuacion) { //CAMBIO DE NOMENCLATURA
+//             var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
+
+//             p2.innerHTML = '';
+
+//             for (var i in response) {
+//                 p2.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2PantallasCon(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+//              `
+//             }
+//         })
+// }
+
+// function rellenarTipoActuacionPantallasCon() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
+//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
+//             var p = document.getElementById('dropdownTipoActuacion');
+//             p.innerHTML = '';
+//             for (var i in response) {
+//                 p.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionPantallasCon(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button> 
+//              `
+//             } //CAMBIO DE NOMENCLATURA
+//         })
+// }
+
+function rellenarNIDPantallasCon() { //NID
+
+
+    var cr=document.getElementById("inputInstalacion");
+    
+    var url = 'http://webserver.mobilitat.local/gestin/public/api/nid/'+cr.value;
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            var p = document.getElementById('dropdownNID');
+            p.innerHTML = '';
+            for (var i in response) {
+                var str=response[i]['nid'];
+                //console.log(str+"-"+str.substring(3,5));
+             
+              
+                p.innerHTML += `
+                    <button class="dropdown-item" type="submit" id="dropBtnNID${[i]}" name="${response[i]['nid']}" onclick="leerNIDPantallasCon(this.name)">${response[i]['nid']}</button> 
+                    `
+               
+            }
+        })
+}
+
+function leerNIDPantallasCon(NID) { //NID
+    var p1 = document.getElementById('inputNID');
+    p1.value = NID;
+}
+
+function escribirTipoActuacionPantallasCon(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+
     var p2 = document.getElementById('inputTipoActuacion');
     p2.value = descripcionTipoActuacion;
 }
 
 
-function leerTipoActuacionPantallasCon(idTipoActuacion) { //CAMBIO DE NOMENCLATURA
-    var p1 = document.getElementById('idTipoActuacion');
-    p1.value = idTipoActuacion;
+function leerTipoActuacion2PantallasCon(descripcionTipoActuacion, idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+    var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
+    p2.value = descripcionTipoActuacion;
 }
 
-function rellenarTipoActuacion2PantallasCon(idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
-    var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
-    p1.value = idTipoActuacion;
+function rellenarTipoActuacion2PantallasCon(descripcionTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+
+    var p2 = document.getElementById('inputTipoActuacionTar' + idActuacion);
+    p2.value = descripcionTipoActuacion;
 }
 
 async function formPantallasCon(elemento) { //CAMBIO DE NOMENCLATURA
     var instalacion = document.getElementById("inputInstalacion");
     var inputElemento = document.getElementById("inputElemento");
     inputElemento.value=elemento;
-
+    
     var tipo="";
     tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
-        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoActuacion13_332(this.value)" >'+ value +'</button>';
+        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoActuacionPantallasCon(this.value)" >'+ value +'</button>';
          
     });
 
@@ -131,73 +210,90 @@ async function formPantallasCon(elemento) { //CAMBIO DE NOMENCLATURA
         f1.innerHTML = `
         
         <!-- Títulos Form Nuevo-->
-        <div class="row ml-1">
-        <div class="col-2">
-            F.Actuación
-        </div>
-        <div class="col-2">
-            <div class="dropdown" >
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Tipo A.
-                </button>
-                <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                `+ tipo +`
+        <div class="row mt-1 pl-1">
+
+            <div class="col-1 pl-1">
+                <div class="dropdown" >
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnNID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        NID
+                    </button>
+                    <div class="dropdown-menu" id="dropdownNID" aria-labelledby="dropdownNID">
+                           
+                    </div>
+     
                 </div>
             </div>
-        </div>
 
-        <div class="col-3">
-            Observaciones
-        </div>
-        <div class="col-1">
-          Albarán
-        </div>
-        <div class="col-1">
-            Num. Serie
-        </div>
-        <div class="col-1">
-            Precio
-        </div>
-        <div class="col-1">
-            <span>Act.</span>  <span class="ml-2">Almac.</span> 
-        </div>
+            <div class="col-2 pl-1 mt-3">
+                F.Actuación
+            </div>
+
+            <div class="col-2 pl-1">
+                    <div class="dropdown" >
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tipo A.
+                        </button>
+                        <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                        `+ tipo +`
+                        </div>
+ 
+                    </div>
+            </div>
+
+            <div class="col-2 pl-1  mt-3">
+                Observaciones
+            </div>
+            <div class="col-1 pl-1  mt-3">
+            Albarán
+            </div>
+            <div class="col-1 pl-1  mt-3">
+                Num. Serie
+            </div>
+            <div class="col-1 pl-1  mt-3">
+                Precio
+            </div>
+            <div class="col-1 pl-1  mt-3">
+                Activo Almacén
+            </div>
         </div>
         <!-- Fin Titulos -->
         <!-- Form Introducir Nuevo -->
-        <div class="row mt-1 ml-1" id="formGuardar">
-        <div class="col-2">
-            <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
-        </div>
-        <div class="col-2">
-            <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
-        </div>
-        <div class="col-3">
-            <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
-        </div>
-        <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
-        </div>
-        <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie">
-        </div>
-        <div class="col-1">
-        <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
-        </div>
-        <div class="col-1">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
-        </div>
-        <div class="col-1">
-            <div class="btn btn-primary" onclick="nuevaPantallasCon()">Guardar</div>
-        </div>
+        <div class="row mt-1 pl-1" id="formGuardar">
+                <div class="col-1 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputNID" id="inputNID">
+                </div>
+                <div class="col-2 pl-1">
+                    <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
+                </div>
+                <div class="col-2 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
+                </div>
+                <div class="col-2 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
+                </div>
+                <div class="col-1 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
+                </div>
+                <div class="col-1 pl-1">
+                    <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSeriePantallasCon()">
+                </div>
+                <div class="col-1 pl-1">
+                <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
+                </div>
+                <div class="col-1 pl-1">
+                    <input type="checkbox" class="mt-3 ml-3" name="inputActivo" id="inputActivo">
+                    <input type="checkbox" class="mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
+                </div>
+                <div class="col-1 pl-1">
+                <div class="btn btn-primary mt-0 ml-3" onclick="nuevaPantallasCon()"><i class="fas fa-save"></i></div>
+            </div>
         </div>  
         <!-- Fin Form Introducir nuevo -->
         
         `
-
-
-        // rellenar todos los registros 
-       await rellenarTodosPantallasCon();//CAMBIO DE NOMENCLATURA
+    // await rellenarTipoActuacionPantallasCon();
+     await rellenarNIDPantallasCon();//NID
+     await rellenarTodosPantallasCon();//rellenar todos
     }
 }
 
@@ -230,6 +326,7 @@ function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLAT
                     } else {
                         var activo = "";
                     }
+
                     if (response[i]['almacen'] == "true") {
                         var almacen = "checked";
                     } else {
@@ -239,17 +336,21 @@ function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLAT
                     var tipo="";
                     tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
             
-                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion213_332(this.value,this.name)" >'+ value +'</button>';
+                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion2PantallasCon(this.value,this.name)" >'+ value +'</button>';
                         
                     });
+                 
                     p.innerHTML += `
-                 <div class="row mt-1 ml-1" id="">
-                 <div class="col-2">
+             <div class="row ml-0 pl-0" id="">
+                 <div class="col-1 pl-0">
+                 <input type="text" class="form-control mt-1" name="" id="inputNIDTar${response[i]['id']}"  value="${response[i]['nid']}">
+              
+                 </div>
+                 <div class="col-2 pl-0">
                    <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
-                 <div class="col-2 mt-1" >
-           
+                 <div class="col-2 mt-1 pl-0" >
                     <div class="input-group">
                         <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoActuacionTar${response[i]['id']}" value="${response[i]['idTipoActuacion']}">
                         <div class="input-group-append">
@@ -262,26 +363,27 @@ function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLAT
                     </div>
                    
                  </div>
-                 <div class="col-3">
+                 <div class="col-2 pl-0">
                     <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                     <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                     <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}">
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                  </div>
-                 <div class="col-1">
+                 <div class="col-1 pl-0">
                     <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarPantallasCon(this.id)"><i class="fas fa-pencil-alt"></i></div>
                     <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarPantallasCon(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
+                 
               </div>  
                  
                  `
@@ -291,6 +393,7 @@ function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLAT
         })
 
         rellenarFooterPantallasCon();//CAMBIO DE NOMENCLATURA
+        comprobarNumSeriePantallasCon2();
 }
 
 function rellenarFooterPantallasCon(){//CAMBIO DE NOMENCLATURA
@@ -313,7 +416,7 @@ function rellenarFooterPantallasCon(){//CAMBIO DE NOMENCLATURA
                 p.innerHTML = '';
                 p.innerHTML=`
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>Pantallas de Contraste</b> Activas: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>PantallasCon</b> Activos: ${response[0]['c']}</span>
                 `
             }
         })
@@ -344,22 +447,14 @@ function editarPantallasCon(param) {//CAMBIO DE NOMENCLATURA
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
+    var inputNIDTar = document.getElementById('inputNIDTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
     var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-    inputAlmacenTar = String(inputAlmacenTar);
     inputActivoTar = String(inputActivoTar);
+    inputAlmacenTar = String(inputAlmacenTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
-
-    // console.log(inputIdTar);
-    // console.log(inputFechaActuacionTar);
-    // console.log(inputTipoActuacionTar);
-    // console.log(inputObservacionesTar);
-    // console.log(inputNumSerieTar);
-    // console.log(inputPrecioTar);
-    // console.log(inputActivoTar);
-    // console.log(idUsuario);
 
 
     //validar fecha correcta
@@ -386,6 +481,7 @@ function editarPantallasCon(param) {//CAMBIO DE NOMENCLATURA
                 idTipoActuacion: inputTipoActuacionTar,
                 idNumSerie: inputNumSerieTar,
                 albaran:inputAlbaranTar,
+                nid:inputNIDTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
@@ -404,4 +500,124 @@ function editarPantallasCon(param) {//CAMBIO DE NOMENCLATURA
     setTimeout(() => {
         rellenarTodosPantallasCon(); //CAMBIO DE NOMENCLATURA
     }, 1000);
+}
+
+function comprobarNumSeriePantallasCon() {
+    var idNumSerie = document.getElementById('inputNumSerie').value;
+
+    if (idNumSerie) {
+
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/pantallascon/' + idNumSerie;
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response != "No se han encontrado resultados") && (response.length > 0)) {
+
+                    var res = "Número de Serie repetido en: ";
+
+                    for (i in response) {
+                        res += "\n Cruce: " + response[i]['idInstalacion'];
+                    }
+                    alert(res);
+                    var clase = document.getElementById('inputNumSerie');
+                    clase.classList.add("bg-danger");
+                } else {
+                    var clase = document.getElementById('inputNumSerie');
+                    clase.classList.remove("bg-danger");
+                }
+            })
+    }
+}
+
+
+
+
+function comprobarNumSeriePantallasCon2() {
+    var idInstalacion = document.getElementById('inputInstalacion').value;
+
+    if (idInstalacion) {
+
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/pantallascon';
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response.length > 0)) {
+
+
+                    for (i in response) {
+
+                        if (response[i]['idInstalacion'] == idInstalacion) {
+                            var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
+                            if (clase) {
+                                comprobarNumSeriePantallasCon3(response[i]['id'],response[i]['idNumSerie']);
+                              
+                                clase.classList.add("bg-danger");
+
+                            }
+                        } else {
+
+                            var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
+                            if (clase) {
+                                clase.classList.remove("bg-danger");
+
+
+                            }
+                        }
+                    }
+
+                } else {
+
+                }
+            })
+    }
+}
+
+
+function comprobarNumSeriePantallasCon3(id,idNumSerie) {
+
+    if (idNumSerie) {
+
+       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/pantallascon/' + idNumSerie;
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response.length > 0)) {
+
+                    var res = "Número de Serie repetido en: ";
+                    var clase = document.getElementById('inputNumSerieTar' + id);
+
+                    for (i in response) {
+                        res += "\n Cruce: " + response[i]['idInstalacion'];
+                    }
+                  
+                    clase.setAttribute("data-toggle", "tooltip");
+                    clase.setAttribute("data-placement", "top");
+                    clase.setAttribute("title", "Repetido en cruce " + res);
+                    
+                }
+
+            })
+    }
 }

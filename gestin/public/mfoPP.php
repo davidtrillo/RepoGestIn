@@ -173,7 +173,7 @@ include './login/session.php';
             <div class="col-1 p-1">
                <span><b>Resolución Ok</b></span>
                <br class="mt-3">
-               <input type="checkbox" class="mt-3 ml-5" name="" id="inputOk" checked>
+               <input type="checkbox" class="mt-3 ml-5" name="" id="inputOk" onclick="rellenarPrecio()">
             </div>
             <div class="col-1 p-1 mt-4">
                <div class="btn btn-primary" onclick="nuevoMFO()">Guardar</div>
@@ -279,6 +279,7 @@ include './login/session.php';
 
    <script src="../js/funciones.js"></script>
    <script src="../js/mfoPP.js"></script>
+   <script src="../js/tablas.js"></script>
 
 
 </body>

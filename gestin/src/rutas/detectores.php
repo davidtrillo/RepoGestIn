@@ -5,9 +5,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //$app = new \Slim\App;
 
 //GET Todas las instalaciones SELECT
-$app->get('/api/pantallascon', function (Request $request, Response $response) {
+$app->get('/api/detectores', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen,t.nid  FROM pantallascon t   order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM detectores t   order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -30,10 +30,10 @@ $app->get('/api/pantallascon', function (Request $request, Response $response) {
 });
 
 //GET Tarjetas activas COUNT
-$app->get('/api/pantallascon/activas/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/detectores/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT count(id) AS c FROM pantallascon WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
+    $sql = 'SELECT count(id) AS c FROM detectores WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -56,10 +56,10 @@ $app->get('/api/pantallascon/activas/{instalacion}', function (Request $request,
 });
 
 
-$app->get('/api/pantallascon/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/detectores/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen,t.nid  FROM pantallascon t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM detectores t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -83,7 +83,7 @@ $app->get('/api/pantallascon/{instalacion}', function (Request $request, Respons
 });
 
 // POST para crear una nueva instalación CREATE
-$app->post('/api/pantallascon/nueva', function (Request $request, Response $response) {
+$app->post('/api/detectores/nueva', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
     // $id=$request->getParam('id');
     $idInstalacion = $request->getParam('idInstalacion');
@@ -96,11 +96,10 @@ $app->post('/api/pantallascon/nueva', function (Request $request, Response $resp
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
-    $nid = $request->getParam('nid');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO pantallascon (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen, nid) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen, :nid);';
-    // $sql='INSERT INTO pantallascon (idInstalacion) VALUES (:idInstalacion);';
+    $sql = 'INSERT INTO detectores (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
+    // $sql='INSERT INTO detectores (idInstalacion) VALUES (:idInstalacion);';
 
     try {
         $db = new db();
@@ -118,10 +117,9 @@ $app->post('/api/pantallascon/nueva', function (Request $request, Response $resp
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
-        $resultado->bindParam(':nid', $nid);
 
         $resultado->execute();
-        echo json_encode("S. PantallasCon guardada con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("Detector guardado con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;
@@ -134,11 +132,11 @@ $app->post('/api/pantallascon/nueva', function (Request $request, Response $resp
 
 //DELETE para borrar instalacion DELETE BY ID
 
-$app->delete('/api/pantallascon/borrar/{id}', function (Request $request, Response $response) {
+$app->delete('/api/detectores/borrar/{id}', function (Request $request, Response $response) {
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
-    $sql = 'DELETE FROM pantallascon WHERE id=' . $id;
+    $sql = 'DELETE FROM detectores WHERE id=' . $id;
 
     try {
         $db = new db();
@@ -148,7 +146,7 @@ $app->delete('/api/pantallascon/borrar/{id}', function (Request $request, Respon
 
         if ($resultado->rowCount() > 0) {
 
-            echo json_encode("Pantalla eliminada con éxito", JSON_UNESCAPED_UNICODE);
+            echo json_encode("Detector eliminado con éxito", JSON_UNESCAPED_UNICODE);
 
         } else {
             echo json_encode("No se han encontrado resultados con el ID " . $id, JSON_UNESCAPED_UNICODE);
@@ -164,7 +162,7 @@ $app->delete('/api/pantallascon/borrar/{id}', function (Request $request, Respon
 
 //POST para modificar instalacion UPDATE BY ID
 
-$app->put('/api/pantallascon/modificar/{id}', function (Request $request, Response $response) {
+$app->put('/api/detectores/modificar/{id}', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
@@ -177,11 +175,10 @@ $app->put('/api/pantallascon/modificar/{id}', function (Request $request, Respon
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
-    $nid = $request->getParam('nid');
     // echo "todas las instalaciones";
 
-    //  $sql='UPDATE pantallascon SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE pantallascon SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen,nid=:nid WHERE id='. $id;
+    //  $sql='UPDATE detectores SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = 'UPDATE detectores SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen WHERE id='. $id;
 
     try {
         $db = new db();
@@ -199,10 +196,9 @@ $app->put('/api/pantallascon/modificar/{id}', function (Request $request, Respon
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
-        $resultado->bindParam(':nid', $nid);
 
         $resultado->execute();
-        echo json_encode("S. Pantalla editada con éxito", JSON_UNESCAPED_UNICODE);
+        echo json_encode("Detector editado con éxito", JSON_UNESCAPED_UNICODE);
 
         $resultado = null;
         $db = null;
@@ -235,7 +231,6 @@ $app->put('/api/pantallascon/modificar/{id}', function (Request $request, Respon
 //         }else{
 //             echo json_encode("No se han encontrado resultados con el ID".$id,JSON_UNESCAPED_UNICODE);
 //         }
-
 
 //         $resultado=null;
 //         $dbConexion=null;

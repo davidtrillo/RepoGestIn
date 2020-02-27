@@ -37,6 +37,7 @@ include_once '../src/rutas/11_200.php';
 include_once '../src/rutas/soportes.php';
 include_once '../src/rutas/oculta.php';
 include_once '../src/rutas/pulsadores.php';
+include_once '../src/rutas/detectores.php';
 include_once '../src/rutas/espiras.php';
 include_once '../src/rutas/pantallascon.php';
 include_once '../src/rutas/camtv.php';

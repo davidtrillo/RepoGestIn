@@ -555,3 +555,8 @@ async function calcularPrecio2(param,id) {
 
 
 }
+
+function rellenarPrecio() {
+    var p= document.getElementById("inputPrecio");
+    p.value=precioMFOCargadores[0];
+}

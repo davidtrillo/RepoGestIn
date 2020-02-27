@@ -11,4 +11,17 @@ var tipoCpu=[
              'CITY',
              'Otros',
             ];
+
+var precioMFOAcire=[
+'21.08'
+];
+
+
+var precioMFOCargadores=[
+        '21.08'
+        ];
+        
+var precioMFOPP=[
+        '22.18'
+        ];
         

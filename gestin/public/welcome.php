@@ -276,7 +276,8 @@ getNID(); // CÓDIGO PARA IMPORTAR DE INCA HACIA MYSQL TODOS LOS NIDS INTRODUCID
                      <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBajantes('BAJANTES')">BAJANTES</button> -->
                      <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formAlargaderas('ALARGADERAS')">ALARGADERAS</button> -->
                      <button class="dropdown-item" type="button" id="btnPulsadores" onclick="formPulsadores('PULSADORES')">PULSADORES</button>
-                     <button class="dropdown-item" type="button" id="btnEspiras" onclick="formEspiras('ESPIRAS')">ESPIRAS</button>
+                     <button class="dropdown-item" type="button" id="btnDetectores" onclick="formDetectores('DETECTORES')">DETECTORES</button>
+                     <button class="dropdown-item" type="button" id="btnEspiras" onclick="formEspiras('ESPIRAS')">ESPIRAS DE DETECCIÓN</button>
                      <button class="dropdown-item" type="button" id="btnPantallasCon" onclick="formPantallasCon('PANTALLAS CONTRASTE')">PANTALLAS CONTRASTE</button>
                      <button class="dropdown-item" type="button" id="btnCCTV" onclick="formCamTV('CCTV')">CCTV</button>
                      <button class="dropdown-item" type="button" id="btnCamIp" onclick="formCamIP('CAM. IP')">CAM. IP</button>
@@ -423,6 +424,7 @@ getNID(); // CÓDIGO PARA IMPORTAR DE INCA HACIA MYSQL TODOS LOS NIDS INTRODUCID
    <!-- <script src="../js/baculos.js"></script> -->
    <script src="../js/soportes.js"></script>
    <script src="../js/pulsadores.js"></script>
+   <script src="../js/detectores.js"></script>
    <script src="../js/espiras.js"></script>
    <script src="../js/pantallascon.js"></script>
    <script src="../js/camtv.js"></script>
