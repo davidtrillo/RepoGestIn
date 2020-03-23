@@ -7,12 +7,12 @@ $("#dropdown-menu1 button").click(function () {
 })
 
 function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/instalaciones/' + datoInput;
+    var url = 'http://172.27.120.120/gestin/public/api/instalaciones/' + datoInput;
     fetch(url, {
         method: 'GET',
        
             headers: {
-                'Access-Control-Allow-Origin': 'http://webserver.mobilitat.local',
+                'Access-Control-Allow-Origin': 'http://172.27.120.120',
                 'Content-Type': 'application/json'
             },
            
@@ -54,11 +54,11 @@ async function leerInstalacion(idInstalacion, ubicacion) {
 }
 
 function llamadaAPIInventario(idInstalacion) {
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/inventario/' + idInstalacion;
+    var url = 'http://172.27.120.120/gestin/public/api/inventario/' + idInstalacion;
     fetch(url, {
             method: 'GET',
             headers: {
-                'Access-Control-Allow-Origin': 'http://webserver.mobilitat.local',
+                'Access-Control-Allow-Origin': 'http://172.27.120.120',
                 'Content-Type': 'application/json'
             }
         })
@@ -90,7 +90,7 @@ function llamadaAPIInventario(idInstalacion) {
 }
 
 function rellenarRegulador() {
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/regulador';
+    var url = 'http://172.27.120.120/gestin/public/api/regulador';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -111,7 +111,7 @@ function rellenarRegulador() {
 }
 
 function rellenarCM() {
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/cm';
+    var url = 'http://172.27.120.120/gestin/public/api/cm';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -132,7 +132,7 @@ function rellenarCM() {
 }
 
 function rellenarCruce() {
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces';
+    var url = 'http://172.27.120.120/gestin/public/api/cruces';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -190,7 +190,7 @@ function editarInstalacion() {
     // console.log(watios);
 
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/inventario/modificar/' + idInstalacion;
+    var url = 'http://172.27.120.120/gestin/public/api/inventario/modificar/' + idInstalacion;
     fetch(url, {
             method: 'PUT',
             headers: {

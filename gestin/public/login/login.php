@@ -69,7 +69,7 @@
           </div>
       
           <!-- Login Form -->
-          <form action="login.php" method="POST">
+          <form action=".\login.php" method="POST">
             <input type="text" id="login" class="fadeIn second" name="username" placeholder="usuario">
             <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
             <br>

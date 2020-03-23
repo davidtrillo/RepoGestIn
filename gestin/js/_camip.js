@@ -32,7 +32,7 @@ almacen = String(almacen);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/CamIP/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/CamIP/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -101,7 +101,7 @@ function existeFecha2CamIP(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2CamIP(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -125,7 +125,7 @@ function rellenarTipoActuacion2CamIP(idActuacion) { //Llamada a la API según el
 }
 
 function rellenarTipoActuacionCamIP() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -245,7 +245,7 @@ async function formCamIP(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosCamIP() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/CamIP/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/CamIP/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -327,7 +327,7 @@ function rellenarTodosCamIP() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterCamIP(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/CamIP/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/CamIP/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -355,7 +355,7 @@ function rellenarFooterCamIP(){//CAMBIO DE NOMENCLATURA
 
 function borrarCamIP(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/CamIP/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/CamIP/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -406,7 +406,7 @@ function editarCamIP(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/CamIP/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/CamIP/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

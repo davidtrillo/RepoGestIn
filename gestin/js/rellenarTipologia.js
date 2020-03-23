@@ -1,5 +1,5 @@
 function rellenarTipologia(){
-    fetch('http://webserver.mobilitat.local/gestin/public/api/tipoinstalacion',{mode:'no-cors'})
+    fetch('http://172.27.120.120/gestin/public/api/tipoinstalacion',{mode:'no-cors'})
         .then(datos=>datos.json())
          .then(datos=>{
             var resultado= document.getElementById('dropdownTipologia');

@@ -34,7 +34,7 @@ console.log(tipo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/alargaderas/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/alargaderas/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -100,7 +100,7 @@ function existeFecha2Alargaderas(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Alargaderas(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -124,7 +124,7 @@ function rellenarTipoActuacion2Alargaderas(idActuacion) { //Llamada a la API seg
 }
 
 function rellenarTipoActuacionAlargaderas() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -271,7 +271,7 @@ async function formAlargaderas(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosAlargaderas() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/alargaderas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/alargaderas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -364,7 +364,7 @@ function rellenarTodosAlargaderas() { //Llamada a la API  //CAMBIO DE NOMENCLATU
 
 function rellenarFooterAlargaderas(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/alargaderas/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/alargaderas/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -392,7 +392,7 @@ function rellenarFooterAlargaderas(){//CAMBIO DE NOMENCLATURA
 
 function borrarAlargaderas(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/alargaderas/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/alargaderas/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -442,7 +442,7 @@ function editarAlargaderas(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/alargaderas/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/alargaderas/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

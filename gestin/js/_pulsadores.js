@@ -34,7 +34,7 @@ function nuevaPulsadores() { //CAMBIO DE NOMENCLATURA
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/pulsadores/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/pulsadores/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -100,7 +100,7 @@ function existeFecha2Pulsadores(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Pulsadores(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -124,7 +124,7 @@ function rellenarTipoActuacion2Pulsadores(idActuacion) { //Llamada a la API seg�
 }
 
 function rellenarTipoActuacionPulsadores() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -244,7 +244,7 @@ async function formPulsadores(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosPulsadores() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/pulsadores/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/pulsadores/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -326,7 +326,7 @@ function rellenarTodosPulsadores() { //Llamada a la API  //CAMBIO DE NOMENCLATUR
 
 function rellenarFooterPulsadores(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/pulsadores/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/pulsadores/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -354,7 +354,7 @@ function rellenarFooterPulsadores(){//CAMBIO DE NOMENCLATURA
 
 function borrarPulsadores(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/pulsadores/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/pulsadores/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -405,7 +405,7 @@ function editarPulsadores(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/pulsadores/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/pulsadores/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

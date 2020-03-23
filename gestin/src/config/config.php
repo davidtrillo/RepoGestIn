@@ -1,6 +1,8 @@
 <?php
 
 include '../../public/login/session.php';
+include_once './getNID.php';
+ // CÓDIGO PARA IMPORTAR DE INCA HACIA MYSQL TODOS LOS NIDS INTRODUCIDOS EN EL INCA QUE NO ESTÁN DE BAJA
 
 
 
@@ -176,8 +178,12 @@ include '../../public/login/session.php';
                 </div>
             </form>
         </div>
+
+       
+
         <div class="row mt-2">
             <div class="col-1">
+        
             </div>
             <div class="col-1">
             </div>
@@ -202,8 +208,11 @@ include '../../public/login/session.php';
     <hr>
     <!-- Formulario Introducir Nuevo-->
     <div class="mt-2 p-2">
-        <!-- <div class="btn btn-primary ml-1" id="" onclick="">Importar NID</div>
-        <p></p> -->
+            <h3><b>Importar NIDs de INCA<b></h3>
+            <div class="btn btn-primary ml-3 mt-2" id="" onclick="funcionGetNID()">Importar NID</div>
+            <div id="contar">
+            
+            </div>
     </div>
     <!-- fin formulario Nuevo-->
     <hr>
@@ -223,7 +232,43 @@ include '../../public/login/session.php';
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script>
+async function funcionGetNID() {
 
+    var p = document.getElementById('contar');
+                    p.innerHTML = '';
+                    p.innerHTML=`<span class="ml-1">Importando...</span>`;
+
+var url = 'http://172.27.120.120/gestin/public/api/nid'
+  
+var count= await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            if (response == "No se han encontrado resultados") {
+                alert(response);
+
+            } else {
+                console.log(response);
+                return (response);
+            }
+        })
+        pintarContar(count);
+    }
+function pintarContar(count) {
+    var p = document.getElementById('contar');
+                    p.innerHTML = '';
+                    p.innerHTML=`
+
+                    <span class="ml-1">Se han importado: ${count} elementos</span>
+                    `
+}
+</script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>

@@ -34,7 +34,7 @@ console.log(tipo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/brazos/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/brazos/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -100,7 +100,7 @@ function existeFecha2Brazos(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Brazos(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -124,7 +124,7 @@ function rellenarTipoActuacion2Brazos(idActuacion) { //Llamada a la API según e
 }
 
 function rellenarTipoActuacionBrazos() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -268,7 +268,7 @@ async function formBrazos(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosBrazos() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/brazos/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/brazos/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -358,7 +358,7 @@ function rellenarTodosBrazos() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterBrazos(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/brazos/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/brazos/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -386,7 +386,7 @@ function rellenarFooterBrazos(){//CAMBIO DE NOMENCLATURA
 
 function borrarBrazos(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/brazos/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/brazos/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -436,7 +436,7 @@ function editarBrazos(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/brazos/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/brazos/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

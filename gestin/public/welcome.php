@@ -1,8 +1,6 @@
 <?php
 
 include './login/session.php';
-include_once '../src/config/getNID.php';
-getNID(); // CÓDIGO PARA IMPORTAR DE INCA HACIA MYSQL TODOS LOS NIDS INTRODUCIDOS EN EL INCA QUE NO ESTÁN DE BAJA
 
 
 ?>
@@ -22,7 +20,7 @@ getNID(); // CÓDIGO PARA IMPORTAR DE INCA HACIA MYSQL TODOS LOS NIDS INTRODUCID
    <!-- <script src="https://kit.fontawesome.com/de8261cad4.js"></script> -->
    <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
    <link href="../fontawesome/css/solid.css" rel="stylesheet">
-
+   
 
 
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -131,7 +129,7 @@ getNID(); // CÓDIGO PARA IMPORTAR DE INCA HACIA MYSQL TODOS LOS NIDS INTRODUCID
                </button>
                <div class="dropdown-menu" id="dropdown-menu1" aria-labelledby="dropdownMenu2">
                   <?php
-                              $apiUrl = "http://webserver.mobilitat.local/gestin/public/api/tipoinstalacion"; //llamamos al EndPoint de la API
+                              $apiUrl = "http://172.27.120.120/gestin/public/api/tipoinstalacion"; //llamamos al EndPoint de la API
                               $json = file_get_contents($apiUrl); //capturamos la informacion
                               $datosAPI = json_decode($json, true); //transformamos el json a array
                               for ($i = 0; $i < count($datosAPI); ++$i) {?>

@@ -6,7 +6,7 @@ function rellenar(){
 
 
 function rellenarPrecios() {
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/preciosmfo'
+    var url = 'http://172.27.120.120/gestin/public/api/preciosmfo'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -49,7 +49,7 @@ function editarPreciosMFO() {
     var precioGrupo4 = document.getElementById('precioGrupo4').value ? document.getElementById('precioGrupo4').value : 0 ;
 
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/preciosmfo/modificar';
+    var url = 'http://172.27.120.120/gestin/public/api/preciosmfo/modificar';
 
     fetch(url, {
             method: 'PUT',

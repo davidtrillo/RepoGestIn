@@ -38,7 +38,7 @@ function nuevaTarjetaFa() {
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasfa/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/tarjetasfa/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -105,7 +105,7 @@ function existeFecha2TarjetaFa(fecha) {
 
 
 // function rellenarTipoActuacion2TarjetaFas(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
 //     fetch(url, {
 //             method: 'GET',
 //             headers: {
@@ -129,7 +129,7 @@ function existeFecha2TarjetaFa(fecha) {
 // }
 
 // function rellenarTipoActuacionTarjetaFa() { //Llamada a la API según el dato obtenido del primer combo
-//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
 //     fetch(url, {
 //             method: 'GET',
 //             headers: {
@@ -272,7 +272,7 @@ async function formTarjetasFa(elemento) {
 
 async function rellenarTodosTarjetaFa() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasfa/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetasfa/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -371,7 +371,7 @@ async function rellenarTodosTarjetaFa() { //Llamada a la API
 
 function rellenarFooterTarjetaFa() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasfa/instaladas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetasfa/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -406,7 +406,7 @@ function rellenarFooterTarjetaFa() {
 
 function borrarTarjetaFa(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasfa/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetasfa/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -462,7 +462,7 @@ function editarTarjetaFa(param) {
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasfa/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetasfa/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -502,7 +502,7 @@ function comprobarNumSerieTarjetaFa() {
 
     if (idNumSerie) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasfa/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetasfa/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -539,7 +539,7 @@ function comprobarNumSerieTarjetaFa() {
   
     if (idInstalacion) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasfa';
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetasfa';
      fetch(url, {
                 method: 'GET',
                 headers: {
@@ -563,8 +563,8 @@ function comprobarNumSerieTarjetaFa() {
                                 // comprobarNumSerieTarjetaFa3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
-                                    // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-                                     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasfa/' + idNumSerie;
+                                    // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetasfa/' + idNumSerie;
                                      fetch(url, {
                                              method: 'GET',
                                              headers: {
@@ -621,8 +621,8 @@ function comprobarNumSerieTarjetaFa() {
     
     if (idNumSerie) {
 
-       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasfa/' + idNumSerie;
+       // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetasfa/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

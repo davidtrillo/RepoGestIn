@@ -32,7 +32,7 @@ activo = String(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/baculos/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/baculos/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -97,7 +97,7 @@ function existeFecha2Baculos(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Baculos(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -121,7 +121,7 @@ function rellenarTipoActuacion2Baculos(idActuacion) { //Llamada a la API según 
 }
 
 function rellenarTipoActuacionBaculos() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -239,7 +239,7 @@ async function formBaculos(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosBaculos() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/baculos/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/baculos/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -316,7 +316,7 @@ function rellenarTodosBaculos() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterBaculos(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/baculos/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/baculos/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -344,7 +344,7 @@ function rellenarFooterBaculos(){//CAMBIO DE NOMENCLATURA
 
 function borrarBaculos(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/baculos/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/baculos/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -393,7 +393,7 @@ function editarBaculos(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/baculos/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/baculos/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

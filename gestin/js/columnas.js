@@ -28,7 +28,7 @@ function nuevaColumnas() { //CAMBIO DE NOMENCLATURA
 activo = String(activo);
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/columnas/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/columnas/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -94,7 +94,7 @@ function existeFecha2Columnas(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Columnas(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -118,7 +118,7 @@ function rellenarTipoActuacion2Columnas(idActuacion) { //Llamada a la API según
 }
 
 function rellenarTipoActuacionColumnas() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -254,7 +254,7 @@ async function formColumnas(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosColumnas() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/columnas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/columnas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -360,7 +360,7 @@ function rellenarTodosColumnas() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterColumnas(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/columnas/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/columnas/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -388,7 +388,7 @@ function rellenarFooterColumnas(){//CAMBIO DE NOMENCLATURA
 
 function borrarColumnas(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/columnas/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/columnas/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -431,7 +431,7 @@ function editarColumnas(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/columnas/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/columnas/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

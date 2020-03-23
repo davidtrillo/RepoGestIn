@@ -33,7 +33,7 @@ almacen = String(almacen);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/CamTV/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/CamTV/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -205,7 +205,7 @@ async function formCamTV(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosCamTV() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/CamTV/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/CamTV/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -295,7 +295,7 @@ function rellenarTodosCamTV() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterCamTV(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/CamTV/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/CamTV/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -323,7 +323,7 @@ function rellenarFooterCamTV(){//CAMBIO DE NOMENCLATURA
 
 function borrarCamTV(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/CamTV/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/CamTV/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -374,7 +374,7 @@ function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/CamTV/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/CamTV/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

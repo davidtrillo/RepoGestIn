@@ -42,7 +42,7 @@ function nuevaTarjetaAmp() {
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasamp/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/tarjetasamp/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -109,7 +109,7 @@ function existeFecha2TarjetaAmp(fecha) {
 
 
 function rellenarTipoActuacion2TarjetaAmp(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -133,7 +133,7 @@ function rellenarTipoActuacion2TarjetaAmp(idActuacion) { //Llamada a la API seg�
 }
 
 function rellenarTipoActuacionTarjetaAmp() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -268,7 +268,7 @@ async function formTarjetasAmp(elemento) {
 
 async function rellenarTodosTarjetaAmp() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasamp/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetasamp/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -361,7 +361,7 @@ async function rellenarTodosTarjetaAmp() { //Llamada a la API
 
 function rellenarFooterTarjetaAmp() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasamp/instaladas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetasamp/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -396,7 +396,7 @@ function rellenarFooterTarjetaAmp() {
 
 function borrarTarjetaAmp(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasamp/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetasamp/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -452,7 +452,7 @@ function editarTarjetaAmp(param) {
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetasamp/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetasamp/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -492,7 +492,7 @@ function comprobarNumSerieTarjetaAmp() {
 
     if (idNumSerie) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasamp/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetasamp/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -529,7 +529,7 @@ function comprobarNumSerieTarjetaAmp() {
   
     if (idInstalacion) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasamp';
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetasamp';
      fetch(url, {
                 method: 'GET',
                 headers: {
@@ -553,8 +553,8 @@ function comprobarNumSerieTarjetaAmp() {
                                 // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
-                                    // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-                                     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasamp/' + idNumSerie;
+                                    // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetasamp/' + idNumSerie;
                                      fetch(url, {
                                              method: 'GET',
                                              headers: {
@@ -611,8 +611,8 @@ function comprobarNumSerieTarjetaAmp() {
     
     if (idNumSerie) {
 
-       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetasamp/' + idNumSerie;
+       // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetasamp/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

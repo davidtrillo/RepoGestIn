@@ -37,7 +37,7 @@ activo = String(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/11_2in/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/11_2in/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -102,7 +102,7 @@ function existeFecha211_2in(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion211_2in(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -126,7 +126,7 @@ function rellenarTipoActuacion211_2in(idActuacion) { //Llamada a la API según e
 }
 
 function rellenarTipoActuacion11_2in() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -251,7 +251,7 @@ async function form11_2in(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodos11_2in() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/11_2in/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/11_2in/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -329,7 +329,7 @@ function rellenarTodos11_2in() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooter11_2in(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/11_2in/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/11_2in/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -357,7 +357,7 @@ function rellenarFooter11_2in(){//CAMBIO DE NOMENCLATURA
 
 function borrar11_2in(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/11_2in/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/11_2in/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -406,7 +406,7 @@ function editar11_2in(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/11_2in/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/11_2in/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -442,7 +442,7 @@ function comprobarNumSerie11_2in() {
 
     if (idNumSerie) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/11_2in/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/11_2in/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -479,7 +479,7 @@ function comprobarNumSerie11_2in2() {
 
     if (idInstalacion) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/11_2in';
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/11_2in';
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -526,8 +526,8 @@ function comprobarNumSerie11_2in3(id,idNumSerie) {
 
     if (idNumSerie) {
 
-       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/11_2in/' + idNumSerie;
+       // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/11_2in/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

@@ -33,7 +33,7 @@ function nuevaDetectores() { //CAMBIO DE NOMENCLATURA
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/detectores/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/detectores/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -205,7 +205,7 @@ async function formDetectores(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosDetectores() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/detectores/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/detectores/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -295,7 +295,7 @@ function rellenarTodosDetectores() { //Llamada a la API  //CAMBIO DE NOMENCLATUR
 
 function rellenarFooterDetectores(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/detectores/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/detectores/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -323,7 +323,7 @@ function rellenarFooterDetectores(){//CAMBIO DE NOMENCLATURA
 
 function borrarDetectores(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/detectores/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/detectores/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -374,7 +374,7 @@ function editarDetectores(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/detectores/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/detectores/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

@@ -8,7 +8,7 @@ $("#dropdown-menu1 button").click(function () {
 })
 
 function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/instalaciones/' + datoInput;
+    var url = 'http://172.27.120.120/gestin/public/api/instalaciones/' + datoInput;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -30,7 +30,7 @@ function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del
 }
 
 function rellenarCruce() {
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces';
+    var url = 'http://172.27.120.120/gestin/public/api/cruces';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -111,7 +111,7 @@ function leerCruce(idCruce) {
 async function pintarResultados(tipo, id) {
 
     console.log(tipo);
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/' + tipo + '/' + id;
+    var url = 'http://172.27.120.120/gestin/public/api/' + tipo + '/' + id;
     await fetch(url, {
             method: 'GET',
             headers: {
@@ -185,8 +185,8 @@ async function pintarResultados(tipo, id) {
 
 function getJsonAPI(tipo,id) {
            
-            var url = 'http://webserver.mobilitat.local/gestin/public/api/' + tipo + '/' + id;
-           // var url = 'http://webserver.mobilitat.local/gestin/public/api/led/'+id;
+            var url = 'http://172.27.120.120/gestin/public/api/' + tipo + '/' + id;
+           // var url = 'http://172.27.120.120/gestin/public/api/led/'+id;
   let response=  fetch(url, {method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

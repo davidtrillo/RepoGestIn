@@ -32,7 +32,7 @@ activo = String(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/bajantes/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/bajantes/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -97,7 +97,7 @@ function existeFecha2Bajantes(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Bajantes(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -121,7 +121,7 @@ function rellenarTipoActuacion2Bajantes(idActuacion) { //Llamada a la API según
 }
 
 function rellenarTipoActuacionBajantes() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -239,7 +239,7 @@ async function formBajantes(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosBajantes() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bajantes/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/bajantes/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -316,7 +316,7 @@ function rellenarTodosBajantes() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterBajantes(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bajantes/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/bajantes/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -344,7 +344,7 @@ function rellenarFooterBajantes(){//CAMBIO DE NOMENCLATURA
 
 function borrarBajantes(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bajantes/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/bajantes/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -393,7 +393,7 @@ function editarBajantes(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bajantes/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/bajantes/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

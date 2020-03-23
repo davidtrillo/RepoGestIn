@@ -15,7 +15,7 @@
         var nTotal = total;
   
      } else {
-         var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/repes/0';
+         var url = 'http://172.27.120.120/gestin/public/api/ledi/repes/0';
          vCount = await fetch(url, {
                  method: 'GET',
                  headers: {
@@ -97,7 +97,7 @@
 
      if (ac) {
         //pintar footer del total de repetidos
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/repes/0';
+        var url = 'http://172.27.120.120/gestin/public/api/ledi/repes/0';
         vCount = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -119,7 +119,7 @@
 
          var limite = document.getElementById('dropdownLimit').innerText;
 
-         var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/repes/' + limite;
+         var url = 'http://172.27.120.120/gestin/public/api/ledi/repes/' + limite;
          vRepes = await fetch(url, {
                  method: 'GET',
                  headers: {
@@ -266,7 +266,7 @@
 
 
  // function misCruces(){
- //     var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
+ //     var url = 'http://172.27.120.120/gestin/public/api/cruces'
  //    vCruces= fetch(url, {
  //             method: 'GET',
  //             headers: {
@@ -281,7 +281,7 @@
  // }
 
  function filtrarCruce2() {
-     var url = 'http://webserver.mobilitat.local/gestin/public/api/led/1/50'
+     var url = 'http://172.27.120.120/gestin/public/api/led/1/50'
      fetch(url, {
              method: 'GET',
              headers: {
@@ -305,7 +305,7 @@
 
 
 //  function rellenarCruceLed() { //Llamada a la API según el dato obtenido del primer combo
-//      var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
+//      var url = 'http://172.27.120.120/gestin/public/api/cruces'
 //      fetch(url, {
 //              method: 'GET',
 //              headers: {
@@ -342,7 +342,7 @@ function escribirFabricacion2(param,id) {
 
     //var cr=document.getElementById("inputInstalacion");
     
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/nid/'+ id;
+    var url = 'http://172.27.120.120/gestin/public/api/nid/'+ id;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -368,7 +368,7 @@ function leerNIDTotalLed(NID) { //NID
     p1.value = NID;
 }
  //  function rellenarCruceLed2(id) { //Llamada a la API según el dato obtenido del primer combo
- //     var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
+ //     var url = 'http://172.27.120.120/gestin/public/api/cruces'
  //     fetch(url, {
  //             method: 'GET',
  //             headers: {
@@ -482,7 +482,7 @@ function leerNIDTotalLed(NID) { //NID
          activo = String(activo);
 
          var idUsuario = document.getElementById('inputIdUsuario').value;
-         var url = 'http://webserver.mobilitat.local/gestin/public/api/led/nueva';
+         var url = 'http://172.27.120.120/gestin/public/api/led/nueva';
 
          fetch(url, {
                  method: 'POST',
@@ -564,7 +564,7 @@ function leerNIDTotalLed(NID) { //NID
      rellenarNIDTotalLed(cruceFil);
      
      //consultar total de leds
-     var url = 'http://webserver.mobilitat.local/gestin/public/api/ledc/cont/' + cruceFil;
+     var url = 'http://172.27.120.120/gestin/public/api/ledc/cont/' + cruceFil;
      vCount = await fetch(url, {
              method: 'GET',
              headers: {
@@ -588,11 +588,11 @@ function leerNIDTotalLed(NID) { //NID
       
 
          if (offset==null){
-            var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/' + cruceFil + '/0/'+ limite;
+            var url = 'http://172.27.120.120/gestin/public/api/ledi/' + cruceFil + '/0/'+ limite;
            
          }else{
             // offset= offset*limite;
-            var url = 'http://webserver.mobilitat.local/gestin/public/api/ledi/' + cruceFil + '/'+ offset +'/'+ limite;
+            var url = 'http://172.27.120.120/gestin/public/api/ledi/' + cruceFil + '/'+ offset +'/'+ limite;
          }
 
 
@@ -769,7 +769,7 @@ function leerNIDTotalLed(NID) { //NID
 
  function borrarLed(id) {
 
-     var url = 'http://webserver.mobilitat.local/gestin/public/api/led/borrar/' + id;
+     var url = 'http://172.27.120.120/gestin/public/api/led/borrar/' + id;
      fetch(url, {
              method: 'DELETE',
              headers: {
@@ -833,7 +833,7 @@ function leerNIDTotalLed(NID) { //NID
          alert("El formato de la fecha es incorrecto.");
          return;
      }
-     var url = 'http://webserver.mobilitat.local/gestin/public/api/led/modificar/' + param;
+     var url = 'http://172.27.120.120/gestin/public/api/led/modificar/' + param;
 
      fetch(url, {
              method: 'PUT',
@@ -876,7 +876,7 @@ function leerNIDTotalLed(NID) { //NID
 
      if (idNumSerie) {
 
-         var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/led/' + idNumSerie;
+         var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/led/' + idNumSerie;
          fetch(url, {
                  method: 'GET',
                  headers: {
@@ -910,7 +910,7 @@ function leerNIDTotalLed(NID) { //NID
 
      if (idNumSerie) {
 
-         var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/led/' + idNumSerie;
+         var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/led/' + idNumSerie;
          fetch(url, {
                  method: 'GET',
                  headers: {
@@ -942,7 +942,7 @@ function leerNIDTotalLed(NID) { //NID
 
  function comprobarNumSerieLed2() {
 
-     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/led';
+     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/led';
      fetch(url, {
              method: 'GET',
              headers: {
@@ -979,8 +979,8 @@ function leerNIDTotalLed(NID) { //NID
 
      if (idNumSerie) {
 
-         // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-         var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/led/' + idNumSerie;
+         // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+         var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/led/' + idNumSerie;
          fetch(url, {
                  method: 'GET',
                  headers: {

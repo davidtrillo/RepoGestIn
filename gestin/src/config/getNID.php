@@ -6,24 +6,24 @@
     function conectDBSQLServer(){
         $serverName = "188.165.135.168\SQL2008,1433"; //serverName\instanceName
         $connectionInfo = array( "Database"=>"Palma", "UID"=>"dtrillo", "PWD"=>"Mobilitat01",'CharacterSet' => 'UTF-8');
-       // print_r($connectionInfo);
+     //  print_r($connectionInfo);
         $conn = sqlsrv_connect( $serverName, $connectionInfo);
         //echo $conn;
         
         if( $conn ) {
-           //  echo "Conexión establecida.<br />";
+             //echo "Conexión establecida.<br />";
              return $conn; 
         
         }else{
-           //  echo "Conexión no se pudo establecer.<br />";
+            // echo "Conexión no se pudo establecer.<br />";
              die( print_r( sqlsrv_errors(), true));
         }
     }
 
         // conexion MySQL
         function conectDBMySQL(){
-            $dbUser='root';
-            $dbPass='';
+            $dbUser='user';
+            $dbPass='Mobilitat_01';
             $servername="localhost";
             $database="gestin";
             $connMySQL=mysqli_connect($servername, $dbUser, $dbPass, $database);
@@ -32,7 +32,7 @@
                 die("Connection failed: " . mysqli_connect_error());
           }
            
-       //   echo "Connected MySQL successfully";
+         //echo "Connected MySQL successfully";
             return $connMySQL; 
         }
 
@@ -40,7 +40,7 @@
     {  
          try  
          {  
-
+            
             $conn = conectDBSQLServer();  
             $sql="select Elm_CódigoNID from Cruce_Link_Elemento where (Elm_CódigoNID is not null) AND (Elm_FechaHasta IS NULL)";
             $getNID = sqlsrv_query($conn, $sql);  

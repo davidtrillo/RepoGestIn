@@ -33,7 +33,7 @@ almacen = String(almacen);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/modulo/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/modulo/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -205,7 +205,7 @@ async function formModulo(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosModulo() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/modulo/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/modulo/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -295,7 +295,7 @@ function rellenarTodosModulo() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterModulo(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/modulo/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/modulo/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -323,7 +323,7 @@ function rellenarFooterModulo(){//CAMBIO DE NOMENCLATURA
 
 function borrarModulo(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/modulo/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/modulo/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -374,7 +374,7 @@ function editarModulo(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/modulo/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/modulo/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

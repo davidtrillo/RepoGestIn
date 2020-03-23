@@ -42,7 +42,7 @@ function nuevaBusTren() {
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/bustren/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/bustren/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -109,7 +109,7 @@ function existeFecha2BusTren(fecha) {
 
 
 function rellenarTipoActuacion2BusTren(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -133,7 +133,7 @@ function rellenarTipoActuacion2BusTren(idActuacion) { //Llamada a la API según 
 }
 
 function rellenarTipoActuacionBusTren() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -268,7 +268,7 @@ async function formBusTren(elemento) {
 
 async function rellenarTodosBusTren() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bustren/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/bustren/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -361,7 +361,7 @@ async function rellenarTodosBusTren() { //Llamada a la API
 
 function rellenarFooterBusTren() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bustren/instaladas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/bustren/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -396,7 +396,7 @@ function rellenarFooterBusTren() {
 
 function borrarBusTren(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bustren/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/bustren/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -452,7 +452,7 @@ function editarBusTren(param) {
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/bustren/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/bustren/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -492,7 +492,7 @@ function comprobarNumSerieBusTren() {
 
     if (idNumSerie) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -529,7 +529,7 @@ function comprobarNumSerieBusTren() {
   
     if (idInstalacion) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/bustren';
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/bustren';
      fetch(url, {
                 method: 'GET',
                 headers: {
@@ -553,8 +553,8 @@ function comprobarNumSerieBusTren() {
                                 // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
-                                    // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-                                     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
+                                    // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
                                      fetch(url, {
                                              method: 'GET',
                                              headers: {
@@ -611,8 +611,8 @@ function comprobarNumSerieBusTren() {
     
     if (idNumSerie) {
 
-       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
+       // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

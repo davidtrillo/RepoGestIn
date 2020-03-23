@@ -32,7 +32,7 @@ activo = String(activo);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/12_pea_bici/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/12_pea_bici/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -97,7 +97,7 @@ function existeFecha212_pea_bici(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion212_pea_bici(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -121,7 +121,7 @@ function rellenarTipoActuacion212_pea_bici(idActuacion) { //Llamada a la API seg
 }
 
 function rellenarTipoActuacion12_pea_bici() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -237,7 +237,7 @@ function form12_pea_bici() { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodos12_pea_bici() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/12_pea_bici/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/12_pea_bici/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -315,7 +315,7 @@ function rellenarTodos12_pea_bici() { //Llamada a la API  //CAMBIO DE NOMENCLATU
 
 function rellenarFooter12_pea_bici(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/12_pea_bici/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/12_pea_bici/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -343,7 +343,7 @@ function rellenarFooter12_pea_bici(){//CAMBIO DE NOMENCLATURA
 
 function borrar12_pea_bici(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/12_pea_bici/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/12_pea_bici/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -392,7 +392,7 @@ function editar12_pea_bici(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/12_pea_bici/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/12_pea_bici/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -429,7 +429,7 @@ function comprobarNumSerie12_pea_bici() {
 
     if (idNumSerie) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/12_pea_bici/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/12_pea_bici/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -466,7 +466,7 @@ function comprobarNumSerie12_pea_bici2() {
 
     if (idInstalacion) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/12_pea_bici';
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/12_pea_bici';
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -513,8 +513,8 @@ function comprobarNumSerie12_pea_bici3(id,idNumSerie) {
 
     if (idNumSerie) {
 
-       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/12_pea_bici/' + idNumSerie;
+       // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/12_pea_bici/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

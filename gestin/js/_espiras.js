@@ -34,7 +34,7 @@ almacen = String(almacen);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/espiras/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/espiras/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -100,7 +100,7 @@ function existeFecha2Espiras(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 function rellenarTipoActuacion2Espiras(idActuacion) { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -124,7 +124,7 @@ function rellenarTipoActuacion2Espiras(idActuacion) { //Llamada a la API según 
 }
 
 function rellenarTipoActuacionEspiras() { //Llamada a la API según el dato obtenido del primer combo //CAMBIO DE NOMENCLATURA
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -245,7 +245,7 @@ async function formEspiras(elemento) { //CAMBIO DE NOMENCLATURA
 
 function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/espiras/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/espiras/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -329,7 +329,7 @@ function rellenarTodosEspiras() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
 
 function rellenarFooterEspiras(){//CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/espiras/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/espiras/activas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -357,7 +357,7 @@ function rellenarFooterEspiras(){//CAMBIO DE NOMENCLATURA
 
 function borrarEspiras(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/espiras/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/espiras/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -408,7 +408,7 @@ function editarEspiras(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/espiras/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/espiras/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',

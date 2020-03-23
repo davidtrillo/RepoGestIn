@@ -1,7 +1,7 @@
 //document.onload = rellenarMFO();
 
 function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/pp'
+    var url = 'http://172.27.120.120/gestin/public/api/pp'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -24,7 +24,7 @@ function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del pri
 
 
 function rellenarCruceMFO2(param) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/pp'
+    var url = 'http://172.27.120.120/gestin/public/api/pp'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -48,7 +48,7 @@ function rellenarCruceMFO2(param) { //Llamada a la API según el dato obtenido d
 function rellenarCruceMFOFiltro() { //Llamada a la API según el dato obtenido del primer combo
 
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/pp';
+    var url = 'http://172.27.120.120/gestin/public/api/pp';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -105,7 +105,7 @@ async function nuevoMFO() {
 
 
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/mfopp/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/mfopp/nueva';
 
      await fetch(url, {
                 method: 'POST',
@@ -139,7 +139,7 @@ function filtrarCruce() {
     var cruceFil = document.getElementById('inputIdPasos').value;
 
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/mfopp/pp/'+ cruceFil;
+    var url = 'http://172.27.120.120/gestin/public/api/mfopp/pp/'+ cruceFil;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -228,7 +228,7 @@ function rellenarUbicacion(param) {
 
     var p1=document.getElementById("inputIdCruce2"+param);
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruce/'+p1.value;
+    var url = 'http://172.27.120.120/gestin/public/api/cruce/'+p1.value;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -251,7 +251,7 @@ function rellenarUbicacion(param) {
 
 function borrarMFO(id) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/mfopp/borrar/'+id;
+        var url = 'http://172.27.120.120/gestin/public/api/mfopp/borrar/'+id;
         fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -294,7 +294,7 @@ function editarMFO(param) {
     //  console.log(idUsuario);
     //  console.log(precio);
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/mfopp/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/mfopp/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -332,7 +332,7 @@ async function imprimir() {
     var mes=fecha.getMonth()+1;
     var año=fecha.getFullYear();
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/mfopp/imprimir/' + mes +'/'+año;
+    var url = 'http://172.27.120.120/gestin/public/api/mfopp/imprimir/' + mes +'/'+año;
     var listado= await fetch(url, {
                                     method: 'GET',
                                     headers: {
@@ -417,7 +417,7 @@ async function calcularPrecio() {
 
                     // cuantas tarjetas activas tiene el cruce
                         var idInstalacion=document.getElementById("inputIdCruce").value;
-                        var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/activas/' + idInstalacion
+                        var url = 'http://172.27.120.120/gestin/public/api/tarjetas/activas/' + idInstalacion
                         var count= await fetch(url, {
                                                         method: 'GET',
                                                         headers: {
@@ -436,7 +436,7 @@ async function calcularPrecio() {
                     
 
                     //que tipo de regulador es ¿es city?
-                    var url = 'http://webserver.mobilitat.local/gestin/public/api/regulador/' + idInstalacion
+                    var url = 'http://172.27.120.120/gestin/public/api/regulador/' + idInstalacion
                     var city=  await fetch(url, {method: 'GET',
                                         headers: {'Content-Type': 'application/json' }
                                         })
@@ -444,7 +444,7 @@ async function calcularPrecio() {
                                         .catch(error => console.error('Error:', error))
                                         .then(response => {return response});                           
 
-                    var url = 'http://webserver.mobilitat.local/gestin/public/api/preciosmfo'
+                    var url = 'http://172.27.120.120/gestin/public/api/preciosmfo'
                     var precios=  await fetch(url, {method: 'GET',
                                         headers: {'Content-Type': 'application/json' }
                                         })
@@ -494,7 +494,7 @@ async function calcularPrecio2(param,id) {
 
     // cuantas tarjetas activas tiene el cruce
        // var idInstalacion=document.getElementById("inputIdCruce2"+ param).value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetas/activas/' + id
+        var url = 'http://172.27.120.120/gestin/public/api/tarjetas/activas/' + id
         var count= await fetch(url, {
                                         method: 'GET',
                                         headers: {
@@ -513,7 +513,7 @@ async function calcularPrecio2(param,id) {
     
 
     //que tipo de regulador es ¿es city?
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/regulador/' + id
+    var url = 'http://172.27.120.120/gestin/public/api/regulador/' + id
     var city=  await fetch(url, {method: 'GET',
                         headers: {'Content-Type': 'application/json' }
                         })
@@ -521,7 +521,7 @@ async function calcularPrecio2(param,id) {
                         .catch(error => console.error('Error:', error))
                         .then(response => {return response});                           
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/preciosmfo'
+    var url = 'http://172.27.120.120/gestin/public/api/preciosmfo'
     var precios=  await fetch(url, {method: 'GET',
                         headers: {'Content-Type': 'application/json' }
                         })

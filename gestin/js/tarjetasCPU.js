@@ -38,7 +38,7 @@ function nuevaTarjetaCpu() {
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetascpu/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -105,7 +105,7 @@ function existeFecha2TarjetaCpu(fecha) {
 
 
 // function rellenarTipoActuacion2TarjetaCpus(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
 //     fetch(url, {
 //             method: 'GET',
 //             headers: {
@@ -129,7 +129,7 @@ function existeFecha2TarjetaCpu(fecha) {
 // }
 
 // function rellenarTipoActuacionTarjetaCpu() { //Llamada a la API según el dato obtenido del primer combo
-//     var url = 'http://webserver.mobilitat.local/gestin/public/api/tipoactuacion'
+//     var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
 //     fetch(url, {
 //             method: 'GET',
 //             headers: {
@@ -309,7 +309,7 @@ function rellenarTipoCPU(descripcionTipoActuacion, idActuacion) { //CAMBIO DE NO
 
 async function rellenarTodosTarjetaCpu() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetascpu/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -430,7 +430,7 @@ async function rellenarTodosTarjetaCpu() { //Llamada a la API
 
 function rellenarFooterTarjetaCpu() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetascpu/instaladas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -465,7 +465,7 @@ function rellenarFooterTarjetaCpu() {
 
 function borrarTarjetaCpu(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetascpu/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -522,7 +522,7 @@ function editarTarjetaCpu(param) {
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/tarjetascpu/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -563,7 +563,7 @@ function comprobarNumSerieTarjetaCpu() {
 
     if (idNumSerie) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -600,7 +600,7 @@ function comprobarNumSerieTarjetaCpu() {
   
     if (idInstalacion) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetascpu';
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetascpu';
      fetch(url, {
                 method: 'GET',
                 headers: {
@@ -624,8 +624,8 @@ function comprobarNumSerieTarjetaCpu() {
                                 // comprobarNumSerieTarjetaCpu3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
-                                    // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-                                     var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
+                                    // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
                                      fetch(url, {
                                              method: 'GET',
                                              headers: {
@@ -682,8 +682,8 @@ function comprobarNumSerieTarjetaCpu() {
     
     if (idNumSerie) {
 
-       // var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
+       // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

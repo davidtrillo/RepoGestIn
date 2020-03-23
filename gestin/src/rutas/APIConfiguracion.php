@@ -35,83 +35,81 @@
 
  $app->get('/api/nid',function(Request $request, Response $response){
 
-        // conexion SQLServer
-        function conectDBSQLServer(){
-            $serverName = "188.165.135.168\SQL2008,1433"; //serverName\instanceName
-            $connectionInfo = array( "Database"=>"Palma", "UID"=>"dtrillo", "PWD"=>"Mobilitat01",'CharacterSet' => 'UTF-8');
-            $connSQLServer = sqlsrv_connect( $serverName, $connectionInfo);
-            if( $connSQLServer ) {
-                return $connSQLServer; 
-            }else{
-                die( print_r( sqlsrv_errors(), true));
-            }
+         // conexion
+    function conectDBSQLServer(){
+        $serverName = "188.165.135.168\SQL2008,1433"; //serverName\instanceName
+        $connectionInfo = array( "Database"=>"Palma", "UID"=>"dtrillo", "PWD"=>"Mobilitat01",'CharacterSet' => 'UTF-8');
+     //  print_r($connectionInfo);
+        $conn = sqlsrv_connect( $serverName, $connectionInfo);
+        //echo $conn;
+        
+        if( $conn ) {
+             //echo "Conexión establecida.<br />";
+             return $conn; 
+        
+        }else{
+            // echo "Conexión no se pudo establecer.<br />";
+             die( print_r( sqlsrv_errors(), true));
         }
+    }
+
         // conexion MySQL
         function conectDBMySQL(){
-            $dbUser='root';
-            $dbPass='';
-            $mysqlConnect="mysql:charset=utf8;host=localhost;dbname=gestin";
-            $connMySQL= new PDO($mysqlConnect,$dbUser,$dbPass);
-            $connMySQL->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            $dbUser='user';
+            $dbPass='Mobilitat_01';
+            $servername="localhost";
+            $database="gestin";
+            $connMySQL=mysqli_connect($servername, $dbUser, $dbPass, $database);
+
             if (!$connMySQL) {
                 die("Connection failed: " . mysqli_connect_error());
           }
            
-          echo "Connected successfully";
+         //echo "Connected MySQL successfully";
             return $connMySQL; 
         }
 
-
-
    
-    try{
-        //CONECTAR CON SQLSERVER
-        $connSQLServer = conectDBSQLServer();  
-        $sqlSQLServer="select Elm_CódigoNID from Cruce_Link_Elemento where (Elm_CódigoNID is not null) AND (Elm_FechaHasta IS NULL) LIMIT 10;";
-        $getNID = sqlsrv_query($connSQLServer, $sqlSQLServer);  
-        
-        //CONECTAR CON MYSQL
-        $connMySQL = conectDBMySQL();  
-       // $sqlMySQL="select Elm_CódigoNID from Cruce_Link_Elemento where (Elm_CódigoNID is not null) AND (Elm_FechaHasta IS NULL);";
+         try  
+         {  
+            
+            $conn = conectDBSQLServer();  
+            $sql="select Elm_CódigoNID from Cruce_Link_Elemento where (Elm_CódigoNID is not null) AND (Elm_FechaHasta IS NULL)";
+            $getNID = sqlsrv_query($conn, $sql);  
+           
+             if ($getNID == FALSE)  
+                 die(FormatErrors(sqlsrv_errors()));  
 
-
-//    $result=array();
-
-         if ($getNID == FALSE)  
-             die(FormatErrors(sqlsrv_errors()));  
-
-              $count = 0;  
-              while($row = sqlsrv_fetch_array($getNID, SQLSRV_FETCH_ASSOC))  
-              {  
-
+            $connMySQL = conectDBMySQL();  
+            $sqlMySQL="DELETE FROM `gestin`.`nid`"; //BORRAMOS LA TABLA NID PARA LA NUEVA IMPORTACION
+            mysqli_query($connMySQL, $sqlMySQL);
+            $count = 0;  
+            while($row = sqlsrv_fetch_array($getNID, SQLSRV_FETCH_ASSOC))  
+            {  
                 $sqlMySQL="INSERT INTO `gestin`.`nid` (`nid`) VALUES ('". $row['Elm_CódigoNID']."')";
                 mysqli_query($connMySQL, $sqlMySQL);
-                $st = mysqli_prepare($connMySQL, $sqlMySQL);
-
-                // bind variables to insert query params
-                //mysqli_stmt_bind_param($st, 'ssss', $firstname, $lastname, $gender, $username);
-            
-                // executing insert query
-                mysqli_stmt_execute($st);
-
-
-
-
-
-                 echo($row['Elm_CódigoNID']);
-                  $count++;  
+                $count++;  
               } 
-         
-        
+              
+            // echo("<br/>");  
+            // echo($productCount);
+                
+            mysqli_close($connMySQL);
+            sqlsrv_free_stmt($getNID);  
+            sqlsrv_close($conn);  
+            
+            
+            echo json_encode($count, JSON_UNESCAPED_UNICODE);
+            //return $count;
+         }  
+         catch(Exception $e)  
+         {  
+             echo("Error!");  
+         }  
 
-        sqlsrv_free_stmt($getNID);  
-        sqlsrv_close($connSQLServer); 
 
-      //  echo json_encode($result);
+       
 
-    }catch(PDOException $e){
-        echo '{"error":{"text":'.$e->getMessage().'}';
-    }
 });
 
 // //POST para crear una nueva instalación CREATE

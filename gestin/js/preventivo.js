@@ -11,7 +11,7 @@ document.getElementById("inputIdCruces")
 
 
 function rellenarCrucePreventivo() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
+    var url = 'http://172.27.120.120/gestin/public/api/cruces'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -33,7 +33,7 @@ function rellenarCrucePreventivo() { //Llamada a la API según el dato obtenido 
 }
 
 function rellenarCrucePreventivo2(param) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces'
+    var url = 'http://172.27.120.120/gestin/public/api/cruces'
     fetch(url, {
             method: 'GET',
             headers: {
@@ -57,7 +57,7 @@ function rellenarCrucePreventivo2(param) { //Llamada a la API según el dato obt
 function rellenarCruceMFOFiltro() { //Llamada a la API según el dato obtenido del primer combo
 
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruces';
+    var url = 'http://172.27.120.120/gestin/public/api/cruces';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -143,7 +143,7 @@ function nuevoPreventivo() {
         // console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
 
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/preventivo/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -182,7 +182,7 @@ function filtrarCruce() {
     var cruceFil = document.getElementById('inputIdCruces').value;
 
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/'+cruceFil;
+    var url = 'http://172.27.120.120/gestin/public/api/preventivo/'+cruceFil;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -351,7 +351,7 @@ function rellenarUbicacion(param) {
 
     var p1=document.getElementById("inputIdCruce2"+param);
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/cruce/'+p1.value;
+    var url = 'http://172.27.120.120/gestin/public/api/cruce/'+p1.value;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -370,7 +370,7 @@ function rellenarUbicacion(param) {
 
 function borrarPreventivo(id) {
 
-        var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/borrar/'+id;
+        var url = 'http://172.27.120.120/gestin/public/api/preventivo/borrar/'+id;
         fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -416,7 +416,7 @@ function editarPreventivo(param) {
     //  console.log(inputObservacionesInspeccionVoluntarioAlumbrado);
     //  console.log(inputFechaPreventivo);
 
-    var url = 'http://webserver.mobilitat.local/gestin/public/api/preventivo/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/preventivo/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
