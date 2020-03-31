@@ -88,7 +88,7 @@ include_once './getNID.php';
                     <a class="nav-item nav-link active" href="./config.php" tabindex="-1"
                         aria-disabled="true">Configuración</a>
 
-                    <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
+                    <a class="nav-item nav-link" href="../../public/login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
                         Sesión</a>
                 </div>
 

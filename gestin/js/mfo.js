@@ -487,31 +487,33 @@ async function calcularPrecio() {
                                         .then(response => {return response});    
                     
                      // console.log('Num Grupo 4 1: '+precios[0]['numerogrupo41']);
-                      if (city==true) {
-                            var x=count*4;
+                     //Se anula este código por el pliego, se factura por número de tarjetas de salida no por grupos
+               //       if (city==true) {
+               //             var x=count*4;
   
-                        }else{
-                            var x=count*2;
+                //        }else{
+               //             var x=count*2;
                            
-                        }
+                //        }
+                var x= count;
                         
                         console.log('Es city?: '+ city);
                         console.log('Num Grupos del cruce: '+ x);
 
                             switch (true) {
-                                case (x>=precios[0]['numerogrupo11'] && x<=precios[0]['numerogrupo12']):                                      
+                                case (parseInt(x)>=precios[0]['numerogrupo11'] && parseInt(x)<=precios[0]['numerogrupo12']):                                      
                                     document.getElementById("inputPrecio").value=precios[0]['preciogrupo1'];
                                     console.log('Precio 1: '+precios[0]['preciogrupo1']);
                                     break;
-                                case (x>=precios[0]['numerogrupo21'] && x<=precios[0]['numerogrupo22']):                                       
+                                case (parseInt(x)>=precios[0]['numerogrupo21'] && parseInt(x)<=precios[0]['numerogrupo22']):                                       
                                     document.getElementById("inputPrecio").value=precios[0]['preciogrupo2'];
                                     console.log('Precio 2: '+precios[0]['preciogrupo2']);
                                     break;
-                                case (x>=precios[0]['numerogrupo31'] && x<=precios[0]['numerogrupo32']):                                       
+                                case (parseInt(x)>=precios[0]['numerogrupo31'] && parseInt(x)<=precios[0]['numerogrupo32']):                                       
                                     document.getElementById("inputPrecio").value=precios[0]['preciogrupo3'];
                                     console.log('Precio 3: '+precios[0]['preciogrupo3']);
                                 break;
-                                case (x>=precios[0]['numerogrupo41']):                                       
+                                case (parseInt(x)>=precios[0]['numerogrupo41']):                                       
                                     document.getElementById("inputPrecio").value=precios[0]['preciogrupo4'];
                                     console.log('Precio 4: '+precios[0]['preciogrupo4']);
                                 break;

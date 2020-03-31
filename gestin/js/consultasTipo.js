@@ -110,7 +110,7 @@ function leerCruce(idCruce) {
 
 async function pintarResultados(tipo, id) {
 
-    console.log(tipo);
+    //console.log(tipo);
     var url = 'http://172.27.120.120/gestin/public/api/' + tipo + '/' + id;
     await fetch(url, {
             method: 'GET',
@@ -121,60 +121,118 @@ async function pintarResultados(tipo, id) {
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
-                        if (response!="No se han encontrado resultados"){
-                                    var t = document.getElementById('titulo');
-                                    t.innerHTML += `        
-                                    <!-- Títulos Form Nuevo-->
-                                    <h4 class="mt-1"><b>${tipo.toUpperCase()}</b></h4>
-                                    <div class="row ml-1">
-                                        <div class="col-2">
-                                            F.Actuación
+                        if (response!=='No se han encontrado resultados'){
+                           // console.log(response[0]['id']);
+                            // Para Leds;
+                            if(tipo!=='led'){
+                                        var t = document.getElementById('titulo');
+                                        t.innerHTML += `        
+                                        <!-- Títulos Form Nuevo-->
+                                        <h4 class="mt-1"><b>${tipo.toUpperCase()}</b></h4>
+                                        <div class="row ml-1">
+                                            <div class="col-2">
+                                                F.Actuación
+                                            </div>
+                                            <div class="col-2">
+                                                Tipo Actuación
+                                            </div>
+                                            <div class="col-3">
+                                                Observaciones
+                                            </div>
+                                            <div class="col-1">
+                                                Albarán
+                                            </div>
+                                            <div class="col-1">
+                                                Num. Serie
+                                            </div>
+                                            <div class="col-1">
+                                                Precio
+                                            </div>
+            
                                         </div>
-                                        <div class="col-2">
-                                            Tipo Actuación
-                                        </div>
-                                        <div class="col-3">
-                                            Observaciones
-                                        </div>
-                                        <div class="col-1">
-                                            Albarán
-                                        </div>
-                                        <div class="col-1">
-                                            Num. Serie
-                                        </div>
-                                        <div class="col-1">
-                                            Precio
-                                        </div>
-
-                                    </div>
-                                <!-- Fin Titulos -->
-                                `;
-                                // var p = document.getElementById('datos');
+                                    <!-- Fin Titulos -->
+                                    `;
                                     for (var i in response) {
                                         t.innerHTML += `
-                                    <div class="row mt-0" id="">
-                                        <div class="col-2">
-                                            <input type="text" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" value="${response[i]['fechaActuacion']}" disabled>
-                                        </div>
-                                        <div class="col-2">
-                                            <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion"  value="${response[i]['descripcion']}"  disabled>
-                                        </div>
-                                        <div class="col-3">
-                                            <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
-                                        </div>
-                                        <div class="col-1">
-                                            <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran"  value="${response[i]['albaran']}" disabled>
-                                        </div>
-                                        <div class="col-1">
-                                            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie"  value="${response[i]['idNumSerie']}" disabled>
-                                        </div>
-                                        <div class="col-1">
-                                            <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio" value="${response[i]['precio']}"  disabled>
-                                        </div>
+                                        <div class="row mt-0" id="">
+                                            <div class="col-2">
+                                                <input type="text" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" value="${response[i]['fechaActuacion']}" disabled>
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion"  value="${response[i]['idTipoActuacion']}"  disabled>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
+                                            </div>
+                                            <div class="col-1">
+                                                <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran"  value="${response[i]['albaran']}" disabled>
+                                            </div>
+                                            <div class="col-1">
+                                                <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie"  value="${response[i]['idNumSerie']}" disabled>
+                                            </div>
+                                            <div class="col-1">
+                                                <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio" value="${response[i]['precio']}"  disabled>
+                                            </div>
 
-                                    </div>  
-                                        
-                                        `
+                                        </div>  
+                                            
+                                            `
+                                        }
+                                    }else{
+                                            var t = document.getElementById('titulo');
+                                            t.innerHTML += `        
+                                            <!-- Títulos Form Nuevo-->
+                                            <h4 class="mt-1"><b>${tipo.toUpperCase()}</b></h4>
+                                            <div class="row ml-1">
+                                                <div class="col-2">
+                                                    F.Actuación
+                                                </div>
+                                                <div class="col-2">
+                                                    NID
+                                                </div>
+                                                <div class="col-2">
+                                                    Color
+                                                </div>
+                                                <div class="col-3">
+                                                    Observaciones
+                                                </div>
+                                                <div class="col-1">
+                                                    Albarán
+                                                </div>
+                                                <div class="col-1">
+                                                    Num. Serie
+                                                </div>
+                                                
+                
+                                            </div>
+                                        <!-- Fin Titulos -->
+                                        `;
+                                        for (var i in response) {
+                                            t.innerHTML += `
+                                            <div class="row mt-0" id="">
+                                                <div class="col-2">
+                                                    <input type="text" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" value="${response[i]['fechaActuacion']}" disabled>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="text" class="form-control mt-1" name="nid" id="nid"  value="${response[i]['nid']}"  disabled>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="text" class="form-control mt-1" name="color" id="color"  value="${response[i]['color']}"  disabled>
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran"  value="${response[i]['albaran']}" disabled>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie"  value="${response[i]['idNumSerie']}" disabled>
+                                                </div>
+    
+                                            </div>  
+                                                
+                                                `
+                                            }
                                     }
                         }
 

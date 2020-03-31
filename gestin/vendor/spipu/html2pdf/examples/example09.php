@@ -25,7 +25,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
 } else {
     $generate = true;
     $nom = 'spipu';
-    $url = 'http://webserver.mobilitat.local/html2pdf/examples/';
+    $url = 'http://172.27.120.120/html2pdf/examples/';
 }
 
 $nom = substr(preg_replace('/[^a-zA-Z0-9]/isU', '', $nom), 0, 26);

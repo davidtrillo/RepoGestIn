@@ -12,10 +12,10 @@
     if ($tipo=='led') {
         $sql = 'SELECT * FROM led WHERE idInstalacion="' . $id . '" order by activo desc,fechaActuacion desc';
     }else{
-        $sql='SELECT fechaActuacion,tp.descripcion,precio, albaran,activo from '. $tipo .' inner join tipoactuacion tp on idTipoActuacion=tp.id where idInstalacion="'. $id .'" and activo="true" order by 1 desc;';
+        $sql='SELECT fechaActuacion,idTipoActuacion,precio,salbaran from '. $tipo .'  where idInstalacion="'. $id .'" and activo="true" order by 1 desc;';
     }
     
-     try{
+     try{ 
          $db= new db();     
          $db=$db->conectDB();
          $resultado= $db->prepare($sql);

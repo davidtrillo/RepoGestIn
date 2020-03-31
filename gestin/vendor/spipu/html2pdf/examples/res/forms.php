@@ -10,7 +10,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
         $url.= $_SERVER['REQUEST_URI'];
     }
 } else {
-    $url = 'http://webserver.mobilitat.local/html2pdf/examples/forms.php';
+    $url = 'http://172.27.120.120/html2pdf/examples/forms.php';
 }
 ?>
 <style type="text/css">
