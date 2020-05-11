@@ -54,13 +54,27 @@ include './login/session.php';
    <!-- Navbar -->
    <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-         <a class="navbar-brand" href="#">Gestión del Inventario del Servei de Regulació i Control del Trànsit</a>
+         <a class="navbar-brand" href="#">Gestión del inventario de las Instalaciones de Regulación y Control del Tráfico urbano de Palma</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
          </button>
          <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Consultas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
+              <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+                     <a class="dropdown-item" href="#"></a>
+                     <a class="dropdown-item" href="#"></a>
+                  </div>
+               </li>
                <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
 
                <li class="nav-item dropdown ">
@@ -81,17 +95,6 @@ include './login/session.php';
                <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
                <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Listados
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                     <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
-                     <a class="dropdown-item" href="#"></a>
-                     <a class="dropdown-item" href="#"></a>
-                  </div>
-               </li>
                <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"
                   aria-disabled="true">Configuración</a>
                <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
@@ -204,13 +207,10 @@ include './login/session.php';
             <input type="text" class="form-control mt-1" value="" id="inputIdCM">
          </div>
          <div class="col-3 mt-3 p-1">
-            <span>Ubicación Sector NYX</span>
+            <span>Ubicación sector A.P. (NyxPalma)</span>
             <input type="text" class="form-control mt-2 bg-light" value="" id="inputUbicacionNYXPalma">
          </div>
-         <div class="col-3 mt-3 p-1">
-            <span>Ubicación Sector Carlos</span>
-            <input type="text" class="form-control mt-2 bg-light" value="" id="inputUbicacionCarlos">
-         </div>
+  
 
          <div class="col-1 mt-3 p-1">
             <span>Watios</span>
@@ -219,8 +219,8 @@ include './login/session.php';
          <div class="col-1">
             <br>
             <br>
-            <div class="btn btn-primary" id="editInstalacion" onclick="editarInstalacion()"><i
-                  class="fas fa-pencil-alt"></i></div>
+            <button class="btn btn-primary mt-1" id="editInstalacion" onclick="editarInstalacion()" disabled><i class="fas fa-pencil-alt"></i>
+                              </button>
          </div>
          <!-- No se pueden poner links a archivos locales sin deshabilitar las funcionalidades o bajar los archivos -->
          <!-- Se podria usar Web Server for Chrome https://stackoverflow.com/questions/39007243/cannot-open-local-file-chrome-not-allowed-to-load-local-resource-->

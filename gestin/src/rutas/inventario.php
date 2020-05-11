@@ -12,7 +12,7 @@ $app->get('/api/inventario/{idInstalacion}',function(Request $request, Response 
 
     $idInstalacion= $request->getAttribute('idInstalacion');
     //$sql="SELECT r.id as idRegulador,r.nombre,idInstalacion,idCM,watios,plano,resolucion FROM inventario i INNER join regulador r on i.idRegulador =r.id  where idInstalacion=".$idInstalacion;
-    $sql='SELECT r.id AS idRegulador,r.nombre,alimentacion,idInstalacion,idCM,cm.ubicacion,cm.ubicacionNYXPalma,watios,plano,resolucion FROM inventario i LEFT JOIN regulador r ON i.idRegulador =r.id LEFT JOIN cm ON i.idCM=cm.id WHERE idInstalacion="'.$idInstalacion.'"';
+    $sql='SELECT  idRegulador,alimentacion,idInstalacion,idCM,cm.ubicacion,cm.ubicacionNYXPalma,watios,plano,resolucion FROM inventario i LEFT JOIN cm ON i.idCM=cm.id WHERE idInstalacion="'.$idInstalacion.'"';
 
     
     try{

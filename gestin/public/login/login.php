@@ -60,8 +60,8 @@
           <div class="fadeIn first p-3 "  >
               <span style="font-size:3rem;">
                 <img src="..\..\img\logoajuntament.jpg" alt="" class="img-fluid mb-0">
-                     <h4>Gestión de Invertario</h4>
-                     <h5>Servei de Regulación i Control del Trànsit</h5>
+                     <h4>Gestión de Inventario</h4>
+                     <h5>Instalaciones de Regulación y Control del Tráfico urbano de Palma</h5>
                      <h5>Departament de Mobilitat</h5>
                      <h5 class="pt-3"><b>Log In</b></h5>
                      <!-- <i class="far fa-user"  id="icon"></i> -->

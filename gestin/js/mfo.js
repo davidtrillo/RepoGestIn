@@ -82,6 +82,11 @@ function leerCruceMFO(id, ubicacion) {
     p1.value = id;
     var p2 = document.getElementById('inputUbicacion');
     p2.value = ubicacion;
+    var resolucion = document.getElementById('inputOk'); // mirar si guarda uno o guarda true 
+    resolucion.checked=false;
+   
+    var precio = document.getElementById('inputPrecio');
+    precio.value="";
 }
 
 async function leerCruceMFO2(param, id, ubicacion) {
@@ -144,6 +149,12 @@ async function nuevoMFO() {
             })
 
     }
+    var resolucion = document.getElementById('inputOk'); // mirar si guarda uno o guarda true 
+    resolucion.checked=false;
+   
+    var precio = document.getElementById('inputPrecio');
+    precio.value="";
+
     filtrarCruce();
 }
 
@@ -151,6 +162,17 @@ async function nuevoMFO() {
 
 function filtrarCruce() {
     var cruceFil = document.getElementById('inputIdCruces').value;
+    var inputIdCruce = document.getElementById('inputIdCruce');
+    inputIdCruce.value=cruceFil
+    
+    
+    //borrar precio anterior y resolución
+    var resolucion = document.getElementById('inputOk'); // mirar si guarda uno o guarda true 
+    resolucion.checked=false;
+   
+    var precio = document.getElementById('inputPrecio');
+    precio.value="";
+
 
 
     var url = 'http://172.27.120.120/gestin/public/api/mfo/'+cruceFil;
@@ -170,6 +192,11 @@ function filtrarCruce() {
                 alert(response);
 
             } else {
+
+                var ubi = document.getElementById('inputUbicacion');
+                ubi.value=response[0]['ubicacion'];
+
+
                 var p = document.getElementById('formBody');
                 p.innerHTML = '';
                 for (var i in response) {
@@ -214,7 +241,7 @@ function filtrarCruce() {
                              <input type="text" class="form-control mt-2" name="" id="precio2${response[i]['id']}" value="${response[i]['precio']}">
                         </div>
                        <div class="col-1 p-1">
-                          <input type="checkbox" class="mt-3 ml-5" name="resolucion" id="resolucion2${response[i]['id']}" ${activo}>
+                          <input type="checkbox" class="mt-3 ml-5" name="resolucion" onclick="calcularPrecio2(${response[i]['id']})" id="resolucion2${response[i]['id']}" ${activo}>
                        </div>
                        <div class="col-1 p-1 mt-2">
 
@@ -529,8 +556,8 @@ async function calcularPrecio() {
 async function calcularPrecio2(param,id) {
 
     // cuantas tarjetas activas tiene el cruce
-       // var idInstalacion=document.getElementById("inputIdCruce2"+ param).value;
-        var url = 'http://172.27.120.120/gestin/public/api/tarjetas/activas/' + id
+        var idInstalacion=document.getElementById("inputIdCruce2"+ param).value;
+        var url = 'http://172.27.120.120/gestin/public/api/tarjetas/activas/' + idInstalacion
         var count= await fetch(url, {
                                         method: 'GET',
                                         headers: {
@@ -549,7 +576,7 @@ async function calcularPrecio2(param,id) {
     
 
     //que tipo de regulador es ¿es city?
-    var url = 'http://172.27.120.120/gestin/public/api/regulador/' + id
+    var url = 'http://172.27.120.120/gestin/public/api/regulador/' + idInstalacion
     var city=  await fetch(url, {method: 'GET',
                         headers: {'Content-Type': 'application/json' }
                         })
@@ -565,37 +592,42 @@ async function calcularPrecio2(param,id) {
                         .catch(error => console.error('Error:', error))
                         .then(response => {return response});    
     
-     // console.log('Num Grupo 4 1: '+precios[0]['numerogrupo41']);
-    if (city==true) {
-        var x=count*4;
+    //  // console.log('Num Grupo 4 1: '+precios[0]['numerogrupo41']);
+    // if (city==true) {
+    //     var x=count*4;
 
-    }else{
-        var x=count*2;
+    // }else{
+    //     var x=count*2;
         
-    }
+    // }
     //console.log('Num Grupos del cruce: '+ x);
 
-        switch (true) {
-            case (x>precios[0]['numerogrupo11'] && x<precios[0]['numerogrupo12']):                                      
-                document.getElementById("precio2"+param).value=precios[0]['preciogrupo1'];
-                console.log('Precio 1: '+precios[0]['preciogrupo1']);
-                break;
-            case (x>precios[0]['numerogrupo21'] && x<precios[0]['numerogrupo22']):                                       
-                document.getElementById("precio2"+param).value=precios[0]['preciogrupo2'];
-                console.log('Precio 2: '+precios[0]['preciogrupo2']);
-                break;
-            case (x>precios[0]['numerogrupo31'] && x<precios[0]['numerogrupo32']):                                       
-                document.getElementById("precio2"+param).value=precios[0]['preciogrupo3'];
-                console.log('Precio 3: '+precios[0]['preciogrupo3']);
-            break;
-            case (x>precios[0]['numerogrupo41']):                                       
-                document.getElementById("precio2"+param).value=precios[0]['preciogrupo4'];
-                console.log('Precio 4: '+precios[0]['preciogrupo4']);
-            break;
+    var x= count;
+console.log("holis");
+console.log('Es city?: '+ city);
+console.log('Num Grupos del cruce: '+ x);
 
-            default:
-                break;
-        }
+    switch (true) {
+        case (parseInt(x)>=precios[0]['numerogrupo11'] && parseInt(x)<=precios[0]['numerogrupo12']):                                      
+            document.getElementById("precio2"+param).value=precios[0]['preciogrupo1'];
+            console.log('Precio 1: '+precios[0]['preciogrupo1']);
+            break;
+        case (parseInt(x)>=precios[0]['numerogrupo21'] && parseInt(x)<=precios[0]['numerogrupo22']):                                       
+            document.getElementById("precio2"+param).value=precios[0]['preciogrupo2'];
+            console.log('Precio 2: '+precios[0]['preciogrupo2']);
+            break;
+        case (parseInt(x)>=precios[0]['numerogrupo31'] && parseInt(x)<=precios[0]['numerogrupo32']):                                       
+            document.getElementById("precio2"+param).value=precios[0]['preciogrupo3'];
+            console.log('Precio 3: '+precios[0]['preciogrupo3']);
+        break;
+        case (parseInt(x)>=precios[0]['numerogrupo41']):                                       
+            document.getElementById("precio2"+param).value=precios[0]['preciogrupo4'];
+            console.log('Precio 4: '+precios[0]['preciogrupo4']);
+        break;
+
+        default:
+            break;
+    }
 
 
 }

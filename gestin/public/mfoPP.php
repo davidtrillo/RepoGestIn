@@ -40,7 +40,7 @@ include './login/session.php';
    <!-- Navbar -->
    <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-         <a class="navbar-brand" href="#">Gestión del Inventario del Servei de Regulació i Control del Trànsit</a>
+         <a class="navbar-brand" href="#">Gestión del inventario de las Instalaciones de Regulación y Control del Tráfico urbano de Palma</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -48,6 +48,20 @@ include './login/session.php';
          <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
 
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Consultas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
+              <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+                     <a class="dropdown-item" href="#"></a>
+                     <a class="dropdown-item" href="#"></a>
+                  </div>
+               </li>
                <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
                <li class="nav-item dropdown ">
                   <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
@@ -68,17 +82,6 @@ include './login/session.php';
                <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
                <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Listados
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                     <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
-                     <a class="dropdown-item" href="#"></a>
-                     <a class="dropdown-item" href="#"></a>
-                  </div>
-               </li>
                <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"
                   aria-disabled="true">Configuración</a>
                <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar

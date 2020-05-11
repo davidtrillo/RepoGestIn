@@ -109,92 +109,80 @@ require '../vendor/autoload.php';
 
    <hr  class="m-0 p-1 bg-dark">
 
-   <!-- Form de Consulta -->
-   <div class="container-fluid p-2 bg-warning">
-      <div class="row ml-1 ">
-      <div class="col-2 p-1">
-            <div class="dropdown">
-               <button class="btn btn-secondary dropdown-toggle" type="button" id="btnInstalacion"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Tipo Instalación
-               </button>
-               <div class="dropdown-menu" id="dropdown-menu1" aria-labelledby="dropdownMenu2">
-                  <?php
-                              $apiUrl = "http://172.27.120.120/gestin/public/api/tipoinstalacion"; //llamamos al EndPoint de la API
-                              $json = file_get_contents($apiUrl); //capturamos la informacion
-                              $datosAPI = json_decode($json, true); //transformamos el json a array
-                              for ($i = 0; $i < count($datosAPI); ++$i) {?>
-                  <button class="dropdown-item" type="submit" id="dropBtnTipoInstalacion" name="drop_tipoInstalacion"
-                     value="<?php echo ($datosAPI[$i]['tipoInstalacion']); ?>"><?php echo ($datosAPI[$i]['tipoInstalacion']); ?></button>
-                  <?php }?>
-               </div>
-            </div>
-            <form method="post" action="">
-               <input type="text" class="form-control mt-1 " id="inputTipologia" placeholder=""
-                  aria-label="Tipologia" aria-describedby="basic-addon1">
-            </form>
-         </div>
-            <div class="col-2 p-1">
-               <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="btnInstalacion"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Instalación
-                  </button>
-                  <div class="dropdown-menu" id="dropdownInstalacion" aria-labelledby="dropdownMenu2">
-                     <!-- Aquí se inyecta el código mediante JS -->
-                  </div>
-               </div>
-               <input type="text" class="form-control mt-1 " placeholder="" id="inputInstalacion"
-                  aria-label="Instalación" aria-describedby="basic-addon1">
-            </div>
-            <div class="col-6 mt-2 p-1">
-               <span>Ubicación</span>
-               <input type="text" class="form-control mt-2 bg-light" placeholder="" id="inputUbicacion"
-                  aria-label="Ubicación" aria-describedby="basic-addon1">
-            </div>
-            <div class="col-1 mt-3 p-1">
-            <br>
-               <!-- <form method="POST" action="pdf.php"> -->
-                  <button class="btn btn-primary" onclick="imprimir()">Imprimir</button>
-               <!-- </form> -->
-            </div>
-
-         </div>
-      </div>
-   <!-- Fin Form Consulta -->
+   <!-- Titulo de Consulta -->
+   <div class="container-fluid p-2">
+      <h3 class="">Totales por Tipo de Instalación</h3>
+   </div>
+   <!-- Titulo Form Consulta -->
 
    <hr  class="mt-0 p-1 bg-dark">
 
 
 
-      <div class="container-fluid" id="titulo" >
-            <!-- <h4><b>Tarjetas</b></h4> -->
-                     <!-- Títulos Form Nuevo-->
-             <!-- <div class="row ml-1">
-                  <div class="col-2">
-                        F.Actuación
-                  </div>
-                  <div class="col-2">
-                     Tipo Actuación
-                  </div>
-                  <div class="col-3">
-                        Observaciones
-                  </div>
-                  <div class="col-1">
-                     Albarán
-                  </div>
-                  <div class="col-1">
-                        Num. Serie
-                  </div>
-                  <div class="col-1">
-                        Precio
-                  </div>
-                  <div class="col-1">
-                        Activo
-                  </div>
-            </div> -->
-            <!-- Fin Titulos -->
+   <div class="container-fluid" id="titulo" >
+   <div class="row mt-2">
+      <div class="col-4">
+                       
+                     
+      <table class="table table-striped" >
+   
+               <tbody id="tabla">
+                  <!-- <tr>
+                     <th scope="row">BICIPALMA</th>
+                     <td>38</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">CARGADORES ELÉCTRICOS</th>
+                     <td>66</td>
+
+                  </tr>
+                  <tr>
+                     <th scope="row">CONTROL DE ACCESOS</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">CRUCE CENTRALIZADO</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">CRUCE NO CENTRALIZADO</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">CÁMARAS</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">ESPIRAS</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">FOTO ROJO</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">NODO</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">PANEL INFORMATIVO</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">RADAR</th>
+                     <td>5</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">SEÑALES LUMINOSAS</th>
+                     <td>5</td>
+                  </tr> -->
+               </tbody>
+          </table>
+         </div>  
+      
       </div>
+   
+   </div>
    <!-- Formulario Body Nuevo-->
 
 <div class="container-fluid ml-1 mt-0 " id="datos">
@@ -228,7 +216,7 @@ require '../vendor/autoload.php';
   <script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
   <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
 
-   <script src="../js/consultasTipo.js"></script>
+   <script src="../js/consultasTotalesTipo.js"></script>
 
 
 

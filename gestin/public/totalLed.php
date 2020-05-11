@@ -19,6 +19,10 @@ include './login/session.php';
     <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
     <link href="../fontawesome/css/solid.css" rel="stylesheet">
 
+    <!-- fotnawasome 3.2 new format with bootstrap - Icono de Modificación -->
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -40,8 +44,28 @@ include './login/session.php';
             /* height: 400px !important; */
             min-width: 2rem;
         }
+
+        #inputNID {
+            width: 150px !important;
+            min-width: 2rem;
+        }
+
+        [id^=inputNIDTar] {
+            width: 150px !important;
+            min-width: 2rem;
+        }
     </style>
     <title>Leds</title>
+
+
+            <script>
+        $(document).ready(function(){
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+                console.log("he hecho esto del tooltip");
+            })
+        });
+        </script>
 </head>
 
 <body>
@@ -49,13 +73,27 @@ include './login/session.php';
     <!-- Navbar -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-            <a class="navbar-brand" href="#">Gestión del Inventario del Servei de Regulació i Control del Trànsit</a>
+            <a class="navbar-brand" href="#">Gestión del inventario de las Instalaciones de Regulación y Control del Tráfico urbano de Palma</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Consultas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
+              <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+                            <a class="dropdown-item" href="#"></a>
+                            <a class="dropdown-item" href="#"></a>
+                        </div>
+                    </li>
                     <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -75,17 +113,6 @@ include './login/session.php';
                     <a class="nav-item nav-link active" href="./totalLed.php">Leds</a>
 
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Listados
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
-                            <a class="dropdown-item" href="#"></a>
-                            <a class="dropdown-item" href="#"></a>
-                        </div>
-                    </li>
 
                     <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"
                         aria-disabled="true">Configuración</a>
@@ -168,7 +195,7 @@ include './login/session.php';
         <!-- Títulos Form Nuevo-->
         <div class="row ml-1">
             <div class="col-1 pl-0">
-                Cruce
+
             </div>
             <div class="col-1 pl-0">
                 <div class="dropdown">
@@ -267,11 +294,10 @@ include './login/session.php';
         <!-- Fin Titulos -->
         <!-- Form Introducir Nuevo -->
         <div class="row mt-1 ml-1" id="formGuardar">
-        <div class="col-1  pl-0">
-                <input type="text" class="form-control mt-1" name="inputIdCruce" id="inputIdCruce">
+            <div class="col-1  pl-0">
             </div>
             <div class="col-1 pl-0">
-                <input type="text" class="form-control mt-1" name="inputNID" id="inputNID">
+                <input type="text" class="form-control mt-1" name="inputNID" id="inputNID" disabled>
             </div>
             <div class="col-2  pl-0">
                 <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion"
@@ -322,8 +348,8 @@ include './login/session.php';
         <!-- fin formulario Body-->
 
         <!-- Formulario footer-->
-
-        <div class="container-fluid mt-1 p-1 fixed-bottom bg-white" id="formFooter" style="height:50px;">
+<div class="container-fluid">
+        <div class="container-fluid position-bottom mt-1 p-1 bg-white" id="formFooter" style="height:50px;">
             <hr class="mt-0 mb-1 bg-dark">
 
 
@@ -362,11 +388,39 @@ include './login/session.php';
             </div>
 
         </div>
+</div>
         <!-- fin formulario Footer-->
+
+
+
 
         <!-- Formulario Modal -->
 
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Sustitución de Led</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalLedBody">
 
+                    </div>
+
+
+                    <div class="modal-footer">
+                        
+                        <span class="mr-auto" >El led se dará de baja y alta con los nuevos datos de manera automática</span>
+                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="sustituirLed()">Grabar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 

@@ -57,6 +57,7 @@ include_once '../src/rutas/APIMFOAcires.php';
 include_once '../src/rutas/APIPreventivo.php';
 include_once '../src/rutas/APINumSerie.php';
 include_once '../src/rutas/APIConsultaTipo.php';
+include_once '../src/rutas/APIConsultaTotalesTipo.php';
 include_once '../src/rutas/APIConfiguracion.php';
 include_once '../src/rutas/APINID.php';
 

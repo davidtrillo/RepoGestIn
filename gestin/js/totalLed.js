@@ -3,17 +3,18 @@
  //document.onload = rellenarLed();
  //document.onload = nPaginas("led");
 
- async function nPaginas(param,total) {
-    var p = document.getElementById("nPag");
-    p.innerHTML="";
+
+ async function nPaginas(param, total) {
+     var p = document.getElementById("nPag");
+     p.innerHTML = "";
 
      var cruce = document.getElementById("inputIdFiltroCruce").value;
 
 
      if (param == "led") {
 
-        var nTotal = total;
-  
+         var nTotal = total;
+
      } else {
          var url = 'http://172.27.120.120/gestin/public/api/ledi/repes/0';
          vCount = await fetch(url, {
@@ -27,11 +28,11 @@
              .then(response => {
                  return response;
              })
-             var nTotal = vCount[0]['c'];
+         var nTotal = vCount[0]['c'];
      }
 
 
-     
+
      console.log('nTotal:' + nTotal);
      var muestra = document.getElementById("dropdownLimit").innerText;
 
@@ -41,11 +42,11 @@
 
      if (parseInt(x) < 1) {
 
-         x = 1
+         x = 1;
      } else {
 
          if (parseInt(nTotal) % parseInt(muestra) > 0) {
-           //  x = x + 1;
+             //  x = x + 1;
          }
      };
      console.log(x);
@@ -58,31 +59,31 @@
      console.log("x= " + x);
 
      var p = document.getElementById("nPag");
-    //  p.innerHTML = `<li class="page-item">
-    //                 <a class="page-link" href="#" aria-label="Previous">
-    //                     <span aria-hidden="true">&laquo;</span>
-    //                 </a>
-    //                 </li>`
+     //  p.innerHTML = `<li class="page-item">
+     //                 <a class="page-link" href="#" aria-label="Previous">
+     //                     <span aria-hidden="true">&laquo;</span>
+     //                 </a>
+     //                 </li>`
 
      let line = "";
      for (let index = 0; index < x; index++) {
-         if (index < x-1){
-            line += '<li class="page-item"><a class="page-link" href="#" onclick="filtrarCruce(this.id)" id="' + parseInt(muestra)*(parseInt(index)) +' ">' + (parseInt(index) + parseInt(1)) + '</a></l>';
-         }else{
-             console.log('Estoy en la última linea, regis: '+(Math.floor(x)* parseInt(muestra)));
-            line += '<li class="page-item"><a class="page-link" href="#" onclick="filtrarCruce(this.id)" id="' + (Math.floor(x)* parseInt(muestra)) +' ">' + (parseInt(index) + parseInt(1)) + '</a></l>';
+         if (index < x - 1) {
+             line += '<li class="page-item"><a class="page-link" href="#" onclick="filtrarCruce(this.id)" id="' + parseInt(muestra) * (parseInt(index)) + ' ">' + (parseInt(index) + parseInt(1)) + '</a></l>';
+         } else {
+             console.log('Estoy en la última linea, regis: ' + (Math.floor(x) * parseInt(muestra)));
+             line += '<li class="page-item"><a class="page-link" href="#" onclick="filtrarCruce(this.id)" id="' + (Math.floor(x) * parseInt(muestra)) + ' ">' + (parseInt(index) + parseInt(1)) + '</a></l>';
          }
      }
 
      p.innerHTML += line;
-    //devuelve el número total de páginas
-    
-    //  p.innerHTML += `  <li class="page-item">
-    //                 <a class="page-link" href="#" aria-label="Next">
-    //                     <span aria-hidden="true">&raquo;</span>
-    //                 </a>
-    //                 </li>
-    //              `
+     //devuelve el número total de páginas
+
+     //  p.innerHTML += `  <li class="page-item">
+     //                 <a class="page-link" href="#" aria-label="Next">
+     //                     <span aria-hidden="true">&raquo;</span>
+     //                 </a>
+     //                 </li>
+     //              `
 
  }
 
@@ -96,31 +97,9 @@
 
 
      if (ac) {
-        //pintar footer del total de repetidos
-        var url = 'http://172.27.120.120/gestin/public/api/ledi/repes/0';
-        vCount = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => {
-                return response;
-            })
-            var totalLedsRepes=vCount[0]['c'];
-            var ftTotal= document.getElementById('footerTotal');
-            ftTotal.innerHTML=` <span>Total de Leds: ${totalLedsRepes}</span>`
-    if (totalLedsRepes>0){
-        //pintar los repetidos
-         var s = document.getElementById("spinner");
-         s.innerHTML = `   <span class="spinner-border spinner-border-sm mr-2 style="width: 2rem; height: 2rem;"" role="status" aria-hidden="true"></span> Cargando Datos...`;
-
-         var limite = document.getElementById('dropdownLimit').innerText;
-
-         var url = 'http://172.27.120.120/gestin/public/api/ledi/repes/' + limite;
-         vRepes = await fetch(url, {
+         //pintar footer del total de repetidos
+         var url = 'http://172.27.120.120/gestin/public/api/ledi/repes/0';
+         vCount = await fetch(url, {
                  method: 'GET',
                  headers: {
                      'Content-Type': 'application/json'
@@ -131,15 +110,37 @@
              .then(response => {
                  return response;
              })
+         var totalLedsRepes = vCount[0]['c'];
+         var ftTotal = document.getElementById('footerTotal');
+         ftTotal.innerHTML = ` <span>Total de Leds Repetidos: ${totalLedsRepes}</span>`
+         if (totalLedsRepes > 0) {
+             //pintar los repetidos
+             var s = document.getElementById("spinner");
+             s.innerHTML = `   <span class="spinner-border spinner-border-sm mr-2 style="width: 2rem; height: 2rem;"" role="status" aria-hidden="true"></span> Cargando Datos...`;
 
-         //  console.log(vRepes);
-         await rellenarRepes(vRepes);
-         s.innerHTML = ""
-     } else {
-         var p = document.getElementById('formBody');
-         p.innerHTML = '';
+             var limite = document.getElementById('dropdownLimit').innerText;
+
+             var url = 'http://172.27.120.120/gestin/public/api/ledi/repes/' + limite;
+             vRepes = await fetch(url, {
+                     method: 'GET',
+                     headers: {
+                         'Content-Type': 'application/json'
+                     }
+                 })
+                 .then(res => res.json())
+                 .catch(error => console.error('Error:', error))
+                 .then(response => {
+                     return response;
+                 })
+
+             //  console.log(vRepes);
+             await rellenarRepes(vRepes);
+             s.innerHTML = ""
+         } else {
+             var p = document.getElementById('formBody');
+             p.innerHTML = '';
+         }
      }
-    }
  }
 
 
@@ -175,7 +176,7 @@
         </div>
         
         <div class="col-1 pl-0">
-        <input type="text" class="form-control mt-1" name="" id="inputNIDTar${param[i]['id']}"  value="${param[i]['nid']}">
+        <input type="text" class="form-control mt-1" name="" id="inputNIDTar${param[i]['id']}"  value="${param[i]['nid']}" disabled>
         </div>
 
         <div class="col-auto">
@@ -238,7 +239,7 @@
            <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${param[i]['id']}" value="${param[i]['albaran']}">
         </div>
         <div class="col-2">
-            <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${param[i]['id']}"  value="${param[i]['observaciones']}">
+            <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${param[i]['id']}"  value="${param[i]['observaciones']}" data-toggle="tooltip" data-placement="top" title="${param[i]['observaciones']}" >
         </div>
         <div class="col-auto">
           <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${param[i]['id']}"  ${activo}>
@@ -251,6 +252,7 @@
         </div>
 
         </div>  
+        
 
      `
          }
@@ -304,69 +306,71 @@
 
 
 
-//  function rellenarCruceLed() { //Llamada a la API según el dato obtenido del primer combo
-//      var url = 'http://172.27.120.120/gestin/public/api/cruces'
-//      fetch(url, {
-//              method: 'GET',
-//              headers: {
-//                  'Content-Type': 'application/json'
-//              }
-//          })
-//          .then(res => res.json())
-//          .catch(error => console.error('Error:', error))
-//          .then(response => {
-//              var p = document.getElementById('dropdownCruce');
-//              p.innerHTML = '';
+ //  function rellenarCruceLed() { //Llamada a la API según el dato obtenido del primer combo
+ //      var url = 'http://172.27.120.120/gestin/public/api/cruces'
+ //      fetch(url, {
+ //              method: 'GET',
+ //              headers: {
+ //                  'Content-Type': 'application/json'
+ //              }
+ //          })
+ //          .then(res => res.json())
+ //          .catch(error => console.error('Error:', error))
+ //          .then(response => {
+ //              var p = document.getElementById('dropdownCruce');
+ //              p.innerHTML = '';
 
-//              for (var i in response) {
-//                  p.innerHTML += `
-//              <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
-//              `
-//              }
-//          })
+ //              for (var i in response) {
+ //                  p.innerHTML += `
+ //              <button class="dropdown-item" type="submit" id="dropBtnCruce${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceLed(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+ //              `
+ //              }
+ //          })
 
-        
-//  }
 
-function escribirFabricacion(param) {
-    var p1=document.getElementById("inputFabricacion");    
-    p1.value=param;
-}
-function escribirFabricacion2(param,id) {
-    var p1=document.getElementById("inputFabricacionTar"+id);    
-    p1.value=param;
-}
+ //  }
+
+ function escribirFabricacion(param) {
+     var p1 = document.getElementById("inputFabricacion");
+     p1.value = param;
+ }
+
+ function escribirFabricacion2(param, id) {
+     var p1 = document.getElementById("inputFabricacionTar" + id);
+     p1.value = param;
+ }
 
  function rellenarNIDTotalLed(id) { //NID
 
 
-    //var cr=document.getElementById("inputInstalacion");
-    
-    var url = 'http://172.27.120.120/gestin/public/api/nid/'+ id;
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            var p = document.getElementById('dropdownNIDTotalLed');
-            p.innerHTML = '';
-            for (var i in response) {
-                
-                p.innerHTML += `
+     //var cr=document.getElementById("inputInstalacion");
+
+     var url = 'http://172.27.120.120/gestin/public/api/nid/' + id;
+     fetch(url, {
+             method: 'GET',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+         .then(res => res.json())
+         .catch(error => console.error('Error:', error))
+         .then(response => {
+             var p = document.getElementById('dropdownNIDTotalLed');
+             p.innerHTML = '';
+             for (var i in response) {
+
+                 p.innerHTML += `
                     <button class="dropdown-item" type="submit" id="dropBtnNID${[i]}" name="${response[i]['nid']}" onclick="leerNIDTotalLed(this.name)">${response[i]['nid']}</button> 
                     `
-                
-            }
-        })
-}
-function leerNIDTotalLed(NID) { //NID
-    var p1 = document.getElementById('inputNID');
-    p1.value = NID;
-}
+
+             }
+         })
+ }
+
+ function leerNIDTotalLed(NID) { //NID
+     var p1 = document.getElementById('inputNID');
+     p1.value = NID;
+ }
  //  function rellenarCruceLed2(id) { //Llamada a la API según el dato obtenido del primer combo
  //     var url = 'http://172.27.120.120/gestin/public/api/cruces'
  //     fetch(url, {
@@ -450,9 +454,10 @@ function leerNIDTotalLed(NID) { //NID
 
 
 
- function nuevaLed() { //CAMBIO DE NOMENCLATURA
-     var idInstalacion = document.getElementById('inputIdCruce').value;
+ async function nuevaLed() { //CAMBIO DE NOMENCLATURA
+     var idInstalacion = document.getElementById('inputIdFiltroCruce').value;
      var color = document.getElementById('inputColor').value ? document.getElementById('inputColor').value : "";
+     var nid = document.getElementById('inputNID').value ? document.getElementById('inputNID').value : "";
      var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
      if (idInstalacion.value != "") {
@@ -480,11 +485,12 @@ function leerNIDTotalLed(NID) { //NID
 
 
          activo = String(activo);
+         almacen = String(almacen);
 
          var idUsuario = document.getElementById('inputIdUsuario').value;
          var url = 'http://172.27.120.120/gestin/public/api/led/nueva';
 
-         fetch(url, {
+         await fetch(url, {
                  method: 'POST',
                  headers: {
                      'Content-Type': 'application/json'
@@ -492,6 +498,7 @@ function leerNIDTotalLed(NID) { //NID
                  body: JSON.stringify({
                      idInstalacion: idInstalacion,
                      color: color,
+                     nid: nid,
                      idNumSerie: idNumSerie,
                      albaran: albaran,
                      observaciones: observaciones,
@@ -514,6 +521,21 @@ function leerNIDTotalLed(NID) { //NID
      var p = document.getElementById('formBody');
      p.innerHTML = '';
 
+     //borrar los campos después de haber introducido un led nuevo
+     
+     document.getElementById('inputNID').value = null;
+     document.getElementById('inputColor').value = null;
+     document.getElementById('inputFechaActuacion').value = null;
+     document.getElementById('inputNumSerie').value = null;
+     document.getElementById('inputAlbaran').value = null;
+     document.getElementById('inputTipo').value = null;
+     document.getElementById('inputFabricacion').value = null;
+     document.getElementById('inputObservaciones').value = null;
+     document.getElementById('inputActivo').checked = null;
+     document.getElementById('inputAlmacen').checked = null;
+
+
+     filtrarCruce();
  }
 
  function validarFormatoFechaLed(campo) { //CAMBIO DE NOMENCLATURA
@@ -549,7 +571,7 @@ function leerNIDTotalLed(NID) { //NID
 
 
  async function filtrarCruce(offset) { //rellenarLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
-    
+
 
      //quitar check de Repetidos
      document.getElementById("repes").checked = false;
@@ -558,11 +580,11 @@ function leerNIDTotalLed(NID) { //NID
      var s = document.getElementById("spinner");
      s.innerHTML = `   <span class="spinner-border spinner-border-sm mr-2 style="width: 2rem; height: 2rem;"" role="status" aria-hidden="true"></span> Cargando Datos...`;
 
-     
+
      var limite = document.getElementById('dropdownLimit').innerText;
      var cruceFil = document.getElementById('inputIdFiltroCruce').value;
      rellenarNIDTotalLed(cruceFil);
-     
+
      //consultar total de leds
      var url = 'http://172.27.120.120/gestin/public/api/ledc/cont/' + cruceFil;
      vCount = await fetch(url, {
@@ -576,24 +598,26 @@ function leerNIDTotalLed(NID) { //NID
          .then(response => {
              return response;
          })
-         var totalLedsRepes=vCount[0]['c'];
-         var ftTotal= document.getElementById('footerTotal');
-         ftTotal.innerHTML=` <span class="mt-0">Total de Leds: ${totalLedsRepes}</span>`
+     var totalLedsRepes = vCount[0]['c'];
+     var ftTotal = document.getElementById('footerTotal');
+     ftTotal.innerHTML = ` <span class="mt-0">Total de Leds Activos: ${totalLedsRepes}</span>`
 
 
-//pinta las páginas que tendrá según el límite a mostrar
-    
-      await nPaginas('led',totalLedsRepes);
+     //pinta las páginas que tendrá según el límite a mostrar
 
-      
+     await nPaginas('led', totalLedsRepes);
 
-         if (offset==null){
-            var url = 'http://172.27.120.120/gestin/public/api/ledi/' + cruceFil + '/0/'+ limite;
-           
-         }else{
-            // offset= offset*limite;
-            var url = 'http://172.27.120.120/gestin/public/api/ledi/' + cruceFil + '/'+ offset +'/'+ limite;
-         }
+
+
+     if (offset == null) {
+         var url = 'http://172.27.120.120/gestin/public/api/ledi/' + cruceFil + '/0/' + limite;
+
+     } else {
+         // offset= offset*limite;
+         var url = 'http://172.27.120.120/gestin/public/api/ledi/' + cruceFil + '/' + offset + '/' + limite;
+         console.log("El Offset es :" +offset);
+         console.log("El limit es:"+ limite);
+     }
 
 
      //Borrado de la pantalla
@@ -634,11 +658,13 @@ function leerNIDTotalLed(NID) { //NID
 
                      p.innerHTML += `
                      <div class="row mt-1 ml-1" id="">
-                     <div class="col-1 mt-1 pl-0" >
-                          <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${response[i]['id']}" value="${response[i]['idInstalacion']}">
-                      </div>
+                     <div class="col text-right pl-0 mt-1">
+                        <div class="btn btn-primary " onclick="guardarIdLed(${response[i]['id']})" id="inputIdMod${response[i]['id']}" data-toggle="modal" data-target="#staticBackdrop" ><i class="icon-refresh"></i></div>
+
+                     </div>
+
                      <div class="col-1 pl-0">
-                         <input type="text" class="form-control mt-1" name="" id="inputNIDTar${response[i]['id']}"  value="${response[i]['nid']}">
+                        <input type="text" class="form-control mt-1" name="inputNIDTar" id="inputNIDTar${response[i]['id']}"  value="${response[i]['nid']}" disabled>
                      </div>
     
                             <div class="col-2 pl-0">
@@ -671,8 +697,8 @@ function leerNIDTotalLed(NID) { //NID
                                                     <button class="dropdown-item" onclick="escribirTipo2('Descontador Rojo/Verde',${response[i]['id']})" >Descontador Rojo/Verde</button>
                                                 <div class="dropdown-divider"></div>
                                                     <button class="dropdown-item" onclick="escribirTipo2('CyberPass',${response[i]['id']})" >CyberPass</button>
-                                                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón',${response[i]['id']})" >PassBlue Peatón</button>
-                                                    <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici',${response[i]['id']})" >PassBlue Peatón/Bici</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('PassBlue Peatón',${response[i]['id']})" >PassBlue Peatón</button>
+                                                    <button class="dropdown-item" onclick="escribirTipo2('PassBlue Peatón/Bici',${response[i]['id']})" >PassBlue Peatón/Bici</button>
                                             </div>
                                     </div>
                                 </div>
@@ -730,7 +756,7 @@ function leerNIDTotalLed(NID) { //NID
                                <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
                             </div>
                             <div class="col-1 pl-2">
-                                <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
+                                <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}" data-toggle="tooltip" data-placement="top" title="${response[i]['observaciones']}">
                             </div>
                             <div class="col-1 pl-2">
                               <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
@@ -767,10 +793,10 @@ function leerNIDTotalLed(NID) { //NID
  }
 
 
- function borrarLed(id) {
+ async function borrarLed(id) {
 
      var url = 'http://172.27.120.120/gestin/public/api/led/borrar/' + id;
-     fetch(url, {
+     await fetch(url, {
              method: 'DELETE',
              headers: {
                  'Content-Type': 'application/json'
@@ -785,26 +811,24 @@ function leerNIDTotalLed(NID) { //NID
                  alert("Registro Borrado con éxito")
              }
          })
-         
-         var c=document.getElementById("inputIdFiltroCruce");
-         if (c.value){
-            filtrarCruce(c.value);
-         }
+
+     filtrarCruce();
+
 
      //rellenarLed();
  }
 
- function editarLed(param) { //CAMBIO DE NOMENCLATURA
+ async function editarLed(param) { //CAMBIO DE NOMENCLATURA
      var inputIdTar = param;
-//var inputIdCruceTar = document.getElementById('inputIdCruceTar' + param).value;
+     //var inputIdCruceTar = document.getElementById('inputIdCruceTar' + param).value;
      var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
-     var inputColorTar = document.getElementById('inputColorTar' + param).value ? document.getElementById('inputColorTar' + param).value:"";
-     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value ? document.getElementById('inputObservacionesTar' + param).value:"";
-     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value ?document.getElementById('inputAlbaranTar' + param).value:0;
-     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value?document.getElementById('inputNumSerieTar' + param).value:0;
-     var inputFabricacionTar = document.getElementById('inputFabricacionTar' + param).value?document.getElementById('inputFabricacionTar' + param).value:"";
-     var inputTipoTar = document.getElementById('inputTipoTar' + param).value?document.getElementById('inputTipoTar' + param).value:"";
-     var inputNIDTar = document.getElementById('inputNIDTar' + param).value?document.getElementById('inputNIDTar' + param).value:"";
+     var inputColorTar = document.getElementById('inputColorTar' + param).value ? document.getElementById('inputColorTar' + param).value : "";
+     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value ? document.getElementById('inputObservacionesTar' + param).value : "";
+     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value ? document.getElementById('inputAlbaranTar' + param).value : 0;
+     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value ? document.getElementById('inputNumSerieTar' + param).value : 0;
+     var inputFabricacionTar = document.getElementById('inputFabricacionTar' + param).value ? document.getElementById('inputFabricacionTar' + param).value : "";
+     var inputTipoTar = document.getElementById('inputTipoTar' + param).value ? document.getElementById('inputTipoTar' + param).value : "";
+     var inputNIDTar = document.getElementById('inputNIDTar' + param).value ? document.getElementById('inputNIDTar' + param).value : "";
      var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
      var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
      inputActivoTar = String(inputActivoTar);
@@ -835,14 +859,14 @@ function leerNIDTotalLed(NID) { //NID
      }
      var url = 'http://172.27.120.120/gestin/public/api/led/modificar/' + param;
 
-     fetch(url, {
+     await fetch(url, {
              method: 'PUT',
              headers: {
                  'Content-Type': 'application/json'
              },
              body: JSON.stringify({
                  id: inputIdTar,
-//idInstalacion:inputIdCruceTar,
+                 //idInstalacion:inputIdCruceTar,
                  color: inputColorTar,
                  idNumSerie: inputNumSerieTar,
                  albaran: inputAlbaranTar,
@@ -862,13 +886,8 @@ function leerNIDTotalLed(NID) { //NID
              alert(response)
          })
 
+     filtrarCruce();
 
-     setTimeout(() => {
-        var c=document.getElementById("inputIdFiltroCruce");
-        if (c.value){
-           filtrarCruce(c.value);
-        }
-     }, 500);
  }
 
  function comprobarNumSerieLed() {
@@ -1037,6 +1056,231 @@ function leerNIDTotalLed(NID) { //NID
 
  // }
  function leerNIDTotalLed(NID) { //NID
-    var p1 = document.getElementById('inputNID');
-    p1.value = NID;
+     var p1 = document.getElementById('inputNID');
+     p1.value = NID;
+ }
+
+ 
+async function guardarIdLed(id) {
+  
+    //Leer valores del Led 
+
+ var url = 'http://172.27.120.120/gestin/public/api/ledid/' + id;
+ var ledId= await fetch(url, {
+                 method: 'GET',
+                 headers: {
+                     'Content-Type': 'application/json'
+                 }
+             })
+             .then(res => res.json())
+             .catch(error => console.error('Error:', error))
+             .then(response => {
+                 return response;
+             });
+
+     //Mostrar valores del Led
+     var c=document.getElementById("modalLedBody");
+     c.innerHTML=`
+                <!-- Inicio body 1 -->
+                <div class="row" id="">
+
+                    <div class="col">
+                        <b>NID</b>
+                    </div>
+
+                    <div class="col">
+                        <b>F.Actuación</b>
+                    </div>
+
+                    <div class="col">
+                        <b>Tipo  </b>                             
+                    </div>
+                    <div class="col">
+                            <b>Color</b>                
+                    </div>
+                    <div class="col">
+                            <b>Fabricación</b>
+                    </div>
+                    <div class="col">
+                        <b>Num. Serie</b>
+                    </div>
+                    <div class="col">
+                        <b> Albarán</b>
+                    </div>
+                    <div class="col">
+                        <b> Almacén</b>
+                    </div>
+
+                </div>
+                <div class="row" id="">
+
+                    <div class="col">
+                        <span id="inputNIDMod">${ledId[0].nid}</span>
+                        <input type="hidden" id="inputIdLed" value="${id}">
+                        <input type="hidden" id="inputObservacionesMod" value="${ledId[0].observaciones}">
+                    </div>
+
+                    <div class="col">
+                        <span id="">${ledId[0].fechaActuacion}</span>
+                    </div>
+
+                    <div class="col">
+                        <span id="inputTipoMod">${ledId[0].tipo}</span>                              
+                    </div>
+                    <div class="col">
+                        <span id="inputColorMod" >${ledId[0].color}</span>                
+                    </div>
+                    <div class="col">
+                        <span id="inputFabricacionMod">${ledId[0].fabricacion}</span>
+                    </div>
+                    <div class="col">
+                        <span id="">${ledId[0].idNumSerie}</span>
+                    </div>
+                    <div class="col">
+                        <span id="">${ledId[0].albaran}</span>
+                    </div>
+
+                    <div class="col mt-1">
+                    
+                        <input type="checkbox" class="mt-2 ml-3" name="" id="inputAlmacenMod">
+                    </div>
+
+                </div>
+
+
+
+            <div class="row" id="">
+
+                <div class="col">
+                    Nueva Fecha de Actuación:
+                    <input type="date" class="form-control mt-1" name="inputFechaActuacionMod" id="inputFechaActuacionMod" placeholder="DD/MM/YYYY">
+                </div>
+
+                <div class="col">
+                    Nuevo Núm. Serie:
+                    <input type="text" class="form-control mt-1" name="inputNumSerieMod" id="inputNumSerieMod">
+                </div>
+
+                <div class="col">
+                    Nuevo Num. Albarán: 
+                    <input type="text" class="form-control mt-1" name="inputAlbaranMod" id="inputAlbaranMod">                              
+                </div>
+                
+                <div class="col mt-3">
+
+                </div>
+
+
+            </div>
+
+                <!-- fin body 1  -->
+            `;
+     
+    }
+
+async function sustituirLed() {
+  
+    
+    var inputIdLed = document.getElementById('inputIdLed').value;
+    var inputIdCruceLed= document.getElementById('inputIdFiltroCruce').value;
+    var inputFechaActuacionLed = document.getElementById('inputFechaActuacionMod').value;
+    var inputColorLed = document.getElementById('inputColorMod').innerText;
+    var inputObservacionesLed = document.getElementById('inputObservacionesMod').value ? document.getElementById('inputObservacionesMod').value : "";
+    var inputAlbaranLed = document.getElementById('inputAlbaranMod').value ? document.getElementById('inputAlbaranMod').value : 0;
+    var inputNumSerieLed = document.getElementById('inputNumSerieMod').value ? document.getElementById('inputNumSerieMod').value : 0;
+    var inputFabricacionLed = document.getElementById('inputFabricacionMod').innerText ? document.getElementById('inputFabricacionMod').innerText : "";
+    var inputTipoLed = document.getElementById('inputTipoMod').innerText ? document.getElementById('inputTipoMod').innerText : "";
+    var inputNIDLed = document.getElementById('inputNIDMod').innerText ? document.getElementById('inputNIDMod').innerText : "";
+    //var inputActivoLed = document.getElementById('inputActivoMod').checked;
+    var inputAlmacenLed = document.getElementById('inputAlmacenMod').checked;
+    //inputActivoLed = String(inputActivoTar);
+    inputAlmacenLed = String(inputAlmacenLed);
+    var idUsuario = document.getElementById('inputIdUsuario').value;
+
+    // console.log(inputIdTar);
+    // console.log(inputFechaActuacionTar);
+    // console.log(inputColorTar);
+    // console.log(inputObservacionesTar);
+    // console.log(inputNumSerieTar);
+    // console.log(inputGrupoTar);
+    // console.log(inputActivoTar);
+    // console.log(idUsuario);
+
+
+    //validar fecha correcta
+    // if (validarFormatoFechaLed(inputFechaActuacionLed)) {
+    //     if (existeFechaLed(inputFechaActuacionLed)) {
+
+    //     } else {
+    //         alert("La fecha introducida no existe.");
+    //         return;
+    //     }
+    // } else {
+    //     alert("El formato de la fecha es incorrecto.");
+    //     return;
+    // }
+
+    
+    //Aquí damos de baja activo=false el led sustituido y si almacen está activo o no
+    var url = 'http://172.27.120.120/gestin/public/api/led/sustituir/' + inputIdLed;
+
+    await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                // id: inputIdTar,
+                //idInstalacion:inputIdCruceTar,
+                //color: inputColorTar,
+                //idNumSerie: inputNumSerieTar,
+                //albaran: inputAlbaranTar,
+                //nid: inputNIDTar,
+                //observaciones: inputObservacionesTar,
+                //fechaActuacion: inputFechaActuacionTar,
+                idUsuario: idUsuario,
+                //fabricacion: inputFabricacionTar,
+                //tipo: inputTipoTar,
+                //activo: "false",
+                almacen: inputAlmacenLed
+            })
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+           // alert(response)
+        })
+//Aquí damos de baja activo=false el led sustituido y si almacen está activo o no
+var url = 'http://172.27.120.120/gestin/public/api/led/nueva';
+
+await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            idInstalacion:inputIdCruceLed,
+            color: inputColorLed,
+            idNumSerie: inputNumSerieLed,
+            albaran: inputAlbaranLed,
+            nid: inputNIDLed,
+            observaciones: "",
+            fechaActuacion: inputFechaActuacionLed,
+            idUsuario: idUsuario,
+            fabricacion: inputFabricacionLed,
+            tipo: inputTipoLed,
+            activo: "true",
+            almacen: "false"
+        })
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+        alert(response)
+    })
+
+    filtrarCruce();
+    $('#staticBackdrop').modal('hide');
+   
+
 }

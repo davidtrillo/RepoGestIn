@@ -43,15 +43,10 @@ include './login/session.php';
    </button>
    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
-         <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
-         <a class="nav-item nav-link" href="./mfo.php">MFO</a>
-         <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
-         <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
-
          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Listados
+              Consultas
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="#">Tipo Instalación</a>
@@ -59,6 +54,11 @@ include './login/session.php';
               <a class="dropdown-item" href="#"></a>
             </div>
           </li>
+         <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
+         <a class="nav-item nav-link" href="./mfo.php">MFO</a>
+         <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
+         <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+
 
          <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
       </div>

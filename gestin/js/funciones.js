@@ -33,6 +33,7 @@ function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del
 async function leerInstalacion(idInstalacion, ubicacion) {
 
  // await  desactivarBotones();
+    document.getElementById("editInstalacion").disabled=true;
 
     var inputInst = document.getElementById('inputInstalacion');
     inputInst.value = idInstalacion;
@@ -51,6 +52,7 @@ async function leerInstalacion(idInstalacion, ubicacion) {
   await  rellenarRegulador();
   await  rellenarCM();
   await  rellenarCruce();
+  document.getElementById("editInstalacion").disabled=false;
 }
 
 function llamadaAPIInventario(idInstalacion) {
@@ -66,15 +68,15 @@ function llamadaAPIInventario(idInstalacion) {
         .catch(error => console.error('Error:', error))
         .then(response => {
             var p1 = document.getElementById('inputRegulador');
-            p1.value = response[0]['nombre'];
+            p1.value = response[0]['idRegulador'];
             var p2 = document.getElementById('inputIdCM');
             p2.value = response[0]['idCM'];
             var p3 = document.getElementById('inputWatios');
             p3.value = response[0]['watios'];
             // var p3 = document.getElementById('plano');
             // p3.href = response[0]['plano'];
-            var p4 = document.getElementById('inputUbicacionCarlos');
-            p4.value = response[0]['ubicacion'];
+           // var p4 = document.getElementById('inputUbicacionCarlos');
+          //  p4.value = response[0]['ubicacion'];
             var p5 = document.getElementById('inputUbicacionNYXPalma');
             p5.value = response[0]['ubicacionNYXPalma'];
 
@@ -89,26 +91,49 @@ function llamadaAPIInventario(idInstalacion) {
 
 }
 
+// function rellenarRegulador() {
+
+
+
+    
+//     var url = 'http://172.27.120.120/gestin/public/api/regulador';
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
+//             var p = document.getElementById('dropdownRegulador');
+//             p.innerHTML = '';
+//             for (var i in response) {
+//                 p.innerHTML += `
+//                 <button class="dropdown-item" type="submit" id="dropBtnRegulador${[i]}" name="${response[i]['nombre']}" onclick="leerRegulador(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['nombre']}</button>
+//                 `
+//             }
+//         })
+// }
 function rellenarRegulador() {
-    var url = 'http://172.27.120.120/gestin/public/api/regulador';
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            var p = document.getElementById('dropdownRegulador');
-            p.innerHTML = '';
-            for (var i in response) {
-                p.innerHTML += `
-                <button class="dropdown-item" type="submit" id="dropBtnRegulador${[i]}" name="${response[i]['nombre']}" onclick="leerRegulador(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['nombre']}</button>
-                `
-            }
-        })
+
+    var tipo="";
+    regulador.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="leerRegulador(this.value)" >'+ value +'</button>';
+         
+    });
+   
+    var p = document.getElementById('dropdownRegulador');
+                 p.innerHTML = '';
+                 
+                     p.innerHTML = tipo;
+                     
+
 }
+
+
+
+
 
 function rellenarCM() {
     var url = 'http://172.27.120.120/gestin/public/api/cm';
@@ -152,11 +177,11 @@ function rellenarCruce() {
         })
 }
 
-function leerRegulador(idRegulador, nombreRegulador) {
-    var inputReg = document.getElementById('inputRegulador');
-    inputReg.value = nombreRegulador;
-    var inputIdRegulador = document.getElementById('inputIdRegulador');
-    inputIdRegulador.value = idRegulador;
+function leerRegulador(nombreRegulador) {
+    //var inputReg = document.getElementById('inputRegulador');
+    //inputReg.value = nombreRegulador;
+     var inputRegulador = document.getElementById('inputRegulador');
+     inputRegulador.value = nombreRegulador;
 }
 
 function leerCM(idCM, ubicacionCarlos, ubicacionNYXPalma) {
@@ -164,8 +189,8 @@ function leerCM(idCM, ubicacionCarlos, ubicacionNYXPalma) {
     p1.value = idCM;
     var p2 = document.getElementById('inputUbicacionNYXPalma');
     p2.value = ubicacionNYXPalma;
-    var p3 = document.getElementById('inputUbicacionCarlos');
-    p3.value = ubicacionCarlos;
+   // var p3 = document.getElementById('inputUbicacionCarlos');
+   // p3.value = ubicacionCarlos;
 }
 
 function leerCruce(idCruce) {
@@ -177,17 +202,17 @@ function leerCruce(idCruce) {
 function editarInstalacion() {
 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idRegulador = document.getElementById('inputIdRegulador').value ? document.getElementById('inputIdRegulador').value : null;
+    var idRegulador = document.getElementById('inputRegulador').value ? document.getElementById('inputRegulador').value : '';
     var idCM = document.getElementById('inputIdCM').value ? document.getElementById('inputIdCM').value : null;
     var alimentacion = document.getElementById('inputCruce').value ? document.getElementById('inputCruce').value : 0;
     var watios = document.getElementById('inputWatios').value ? document.getElementById('inputWatios').value : null;
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
-    // console.log(idInstalacion);
-    // console.log(idRegulador);
-    // console.log(idCM);
-    // console.log(alimentacion);
-    // console.log(watios);
+    //  console.log(idInstalacion);
+      console.log(idRegulador);
+    //  console.log(idCM);
+    //  console.log(alimentacion);
+    //  console.log(watios);
 
 
     var url = 'http://172.27.120.120/gestin/public/api/inventario/modificar/' + idInstalacion;

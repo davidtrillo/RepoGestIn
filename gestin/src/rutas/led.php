@@ -13,7 +13,7 @@ $app->get('/api/led/{instalacion}/{limit}', function (Request $request, Response
     $instalacion = $request->getAttribute('instalacion');
 
    
-        $sql = 'SELECT * FROM led where idInstalacion="' .$instalacion.  '" ORDER BY activo DESC,fechaActuacion DESC limit '. $limit;
+        $sql = 'SELECT * FROM led where idInstalacion="' .$instalacion.  '" ORDER BY activo DESC, nid  limit '. $limit;
   
 
 
@@ -38,6 +38,40 @@ $app->get('/api/led/{instalacion}/{limit}', function (Request $request, Response
 
 });
 
+
+$app->get('/api/ledid/{id}', function (Request $request, Response $response) {
+
+    
+    $id = $request->getAttribute('id');
+   
+
+   
+        $sql = 'SELECT * FROM led where id="' .$id.  '"';
+  
+
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});
+
+
 //GET count todos los leds de un cruce
 $app->get('/api/ledc/cont/{cruce}', function (Request $request, Response $response) {
 
@@ -47,7 +81,7 @@ $app->get('/api/ledc/cont/{cruce}', function (Request $request, Response $respon
     $cruce = $request->getAttribute('cruce');
 
 
-        $sql = 'SELECT count(*) as c FROM led WHERE idInstalacion="' . $cruce . '"';
+        $sql = 'SELECT count(*) as c FROM led WHERE idInstalacion="' . $cruce . '" and activo="true";';
    
 
 
@@ -82,7 +116,7 @@ $app->get('/api/ledi/{cruce}/{offset}/{limit}', function (Request $request, Resp
     $cruce = $request->getAttribute('cruce');
 
 
-        $sql = 'SELECT * FROM led WHERE idInstalacion="' . $cruce . '" order by activo desc,fechaActuacion desc limit '. $offset .','.$limit;
+        $sql = 'SELECT * FROM led WHERE idInstalacion="' . $cruce . '" ORDER BY activo DESC, nid,fechaActuacion desc limit '. $offset .','.$limit;
    
 
 
@@ -168,7 +202,7 @@ $app->get('/api/ledi/activas/{instalacion}', function (Request $request, Respons
 $app->get('/api/led/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT * FROM led WHERE idInstalacion="' . $instalacion . '" order by activo desc,fechaActuacion desc';
+    $sql = 'SELECT * FROM led WHERE idInstalacion="' . $instalacion . '" ORDER BY activo DESC, nid,fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -325,6 +359,59 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
     }
 });
 
+
+
+//POST para modificar instalacion UPDATE BY ID
+
+$app->put('/api/led/sustituir/{id}', function (Request $request, Response $response) {
+    //declaracion de las variables de recepcion desde FRONT
+
+    $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+    // $color = $request->getParam('color');
+    // $idNumSerie = $request->getParam('idNumSerie');
+    // $albaran = $request->getParam('albaran');
+    // $observaciones = $request->getParam('observaciones');
+    // $fechaActuacion = $request->getParam('fechaActuacion');
+     $idUsuario = $request->getParam('idUsuario');
+    // $tipo = $request->getParam('tipo');
+    // $fabricacion = $request->getParam('fabricacion');
+    // $activo = $request->getParam('activo');
+    $almacen = $request->getParam('almacen');
+    // $nid = $request->getParam('nid');
+    // echo "todas las instalaciones";
+
+    //  $sql='UPDATE led SET color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = 'UPDATE led SET idUsuario=:idUsuario,activo="false",almacen=:almacen WHERE id='. $id;
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+
+        //Asignar campos del SQL a las variables obtenidas
+       // $resultado->bindParam(':id',$id);
+        // $resultado->bindParam(':color', $color);
+        // $resultado->bindParam(':idNumSerie', $idNumSerie);
+        // $resultado->bindParam(':albaran', $albaran);
+        // $resultado->bindParam(':observaciones', $observaciones);
+        // $resultado->bindParam(':fechaActuacion', $fechaActuacion);
+         $resultado->bindParam(':idUsuario', $idUsuario);
+        // $resultado->bindParam(':tipo', $tipo);
+        // $resultado->bindParam(':fabricacion', $fabricacion);
+        // $resultado->bindParam(':activo', $activo);
+        $resultado->bindParam(':almacen', $almacen);
+        // $resultado->bindParam(':nid', $nid);
+
+        $resultado->execute();
+        echo json_encode("Led editado con éxito", JSON_UNESCAPED_UNICODE);
+
+        $resultado = null;
+        $db = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+});
 // //DELETE para borrar instalacion DELETE BY ID
 
 // $app->delete('/api/instalaciones/borrar/{id}',function(Request $request, Response $response){

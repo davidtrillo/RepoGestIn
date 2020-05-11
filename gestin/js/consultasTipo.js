@@ -87,14 +87,15 @@ function leerCruce(idCruce) {
 
     await   pintarResultados("oculta", idInstalacion);
     await   pintarResultados("led", idInstalacion);
-    await   pintarResultados("invidentes", idInstalacion);
-    await   pintarResultados("descontadores", idInstalacion);
-    await   pintarResultados("baculos", idInstalacion);
-    await   pintarResultados("columnas", idInstalacion);
-    await   pintarResultados("brazos", idInstalacion);
-    await   pintarResultados("bajantes", idInstalacion);
-    await   pintarResultados("alargaderas", idInstalacion);
+    await   pintarResultados("soportes", idInstalacion);
+//  await   pintarResultados("descontadores", idInstalacion);
+//  await   pintarResultados("baculos", idInstalacion);
+//  await   pintarResultados("columnas", idInstalacion);
+//  await   pintarResultados("brazos", idInstalacion);
+//  await   pintarResultados("bajantes", idInstalacion);
+//  await   pintarResultados("alargaderas", idInstalacion);
     await   pintarResultados("pulsadores", idInstalacion);
+    await   pintarResultados("detectores", idInstalacion);
     await   pintarResultados("espiras", idInstalacion);
     await   pintarResultados("pantallascon", idInstalacion);
     
@@ -110,8 +111,22 @@ function leerCruce(idCruce) {
 
 async function pintarResultados(tipo, id) {
 
-    //console.log(tipo);
-    var url = 'http://172.27.120.120/gestin/public/api/' + tipo + '/' + id;
+
+    var url = 'http://172.27.120.120/gestin/public/api/consultatipo/total/' + tipo + '/' + id;
+    
+      let count= await   fetch(url, {method: 'GET',
+         headers: {
+             'Content-Type': 'application/json'
+         }
+     })
+     .then(res => res.json())
+     .catch(error => console.error('Error:', error))
+     .then(response => {return response});
+     
+
+    //console.log(count[0][0]);
+
+    var url = 'http://172.27.120.120/gestin/public/api/consultatipo/' + tipo + '/' + id;
     await fetch(url, {
             method: 'GET',
             headers: {
@@ -128,7 +143,7 @@ async function pintarResultados(tipo, id) {
                                         var t = document.getElementById('titulo');
                                         t.innerHTML += `        
                                         <!-- Títulos Form Nuevo-->
-                                        <h4 class="mt-1"><b>${tipo.toUpperCase()}</b></h4>
+                                        <h4 class="mt-1"><b>${tipo.toUpperCase()}(${count[0][0]})</b></h4>
                                         <div class="row ml-1">
                                             <div class="col-2">
                                                 F.Actuación
@@ -156,22 +171,22 @@ async function pintarResultados(tipo, id) {
                                         t.innerHTML += `
                                         <div class="row mt-0" id="">
                                             <div class="col-2">
-                                                <input type="text" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" value="${response[i]['fechaActuacion']}" disabled>
+                                                <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['fechaActuacion']}" disabled>
                                             </div>
                                             <div class="col-2">
-                                                <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion"  value="${response[i]['idTipoActuacion']}"  disabled>
+                                                <input type="text" class="form-control mt-1" name="inputTipoActuacion"   value="${response[i]['idTipoActuacion']}"  disabled>
                                             </div>
                                             <div class="col-3">
-                                                <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
+                                                <input type="text" class="form-control mt-1" name="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
                                             </div>
                                             <div class="col-1">
-                                                <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran"  value="${response[i]['albaran']}" disabled>
+                                                <input type="text" class="form-control mt-1" name="inputAlbaran"   value="${response[i]['albaran']}" disabled>
                                             </div>
                                             <div class="col-1">
-                                                <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie"  value="${response[i]['idNumSerie']}" disabled>
+                                                <input type="text" class="form-control mt-1" name="inputNumSerie"   value="${response[i]['idNumSerie']}" disabled>
                                             </div>
                                             <div class="col-1">
-                                                <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio" value="${response[i]['precio']}"  disabled>
+                                                <input type="text" class="form-control mt-1" name="inputPrecio"  value="${response[i]['precio']}"  disabled>
                                             </div>
 
                                         </div>  
@@ -182,7 +197,7 @@ async function pintarResultados(tipo, id) {
                                             var t = document.getElementById('titulo');
                                             t.innerHTML += `        
                                             <!-- Títulos Form Nuevo-->
-                                            <h4 class="mt-1"><b>${tipo.toUpperCase()}</b></h4>
+                                            <h4 class="mt-1"><b>${tipo.toUpperCase()}(${count[0][0]})</b></h4>
                                             <div class="row ml-1">
                                                 <div class="col-2">
                                                     F.Actuación
@@ -211,22 +226,22 @@ async function pintarResultados(tipo, id) {
                                             t.innerHTML += `
                                             <div class="row mt-0" id="">
                                                 <div class="col-2">
-                                                    <input type="text" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" value="${response[i]['fechaActuacion']}" disabled>
+                                                    <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['fechaActuacion']}" disabled>
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" class="form-control mt-1" name="nid" id="nid"  value="${response[i]['nid']}"  disabled>
+                                                    <input type="text" class="form-control mt-1" name="nid"   value="${response[i]['nid']}"  disabled>
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" class="form-control mt-1" name="color" id="color"  value="${response[i]['color']}"  disabled>
+                                                    <input type="text" class="form-control mt-1" name="color"   value="${response[i]['color']}"  disabled>
                                                 </div>
                                                 <div class="col-3">
-                                                    <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
+                                                    <input type="text" class="form-control mt-1" name="inputObservaciones"   value="${response[i]['observaciones']}"  disabled>
                                                 </div>
                                                 <div class="col-1">
-                                                    <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran"  value="${response[i]['albaran']}" disabled>
+                                                    <input type="text" class="form-control mt-1" name="inputAlbaran"   value="${response[i]['albaran']}" disabled>
                                                 </div>
                                                 <div class="col-1">
-                                                    <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie"  value="${response[i]['idNumSerie']}" disabled>
+                                                    <input type="text" class="form-control mt-1" name="inputNumSerie"   value="${response[i]['idNumSerie']}" disabled>
                                                 </div>
     
                                             </div>  

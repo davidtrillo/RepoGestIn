@@ -380,8 +380,8 @@ async function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                                                 <button class="dropdown-item" onclick="escribirTipo2('Descontador Rojo/Verde',${response[i]['id']})" >Descontador Rojo/Verde</button>
                                             <div class="dropdown-divider"></div>
                                                 <button class="dropdown-item" onclick="escribirTipo2('CyberPass',${response[i]['id']})" >CyberPass</button>
-                                                <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón',${response[i]['id']})" >PassBlue Peatón</button>
-                                                <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici',${response[i]['id']})" >PassBlue Peatón/Bici</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('PassBlue Peatón',${response[i]['id']})" >PassBlue Peatón</button>
+                                                <button class="dropdown-item" onclick="escribirTipo2('PassBlue Peatón/Bici',${response[i]['id']})" >PassBlue Peatón/Bici</button>
                                         </div>
                                 </div>
                             </div>
@@ -489,10 +489,10 @@ function rellenarFooterLed(){//CAMBIO DE NOMENCLATURA
 }
 
 
-function borrarLed(param) {
+async function borrarLed(param) {
     //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://172.27.120.120/gestin/public/api/led/borrar/' + param
-    fetch(url, {
+   await fetch(url, {
             method: 'DELETE'
 
         })
@@ -501,12 +501,12 @@ function borrarLed(param) {
         .then(response => {
             alert(response)
         })
-    setTimeout(() => {
+   
         rellenarTodosLed();//CAMBIO DE NOMENCLATURA
-    }, 1000);
+  
 }
 
-function editarLed(param) {//CAMBIO DE NOMENCLATURA
+async function editarLed(param) {//CAMBIO DE NOMENCLATURA
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputColorTar = document.getElementById('inputColorTar' + param).value;
@@ -547,7 +547,7 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
     }
     var url = 'http://172.27.120.120/gestin/public/api/led/modificar/' + param;
 
-    fetch(url, {
+    await fetch(url, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -574,9 +574,9 @@ function editarLed(param) {//CAMBIO DE NOMENCLATURA
         })
 
 
-    setTimeout(() => {
+   
         rellenarTodosLed(); //CAMBIO DE NOMENCLATURA
-    }, 1000);
+
 }
 
 function comprobarNumSerieLed() {

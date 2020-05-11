@@ -54,6 +54,17 @@ include_once './getNID.php';
             </button>
             <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Consultas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="../../public/consultaTipo.php">Tipo Instalación</a>
+                            <a class="dropdown-item" href="#"></a>
+                            <a class="dropdown-item" href="#"></a>
+                        </div>
+                    </li>
                     <a class="nav-item nav-link" href="../../public/welcome.php">Instalaciones</a>
 
                     <li class="nav-item dropdown ">
@@ -74,17 +85,6 @@ include_once './getNID.php';
                     <a class="nav-item nav-link" href="../../public/preventivo.php">Preventivo</a>
                     <a class="nav-item nav-link" href="../../public/totalLed.php">Leds</a>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Listados
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="../../public/consultaTipo.php">Tipo Instalación</a>
-                            <a class="dropdown-item" href="#"></a>
-                            <a class="dropdown-item" href="#"></a>
-                        </div>
-                    </li>
                     <a class="nav-item nav-link active" href="./config.php" tabindex="-1"
                         aria-disabled="true">Configuración</a>
 

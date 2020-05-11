@@ -10,9 +10,9 @@
     $tipo= $request->getAttribute('tipo');
     
     if ($tipo=='led') {
-        $sql = 'SELECT * FROM led WHERE idInstalacion="' . $id . '" order by activo desc,fechaActuacion desc';
+        $sql = 'SELECT * FROM led WHERE idInstalacion="' . $id . '" and activo="true" order by activo desc,fechaActuacion desc';
     }else{
-        $sql='SELECT fechaActuacion,idTipoActuacion,precio,salbaran from '. $tipo .'  where idInstalacion="'. $id .'" and activo="true" order by 1 desc;';
+        $sql='SELECT * from '. $tipo .'  where idInstalacion="'. $id .'" and activo="true" order by fechaActuacion desc;';
     }
     
      try{ 
@@ -37,7 +37,37 @@
      }
  });
 
-
+ $app->get('/api/consultatipo/total/{tipo}/{id}',function(Request $request, Response $response){
+    $id= $request->getAttribute('id');
+    $tipo= $request->getAttribute('tipo');
+    
+    if ($tipo=='led') {
+        $sql = 'SELECT count(*) FROM led WHERE idInstalacion="' . $id . '" and activo="true";';
+    }else{
+        $sql='SELECT count(id) from '. $tipo .'  where idInstalacion="'. $id .'" and activo="true" ;';
+    }
+    
+     try{ 
+         $db= new db();     
+         $db=$db->conectDB();
+         $resultado= $db->prepare($sql);
+         $resultado->execute();
+         if($resultado->rowCount()>0){
+             $inventario= $resultado->fetchAll();
+            //// echo json_encode($inventario);
+            $ret= json_encode($inventario);
+         
+            return $ret ;
+            // echo json_encode("No se han encontrado resultados");
+         }else{
+             echo json_encode("No se han encontrado resultados");
+         }
+         $resultado=null;
+         $db=null;
+     }catch(PDOException $e){
+         echo '{"error":{"text":'.$e->getMessage().'}';
+     }
+ });
 // //POST para crear una nueva instalación CREATE
 
 // $app->post('/api/preventivo/nueva',function(Request $request, Response $response){
