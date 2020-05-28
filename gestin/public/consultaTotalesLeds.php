@@ -59,6 +59,7 @@ require '../vendor/autoload.php';
               <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
               <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
               <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+              <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
               <a class="dropdown-item" href="#"></a>
               <a class="dropdown-item" href="#"></a>
             </div>

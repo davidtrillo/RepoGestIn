@@ -231,3 +231,30 @@
           echo '{"error":{"text":'.$e->getMessage().'}';
       }
   });
+
+  $app->put('/api/setpliego',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+    //$id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+  
+    $n=$request->getParam('n');
+   
+
+
+    // echo "todas las instalaciones";
+    $sql='UPDATE configuracion SET pliego=:n;';
+
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        //Asignar campos del SQL a las variables obtenidas
+        $resultado->bindParam(':n',$n);
+        $resultado->execute();
+        echo json_encode("Configuración de pliego modificado con éxito",JSON_UNESCAPED_UNICODE);
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+

@@ -59,6 +59,7 @@ require '../vendor/autoload.php';
               <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
               <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
               <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+              <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
               <a class="dropdown-item" href="#"></a>
               <a class="dropdown-item" href="#"></a>
             </div>
@@ -111,7 +112,7 @@ require '../vendor/autoload.php';
 
    <!-- Titulo de Consulta -->
    <div class="container-fluid p-2">
-      <h3 class="">Consulta de Leds por Tipo y Color</h3>
+      <h3 class="">Totales por Tipo de Elementos de Cruce</h3>
    </div>
    <!-- Titulo Form Consulta -->
 
@@ -170,12 +171,12 @@ require '../vendor/autoload.php';
   <script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
   <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
 
-   <script src="../js/consultasTotalesTipoLeds.js"></script>
+   <script src="../js/consultasTotalesTipoElementos.js"></script>
 
 
 
 
-
+ 
 </body>
 
 </html>

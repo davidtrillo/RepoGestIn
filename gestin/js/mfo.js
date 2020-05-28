@@ -513,16 +513,31 @@ async function calcularPrecio() {
                                         .catch(error => console.error('Error:', error))
                                         .then(response => {return response});    
                     
-                     // console.log('Num Grupo 4 1: '+precios[0]['numerogrupo41']);
-                     //Se anula este código por el pliego, se factura por número de tarjetas de salida no por grupos
-               //       if (city==true) {
-               //             var x=count*4;
-  
-                //        }else{
-               //             var x=count*2;
-                           
-                //        }
-                var x= count;
+                    var url = 'http://172.27.120.120/gestin/public/api/configuracionpliego'
+                    var pliego=  await fetch(url, {method: 'GET',
+                                        headers: {'Content-Type': 'application/json' }
+                                        })
+                                        .then(res => res.json())
+                                        .catch(error => console.error('Error:', error))
+                                        .then(response => {return response});  
+                    
+                    console.log(city);
+                    console.log(pliego[0][0]);
+                    
+                        if (pliego[0][0]==2021) {
+                        
+                        if (city==true) {
+                            var x=count*4;
+                            console.log('city*4');
+                
+                        }else{
+                            var x=count*2;
+                        
+                        }
+                    }else{
+                        var x= count;
+                    }
+               // var x= count;
                         
                         console.log('Es city?: '+ city);
                         console.log('Num Grupos del cruce: '+ x);
@@ -590,22 +605,37 @@ async function calcularPrecio2(param,id) {
                         })
                         .then(res => res.json())
                         .catch(error => console.error('Error:', error))
-                        .then(response => {return response});    
+                        .then(response => {return response});   
+                        
+    var url = 'http://172.27.120.120/gestin/public/api/configuracionpliego'
+    var pliego=  await fetch(url, {method: 'GET',
+                        headers: {'Content-Type': 'application/json' }
+                        })
+                        .then(res => res.json())
+                        .catch(error => console.error('Error:', error))
+                        .then(response => {return response});  
     
-    //  // console.log('Num Grupo 4 1: '+precios[0]['numerogrupo41']);
-    // if (city==true) {
-    //     var x=count*4;
-
-    // }else{
-    //     var x=count*2;
+    console.log(city);
+    console.log(pliego[0][0]);
+   
+     if (pliego[0][0]==2021) {
         
-    // }
-    //console.log('Num Grupos del cruce: '+ x);
+        if (city==true) {
+            var x=count*4;
+            console.log('city*4');
 
-    var x= count;
-console.log("holis");
-console.log('Es city?: '+ city);
-console.log('Num Grupos del cruce: '+ x);
+        }else{
+            var x=count*2;
+        
+     }
+    //console.log('Num Grupos del cruce: '+ x);
+ }else{
+         var x= count;
+     }
+                
+                console.log("holis");
+                console.log('Es city?: '+ city);
+                console.log('Num Grupos del cruce: '+ x);
 
     switch (true) {
         case (parseInt(x)>=precios[0]['numerogrupo11'] && parseInt(x)<=precios[0]['numerogrupo12']):                                      

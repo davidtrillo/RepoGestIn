@@ -68,11 +68,12 @@ include './login/session.php';
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                      <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
-              <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
-              <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
-              <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+                     <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
+                     <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
+                     <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+              <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
                      <a class="dropdown-item" href="#"></a>
-                     <a class="dropdown-item" href="#"></a>
+                     <a class="dropdown-item" href="#"></a> 
                   </div>
                </li>
                <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
@@ -210,7 +211,11 @@ include './login/session.php';
             <span>Ubicación sector A.P. (NyxPalma)</span>
             <input type="text" class="form-control mt-2 bg-light" value="" id="inputUbicacionNYXPalma">
          </div>
-  
+         
+         <div class="col-3 mt-3 p-1">
+            <span>Observaciones</span>
+            <input type="text" class="form-control mt-2" value="" id="inputObservaciones">
+         </div>
 
          <div class="col-1 mt-3 p-1">
             <span>Watios</span>
@@ -248,20 +253,20 @@ include './login/session.php';
                   <div class="dropdown-menu" id="dropdownElemento">
                      <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS SALIDA')">TARJETAS SALIDA</button>
                      <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasCpu('TARJETAS CPU')">TARJETAS CPU</button>
-                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasAmp('TARJETAS AMPLIACIÓN')">TARJETAS AMPLIACIÓN</button>
+                     <!-- <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasAmp('TARJETAS AMPLIACIÓN')">TARJETAS AMPLIACIÓN</button> -->
                      <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasFa('TARJETAS F.A.')">TARJETAS F.A.</button>
                      <button class="dropdown-item" type="button" id="btnBusTren" onclick="formBusTren('BUS/TREN')">BUS/TREN</button>
-                     <div class="dropdown-divider"></div>
+                     <!-- <div class="dropdown-divider"></div>
                      <button class="dropdown-item" type="button" id="btn11_200"  onclick="form11_200('11-200')">11-200</button>
                      <button class="dropdown-item" type="button" id="btn11_300" onclick="form11_300('11-300')">11-300</button>
                      <button class="dropdown-item" type="button" id="btn12_100"  onclick="form12_100('12-100')">12-100</button>
-                     <button class="dropdown-item" type="button" id="btn12_200"  onclick="form12_200('12-200')">12-200</button>
+                     <button class="dropdown-item" type="button" id="btn12_200"  onclick="form12_200('12-200')">12-200</button> -->
                      <!-- <button class="dropdown-item" type="button" id="btn12_pp"  onclick="form12_pp('12-200 PEA')">12-200 PEA</button> -->
                      <!-- <button class="dropdown-item" type="button" id="btn12_bici"  onclick="form12_bici('12-200 BICI')">12-200 BICI</button> -->
-                     <button class="dropdown-item" type="button" id="btn12_300" onclick="form12_300('12-300')">12-300</button>
+                     <!-- <button class="dropdown-item" type="button" id="btn12_300" onclick="form12_300('12-300')">12-300</button>
                      <button class="dropdown-item" type="button" id="btn13_200"  onclick="form13_200('13-200')">13-200</button>
                      <button class="dropdown-item" type="button" id="btn13_322" onclick="form13_322('13-322')">13-322</button>
-                     <button class="dropdown-item" type="button" id="btn13_332" onclick="form13_332('13-332')">13-332</button>
+                     <button class="dropdown-item" type="button" id="btn13_332" onclick="form13_332('13-332')">13-332</button> -->
                      <div class="dropdown-divider"></div>
                      <button class="dropdown-item" type="button" id="btnSoportes" onclick="formSoportes('SOPORTES')">SOPORTES</button>
                      <button class="dropdown-item" type="button" id="btnOculta" onclick="formOculta('SEÑAL OCULTA')">SEÑAL OCULTA</button>
@@ -276,7 +281,7 @@ include './login/session.php';
                      <button class="dropdown-item" type="button" id="btnPulsadores" onclick="formPulsadores('PULSADORES')">PULSADORES</button>
                      <button class="dropdown-item" type="button" id="btnDetectores" onclick="formDetectores('DETECTORES')">DETECTORES</button>
                      <button class="dropdown-item" type="button" id="btnEspiras" onclick="formEspiras('ESPIRAS')">ESPIRAS DE DETECCIÓN</button>
-                     <button class="dropdown-item" type="button" id="btnPantallasCon" onclick="formPantallasCon('PANTALLAS CONTRASTE')">PANTALLAS CONTRASTE</button>
+                     <!-- <button class="dropdown-item" type="button" id="btnPantallasCon" onclick="formPantallasCon('PANTALLAS CONTRASTE')">PANTALLAS CONTRASTE</button> -->
                      <button class="dropdown-item" type="button" id="btnCCTV" onclick="formCamTV('CCTV')">CCTV</button>
                      <button class="dropdown-item" type="button" id="btnCamIp" onclick="formCamIP('CAM. IP')">CAM. IP</button>
                      <button class="dropdown-item" type="button" id="btnModulo" onclick="formModulo('MÓDULOS')">MÓDULOS</button>

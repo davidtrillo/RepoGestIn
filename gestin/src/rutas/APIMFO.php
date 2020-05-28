@@ -176,3 +176,58 @@ $app->post('/api/mfo/nueva',function(Request $request, Response $response){
 });
 
 
+$app->get('/api/configuracionpliego',function(Request $request, Response $response){
+
+
+    $sql='SELECT pliego FROM configuracion';
+    //$sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="9" AND year(m.fechaactuacion)="2019"';
+   
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+        if($resultado->rowCount()>0){
+            $inventario= $resultado->fetchAll();
+           //// echo json_encode($inventario);
+           $ret= json_encode($inventario);
+        
+           return $ret ;
+           // echo json_encode("No se han encontrado resultados");
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
+// $app->get('/api/mfo/escity/{id}',function(Request $request, Response $response){
+//     $idInstalacion= $request->getAttribute('id');
+
+//     $sql='SELECT idregulador FROM inventario';
+//     //$sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="9" AND year(m.fechaactuacion)="2019"';
+   
+//     try{
+//         $db= new db();     
+//         $db=$db->conectDB();
+//         $resultado= $db->prepare($sql);
+//         $resultado->execute();
+//         if($resultado->rowCount()>0){
+//             $inventario= $resultado->fetchAll();
+//            //// echo json_encode($inventario);
+//            $ret= json_encode($inventario);
+        
+//            return $ret ;
+//            // echo json_encode("No se han encontrado resultados");
+//         }else{
+//             echo json_encode("No se han encontrado resultados");
+//         }
+//         $resultado=null;
+//         $db=null;
+//     }catch(PDOException $e){
+//         echo '{"error":{"text":'.$e->getMessage().'}';
+//     }
+// });

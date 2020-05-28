@@ -2,6 +2,7 @@ document.onload = rellenar();
 
 function rellenar(){
     rellenarPrecios();
+    getPliego();
 }
 
 
@@ -81,3 +82,75 @@ function editarPreciosMFO() {
         rellenar(); //CAMBIO DE NOMENCLATURA
     }, 1000);
 }
+
+function setPliego() {
+    // var id= param;
+      if (document.getElementById('2018').checked) {
+           var n =2018;
+      }
+      if (document.getElementById('2021').checked) {
+        var n =2021;
+   }   
+ 
+ 
+     var url = 'http://172.27.120.120/gestin/public/api/setpliego';
+ 
+     fetch(url, {
+             method: 'PUT',
+             headers: {
+                 'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({
+                 n: n,
+        
+             })
+         })
+         .then(res => res.json())
+         .catch(error => console.error('Error:', error))
+         .then(response => {
+             alert(response)
+         })
+ 
+
+ }
+ function getPliego() {
+    var url = 'http://172.27.120.120/gestin/public/api/configuracionpliego'
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+
+            if (response[0][0]==2018) {
+                document.getElementById('2018').checked=true;
+                document.getElementById('2021').checked=false;
+            }else{
+                document.getElementById('2018').checked=false;
+                document.getElementById('2021').checked=true;
+            }                  
+        })
+    
+}
+
+function o2018() {
+    console.log("estoy en o2018")
+    if (document.getElementById("2018").checked==false) {
+        console.log["estoy en 2018"]
+        document.getElementById("2018").checked=true;
+        document.getElementById("2021").checked=false;
+        setPliego(2018);
+    }
+};
+
+function o2021() {
+    console.log("estoy en o2021")
+    if (document.getElementById("2021").checked==false) {
+        document.getElementById("2021").checked=true;
+        document.getElementById("2018").checked=false;
+        setPliego(2021);
+    }
+};
