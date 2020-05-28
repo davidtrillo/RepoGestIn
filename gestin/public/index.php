@@ -16,7 +16,7 @@ include_once '../src/rutas/inventario.php';
 include_once '../src/rutas/tipoactuacion.php';
 
 include_once '../src/rutas/tarjetas.php';
-include_once '../src/rutas/tarjetascpu.php';
+include_once '../src/rutas/tarjetasCPU.php';
 include_once '../src/rutas/tarjetasAmp.php';
 include_once '../src/rutas/tarjetasFa.php';
 include_once '../src/rutas/bustren.php';

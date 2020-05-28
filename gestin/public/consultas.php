@@ -49,9 +49,13 @@ include './login/session.php';
               Consultas
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Tipo Instalación</a>
-              <a class="dropdown-item" href="#"></a>
-              <a class="dropdown-item" href="#"></a>
+                     <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+                     <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
+                     <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
+                     <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+                     <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
+                     <a class="dropdown-item" href="#"></a>
+                     <a class="dropdown-item" href="#"></a>
             </div>
           </li>
          <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>

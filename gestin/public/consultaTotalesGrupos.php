@@ -112,7 +112,7 @@ require '../vendor/autoload.php';
 
    <!-- Titulo de Consulta -->
    <div class="container-fluid p-2">
-      <h3 class="">Totales por Tipo de Instalación</h3>
+      <h3 class="">Consulta de Cruce y total de Leds activos</h3>
    </div>
    <!-- Titulo Form Consulta -->
 
@@ -217,7 +217,7 @@ require '../vendor/autoload.php';
   <script src="../node_modules/jspdf/dist/jspdf.min.js"></script>
   <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
 
-   <script src="../js/consultasTotalesTipo.js"></script>
+   <script src="../js/consultasTotalesGrupos.js"></script>
 
 
 

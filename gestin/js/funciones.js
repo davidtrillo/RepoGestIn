@@ -73,6 +73,8 @@ function llamadaAPIInventario(idInstalacion) {
             p2.value = response[0]['idCM'];
             var p3 = document.getElementById('inputWatios');
             p3.value = response[0]['watios'];
+            var p4 = document.getElementById('inputObservaciones');
+            p4.value = response[0]['observaciones'];
             // var p3 = document.getElementById('plano');
             // p3.href = response[0]['plano'];
            // var p4 = document.getElementById('inputUbicacionCarlos');
@@ -206,10 +208,11 @@ function editarInstalacion() {
     var idCM = document.getElementById('inputIdCM').value ? document.getElementById('inputIdCM').value : null;
     var alimentacion = document.getElementById('inputCruce').value ? document.getElementById('inputCruce').value : 0;
     var watios = document.getElementById('inputWatios').value ? document.getElementById('inputWatios').value : null;
+    var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : null;
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     //  console.log(idInstalacion);
-      console.log(idRegulador);
+    //  console.log(idRegulador);
     //  console.log(idCM);
     //  console.log(alimentacion);
     //  console.log(watios);
@@ -226,6 +229,7 @@ function editarInstalacion() {
                 alimentacion:alimentacion,
                 idCM: idCM,
                 watios: watios,
+                observaciones: observaciones,
                 idUsuario: idUsuario
 
             })

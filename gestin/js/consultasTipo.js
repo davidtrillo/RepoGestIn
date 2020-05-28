@@ -7,6 +7,16 @@ $("#dropdown-menu1 button").click(function () {
 
 })
 
+
+
+
+
+
+
+
+
+
+
 function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://172.27.120.120/gestin/public/api/instalaciones/' + datoInput;
     fetch(url, {
@@ -69,21 +79,24 @@ function leerCruce(idCruce) {
 
     await   pintarResultados("tarjetas", idInstalacion);
     await   pintarResultados("tarjetascpu", idInstalacion);
-    await   pintarResultados("tarjetasamp", idInstalacion);
+   // await   pintarResultados("tarjetasamp", idInstalacion);
     await   pintarResultados("tarjetasfa", idInstalacion);
     await   pintarResultados("bustren", idInstalacion);
+       
 
-    await   pintarResultados("11_200", idInstalacion);
-    await   pintarResultados("11_300", idInstalacion);
 
-    await   pintarResultados("12_100", idInstalacion);
-    await   pintarResultados("12_200", idInstalacion);
-    await   pintarResultados("12_300", idInstalacion);
+   // Se procesa con INCA
+    // await   pintarResultados("11_200", idInstalacion);
+    // await   pintarResultados("11_300", idInstalacion);
 
-    await   pintarResultados("13_200", idInstalacion);
-    await   pintarResultados("13_322", idInstalacion);
-    await   pintarResultados("13_332", idInstalacion);
-//    await   pintarResultados("12_pp", idInstalacion);
+    // await   pintarResultados("12_100", idInstalacion);
+    // await   pintarResultados("12_200", idInstalacion);
+    // await   pintarResultados("12_300", idInstalacion);
+
+    // await   pintarResultados("13_200", idInstalacion);
+    // await   pintarResultados("13_322", idInstalacion);
+    // await   pintarResultados("13_332", idInstalacion);
+
 
     await   pintarResultados("oculta", idInstalacion);
     await   pintarResultados("led", idInstalacion);
@@ -94,10 +107,10 @@ function leerCruce(idCruce) {
 //  await   pintarResultados("brazos", idInstalacion);
 //  await   pintarResultados("bajantes", idInstalacion);
 //  await   pintarResultados("alargaderas", idInstalacion);
-    await   pintarResultados("pulsadores", idInstalacion);
+//    await   pintarResultados("pulsadores", idInstalacion); //Se procesa con INCA
     await   pintarResultados("detectores", idInstalacion);
     await   pintarResultados("espiras", idInstalacion);
-    await   pintarResultados("pantallascon", idInstalacion);
+ //   await   pintarResultados("pantallascon", idInstalacion);//Se procesa con INCA//
     
 }
 
@@ -111,7 +124,7 @@ function leerCruce(idCruce) {
 
 async function pintarResultados(tipo, id) {
 
-
+//Calcula el total de este tipo
     var url = 'http://172.27.120.120/gestin/public/api/consultatipo/total/' + tipo + '/' + id;
     
       let count= await   fetch(url, {method: 'GET',
@@ -125,7 +138,7 @@ async function pintarResultados(tipo, id) {
      
 
     //console.log(count[0][0]);
-
+//calcula los registros
     var url = 'http://172.27.120.120/gestin/public/api/consultatipo/' + tipo + '/' + id;
     await fetch(url, {
             method: 'GET',
@@ -279,33 +292,33 @@ async function imprimir() {
     //conseguir el json
     var rowTarjetas= await getJsonAPI('tarjetas',id);
     var rowTarjetasCPU= await getJsonAPI('tarjetascpu',id);
-    var rowTarjetasAmp= await getJsonAPI('tarjetasamp',id);
+   // var rowTarjetasAmp= await getJsonAPI('tarjetasamp',id);
     var rowTarjetasFA= await getJsonAPI('tarjetasFA',id);
     var rowBusTren= await getJsonAPI('bustren',id);
 
-    var row11_200= await getJsonAPI('11_200',id);
-    var row11_300= await getJsonAPI('11_300',id);
+    // var row11_200= await getJsonAPI('11_200',id);
+    // var row11_300= await getJsonAPI('11_300',id);
 
-    var row12_100= await getJsonAPI('12_100',id);
-    var row12_200= await getJsonAPI('12_200',id);
-    var row12_300= await getJsonAPI('12_300',id);
+    // var row12_100= await getJsonAPI('12_100',id);
+    // var row12_200= await getJsonAPI('12_200',id);
+    // var row12_300= await getJsonAPI('12_300',id);
 
-    var row13_200= await getJsonAPI('13_200',id);
-    var row13_322= await getJsonAPI('13_322',id);
-    var row13_332= await getJsonAPI('13_332',id);
+    // var row13_200= await getJsonAPI('13_200',id);
+    // var row13_322= await getJsonAPI('13_322',id);
+    // var row13_332= await getJsonAPI('13_332',id);
 
     var rowOculta= await getJsonAPI('oculta',id);
     var rowLed= await getJsonAPI('led',id);
-    var rowInvidentes= await getJsonAPI('invidentes',id);
-    var rowDescontadores= await getJsonAPI('descontadores',id);
-    var rowBaculos= await getJsonAPI('baculos',id);
-    var rowColumnas= await getJsonAPI('columnas',id);
-    var rowBrazos= await getJsonAPI('brazos',id);
-    var rowBajantes= await getJsonAPI('bajantes',id);
-    var rowAlargaderas= await getJsonAPI('alargaderas',id);
-    var rowPulsadores= await getJsonAPI('pulsadores',id);
+    // // var rowInvidentes= await getJsonAPI('invidentes',id);
+    // var rowDescontadores= await getJsonAPI('descontadores',id);
+    // var rowBaculos= await getJsonAPI('baculos',id);
+    // var rowColumnas= await getJsonAPI('columnas',id);
+    // var rowBrazos= await getJsonAPI('brazos',id);
+    // var rowBajantes= await getJsonAPI('bajantes',id);
+    // var rowAlargaderas= await getJsonAPI('alargaderas',id);
+    // var rowPulsadores= await getJsonAPI('pulsadores',id);
     var rowEspiras= await getJsonAPI('espiras',id);
-    var rowPantallascon= await getJsonAPI('pantallascon',id);
+    // var rowPantallascon= await getJsonAPI('pantallascon',id);
 
     colLed=[
         {header: 'NID', dataKey: 'NID'},
@@ -368,15 +381,15 @@ async function imprimir() {
         });
     }      
 
-    if (rowTarjetasAmp!='No se han encontrado resultados') {
+    // if (rowTarjetasAmp!='No se han encontrado resultados') {
 
-        doc.autoTable({
-            columns:col,
-            body:rowTarjetasAmp,
-            startY:32,
-            pageBreak: 'avoid',
-        });
-    } 
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowTarjetasAmp,
+    //         startY:32,
+    //         pageBreak: 'avoid',
+    //     });
+    // } 
 
     if (rowTarjetasFA!='No se han encontrado resultados') {
 
@@ -404,102 +417,102 @@ doc.setFontSize(18);
 doc.text("Cuerpos",14,30);
 
 
-    if (row11_200!='No se han encontrado resultados') {
+    // if (row11_200!='No se han encontrado resultados') {
 
-        doc.text("11_200",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:row11_200,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    //     doc.text("11_200",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:row11_200,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
-    if (row11_300!='No se han encontrado resultados') {
+    // if (row11_300!='No se han encontrado resultados') {
 
-        doc.text("11_300",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:row11_300,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
-
-
-
-
-    if (row12_100!='No se han encontrado resultados') {
-
-        doc.text("12_100",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:row12_100,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
-
-    if (row12_200!='No se han encontrado resultados') {
-
-        doc.text("12_200",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:row12_200,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
-
-
-    if (row12_300!='No se han encontrado resultados') {
-
-        doc.text("12_300",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:row12_300,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    //     doc.text("11_300",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:row11_300,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
 
 
 
+    // if (row12_100!='No se han encontrado resultados') {
 
-    if (row13_200!='No se han encontrado resultados') {
+    //     doc.text("12_100",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:row12_100,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
-        doc.text("13_200",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:row13_200,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    // if (row12_200!='No se han encontrado resultados') {
 
-    if (row13_322!='No se han encontrado resultados') {
-
-        doc.text("13_322",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:row13_322,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    //     doc.text("12_200",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:row12_200,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
 
-    if (row13_332!='No se han encontrado resultados') {
+    // if (row12_300!='No se han encontrado resultados') {
 
-        doc.text("13_332",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:row13_332,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    //     doc.text("12_300",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:row12_300,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
+
+
+
+
+
+    // if (row13_200!='No se han encontrado resultados') {
+
+    //     doc.text("13_200",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:row13_200,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
+
+    // if (row13_322!='No se han encontrado resultados') {
+
+    //     doc.text("13_322",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:row13_322,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
+
+
+    // if (row13_332!='No se han encontrado resultados') {
+
+    //     doc.text("13_332",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:row13_332,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
 //-----------------------------------------------------------
 doc.setFontSize(18);
@@ -516,87 +529,87 @@ doc.text("Elementos",14,30);
     }
 
 
-    if (rowInvidentes!='No se han encontrado resultados') {
+    // if (rowInvidentes!='No se han encontrado resultados') {
 
-        doc.text("Sonoros",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:rowInvidentes,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    //     doc.text("Sonoros",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowInvidentes,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
-    if (rowDescontadores!='No se han encontrado resultados') {
+    // if (rowDescontadores!='No se han encontrado resultados') {
 
-        doc.text("Descontadores",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:rowDescontadores,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    //     doc.text("Descontadores",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowDescontadores,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
     
-        if (rowBaculos!='No se han encontrado resultados') {
-            doc.text("Báculos",14,doc.autoTable.previous.finalY + 10);
-            doc.autoTable({
-                columns:col,
-                body:rowBaculos,
-                startY: doc.autoTable.previous.finalY + 12,
-                pageBreak: 'avoid',
-            }); 
-        }
+    //     if (rowBaculos!='No se han encontrado resultados') {
+    //         doc.text("Báculos",14,doc.autoTable.previous.finalY + 10);
+    //         doc.autoTable({
+    //             columns:col,
+    //             body:rowBaculos,
+    //             startY: doc.autoTable.previous.finalY + 12,
+    //             pageBreak: 'avoid',
+    //         }); 
+    //     }
 
-    if (rowColumnas!='No se han encontrado resultados') {
-        doc.text("columnas",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:rowColumnas,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    // if (rowColumnas!='No se han encontrado resultados') {
+    //     doc.text("columnas",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowColumnas,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
-    if (rowBrazos!='No se han encontrado resultados') {
-        doc.text("Brazos",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:rowBrazos,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    // if (rowBrazos!='No se han encontrado resultados') {
+    //     doc.text("Brazos",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowBrazos,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
-    if (rowBajantes!='No se han encontrado resultados') {
-        doc.text("Bajantes",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:rowBajantes,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    // if (rowBajantes!='No se han encontrado resultados') {
+    //     doc.text("Bajantes",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowBajantes,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
-    if (rowAlargaderas!='No se han encontrado resultados') {
-        doc.text("pulsadores",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:rowAlargaderas,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    // if (rowAlargaderas!='No se han encontrado resultados') {
+    //     doc.text("pulsadores",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowAlargaderas,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
-    if (rowPulsadores!='No se han encontrado resultados') {
-        doc.text("Pulsadores",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:rowPulsadores,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    // if (rowPulsadores!='No se han encontrado resultados') {
+    //     doc.text("Pulsadores",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowPulsadores,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
     if (rowEspiras!='No se han encontrado resultados') {
         doc.text("Espiras",14,doc.autoTable.previous.finalY + 10);
@@ -608,15 +621,15 @@ doc.text("Elementos",14,30);
         });
     }
 
-    if (rowPantallascon!='No se han encontrado resultados') {
-        doc.text("Pantallascon",14,doc.autoTable.previous.finalY + 10);
-        doc.autoTable({
-            columns:col,
-            body:rowPantallascon,
-            startY: doc.autoTable.previous.finalY + 12,
-            pageBreak: 'avoid',
-        });
-    }
+    // if (rowPantallascon!='No se han encontrado resultados') {
+    //     doc.text("Pantallascon",14,doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //         columns:col,
+    //         body:rowPantallascon,
+    //         startY: doc.autoTable.previous.finalY + 12,
+    //         pageBreak: 'avoid',
+    //     });
+    // }
 
     if (rowLed!='No se han encontrado resultados') {
         doc.text("Leds",14,doc.autoTable.previous.finalY + 10);

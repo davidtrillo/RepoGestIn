@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //GET Todas las instalaciones SELECT
 $app->get('/api/espiras', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM Espiras t   order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM espiras t   order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -33,7 +33,7 @@ $app->get('/api/espiras', function (Request $request, Response $response) {
 $app->get('/api/espiras/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT count(id) AS c FROM Espiras WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
+    $sql = 'SELECT count(id) AS c FROM espiras WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -59,7 +59,7 @@ $app->get('/api/espiras/activas/{instalacion}', function (Request $request, Resp
 $app->get('/api/espiras/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen  FROM Espiras t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen  FROM espiras t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -98,8 +98,8 @@ $app->post('/api/espiras/nueva', function (Request $request, Response $response)
     $almacen = $request->getParam('almacen');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO Espiras (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
-    // $sql='INSERT INTO Espiras (idInstalacion) VALUES (:idInstalacion);';
+    $sql = 'INSERT INTO espiras (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
+    // $sql='INSERT INTO espiras (idInstalacion) VALUES (:idInstalacion);';
 
     try {
         $db = new db();
@@ -136,7 +136,7 @@ $app->delete('/api/espiras/borrar/{id}', function (Request $request, Response $r
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
-    $sql = 'DELETE FROM Espiras WHERE id=' . $id;
+    $sql = 'DELETE FROM espiras WHERE id=' . $id;
 
     try {
         $db = new db();
@@ -177,8 +177,8 @@ $app->put('/api/espiras/modificar/{id}', function (Request $request, Response $r
     $almacen = $request->getParam('almacen');
     // echo "todas las instalaciones";
 
-    //  $sql='UPDATE Espiras SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE Espiras SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen WHERE id='. $id;
+    //  $sql='UPDATE espiras SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = 'UPDATE espiras SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen WHERE id='. $id;
 
     try {
         $db = new db();

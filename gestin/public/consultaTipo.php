@@ -59,6 +59,7 @@ require '../vendor/autoload.php';
               <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
               <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
               <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+              <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
               <a class="dropdown-item" href="#"></a>
               <a class="dropdown-item" href="#"></a>
             </div>
@@ -81,7 +82,7 @@ require '../vendor/autoload.php';
          <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
          <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
-          <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1" aria-disabled="true">Configuración</a>
+         <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1" aria-disabled="true">Configuración</a>
          <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
       </div>
 

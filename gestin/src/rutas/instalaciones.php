@@ -120,14 +120,14 @@ $app->get('/api/pp',function(Request $request, Response $response){
 });
 
 
-
+ 
 
 //GET saber que tipo de regulador es
 
 $app->get('/api/regulador/{id}',function(Request $request, Response $response){
     $tipoInstalacion= $request->getAttribute('id');
     // echo "todas las instalaciones";
-    $sql='SELECT r.nombre FROM gestin.inventario AS i INNER JOIN regulador AS r ON r.id=i.idRegulador WHERE i.idInstalacion="'.$tipoInstalacion.'" AND r.nombre LIKE "%CITY%";';
+    $sql='SELECT idregulador FROM gestin.inventario WHERE idInstalacion="'.$tipoInstalacion.'" AND idregulador LIKE "%CITY%";';
     try{
         $db= new db();     
         $db=$db->conectDB();

@@ -12,7 +12,7 @@ $app->get('/api/inventario/{idInstalacion}',function(Request $request, Response 
 
     $idInstalacion= $request->getAttribute('idInstalacion');
     //$sql="SELECT r.id as idRegulador,r.nombre,idInstalacion,idCM,watios,plano,resolucion FROM inventario i INNER join regulador r on i.idRegulador =r.id  where idInstalacion=".$idInstalacion;
-    $sql='SELECT  idRegulador,alimentacion,idInstalacion,idCM,cm.ubicacion,cm.ubicacionNYXPalma,watios,plano,resolucion FROM inventario i LEFT JOIN cm ON i.idCM=cm.id WHERE idInstalacion="'.$idInstalacion.'"';
+    $sql='SELECT  idRegulador,alimentacion,idInstalacion,idCM,cm.ubicacion,cm.ubicacionNYXPalma,watios,plano,resolucion,observaciones FROM inventario i LEFT JOIN cm ON i.idCM=cm.id WHERE idInstalacion="'.$idInstalacion.'"';
 
     
     try{
@@ -100,11 +100,12 @@ $app->put('/api/inventario/modificar/{id}',function(Request $request, Response $
     $idCM=$request->getParam('idCM');
     $idUsuario=$request->getParam('idUsuario');
     $watios=$request->getParam('watios');
+    $observaciones=$request->getParam('observaciones');
     //$plano=$request->getParam('plano');
     //$resolucion=$request->getParam('resolucion');
     
     // echo "todas las instalaciones";
-    $sql='UPDATE inventario SET alimentacion=:alimentacion,idRegulador=:idRegulador,idCM=:idCM,idUsuario=:idUsuario, watios=:watios WHERE idInstalacion="'.$idInstalacion.'"';
+    $sql='UPDATE inventario SET alimentacion=:alimentacion,idRegulador=:idRegulador,idCM=:idCM,idUsuario=:idUsuario, watios=:watios, observaciones=:observaciones WHERE idInstalacion="'.$idInstalacion.'"';
 
     try{
         $db= new db();     
@@ -119,6 +120,7 @@ $app->put('/api/inventario/modificar/{id}',function(Request $request, Response $
         $resultado->bindParam(':idCM',$idCM);
         $resultado->bindParam(':idUsuario',$idUsuario);
         $resultado->bindParam(':watios',$watios);
+        $resultado->bindParam(':observaciones',$observaciones);
        // $resultado->bindParam(':plano',$plano);
        // $resultado->bindParam(':resolucion',$resolucion);
 

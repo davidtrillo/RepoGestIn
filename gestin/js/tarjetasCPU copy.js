@@ -3,16 +3,16 @@ $(function () {
 })
 
 
-function nuevaBusTren() {
+function nuevaTarjetaCpu() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('idTipoActuacion').value ? document.getElementById('idTipoActuacion').value : "1";
+    var idTipoActuacion = document.getElementById('inputTipoActuacion').value;
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
 
         //validar fecha correcta
-        if (validarFormatoFechaBusTren(fechaActuacion)) {
-            if (existeFechaBusTren(fechaActuacion)) {
+        if (validarFormatoFechaTarjetaCpu(fechaActuacion)) {
+            if (existeFechaTarjetaCpu(fechaActuacion)) {
 
             } else {
                 alert("La fecha introducida no existe.");
@@ -26,7 +26,7 @@ function nuevaBusTren() {
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : null;
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
         var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
-        var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
+        // var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
         var activo = document.getElementById('inputActivo').checked;
         var instalada = document.getElementById('inputInstalada').checked;
         var almacen = document.getElementById('inputAlmacen').checked;
@@ -34,15 +34,11 @@ function nuevaBusTren() {
         activo = String(activo);
         instalada = String(instalada);
         almacen = String(almacen);
-        // console.log(idTipoActuacion);
-        // console.log(idNumSerie);
-        // console.log(albaran);
-        // console.log(observaciones);
-        // console.log(precio);
+
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.120/gestin/public/api/bustren/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -71,12 +67,12 @@ function nuevaBusTren() {
 
     }
     setTimeout(() => {
-        rellenarTodosBusTren();
+        rellenarTodosTarjetaCpu();
     }, 1000);
 
 }
 
-function validarFormatoFechaBusTren(campo) {
+function validarFormatoFechaTarjetaCpu(campo) {
     var RegExPattern = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
     if ((campo.match(RegExPattern)) && (campo != '')) {
 
@@ -87,7 +83,7 @@ function validarFormatoFechaBusTren(campo) {
     }
 }
 
-function existeFechaBusTren(fecha) {
+function existeFechaTarjetaCpu(fecha) {
     var fechaf = fecha.split("/");
     var day = fechaf[2];
     var month = fechaf[1];
@@ -99,7 +95,7 @@ function existeFechaBusTren(fecha) {
     return true;
 }
 
-function existeFecha2BusTren(fecha) {
+function existeFecha2TarjetaCpu(fecha) {
     var fechaf = fecha.split("/");
     var d = fechaf[2];
     var m = fechaf[1];
@@ -108,70 +104,82 @@ function existeFecha2BusTren(fecha) {
 }
 
 
-function rellenarTipoActuacion2BusTren(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
+// function rellenarTipoActuacion2TarjetaCpus(idActuacion) { //Llamada a la API según el dato obtenido del primer combo
+//     var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
 
-            var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
+//             var p2 = document.getElementById('dropTipoActuacion2' + idActuacion);
 
-            p2.innerHTML = '';
+//             p2.innerHTML = '';
 
-            for (var i in response) {
-                p2.innerHTML += `
-             <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
+//             for (var i in response) {
+//                 p2.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="${idActuacion}" name="${response[i]['id']}" onclick="leerTipoActuacion2(this.value,this.name,this.id)" value="${response[i]['descripcion']}" >${response[i]['descripcion']}</button>
+//              `
+//             }
+//         })
+// }
 
-function rellenarTipoActuacionBusTren() { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
-    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            var p = document.getElementById('dropdownTipoActuacion');
-            p.innerHTML = '';
-            for (var i in response) {
-                p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionBusTren(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button>
-             `
-            }
-        })
-}
+// function rellenarTipoActuacionTarjetaCpu() { //Llamada a la API según el dato obtenido del primer combo
+//     var url = 'http://172.27.120.120/gestin/public/api/tipoactuacion'
+//     fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(res => res.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => {
+//             var p = document.getElementById('dropdownTipoActuacion');
+//             p.innerHTML = '';
+//             for (var i in response) {
+//                 p.innerHTML += `
+//              <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['id']}" onclick="leerTipoActuacionTarjetaCpu(this.value,this.name)" value="${response[i]['descripcion']}">${response[i]['descripcion']}</button>
+//              `
+//             }
+//         })
+// }
 
-function leerTipoActuacionBusTren(descripcionTipoActuacion, idTipoActuacion) {
+function leerTipoActuacionTarjetaCpu(idTipoActuacion) {
     var p1 = document.getElementById('idTipoActuacion');
     p1.value = idTipoActuacion;
-    var p2 = document.getElementById('inputTipoActuacion');
-    p2.value = descripcionTipoActuacion;
+    // var p2 = document.getElementById('inputTipoActuacion');
+    // p2.value = descripcionTipoActuacion;
 }
 
-function leerTipoActuacion2BusTren(descripcionTipoActuacion, idTipoActuacion, idActuacion) {
+function leerTipoActuacion2TarjetaCpu(descripcionTipoActuacion, idTipoActuacion, idActuacion) {
     var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
     p1.value = idTipoActuacion;
     var p2 = document.getElementById('inputTipoActuacion2' + idActuacion);
     p2.value = descripcionTipoActuacion;
 }
 
-async function formBusTren(elemento) {
+function rellenarTipoActuacion2TarjetaCpu(idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
+    var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
+    p1.value = idTipoActuacion;
+}
+
+function escribirTipoCPU(descripcionTipoActuacion, idTipoActuacion) { //CAMBIO DE NOMENCLATURA
+
+    var p2 = document.getElementById('inputTipoCpu');
+    p2.value = descripcionTipoActuacion;
+}
+
+
+async function formTarjetasCpu(elemento) {
 
     //desactivarBotones();
 
-    // var ac=document.getElementById("btnTarjetas");
+    // var ac=document.getElementById("btnTarjetaCpus");
     // ac.classList.add("active");
 
     
@@ -181,6 +189,12 @@ async function formBusTren(elemento) {
          
     });
     
+
+    var tipoC="";
+        tipoCpu.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+        tipoC += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoCPU(this.value)" >'+ value +'</button>';
+         
+    });
     
     var instalacion = document.getElementById("inputInstalacion");
     
@@ -199,17 +213,28 @@ async function formBusTren(elemento) {
         <div class="col-2">
             F.Actuación
         </div>
-        <div class="col-2">
-        <div class="dropdown" >
+        <div class="col-1">
+            <div class="dropdown" >
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Tipo A.
                     </button>
                     <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
                     `+ tipo +`
                     </div>
-            
+            </div>
+        </div>
+
+        <div class="col-1">
+        <div class="dropdown" >
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoCPU" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tipo CPU
+                </button>
+                <div class="dropdown-menu">
+                `+ tipoC +`
                 </div>
         </div>
+    </div>
+
 
         <div class="col-3">
             Observaciones
@@ -220,9 +245,9 @@ async function formBusTren(elemento) {
         <div class="col-1">
             Num. Serie
         </div>
-        <div class="col-1">
+        <!--  <div class="col-1">
             <span class="ml-0 mb-0 p-0">Precio</span>
-        </div>
+        </div>-->
         <div class="col-1">
             <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Activa</span>  <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Instalada</span> <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almacén</span> 
         </div>
@@ -233,9 +258,17 @@ async function formBusTren(elemento) {
         <div class="col-2">
             <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
         </div>
-        <div class="col-2">
+        <div class="col-1">
             <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
         </div>
+
+        <div class="col-1">
+            <input type="text" class="form-control mt-1" name="inputTipoCpu" id="inputTipoCpu">
+        </div>
+
+
+
+        
         <div class="col-3">
             <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
         </div>
@@ -243,11 +276,11 @@ async function formBusTren(elemento) {
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerieBusTren()">
+            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerieTarjetaCpu()">
         </div>
-        <div class="col-1">
+        <!--  <div class="col-1">
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
-        </div>
+        </div>-->
         <div class="col-1">
         <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
             <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkInstalada()"> 
@@ -255,24 +288,28 @@ async function formBusTren(elemento) {
             <input type="checkbox" class=" mt-3 ml-2" name="inputAlmacen" id="inputAlmacen">
         </div>  
         <div class="col-1">
-            <div class="btn btn-primary" onclick="nuevaBusTren()">Guardar</div>
+            <div class="btn btn-primary" onclick="nuevaTarjetaCpu()">Guardar</div>
         </div>
         </div>  
         <!-- Fin Form Introducir nuevo -->
         
         `
  
-
         // rellenar todos los registros 
-        await rellenarTodosBusTren();
+        await rellenarTodosTarjetaCpu();
     }
 }
 
 
+function rellenarTipoCPU(descripcionTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
 
-async function rellenarTodosBusTren() { //Llamada a la API 
+    var p2 = document.getElementById('inputTipoCpuTar' + idActuacion);
+    p2.value = descripcionTipoActuacion;
+}
+
+async function rellenarTodosTarjetaCpu() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.120/gestin/public/api/bustren/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -315,13 +352,21 @@ async function rellenarTodosBusTren() { //Llamada a la API
                         tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion213_332(this.value,this.name)" >'+ value +'</button>';
                         
                     });
+
+                    var tipoC="";
+                    tipoCpu.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
+                    tipoC += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoCPU(this.value,this.name)" >'+ value +'</button>';
+                     
+                        });
+
+
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
                    <input type="hidden" id="inputIdTar${response[i]['id']}" value="${response[i]['id']}">       
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
-                 <div class="col-2 mt-1" >
+                 <div class="col-1 mt-1" >
                     <div class="input-group">
                         <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoActuacionTar${response[i]['id']}" value="${response[i]['idTipoActuacion']}">
                         <div class="input-group-append">
@@ -334,6 +379,20 @@ async function rellenarTodosBusTren() { //Llamada a la API
                     </div>
                    
                  </div>
+
+                 <div class="col-1 mt-1" >
+                 <div class="input-group">
+                     <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoCpuTar${response[i]['id']}" value="${response[i]['tipo']}">
+                     <div class="input-group-append">
+                             <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                         <div class="dropdown-menu">
+                             `+ tipoC +`
+                         </div>
+                     
+                     </div>
+                 </div>
+                
+              </div>
                  <div class="col-3">
                     <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
                  </div>
@@ -343,17 +402,17 @@ async function rellenarTodosBusTren() { //Llamada a la API
                  <div class="col-1">
                     <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${response[i]['id']}"  value="${response[i]['idNumSerie']}">
                  </div>
-                 <div class="col-1">
+                <!-- <div class="col-1">
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
-                 </div>
+                 </div> -->
                  <div class="col-1">
                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}"  ${instalada}>
                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                  </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarBusTren(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarBusTren(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarTarjetaCpu(this.id)"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarTarjetaCpu(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
 
@@ -363,15 +422,15 @@ async function rellenarTodosBusTren() { //Llamada a la API
             }
         })
 
-   await rellenarFooterBusTren();
-   await comprobarNumSerieBusTren2();
+   await rellenarFooterTarjetaCpu();
+   await comprobarNumSerieTarjetaCpu2();
 
 
 }
 
-function rellenarFooterBusTren() {
+function rellenarFooterTarjetaCpu() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.120/gestin/public/api/bustren/instaladas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -389,14 +448,14 @@ function rellenarFooterBusTren() {
                 // var p1 = document.getElementById('formFooter');
                 // p1.innerHTML = '';
                 // p1.innerHTML=`
-                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                // <span class="ml-1">Total de TarjetaCpus Activas: ${response[0]['c']}</span>
                 // `
 
                 var p = document.getElementById('cabecera');
                 p.innerHTML = '';
                 p.innerHTML = `
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>BusTren</b> Instaladas: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>TarjetaCpus</b> Instaladas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -404,9 +463,9 @@ function rellenarFooterBusTren() {
 }
 
 
-function borrarBusTren(param) {
+function borrarTarjetaCpu(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.120/gestin/public/api/bustren/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -417,11 +476,11 @@ function borrarBusTren(param) {
             alert(response)
         })
     setTimeout(() => {
-     rellenarTodosBusTren();
+     rellenarTodosTarjetaCpu();
     }, 500);
 }
 
-function editarBusTren(param) {
+function editarTarjetaCpu(param) {
 
  
 
@@ -430,6 +489,7 @@ function editarBusTren(param) {
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
+    var inputTipoCpuTar = document.getElementById('inputTipoCpuTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
@@ -451,8 +511,8 @@ function editarBusTren(param) {
 
 
     //validar fecha correcta
-    if (validarFormatoFechaBusTren(inputFechaActuacionTar)) {
-        if (existeFechaBusTren(inputFechaActuacionTar)) {
+    if (validarFormatoFechaTarjetaCpu(inputFechaActuacionTar)) {
+        if (existeFechaTarjetaCpu(inputFechaActuacionTar)) {
 
         } else {
             alert("La fecha introducida no existe.");
@@ -462,7 +522,7 @@ function editarBusTren(param) {
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.120/gestin/public/api/bustren/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/tarjetascpu/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -474,6 +534,7 @@ function editarBusTren(param) {
                 idTipoActuacion: inputTipoActuacionTar,
                 idNumSerie: inputNumSerieTar,
                 albaran: inputAlbaranTar,
+                tipo: inputTipoCpuTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
@@ -492,17 +553,17 @@ function editarBusTren(param) {
 
 
     setTimeout(() => {
-        rellenarTodosBusTren();
+        rellenarTodosTarjetaCpu();
     }, 500);
 }
 
 
-function comprobarNumSerieBusTren() {
+function comprobarNumSerieTarjetaCpu() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
 
     if (idNumSerie) {
 
-        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -534,12 +595,12 @@ function comprobarNumSerieBusTren() {
 
 
 
- function comprobarNumSerieBusTren2() {
+ function comprobarNumSerieTarjetaCpu2() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
   
     if (idInstalacion) {
 
-        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/bustren';
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetascpu';
      fetch(url, {
                 method: 'GET',
                 headers: {
@@ -560,11 +621,11 @@ function comprobarNumSerieBusTren() {
                             if (clase) {
                                 var id=response[i]['id'];
                                 var idNumSerie=response[i]['idNumSerie'];
-                                // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                // comprobarNumSerieTarjetaCpu3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
                                     // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
-                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
+                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
                                      fetch(url, {
                                              method: 'GET',
                                              headers: {
@@ -617,12 +678,12 @@ function comprobarNumSerieBusTren() {
 }
 
 
- function comprobarNumSerieBusTren3(id,idNumSerie) {
+ function comprobarNumSerieTarjetaCpu3(id,idNumSerie) {
     
     if (idNumSerie) {
 
        // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
-        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/bustren/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/tarjetascpu/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {

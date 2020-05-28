@@ -61,7 +61,10 @@ include_once './getNID.php';
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="../../public/consultaTipo.php">Tipo Instalación</a>
-                            <a class="dropdown-item" href="#"></a>
+                            <a class="dropdown-item" href="../../public/consultaTotalesTipo.php">Totales Tipo Instalación</a>
+                            <a class="dropdown-item" href="../../public/consultaTotalesLeds.php">Totales Leds</a>
+                            <a class="dropdown-item" href="../../public/consultaTotalesElementos.php">Totales Elementos</a>
+                            <a class="dropdown-item" href="../../public/consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
                             <a class="dropdown-item" href="#"></a>
                         </div>
                     </li>
@@ -214,6 +217,54 @@ include_once './getNID.php';
             
             </div>
     </div>
+
+
+    <hr>
+    <!-- Formulario Introducir Nuevo-->
+    <div class="mt-2 p-2">
+            <h3><b>Cambiar Configuración Precios MFO<b></h3>
+            <h5>Alterna entre facturar por Tarjetas de Salida o por Número de Grupos</h5>
+            <!-- <div class="form-check">
+                <input class="form-check-input" type="radio" value="" id="2018" onclick="o2018()">
+                <label class="form-check-label" for="2018">
+                    Pliego 2018
+                </label>
+             
+            </div>
+            <div class="form-check">
+                  <input class="form-check-input" type="radio" value="" id="2021" onclick="o2021()">
+                <label class="form-check-label" for="2021">
+                    Pliego 2021
+                </label> 
+            <div> -->
+
+
+
+            <!-- Default unchecked -->
+            <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="2018" name="defaultExampleRadios">
+            <label class="custom-control-label" for="2018">Pliego 2018</label>
+            </div>
+
+            <!-- Default checked -->
+            <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="2021" name="defaultExampleRadios">
+            <label class="custom-control-label" for="2021">Pliego 2021</label>
+            </div>
+
+            <div class="btn btn-primary ml-3 mt-2" id="" onclick="setPliego()">Guardar Pliego</div>
+
+            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="2018b" autocomplete="off" checked> Pliego 2018
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="2021b" autocomplete="off"> Pliego 2021
+                </label>
+
+            </div> -->
+    </div>
+
     <!-- fin formulario Nuevo-->
     <hr>
     <!-- Formulario Body Nuevo-->
