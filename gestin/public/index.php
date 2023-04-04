@@ -34,14 +34,13 @@ include_once '../src/rutas/11_200.php';
 // include_once '../src/rutas/invidentes.php';
 // include_once '../src/rutas/descontadores.php';
 // include_once '../src/rutas/baculos.php';
-include_once '../src/rutas/soportes.php';
+//include_once '../src/rutas/soportes.php';
 include_once '../src/rutas/oculta.php';
-include_once '../src/rutas/pulsadores.php';
+//include_once '../src/rutas/pulsadores.php';
 include_once '../src/rutas/detectores.php';
 include_once '../src/rutas/espiras.php';
 include_once '../src/rutas/pantallascon.php';
 include_once '../src/rutas/camtv.php';
-include_once '../src/rutas/camip.php';
 include_once '../src/rutas/led.php';
 include_once '../src/rutas/modulo.php';
 // include_once '../src/rutas/brazos.php';
@@ -50,16 +49,33 @@ include_once '../src/rutas/modulo.php';
 
 include_once '../src/rutas/APIpintura.php';
 include_once '../src/rutas/APIMFO.php';
+include_once '../src/rutas/APIMFOCamaras.php';
+include_once '../src/rutas/APIMFOCentrales.php';
+include_once '../src/rutas/APIMFONodos.php';
+include_once '../src/rutas/APIMFORadar.php';
 include_once '../src/rutas/APIMFOPP.php';
 include_once '../src/rutas/APIMFOEspiras.php';
 include_once '../src/rutas/APIMFOCargadores.php';
 include_once '../src/rutas/APIMFOAcires.php';
+include_once '../src/rutas/APIMFOSectores.php';
 include_once '../src/rutas/APIPreventivo.php';
 include_once '../src/rutas/APINumSerie.php';
 include_once '../src/rutas/APIConsultaTipo.php';
 include_once '../src/rutas/APIConsultaTotalesTipo.php';
 include_once '../src/rutas/APIConfiguracion.php';
 include_once '../src/rutas/APINID.php';
+include_once '../src/rutas/cargadoresE.php';
+include_once '../src/rutas/centrales.php';
+include_once '../src/rutas/controlAccesos.php';
+include_once '../src/rutas/fotoRojo.php';
+include_once '../src/rutas/nodo.php';
+include_once '../src/rutas/panelInformativo.php';
+include_once '../src/rutas/puntoMedida.php';
+include_once '../src/rutas/radares.php';
+include_once '../src/rutas/sector.php';
+include_once '../src/rutas/señalesLuminosas.php';
+
+
 
 
 

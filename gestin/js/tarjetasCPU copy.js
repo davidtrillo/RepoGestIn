@@ -23,9 +23,9 @@ function nuevaTarjetaCpu() {
 
             return;
         }
-        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : null;
+        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
-        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
+        var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
         // var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
         var activo = document.getElementById('inputActivo').checked;
         var instalada = document.getElementById('inputInstalada').checked;
@@ -270,7 +270,7 @@ async function formTarjetasCpu(elemento) {
 
         
         <div class="col-3">
-            <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
+            <input type="text" class="form-control mt-1" name="inputObservaciones2" id="inputObservaciones2">
         </div>
         <div class="col-1">
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">

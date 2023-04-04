@@ -14,7 +14,7 @@
 
 $app->get('/api/tipoinstalacion',function(Request $request, Response $response){
     // echo "todas las instalaciones";
-    $sql="SELECT tipoInstalacion FROM instalaciones group by tipoInstalacion order by 1";
+    $sql="SELECT tipoInstalacion FROM instalaciones WHERE tipoInstalacion<>'ALMACÉN' AND tipoInstalacion<>'RESIDUOS' group by tipoInstalacion order by 1";
     try{
         $db= new db();     
         $db=$db->conectDB();
@@ -119,8 +119,111 @@ $app->get('/api/pp',function(Request $request, Response $response){
     
 });
 
+$app->get('/api/camaras',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $sql='SELECT id, ubicacion FROM instalaciones where tipoInstalacion LIKE "CÁMARAS" ORDER BY 1';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
 
- 
+        if($resultado->rowCount()>0){
+            $cruces= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($cruces,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+
+/*
+$app->get('/api/centrales',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $sql='SELECT id, ubicacion FROM instalaciones where tipoInstalacion LIKE "CENTRAL" ORDER BY 1';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $cruces= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($cruces,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+ */
+$app->get('/api/nodos',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $sql='SELECT id, ubicacion FROM instalaciones where tipoInstalacion LIKE "NODO" ORDER BY 1';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $cruces= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($cruces,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+
+
+$app->get('/api/radar',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $sql='SELECT id, ubicacion FROM instalaciones where tipoInstalacion LIKE "RADAR" OR  tipoInstalacion LIKE "FOTO ROJO" ORDER BY 1';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $cruces= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($cruces,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
 
 //GET saber que tipo de regulador es
 

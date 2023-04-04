@@ -23,17 +23,19 @@ function nuevaTarjetaCpu() {
 
             return;
         }
-        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : null;
+        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
-        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
+        var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
         var activo = document.getElementById('inputActivo').checked;
         var instalada = document.getElementById('inputInstalada').checked;
         var almacen = document.getElementById('inputAlmacen').checked;
-
+        var residuos = document.getElementById('inputResiduos').checked;
+        
         activo = String(activo);
         instalada = String(instalada);
         almacen = String(almacen);
+        residuos = String(residuos);
 
 
 
@@ -56,7 +58,8 @@ function nuevaTarjetaCpu() {
                     precio: precio,
                     activo: activo,
                     instalada: instalada,
-                    almacen: almacen
+                    almacen: almacen,
+                    residuos: residuos
                 })
             })
             .then(res => res.json())
@@ -249,7 +252,11 @@ async function formTarjetasCpu(elemento) {
             <span class="ml-0 mb-0 p-0">Precio</span>
         </div>
         <div class="col-1">
-            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Activa</span>  <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Instalada</span> <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almacén</span> 
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Activa</span> 
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Instalada</span>
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almacén</span>
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Residuos</span> 
+            
         </div>
         </div>
         <!-- Fin Titulos -->
@@ -270,7 +277,7 @@ async function formTarjetasCpu(elemento) {
 
         
         <div class="col-3">
-            <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
+            <input type="text" class="form-control mt-1" name="inputObservaciones2" id="inputObservaciones2">
         </div>
         <div class="col-1">
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
@@ -283,9 +290,11 @@ async function formTarjetasCpu(elemento) {
         </div>
         <div class="col-1">
         <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
-            <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkInstalada()"> 
-            <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo">
-            <input type="checkbox" class=" mt-3 ml-2" name="inputAlmacen" id="inputAlmacen">
+        <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkTarjetaInstalada()"> 
+        <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo" onclick="checkTarjetaActiva()">
+        <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen2" id="inputAlmacen" onclick="checkTarjetaAlmacen()">
+        <input type="checkbox" class=" mt-3 ml-2" name="inputResiduos" id="inputResiduos" onclick="checkTarjetaResiduos()">
+
         </div>  
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaTarjetaCpu()">Guardar</div>
@@ -345,6 +354,11 @@ async function rellenarTodosTarjetaCpu() { //Llamada a la API
                         var almacen = "checked";
                     } else {
                         var almacen = "";
+                    }
+                    if (response[i]['residuos'] == "true") {
+                        var residuos = "checked";
+                    } else {
+                        var residuos = "";
                     }
                     var tipo="";
                     tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
@@ -406,9 +420,11 @@ async function rellenarTodosTarjetaCpu() { //Llamada a la API
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}"  ${instalada}>
-                   <input type="checkbox" class=" mt-3 ml-2" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
+                 <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}" onclick="checkTarjetaActiva(${response[i]['id']})" ${activo}>
+                 <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}" onclick="checkTarjetaInstalada(${response[i]['id']})"  ${instalada}>
+                 <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}" onclick="checkTarjetaAlmacen(${response[i]['id']})"  ${almacen}>
+                 <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTar${response[i]['id']}" onclick="checkTarjetaResiduos(${response[i]['id']})" ${residuos}>
+
                  </div>
                  <div class="col-1">
                     <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarTarjetaCpu(this.id)"><i class="fas fa-pencil-alt"></i></div>
@@ -495,9 +511,11 @@ function editarTarjetaCpu(param) {
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
     var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
     var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
+    var inputResiduosTar = document.getElementById('inputResiduosTar' + param).checked;
     inputActivoTar = String(inputActivoTar);
     inputInstaladaTar = String(inputInstaladaTar);
     inputAlmacenTar = String(inputAlmacenTar);
+    inputResiduosTar = String(inputResiduosTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -541,7 +559,8 @@ function editarTarjetaCpu(param) {
                 precio: inputPrecioTar,
                 activo: inputActivoTar,
                 instalada: inputInstaladaTar,
-                almacen: inputAlmacenTar
+                almacen: inputAlmacenTar,
+                residuos: inputResiduosTar
 
             })
         })
@@ -713,8 +732,143 @@ function comprobarNumSerieTarjetaCpu() {
     }
 }
 
-function checkInstalada() {
-    if (document.getElementById('inputInstalada').checked) {
-        document.getElementById('inputActivo').checked=true;
+document.addEventListener("DOMContentLoaded", async function(event) {
+ 
+    await checkTarjetaInstalada();
+    await checkTarjetaActiva();
+    await checkTarjetaAlmacen();
+    await checkTarjetaResiduos();
+    // Aquí puedes escribir el código adicional que quieres que se ejecute cuando se dispara el evento DOMContentLoaded
+  });
+
+
+  function checkTarjetaInstalada(id) {
+
+    if (id){
+      
+        console.log(("he apretado InstaladaTar " + id));
+        if (document.getElementById('inputInstaladaTar'+id).checked) {
+          //  document.getElementById('inputActivoTar'+id).checked=true;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+
+        }
+    }else{
+        if (document.getElementById('inputInstalada').checked) {
+            document.getElementById('inputActivo').checked=true;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+
+        }
+    }
+}
+function checkTarjetaActiva(id) {
+
+    if (id){
+
+        if (document.getElementById('inputActivoTar'+id).checked) {
+        
+            document.getElementById('inputInstaladaTar'+id).checked=true;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;      
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+
+
+    }else{
+
+        if (document.getElementById('inputActivo').checked) {
+        
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;      
+    
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        }
+    }
+}
+
+
+function checkTarjetaAlmacen(id) {
+
+    if (id){
+
+        if ( document.getElementById('inputAlmacenTar'+id).checked) {
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+    }else{
+            if ( document.getElementById('inputAlmacen').checked) {
+                document.getElementById('inputActivo').checked=false;
+                document.getElementById('inputInstalada').checked=false;
+                document.getElementById('inputResiduos').checked=false;
+        
+            }else{
+                document.getElementById('inputActivo').checked=false;
+                document.getElementById('inputInstalada').checked=false;
+                document.getElementById('inputAlmacen').checked=false;
+                document.getElementById('inputResiduos').checked=false;
+            }
+        }
+}
+
+function checkTarjetaResiduos(id) {
+
+    if (id){
+
+        if (document.getElementById('inputResiduosTar'+id).checked) {
+        
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+        //  document.getElementById('inputResiduos').checked=true;
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+    }else{
+        if (document.getElementById('inputResiduos').checked) {
+        
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+        //  document.getElementById('inputResiduos').checked=true;
+    
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        }
     }
 }

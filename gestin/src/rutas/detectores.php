@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //GET Todas las instalaciones SELECT
 $app->get('/api/detectores', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM detectores t   order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen, t.instalada, t.residuos FROM detectores t   order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -59,7 +59,7 @@ $app->get('/api/detectores/activas/{instalacion}', function (Request $request, R
 $app->get('/api/detectores/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM detectores t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen, t.residuos, t.instalada FROM detectores t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -96,9 +96,11 @@ $app->post('/api/detectores/nueva', function (Request $request, Response $respon
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
+    $instalada = $request->getParam('instalada');
+    $residuos = $request->getParam('residuos');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO detectores (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
+    $sql = 'INSERT INTO detectores (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,almacen, instalada, residuos) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen, :instalada, :residuos);';
     // $sql='INSERT INTO detectores (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -117,6 +119,8 @@ $app->post('/api/detectores/nueva', function (Request $request, Response $respon
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
+        $resultado->bindParam(':instalada', $instalada);
+        $resultado->bindParam(':residuos', $residuos);
 
         $resultado->execute();
         echo json_encode("Detector guardado con éxito", JSON_UNESCAPED_UNICODE);
@@ -175,10 +179,12 @@ $app->put('/api/detectores/modificar/{id}', function (Request $request, Response
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
+    $instalada = $request->getParam('instalada');
+    $residuos = $request->getParam('residuos');
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE detectores SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE detectores SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen WHERE id='. $id;
+    $sql = 'UPDATE detectores SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen,residuos=:residuos,instalada=:instalada WHERE id='. $id;
 
     try {
         $db = new db();
@@ -196,6 +202,8 @@ $app->put('/api/detectores/modificar/{id}', function (Request $request, Response
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
+        $resultado->bindParam(':residuos', $residuos);
+        $resultado->bindParam(':instalada', $instalada);
 
         $resultado->execute();
         echo json_encode("Detector editado con éxito", JSON_UNESCAPED_UNICODE);

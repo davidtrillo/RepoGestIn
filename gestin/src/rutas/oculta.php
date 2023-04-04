@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //GET Todas las instalaciones SELECT
 $app->get('/api/oculta', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen  FROM oculta t   order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen,t.instalada,t.residuos    FROM oculta t   order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -59,7 +59,7 @@ $app->get('/api/oculta/activas/{instalacion}', function (Request $request, Respo
 $app->get('/api/oculta/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen  FROM oculta t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen,t.instalada,t.residuos   FROM oculta t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -96,9 +96,11 @@ $app->post('/api/oculta/nueva', function (Request $request, Response $response) 
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
+    $instalada = $request->getParam('instalada');
+    $residuos = $request->getParam('residuos');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO oculta (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
+    $sql = 'INSERT INTO oculta (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen, instalada, residuos) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen, :instalada, :residuos);';
     // $sql='INSERT INTO oculta (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -117,6 +119,8 @@ $app->post('/api/oculta/nueva', function (Request $request, Response $response) 
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
+        $resultado->bindParam(':instalada', $instalada);
+        $resultado->bindParam(':residuos', $residuos);
 
         $resultado->execute();
         echo json_encode("S. Oculta guardada con éxito", JSON_UNESCAPED_UNICODE);
@@ -175,10 +179,12 @@ $app->put('/api/oculta/modificar/{id}', function (Request $request, Response $re
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
+    $instalada = $request->getParam('instalada');
+    $residuos = $request->getParam('residuos');
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE oculta SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE oculta SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen WHERE id='. $id;
+    $sql = 'UPDATE oculta SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen,instalada=:instalada,residuos=:residuos WHERE id='. $id;
 
     try {
         $db = new db();
@@ -195,7 +201,9 @@ $app->put('/api/oculta/modificar/{id}', function (Request $request, Response $re
         $resultado->bindParam(':idUsuario', $idUsuario);
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
-        $resultado->bindParam(':almacen', $almacen);
+        $resultado->bindParam(':almacen', $almacen);        
+        $resultado->bindParam(':instalada', $instalada);
+        $resultado->bindParam(':residuos', $residuos);
 
         $resultado->execute();
         echo json_encode("S. Oculta editada con éxito", JSON_UNESCAPED_UNICODE);

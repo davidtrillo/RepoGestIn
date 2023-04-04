@@ -73,9 +73,14 @@ require '../vendor/autoload.php';
                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
                   <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
-                  <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>
+                  <a class="dropdown-item" href="./mfoEspiras.php">MFO PM</a>
                   <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
                   <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
+                  <a class="dropdown-item" href="./mfoCamaras.php">MFO Cámaras</a>
+                  <a class="dropdown-item" href="./mfoCentrales.php">MFO Centrales</a>
+                  <a class="dropdown-item" href="./mfoSectores.php">MFO Sectores</a>
+                  <a class="dropdown-item" href="./mfoNodos.php">MFO Nodos</a>
+                  <a class="dropdown-item" href="./mfoRadar.php">MFO Radar/Foto Rojo</a>
                </div>
          </li>
          <a class="nav-item nav-link" href="./pintura.php">Pintura</a>

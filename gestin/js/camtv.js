@@ -1,13 +1,18 @@
-function nuevaCamTV() { //CAMBIO DE NOMENCLATURA
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+
+function nuevaCamTv() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var idTipoActuacion = document.getElementById('inputTipoActuacion').value
+    var idTipoActuacion = document.getElementById('inputTipoActuacion').value;
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
 
     if (idInstalacion.value != "") {
 
         //validar fecha correcta
-        if (validarFormatoFechaCamTV(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
-            if (existeFechaCamTV(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+        if (validarFormatoFechaCamTv(fechaActuacion)) {
+            if (existeFechaCamTv(fechaActuacion)) {
 
             } else {
                 alert("La fecha introducida no existe.");
@@ -18,22 +23,30 @@ function nuevaCamTV() { //CAMBIO DE NOMENCLATURA
 
             return;
         }
-        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :"0";  
-        var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
-        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
-        var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value :"0";
-        var activo = document.getElementById('inputActivo').checked; // mirar si guarda uno o guarda true
-        var almacen = document.getElementById('inputAlmacen').checked; // mirar si guarda uno o guarda true
-        
-activo = String(activo);
-almacen = String(almacen);
+        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
+        var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
+        var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
+        var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
+        var activo = document.getElementById('inputActivo').checked;
+        var instalada = document.getElementById('inputInstalada').checked;
+        var almacen = document.getElementById('inputAlmacen').checked;
+        var residuos = document.getElementById('inputResiduos').checked;
 
 
+        activo = String(activo);
+        instalada = String(instalada);
+        almacen = String(almacen);
+        residuos = String(residuos);
 
+         //console.log(residuos);
+        // console.log(idNumSerie);
+        // console.log(albaran);
+        // console.log(observaciones);
+        // console.log(precio);
 
 
         var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.120/gestin/public/api/CamTV/nueva';
+        var url = 'http://172.27.120.120/gestin/public/api/camtv/nueva';
 
         fetch(url, {
                 method: 'POST',
@@ -50,7 +63,9 @@ almacen = String(almacen);
                     idUsuario: idUsuario,
                     precio: precio,
                     activo: activo,
-                    almacen: almacen
+                    instalada: instalada,
+                    almacen: almacen,
+                    residuos: residuos
                 })
             })
             .then(res => res.json())
@@ -61,12 +76,12 @@ almacen = String(almacen);
 
     }
     setTimeout(() => {
-        rellenarTodosCamTV(); //CAMBIO DE NOMENCLATURA
+        rellenarTodosCamTv();
     }, 1000);
 
 }
 
-function validarFormatoFechaCamTV(campo) { //CAMBIO DE NOMENCLATURA
+function validarFormatoFechaCamTv(campo) {
     var RegExPattern = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
     if ((campo.match(RegExPattern)) && (campo != '')) {
 
@@ -77,7 +92,7 @@ function validarFormatoFechaCamTV(campo) { //CAMBIO DE NOMENCLATURA
     }
 }
 
-function existeFechaCamTV(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFechaCamTv(fecha) {
     var fechaf = fecha.split("/");
     var day = fechaf[2];
     var month = fechaf[1];
@@ -89,7 +104,7 @@ function existeFechaCamTV(fecha) { //CAMBIO DE NOMENCLATURA
     return true;
 }
 
-function existeFecha2CamTV(fecha) { //CAMBIO DE NOMENCLATURA
+function existeFecha2CamTv(fecha) {
     var fechaf = fecha.split("/");
     var d = fechaf[2];
     var m = fechaf[1];
@@ -99,34 +114,37 @@ function existeFecha2CamTV(fecha) { //CAMBIO DE NOMENCLATURA
 
 
 
-function escribirTipoActuacionCamTV(descripcionTipoActuacion) { //CAMBIO DE NOMENCLATURA
-    var p2 = document.getElementById('inputTipoActuacion');
-    p2.value = descripcionTipoActuacion;
+function leerTipoActuacion2(descripcionTipoActuacion, idTipoActuacion) {
+    
+    var p1 = document.getElementById('inputTipoActuacionTar' + idTipoActuacion);
+    p1.value = descripcionTipoActuacion;
+
 }
 
+async function formCamTv(elemento) {
 
-function leerTipoActuacionCamTV(idTipoActuacion) { //CAMBIO DE NOMENCLATURA
-    var p1 = document.getElementById('idTipoActuacion');
-    p1.value = idTipoActuacion;
-}
+    //desactivarBotones();
 
-function rellenarTipoActuacion2CamTV(idTipoActuacion, idActuacion) { //CAMBIO DE NOMENCLATURA
-    var p1 = document.getElementById('inputTipoActuacionTar' + idActuacion);
-    p1.value = idTipoActuacion;
-}
+    // var ac=document.getElementById("btnTarjetas");
+    // ac.classList.add("active");
 
-async function formCamTV(elemento) { //CAMBIO DE NOMENCLATURA
-    var instalacion = document.getElementById("inputInstalacion");
-    var inputElemento = document.getElementById("inputElemento");
-    inputElemento.value=elemento;
-
+    
     var tipo="";
     tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
         tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" onclick="escribirTipoActuacion13_332(this.value)" >'+ value +'</button>';
          
     });
-
+    
+    
+    var instalacion = document.getElementById("inputInstalacion");
+    
     if (instalacion.value != "") {
+        
+            var inputElemento = document.getElementById("inputElemento");
+                inputElemento.value=elemento;
+        
+
+
         var f1 = document.getElementById("formIntroducir");
         f1.innerHTML = `
         
@@ -136,14 +154,15 @@ async function formCamTV(elemento) { //CAMBIO DE NOMENCLATURA
             F.Actuación
         </div>
         <div class="col-2">
-            <div class="dropdown" >
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Tipo A.
-                </button>
-                <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                `+ tipo +`
+        <div class="dropdown" >
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tipo A.
+                    </button>
+                    <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
+                    `+ tipo +`
+                    </div>
+            
                 </div>
-            </div>
         </div>
 
         <div class="col-3">
@@ -156,10 +175,13 @@ async function formCamTV(elemento) { //CAMBIO DE NOMENCLATURA
             Num. Serie
         </div>
         <div class="col-1">
-            Precio
+            <span class="ml-0 mb-0 p-0">Precio</span>
         </div>
         <div class="col-1">
-            <span>Act.</span>  <span class="ml-2">Almac.</span> 
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Activa</span> 
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Instalada</span>
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almacén</span> 
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Residuos</span> 
         </div>
         </div>
         <!-- Fin Titulos -->
@@ -172,41 +194,45 @@ async function formCamTV(elemento) { //CAMBIO DE NOMENCLATURA
             <input type="text" class="form-control mt-1" name="inputTipoActuacion" id="inputTipoActuacion">
         </div>
         <div class="col-3">
-            <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
+            <input type="text" class="form-control mt-1" name="inputObservaciones2" id="inputObservaciones2">
         </div>
         <div class="col-1">
             <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaran">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie">
+            <input type="text" class="form-control mt-1" name="inputNumSerie" id="inputNumSerie" onfocusout="comprobarNumSerieCamTv()">
         </div>
         <div class="col-1">
         <input type="text" class="form-control mt-1" name="inputPrecio" id="inputPrecio">
         </div>
         <div class="col-1">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputActivo" id="inputActivo">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
-        </div>
+        <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
+            <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkTarjetaInstalada()"> 
+            <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo" onclick="checkTarjetaActiva()">
+            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen" onclick="checkTarjetaAlmacen()">
+            <input type="checkbox" class=" mt-3 ml-2" name="inputResiduos" id="inputResiduos" onclick="checkTarjetaResiduos()">
+        </div>  
         <div class="col-1">
-            <div class="btn btn-primary" onclick="nuevaCamTV()">Guardar</div>
+            <div class="btn btn-primary" onclick="nuevaCamTv()">Guardar</div>
         </div>
         </div>  
         <!-- Fin Form Introducir nuevo -->
         
         `
-
+ 
 
         // rellenar todos los registros 
-       await rellenarTodosCamTV();//CAMBIO DE NOMENCLATURA
+        await rellenarTodosCamTv();
     }
 }
 
 
 
-function rellenarTodosCamTV() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
+async function rellenarTodosCamTv() { //Llamada a la API 
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.120/gestin/public/api/CamTV/' + idInstalacion
-    fetch(url, {
+
+    var url = 'http://172.27.120.120/gestin/public/api/camtv/' + idInstalacion
+  await  fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -216,30 +242,47 @@ function rellenarTodosCamTV() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
         .catch(error => console.error('Error:', error))
         .then(response => {
             if (response == "No se han encontrado resultados") {
-
                 var p = document.getElementById('formBody');
                 p.innerHTML = '';
+
                 alert(response);
 
             } else {
                 var p = document.getElementById('formBody');
                 p.innerHTML = '';
+                //console.log("activo:"+response[i]['activo'].value);
+              //  console.log("instalada:"+response[i]['instalada'].value);
+              //  console.log("almacen:"+response[i]['almacen'].value);
+              //  console.log("residuos:"+response[i]['residuos'].value);
+
                 for (var i in response) {
                     if (response[i]['activo'] == "true") {
                         var activo = "checked";
                     } else {
                         var activo = "";
                     }
+
+                    if (response[i]['instalada'] == "true") {
+                        var instalada = "checked";
+                        
+                    } else {
+                        var instalada = "";
+                    }
+
                     if (response[i]['almacen'] == "true") {
                         var almacen = "checked";
                     } else {
                         var almacen = "";
                     }
-
+                    if (response[i]['residuos'] == "true") {
+                        var residuos = "checked";
+                    } else {
+                        var residuos = "";
+                    }
                     var tipo="";
                     tipoActuacion.forEach(function(value,index){ //recorrer la matriz de la tabla en tablas.js
             
-                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="rellenarTipoActuacion213_332(this.value,this.name)" >'+ value +'</button>';
+                        tipo += '<button class="dropdown-item" type="submit" value="'+ value +'" name="'+ response[i]['id'] +'" onclick="leerTipoActuacion2(this.value,this.name)" >'+ value +'</button>';
                         
                     });
                     p.innerHTML += `
@@ -249,7 +292,6 @@ function rellenarTodosCamTV() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                    <input type="date" class="form-control mt-1" name="" id="inputFechaActuacionTar${response[i]['id']}" placeholder="DD/MM/YYYY" value="${response[i]['fechaActuacion']}">
                  </div>
                  <div class="col-2 mt-1" >
-           
                     <div class="input-group">
                         <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputTipoActuacionTar${response[i]['id']}" value="${response[i]['idTipoActuacion']}">
                         <div class="input-group-append">
@@ -275,27 +317,32 @@ function rellenarTodosCamTV() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                   <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
-                 </div>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}" onclick="checkTarjetaActiva(${response[i]['id']})" ${activo}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}" onclick="checkTarjetaInstalada(${response[i]['id']})"  ${instalada}>
+                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}" onclick="checkTarjetaAlmacen(${response[i]['id']})"  ${almacen}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTar${response[i]['id']}" onclick="checkTarjetaResiduos(${response[i]['id']})" ${residuos}>                 
+                </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarCamTV(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarCamTV(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarCamTv(this.id)"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarCamTv(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
-                 
+
                  `
 
                 }
             }
         })
 
-        rellenarFooterCamTV();//CAMBIO DE NOMENCLATURA
+   await rellenarFooterCamTv();
+   await comprobarNumSerieCamTv2();
+
+
 }
 
-function rellenarFooterCamTV(){//CAMBIO DE NOMENCLATURA
+function rellenarFooterCamTv() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
-    var url = 'http://172.27.120.120/gestin/public/api/CamTV/activas/' + idInstalacion
+    var url = 'http://172.27.120.120/gestin/public/api/camtv/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
             headers: {
@@ -309,11 +356,18 @@ function rellenarFooterCamTV(){//CAMBIO DE NOMENCLATURA
                 alert(response);
 
             } else {
+
+                // var p1 = document.getElementById('formFooter');
+                // p1.innerHTML = '';
+                // p1.innerHTML=`
+                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                // `
+
                 var p = document.getElementById('cabecera');
                 p.innerHTML = '';
-                p.innerHTML=`
+                p.innerHTML = `
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>Señales CamTVs</b> Activas: ${response[0]['c']}</span>
+                <span class="ml-1">Total de <b>CamTv</b> Instaladas: ${response[0]['c']}</span>
                 `
             }
         })
@@ -321,9 +375,9 @@ function rellenarFooterCamTV(){//CAMBIO DE NOMENCLATURA
 }
 
 
-function borrarCamTV(param) {
+function borrarCamTv(param) {
     //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.120/gestin/public/api/CamTV/borrar/' + param
+    var url = 'http://172.27.120.120/gestin/public/api/camtv/borrar/' + param
     fetch(url, {
             method: 'DELETE'
 
@@ -334,11 +388,14 @@ function borrarCamTV(param) {
             alert(response)
         })
     setTimeout(() => {
-        rellenarTodosCamTV();//CAMBIO DE NOMENCLATURA
-    }, 1000);
+     rellenarTodosCamTv();
+    }, 500);
 }
 
-function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
+function editarCamTv(param) {
+
+ 
+
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
@@ -347,9 +404,15 @@ function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
+    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
     var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-    inputAlmacenTar = String(inputAlmacenTar);
+    var inputResiduosTar = document.getElementById('inputResiduosTar' + param).checked;
+
     inputActivoTar = String(inputActivoTar);
+    inputInstaladaTar = String(inputInstaladaTar);
+    inputAlmacenTar = String(inputAlmacenTar);
+    inputResiduosTar = String(inputResiduosTar);
+
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -363,8 +426,8 @@ function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
 
 
     //validar fecha correcta
-    if (validarFormatoFechaCamTV(inputFechaActuacionTar)) {
-        if (existeFechaCamTV(inputFechaActuacionTar)) {
+    if (validarFormatoFechaCamTv(inputFechaActuacionTar)) {
+        if (existeFechaCamTv(inputFechaActuacionTar)) {
 
         } else {
             alert("La fecha introducida no existe.");
@@ -374,7 +437,7 @@ function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
         alert("El formato de la fecha es incorrecto.");
         return;
     }
-    var url = 'http://172.27.120.120/gestin/public/api/CamTV/modificar/' + param;
+    var url = 'http://172.27.120.120/gestin/public/api/camtv/modificar/' + param;
 
     fetch(url, {
             method: 'PUT',
@@ -385,13 +448,16 @@ function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
                 id: inputIdTar,
                 idTipoActuacion: inputTipoActuacionTar,
                 idNumSerie: inputNumSerieTar,
-                albaran:inputAlbaranTar,
+                albaran: inputAlbaranTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
                 activo: inputActivoTar,
-                almacen: inputAlmacenTar
+                instalada: inputInstaladaTar,
+                almacen: inputAlmacenTar,
+                residuos: inputResiduosTar
+
             })
         })
         .then(res => res.json())
@@ -402,6 +468,300 @@ function editarCamTV(param) {//CAMBIO DE NOMENCLATURA
 
 
     setTimeout(() => {
-        rellenarTodosCamTV(); //CAMBIO DE NOMENCLATURA
-    }, 1000);
+        rellenarTodosCamTv();
+    }, 500);
+}
+
+
+function comprobarNumSerieCamTv() {
+    var idNumSerie = document.getElementById('inputNumSerie').value;
+    console.log(idNumSerie);
+
+    if (idNumSerie) {
+
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/camtv/' + idNumSerie;
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response != "No se han encontrado resultados") && (response.length > 0)) {
+
+                    var res = "Número de Serie repetido en: ";
+
+                    for (i in response) {
+                        res += "\n Cruce: " + response[i]['idInstalacion'];
+                    }
+                    alert(res);
+                    var clase = document.getElementById('inputNumSerie');
+                    clase.classList.add("bg-danger");
+                } else {
+                    var clase = document.getElementById('inputNumSerie');
+                    clase.classList.remove("bg-danger");
+                }
+            })
+    }
+}
+
+
+
+
+ function comprobarNumSerieCamTv2() {
+    var idInstalacion = document.getElementById('inputInstalacion').value;
+  
+    if (idInstalacion) {
+
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/camtv';
+     fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response.length > 0)) {
+
+
+                    for (i in response) {
+
+                        if (response[i]['idInstalacion'] == idInstalacion) {
+                            var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
+                            if (clase) {
+                                var id=response[i]['id'];
+                                var idNumSerie=response[i]['idNumSerie'];
+                                // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                if (idNumSerie) {
+
+                                    // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/camtv/' + idNumSerie;
+                                     fetch(url, {
+                                             method: 'GET',
+                                             headers: {
+                                                 'Content-Type': 'application/json'
+                                             }
+                                         })
+                                         .then(res => res.json())
+                                         .catch(error => console.error('Error:', error))
+                                         .then(response => {
+                             
+                                             if ((response.length > 0)) {
+                             
+                                                 var res = "Número de Serie repetido en: ";
+                                                 var clase = document.getElementById('inputNumSerieTar' + id);
+                             
+                                                 for (i in response) {
+                                                     res += "\n Cruce: " + response[i]['idInstalacion'];
+                                                 }
+                                               
+                                                 clase.setAttribute("data-toggle", "tooltip");
+                                                 clase.setAttribute("data-placement", "top");
+                                                 clase.setAttribute("title", "Repetido en cruce " + res);
+                                                 
+                                             }
+                             
+                                         })
+                                 }
+
+
+
+                               clase.classList.add("bg-danger");
+
+                            }
+                        } else {
+
+                            var clase = document.getElementById('inputNumSerieTar' + response[i]['id']);
+                            if (clase) {
+                                clase.classList.remove("bg-danger");
+
+
+                            }
+                        }
+                    }
+
+                } else {
+
+                }
+            })
+    }
+}
+
+
+function comprobarNumSerieCamTv3(id,idNumSerie) {
+    
+    if (idNumSerie) {
+
+       // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/camtv/' + idNumSerie;
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                if ((response.length > 0)) {
+
+                    var res = "Número de Serie repetido en: ";
+                    var clase = document.getElementById('inputNumSerieTar' + id);
+
+                    for (i in response) {
+                        res += "\n Cruce: " + response[i]['idInstalacion'];
+                    }
+                  
+                    clase.setAttribute("data-toggle", "tooltip");
+                    clase.setAttribute("data-placement", "top");
+                    clase.setAttribute("title", "Repetido en cruce " + res);
+                    
+                }
+
+            })
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async function(event) {
+ 
+   await checkTarjetaInstalada();
+   await checkTarjetaActiva();
+   await checkTarjetaAlmacen();
+   await checkTarjetaResiduos();
+    // Aquí puedes escribir el código adicional que quieres que se ejecute cuando se dispara el evento DOMContentLoaded
+  });
+
+function checkTarjetaInstalada(id) {
+
+    if (id){
+
+        if (document.getElementById('inputInstaladaTar'+id).checked) {
+          //  document.getElementById('inputActivoTar'+id).checked=true;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+
+        }
+    }else{
+        if (document.getElementById('inputInstalada').checked) {
+            document.getElementById('inputActivo').checked=true;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+
+        }
+    }
+}
+function checkTarjetaActiva(id) {
+
+    if (id){
+
+
+        if (document.getElementById('inputActivoTar'+id).checked) {
+        
+            document.getElementById('inputInstaladaTar'+id).checked=true;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;      
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+
+
+    }else{
+
+        if (document.getElementById('inputActivo').checked) {
+        
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;      
+    
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        }
+    }
+}
+function checkTarjetaAlmacen(id) {
+
+    if (id){
+
+        if ( document.getElementById('inputAlmacenTar'+id).checked) {
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+    }else{
+            if ( document.getElementById('inputAlmacen').checked) {
+                document.getElementById('inputActivo').checked=false;
+                document.getElementById('inputInstalada').checked=false;
+                document.getElementById('inputResiduos').checked=false;
+        
+            }else{
+                document.getElementById('inputActivo').checked=false;
+                document.getElementById('inputInstalada').checked=false;
+                document.getElementById('inputAlmacen').checked=false;
+                document.getElementById('inputResiduos').checked=false;
+            }
+        }
+}
+function checkTarjetaResiduos(id) {
+
+    if (id){
+
+        if (document.getElementById('inputResiduosTar'+id).checked) {
+        
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+        //  document.getElementById('inputResiduos').checked=true;
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+    }else{
+        if (document.getElementById('inputResiduos').checked) {
+        
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+        //  document.getElementById('inputResiduos').checked=true;
+    
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        }
+    }
 }

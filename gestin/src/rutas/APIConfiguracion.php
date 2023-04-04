@@ -31,12 +31,75 @@
      }
  });
 
+ $app->get('/api/preciosmfo/{mfo}',function(Request $request, Response $response){
+    
+    $mfo= $request->getAttribute('mfo'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+
+    $sql='SELECT '.$mfo.' FROM preciosmfo';
+   
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+        if($resultado->rowCount()>0){
+            $inventario= $resultado->fetchAll();
+           //// echo json_encode($inventario);
+           $ret= json_encode($inventario);
+        
+           return $ret ;
+           // echo json_encode("No se han encontrado resultados");
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
 
 
- $app->get('/api/nid',function(Request $request, Response $response){
 
-         // conexion
-    function conectDBSQLServer(){
+//  $app->get('/api/nid', function(Request $request, Response $response){
+
+//     echo("holis");
+//     $serverName = "188.165.135.168\SQL2008,1433"; //serverName\instanceName
+//     $connectionInfo = array( "Database"=>"Palma", "UID"=>"dtrillo", "PWD"=>"Mobilitat01",'CharacterSet' => 'UTF-8');
+    
+//     $conn = sqlsrv_connect( $serverName, $connectionInfo);//conectDBSQLServer();  
+
+//     if( $conn === false ) {
+//         echo "Couldn't connect to SQL Server on $this->servername.<br />";
+//         die( print_r( sqlsrv_errors(), true));
+//     } else {
+//         echo "Connected!";
+//     }
+
+
+//     $dbUser='user';
+//     $dbPass='Mobilitat_01';
+//     $servername="localhost";
+//     $database="gestin";
+//     $connMySQL=mysqli_connect($servername, $dbUser, $dbPass, $database);
+
+//     if (!$connMySQL) {
+//         echo("error");
+//         die("Connection failed: " . mysqli_connect_error());
+//   }
+   
+//  echo "Connected MySQL successfully";
+//     return $connMySQL; 
+
+
+// //mirar como lo hago en ATP
+       
+
+// });
+$app->get('/api/nid',function(Request $request, Response $response){
+
+      // conexion
+     
         $serverName = "188.165.135.168\SQL2008,1433"; //serverName\instanceName
         $connectionInfo = array( "Database"=>"Palma", "UID"=>"dtrillo", "PWD"=>"Mobilitat01",'CharacterSet' => 'UTF-8');
      //  print_r($connectionInfo);
@@ -44,71 +107,54 @@
         //echo $conn;
         
         if( $conn ) {
-             //echo "Conexión establecida.<br />";
-             return $conn; 
-        
+           //  echo "Conexión establecida.<br />";
+                     
         }else{
-            // echo "Conexión no se pudo establecer.<br />";
+          //  echo "Conexión no se pudo establecer.<br />";
              die( print_r( sqlsrv_errors(), true));
         }
-    }
+   
 
         // conexion MySQL
-        function conectDBMySQL(){
-            $dbUser='user';
-            $dbPass='Mobilitat_01';
-            $servername="localhost";
-            $database="gestin";
-            $connMySQL=mysqli_connect($servername, $dbUser, $dbPass, $database);
+      
+        $dbUser='user';
+        $dbPass='Mobilitat_01';
+        $servername="localhost";
+        $database="gestin";
+        $connMySQL=mysqli_connect($servername, $dbUser, $dbPass, $database);
 
-            if (!$connMySQL) {
-                die("Connection failed: " . mysqli_connect_error());
-          }
-           
-         //echo "Connected MySQL successfully";
-            return $connMySQL; 
+        if (!$connMySQL) {
+          //  echo "Connected MySQL FAILED";
+            die("Connection failed: " . mysqli_connect_error());
+        }else{
+          //  echo "Connected MySQL successfully";
         }
-
-   
-         try  
-         {  
-            
-            $conn = conectDBSQLServer();  
-            $sql="select Elm_CódigoNID from Cruce_Link_Elemento where (Elm_CódigoNID is not null) AND (Elm_FechaHasta IS NULL)";
-            $getNID = sqlsrv_query($conn, $sql);  
+                 
+         $sql="select Elm_CódigoNID from Cruce_Link_Elemento where (Elm_CódigoNID is not null) AND (Elm_FechaHasta IS NULL)";
+         $getNID = sqlsrv_query($conn, $sql);  
            
-             if ($getNID == FALSE)  
-                 die(FormatErrors(sqlsrv_errors()));  
+          if ($getNID == FALSE) { die(FormatErrors(sqlsrv_errors()));  }
 
-            $connMySQL = conectDBMySQL();  
-            $sqlMySQL="DELETE FROM `gestin`.`nid`"; //BORRAMOS LA TABLA NID PARA LA NUEVA IMPORTACION
-            mysqli_query($connMySQL, $sqlMySQL);
-            $count = 0;  
-            while($row = sqlsrv_fetch_array($getNID, SQLSRV_FETCH_ASSOC))  
-            {  
-                $sqlMySQL="INSERT INTO `gestin`.`nid` (`nid`) VALUES ('". $row['Elm_CódigoNID']."')";
+          $sqlMySQL="DELETE FROM `gestin`.`nid`"; //BORRAMOS LA TABLA NID PARA LA NUEVA IMPORTACION
+         mysqli_query($connMySQL, $sqlMySQL);
+             $count = 0;  
+             while($row = sqlsrv_fetch_array($getNID, SQLSRV_FETCH_ASSOC))  
+             {  
+                 $sqlMySQL="INSERT INTO `gestin`.`nid` (`nid`) VALUES ('". $row['Elm_CódigoNID']."')";
                 mysqli_query($connMySQL, $sqlMySQL);
-                $count++;  
-              } 
+                 $count++;  
+               } 
               
-            // echo("<br/>");  
-            // echo($productCount);
+            // // echo("<br/>");  
+            // // echo($productCount);
                 
-            mysqli_close($connMySQL);
-            sqlsrv_free_stmt($getNID);  
-            sqlsrv_close($conn);  
-            
-            
-            echo json_encode($count, JSON_UNESCAPED_UNICODE);
-            //return $count;
-         }  
-         catch(Exception $e)  
-         {  
-             echo("Error!");  
-         }  
-
-
-       
+             mysqli_close($connMySQL);
+             sqlsrv_free_stmt($getNID);  
+             sqlsrv_close($conn);  
+                      
+             echo json_encode($count, JSON_UNESCAPED_UNICODE);
+            return $count;
+    
 
 });
 
@@ -190,38 +236,38 @@
       //declaracion de las variables de recepcion desde FRONT
       //$id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
     
-      $numerogrupo11=$request->getParam('numerogrupo11');
-      $numerogrupo12=$request->getParam('numerogrupo12');
-      $numerogrupo21=$request->getParam('numerogrupo21');
-      $numerogrupo22=$request->getParam('numerogrupo22');
-      $numerogrupo31=$request->getParam('numerogrupo31');
-      $numerogrupo32=$request->getParam('numerogrupo32');
-      $numerogrupo41=$request->getParam('numerogrupo41');
-      $preciogrupo1=$request->getParam('preciogrupo1');
-      $preciogrupo2=$request->getParam('preciogrupo2');
-      $preciogrupo3=$request->getParam('preciogrupo3');
-      $preciogrupo4=$request->getParam('preciogrupo4');
+      $preciomfocruce=$request->getParam('preciomfocruce');
+      $preciomfopp=$request->getParam('preciomfopp');
+      $preciomfopm=$request->getParam('preciomfopm');
+      $preciomfocargador=$request->getParam('preciomfocargador');
+      $preciomfoacire=$request->getParam('preciomfoacire');
+      $preciomfocamara=$request->getParam('preciomfocamara');
+      $preciomfocentral=$request->getParam('preciomfocentral');
+      $preciomfosector=$request->getParam('preciomfosector');
+      $preciomfonodo=$request->getParam('preciomfonodo');
+      $preciomforadar=$request->getParam('preciomforadar');
+      
 
   
       // echo "todas las instalaciones";
-      $sql='UPDATE preciosmfo SET numerogrupo11=:numerogrupo11,numerogrupo12=:numerogrupo12,numerogrupo21=:numerogrupo21,numerogrupo22=:numerogrupo22, numerogrupo22=:numerogrupo22, numerogrupo31=:numerogrupo31, numerogrupo32=:numerogrupo32, numerogrupo41=:numerogrupo41, preciogrupo1=:preciogrupo1, preciogrupo2=:preciogrupo2, preciogrupo3=:preciogrupo3, preciogrupo4=:preciogrupo4;';
+      $sql='UPDATE preciosmfo SET preciomfocruce=:preciomfocruce,preciomfopp=:preciomfopp,preciomfopm=:preciomfopm,preciomfocargador=:preciomfocargador, preciomfoacire=:preciomfoacire, preciomfocamara=:preciomfocamara, preciomfocamara=:preciomfocamara, preciomfocentral=:preciomfocentral, preciomfosector=:preciomfosector, preciomfonodo=:preciomfonodo, preciomforadar=:preciomforadar;';
 
       try{
           $db= new db();     
           $db=$db->conectDB();
           $resultado= $db->prepare($sql);
           //Asignar campos del SQL a las variables obtenidas
-          $resultado->bindParam(':numerogrupo11',$numerogrupo11);
-          $resultado->bindParam(':numerogrupo12',$numerogrupo12);
-          $resultado->bindParam(':numerogrupo21',$numerogrupo21);
-          $resultado->bindParam(':numerogrupo22',$numerogrupo22);
-          $resultado->bindParam(':numerogrupo31',$numerogrupo31);
-          $resultado->bindParam(':numerogrupo32',$numerogrupo32);
-          $resultado->bindParam(':numerogrupo41',$numerogrupo41);
-          $resultado->bindParam(':preciogrupo1',$preciogrupo1);
-          $resultado->bindParam(':preciogrupo2',$preciogrupo2);
-          $resultado->bindParam(':preciogrupo3',$preciogrupo3);
-          $resultado->bindParam(':preciogrupo4',$preciogrupo4);
+          $resultado->bindParam(':preciomfocruce',$preciomfocruce);
+          $resultado->bindParam(':preciomfopp',$preciomfopp);
+          $resultado->bindParam(':preciomfopm',$preciomfopm);
+          $resultado->bindParam(':preciomfocargador',$preciomfocargador);
+          $resultado->bindParam(':preciomfoacire',$preciomfoacire);
+          $resultado->bindParam(':preciomfocamara',$preciomfocamara);
+          $resultado->bindParam(':preciomfocentral',$preciomfocentral);
+          $resultado->bindParam(':preciomfosector',$preciomfosector);
+          $resultado->bindParam(':preciomfonodo',$preciomfonodo);
+          $resultado->bindParam(':preciomforadar',$preciomforadar);
+
 
           $resultado->execute();
           echo json_encode("Precios editados con éxito",JSON_UNESCAPED_UNICODE);

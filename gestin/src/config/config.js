@@ -1,10 +1,118 @@
 document.onload = rellenar();
 
 function rellenar(){
+   // rellenarPrecios();
+    //getPliego();
+    rellenarTablaPrecios();
     rellenarPrecios();
-    getPliego();
 }
 
+
+
+function rellenarTablaPrecios(){
+
+    var idUsuario = document.getElementById('inputIdUsuario').value;
+    console.log(idUsuario);
+
+    if (idUsuario=="a02161" || idUsuario=="a02132" || idUsuario=="a00774" || idUsuario=="A02161" || idUsuario=="A02132" || idUsuario=="A00774"){
+            var p=document.getElementById("formTablaPrecios");
+            p.innerHTML=`
+
+            <div class="container-fluid ml-3 mt-0 p-1" >
+                <div class="row">
+                    <label class="ml-3 mt-1 p-1"> Precio MFO Cruce </label>
+                    <div class="col-1  ml-3">
+                        <input  class="form-control" id="inputMFOCruce" onfocusout="">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="ml-3 mt-1 p-1"> Precio MFO Paso de Peatones </label>
+                    <div class="col-1">
+                        <input  class="form-control" id="inputMFOPP" onfocusout="">
+                    </div>
+                      
+                </div>
+            
+                <div class="row">
+                    <label class="ml-3 mt-1 p-1"> Precio MFO Punto de Medida </label>
+                    <div class="col-1">
+                        <input  class="form-control" id="inputMFOPM" onfocusout="">
+                    </div>
+                       
+                </div>
+
+                <div class="row">
+                <label class="ml-3 mt-1 p-1"> Precio MFO Cargador Eléctrico </label>
+                    <div class="col-1">
+                        <input  class="form-control" id="inputMFOCargador" onfocusout="">
+                    </div>
+ 
+                </div>   
+                
+                <div class="row">
+                <label class="ml-3 mt-1 p-1"> Precio MFO Acire </label>
+                    <div class="col-1">
+                        <input  class="form-control" id="inputMFOAcire" onfocusout="">
+                    </div>
+
+                </div>   
+                
+                <div class="row">
+                <label class="ml-3 mt-1 p-1"> Precio MFO Cámara</label>
+                    <div class="col-1">
+                        <input  class="form-control" id="inputMFOCamara" onfocusout="">
+                    </div>
+
+                </div>   
+
+                <div class="row">
+                <label class="ml-3 mt-1 p-1"> Precio MFO Central</label>
+                <div class="col-1">
+                    <input  class="form-control" id="inputMFOCentral" onfocusout="">
+                </div>
+
+                </div> 
+
+                <div class="row">
+                <label class="ml-3 mt-1 p-1"> Precio MFO Sector</label>
+                    <div class="col-1">
+                        <input  class="form-control" id="inputMFOSector" onfocusout="">
+                    </div>
+
+                </div> 
+
+                <div class="row">
+                <label class="ml-3 mt-1 p-1"> Precio MFO Nodo</label>
+                    <div class="col-1">
+                        <input  class="form-control" id="inputMFONodo" onfocusout="">
+                    </div>
+
+                </div> 
+
+                <div class="row">
+                    <label class="ml-3 mt-1 p-1"> Precio MFO Radar/Foto Rojo</label>
+                    <div class="col-1">
+                        <input  class="form-control" id="inputMFORadar" onfocusout="">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-2">
+                        <button class="btn btn-primary" id="" onclick="editarPreciosMFO()">Guardar Precios MFO</button>
+                    </div> 
+
+                </div>
+
+            </div>
+            
+            `
+    }else{
+        console.log("No tengo acceso a Tabla de Precios");
+    }
+
+}
 
 function rellenarPrecios() {
     var url = 'http://172.27.120.120/gestin/public/api/preciosmfo'
@@ -17,37 +125,34 @@ function rellenarPrecios() {
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
-            document.getElementById('numerogrupo11').value=response[0]['numerogrupo11'];
-            document.getElementById('numerogrupo12').value=response[0]['numerogrupo12'];
-            document.getElementById('numerogrupo21').value=response[0]['numerogrupo21'];
-            document.getElementById('numerogrupo22').value=response[0]['numerogrupo22'];
-            document.getElementById('numerogrupo31').value=response[0]['numerogrupo31'];
-            document.getElementById('numerogrupo32').value=response[0]['numerogrupo32'];
-            document.getElementById('numerogrupo41').value=response[0]['numerogrupo41'];
-            
-            document.getElementById('precioGrupo1').value=response[0]['preciogrupo1'];
-            document.getElementById('precioGrupo2').value=response[0]['preciogrupo2'];
-            document.getElementById('precioGrupo3').value=response[0]['preciogrupo3'];
-            document.getElementById('precioGrupo4').value=response[0]['preciogrupo4'];
-            
+            document.getElementById('inputMFOCruce').value=response[0]['preciomfocruce'];
+            document.getElementById('inputMFOPP').value=response[0]['preciomfopp'];
+            document.getElementById('inputMFOPM').value=response[0]['preciomfopm'];
+            document.getElementById('inputMFOCargador').value=response[0]['preciomfocargador'];
+            document.getElementById('inputMFOAcire').value=response[0]['preciomfoacire'];
+            document.getElementById('inputMFOCamara').value=response[0]['preciomfocamara'];
+            document.getElementById('inputMFOCentral').value=response[0]['preciomfocentral'];
+            document.getElementById('inputMFOSector').value=response[0]['preciomfosector'];
+            document.getElementById('inputMFONodo').value=response[0]['preciomfonodo'];
+            document.getElementById('inputMFORadar').value=response[0]['preciomforadar'];            
         })
     
 }
 
-function editarPreciosMFO() {
+ function editarPreciosMFO() {
    // var id= param;
-    var numerogrupo11 = document.getElementById('numerogrupo11').value ? document.getElementById('numerogrupo11').value : 0 ;
-    var numerogrupo12 = document.getElementById('numerogrupo12').value ? document.getElementById('numerogrupo12').value : 0 ;
-    var numerogrupo21 = document.getElementById('numerogrupo21').value ? document.getElementById('numerogrupo21').value : 0 ;
-    var numerogrupo22 = document.getElementById('numerogrupo22').value ? document.getElementById('numerogrupo22').value : 0 ;
-    var numerogrupo31 = document.getElementById('numerogrupo31').value ? document.getElementById('numerogrupo31').value : 0 ;
-    var numerogrupo32 = document.getElementById('numerogrupo32').value ? document.getElementById('numerogrupo32').value : 0 ;
-    var numerogrupo41 = document.getElementById('numerogrupo41').value ? document.getElementById('numerogrupo41').value : 0 ;
-
-    var precioGrupo1 = document.getElementById('precioGrupo1').value ? document.getElementById('precioGrupo1').value : 0 ;
-    var precioGrupo2 = document.getElementById('precioGrupo2').value ? document.getElementById('precioGrupo2').value : 0 ;
-    var precioGrupo3 = document.getElementById('precioGrupo3').value ? document.getElementById('precioGrupo3').value : 0 ;
-    var precioGrupo4 = document.getElementById('precioGrupo4').value ? document.getElementById('precioGrupo4').value : 0 ;
+    var mfocruce = parseFloat(document.getElementById('inputMFOCruce').value) ? document.getElementById('inputMFOCruce').value : 0 ;
+    var mfopp = parseFloat(document.getElementById('inputMFOPP').value) ? document.getElementById('inputMFOPP').value : 0 ;
+    var mfopm = parseFloat(document.getElementById('inputMFOPM').value) ? document.getElementById('inputMFOPM').value : 0 ;
+    var mfocargador = parseFloat(document.getElementById('inputMFOCargador').value) ? document.getElementById('inputMFOCargador').value : 0 ;
+    var mfoacire = parseFloat(document.getElementById('inputMFOAcire').value) ? document.getElementById('inputMFOAcire').value : 0 ;
+    var mfocamara = parseFloat(document.getElementById('inputMFOCamara').value) ? document.getElementById('inputMFOCamara').value : 0 ;
+    var mfocentral = parseFloat(document.getElementById('inputMFOCentral').value) ? document.getElementById('inputMFOCentral').value : 0 ;
+    var mfosector = parseFloat(document.getElementById('inputMFOSector').value) ? document.getElementById('inputMFOSector').value : 0 ;
+    var mfonodo = parseFloat(document.getElementById('inputMFONodo').value) ? document.getElementById('inputMFONodo').value : 0 ;
+    var mforadar = parseFloat(document.getElementById('inputMFORadar').value) ? document.getElementById('inputMFORadar').value : 0 ;
+    
+    
 
 
     var url = 'http://172.27.120.120/gestin/public/api/preciosmfo/modificar';
@@ -58,17 +163,16 @@ function editarPreciosMFO() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                numerogrupo11: numerogrupo11,
-                numerogrupo12: numerogrupo12,
-                numerogrupo21: numerogrupo21,
-                numerogrupo22: numerogrupo22,
-                numerogrupo31: numerogrupo31,
-                numerogrupo32: numerogrupo32,
-                numerogrupo41: numerogrupo41,
-                preciogrupo1: precioGrupo1,
-                preciogrupo2: precioGrupo2,
-                preciogrupo3: precioGrupo3,
-                preciogrupo4: precioGrupo4
+                preciomfocruce: mfocruce,
+                preciomfopp: mfopp,
+                preciomfopm: mfopm,
+                preciomfocargador: mfocargador,
+                preciomfoacire: mfoacire,
+                preciomfocamara: mfocamara,
+                preciomfocentral: mfocentral,
+                preciomfosector: mfosector,
+                preciomfonodo: mfonodo,
+                preciomforadar: mforadar
             })
         })
         .then(res => res.json())
@@ -78,9 +182,7 @@ function editarPreciosMFO() {
         })
 
 
-    setTimeout(() => {
-        rellenar(); //CAMBIO DE NOMENCLATURA
-    }, 1000);
+ 
 }
 
 function setPliego() {

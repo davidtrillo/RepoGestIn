@@ -9,15 +9,15 @@
   
     if(($_SERVER["REQUEST_METHOD"] == "POST") && ($_POST["username"])&& ($_POST["password"])) {
         
-        $host = "172.27.120.108";
-        $hostIMI = "172.29.7.72";
+       // $hostMobilitat = "172.27.120.108";
+        $host = "172.29.7.72";
         $port = "389";
 
         $ldap_con = ldap_connect("ldap://{$host}:{$port}") or die("No se pudo conectar al servidor LDAP.");
         ldap_set_option($ldap_con,LDAP_OPT_PROTOCOL_VERSION,3);
         //var_dump($ldap_con); //Comprobación de estado de conexión OK #2
-         $ldap_dn="OU=Usuaris Mobilitat,DC=mobilitat,DC=local";
-         $ldap_dnIMI="OU=Entorn Municipal,DC=ajtpmi,DC=local";
+         $ldap_dnMobilitat="OU=Usuaris Mobilitat,DC=mobilitat,DC=local";
+         $ldap_dn="OU=Entorn Municipal,DC=ajtpmi,DC=local";
 
         // $ldap_user="dtrillo";
         // $ldap_password="Mobilitat01";
@@ -25,8 +25,8 @@
         $ldap_user=$_POST["username"];
         $ldap_password=$_POST["password"];
 
-        //if (@ldap_bind($ldap_con, $ldap_user."@ajtpmi.local", $ldap_password)){ 
-      if (@ldap_bind($ldap_con, $ldap_user."@mobilitat.local", $ldap_password)){
+        if (@ldap_bind($ldap_con, $ldap_user."@ajtpmi.local", $ldap_password)){ 
+      //if (@ldap_bind($ldap_con, $ldap_user."@mobilitat.local", $ldap_password)){
           //echo "dentro";
           $_SESSION['login_user'] = $ldap_user;
           header("Location: ../welcome.php");

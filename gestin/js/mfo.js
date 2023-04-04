@@ -4,7 +4,9 @@ document.getElementById("inputIdCruces")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
-        filtrarCruce();
+        var id2=document.getElementById('inputIdCruces').value;
+         filtrarCruce(id2);
+        
     }
 });
 
@@ -30,7 +32,7 @@ function rellenarCruceMFO() { //Llamada a la API según el dato obtenido del pri
 
 }
 
-
+/*
 function rellenarCruceMFO2(param) { //Llamada a la API según el dato obtenido del primer combo
     var url = 'http://172.27.120.120/gestin/public/api/cruces'
     fetch(url, {
@@ -52,6 +54,7 @@ function rellenarCruceMFO2(param) { //Llamada a la API según el dato obtenido d
         })
 
 }
+*/
 
 function rellenarCruceMFOFiltro() { //Llamada a la API según el dato obtenido del primer combo
 
@@ -70,13 +73,14 @@ function rellenarCruceMFOFiltro() { //Llamada a la API según el dato obtenido d
             p.innerHTML = '';
             for (var i in response) {
                 p.innerHTML += `
-             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceMFO3(this.value)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+             <button class="dropdown-item" type="submit" id="dropBtnTipoActuacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerCruceMFO3(this.value,this.name)" value="${response[i]['id']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
              `
             }
         })
 
 }
 
+/*
 function leerCruceMFO(id, ubicacion) {
     var p1 = document.getElementById('inputIdCruce');
     p1.value = id;
@@ -88,7 +92,8 @@ function leerCruceMFO(id, ubicacion) {
     var precio = document.getElementById('inputPrecio');
     precio.value="";
 }
-
+*/
+/*
 async function leerCruceMFO2(param, id, ubicacion) {
     var p1 = document.getElementById('inputIdCruce2'+param);
     p1.value = id;
@@ -96,10 +101,16 @@ async function leerCruceMFO2(param, id, ubicacion) {
     p2.value = ubicacion;
     await calcularPrecio2(param,id);
 }
+*/
 
-function leerCruceMFO3(id) {
+function leerCruceMFO3(id,ubicacion) {
     var p1 = document.getElementById('inputIdCruces');
-    p1.value = id;
+    p1.value = id + " " + ubicacion;
+    var p2 = document.getElementById('inputIdCruce');
+    p2.value = id;
+    var p3 = document.getElementById('inputUbicacion');
+    p3.value = ubicacion;
+    filtrarCruce(id);
 
 }
 
@@ -110,7 +121,7 @@ async function nuevoMFO() {
     if (idInstalacion.value != "") {
         var fechaActuacion = document.getElementById('inputFechaActuacion').value ? document.getElementById('inputFechaActuacion').value : null;
         var fechaInspeccion = document.getElementById('inputFechaInspeccion').value ? document.getElementById('inputFechaInspeccion').value : null;
-        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : null;
+        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value : "";
         var resolucion = document.getElementById('inputOk').checked; // mirar si guarda uno o guarda true 
         var idUsuario = document.getElementById('inputIdUsuario').value ? document.getElementById('inputIdUsuario').value : null;
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : 0;
@@ -155,13 +166,13 @@ async function nuevoMFO() {
     var precio = document.getElementById('inputPrecio');
     precio.value="";
 
-    filtrarCruce();
+    filtrarCruce(idInstalacion);
 }
 
 
 
-function filtrarCruce() {
-    var cruceFil = document.getElementById('inputIdCruces').value;
+function filtrarCruce(id) {
+    var cruceFil = document.getElementById('inputIdCruce').value;
     var inputIdCruce = document.getElementById('inputIdCruce');
     inputIdCruce.value=cruceFil
     
@@ -175,7 +186,7 @@ function filtrarCruce() {
 
 
 
-    var url = 'http://172.27.120.120/gestin/public/api/mfo/'+cruceFil;
+    var url = 'http://172.27.120.120/gestin/public/api/mfo/'+id;
     fetch(url, {
             method: 'GET',
             headers: {
@@ -220,7 +231,7 @@ function filtrarCruce() {
                     <div class="row">
                         <div class="col-1 p-1">
 
-                                <input type="text" class="form-control mt-2" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}" onfocusout="rellenarUbicacion(${response[i]['id']})">                          
+                                <input type="text" class="form-control mt-2" name="" id="inputIdCruce2${response[i]['id']}" value="${response[i]['idInstalacion']}" onfocusout="rellenarUbicacion(${response[i]['id']})" disabled>                          
                             
                         </div>
            
@@ -238,10 +249,10 @@ function filtrarCruce() {
                           <input type="text" class="form-control mt-2" name="" id="observaciones2${response[i]['id']}" value="${response[i]['observaciones']}">
                        </div>
                        <div class="col-1 p-1">
-                             <input type="text" class="form-control mt-2" name="" id="precio2${response[i]['id']}" value="${response[i]['precio']}">
+                             <input type="text" class="form-control mt-2" name="" id="precio2${response[i]['id']}" value="${response[i]['precio']}" disabled>
                         </div>
                        <div class="col-1 p-1">
-                          <input type="checkbox" class="mt-3 ml-5" name="resolucion" onclick="calcularPrecio2(${response[i]['id']})" id="resolucion2${response[i]['id']}" ${activo}>
+                          <input type="checkbox" class="mt-3 ml-5" name="resolucion" onclick="rellenarPrecio2(${response[i]['id']})" id="resolucion2${response[i]['id']}" ${activo}>
                        </div>
                        <div class="col-1 p-1 mt-2">
 
@@ -305,7 +316,8 @@ async function borrarMFO(id) {
                }
             })
 
-            filtrarCruce();
+            var id2=document.getElementById('inputIdCruce').value;
+            await  filtrarCruce(id2);
             // setTimeout(() => {
             //     rellenarMFO(); 
             // }, 1000);
@@ -317,7 +329,7 @@ async function editarMFO(param) {
     var inputIdCruce2 = document.getElementById('inputIdCruce2' + param).value ? document.getElementById('inputIdCruce2' + param).value : null ;
     var inputFechaActuacion2 = document.getElementById('inputFechaActuacion2' + param).value ? document.getElementById('inputFechaActuacion2' + param).value : null ;
     var inputFechaInspeccion2 = document.getElementById('inputFechaInspeccion2' + param).value ? document.getElementById('inputFechaInspeccion2' + param).value : null ;
-    var observaciones2 = document.getElementById('observaciones2' + param).value ? document.getElementById('observaciones2' + param).value : null ;
+    var observaciones2 = document.getElementById('observaciones2' + param).value ? document.getElementById('observaciones2' + param).value : "" ;
     var resolucion2 = document.getElementById('resolucion2' + param).checked;
     resolucion2 = String(resolucion2);
     var idUsuario = document.getElementById('inputIdUsuario').value ;
@@ -356,7 +368,8 @@ async function editarMFO(param) {
             alert(response)
         })
 
-        filtrarCruce();
+        var id2=document.getElementById('inputIdCruce').value;
+        await  filtrarCruce(id2);
     // setTimeout(() => {
     //     rellenarMFO(); //CAMBIO DE NOMENCLATURA
     // }, 1000);
@@ -371,6 +384,23 @@ async function imprimir() {
 
     var url = 'http://172.27.120.120/gestin/public/api/mfo/imprimir/' + mes +'/'+año;
     var listado= await fetch(url, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(res => res.json())
+                                .catch(error => console.error('Error:', error))
+                                .then(response => {
+                                    if (response == "No se han encontrado resultados") {
+                                        alert(response);
+                                    } else {
+                                    return (response);
+                                    }
+                                })
+
+    var url2 = 'http://172.27.120.120/gestin/public/api/mfo/imprimir/fechainspeccion/' + mes +'/'+año;
+    var recuentoFechaInspeccion= await fetch(url2, {
                                     method: 'GET',
                                     headers: {
                                         'Content-Type': 'application/json'
@@ -410,6 +440,7 @@ async function imprimir() {
         
     }
     
+    var recuento= listado.length;
    // console.log('precioTotal='+precioTotal);
 
 
@@ -417,6 +448,7 @@ async function imprimir() {
         {header: 'Cruce', dataKey: 'idInstalacion'},
         {header: 'Ubicación', dataKey: 'ubicacion'},
         {header: 'F. Actuación', dataKey: 'fechaActuacion'},
+        {header: 'F. Inspección', dataKey: 'fechaInspeccion'},
         {header: 'Observaciones', dataKey: 'observaciones'},
         {header: 'Precio', dataKey: 'precio'},
     ]
@@ -442,8 +474,9 @@ async function imprimir() {
                 0: {cellWidth:15,halign: 'right'},
                 1: {cellWidth: 70}, 
                 2: {cellWidth: 15},
-                3: {cellWidth: 70},
-                4: {cellWidth: 1,halign: 'right'},             
+                3: {cellWidth: 15},
+                4: {cellWidth: 70},
+                5: {cellWidth: 1,halign: 'right'},             
             },
 
             
@@ -453,14 +486,16 @@ async function imprimir() {
     doc.setPage(pageNumber);
 
     doc.setFontSize(10);
-    doc.text("Precio Total: "+ precioTotal + "€",14,doc.autoTable.previous.finalY+10);
+    doc.text("Precio Total: "+ precioTotal + "€",14,doc.autoTable.previous.finalY+8);
+    doc.text("Recuento Fecha Actuación: "+ recuento,14,doc.autoTable.previous.finalY+12);
+    doc.text("Recuento Fecha Inspección: "+ recuentoFechaInspeccion[0][0],14,doc.autoTable.previous.finalY+16);
 
     doc.setProperties({
-        title: 'PDF Title',
-        subject: 'Info about PDF',
-        author: 'PDFAuthor',
+        title: 'MFO Cruces',
+        subject: 'Info',
+        author: 'Ajuntament de Palma',
         keywords: 'generated, javascript, web 2.0, ajax',
-        creator: 'My Company'
+        creator: 'Departament de Mobilitat'
     });
 
     //abrir PDF en otra ventana nueva
@@ -473,6 +508,140 @@ async function imprimir() {
 
 
 }
+
+
+async function imprimirNoOk() {
+    var p1=document.getElementById('inputMes').value;
+
+    var fecha=new Date(p1);
+    var mes=fecha.getMonth()+1;
+    var año=fecha.getFullYear();
+
+    var url = 'http://172.27.120.120/gestin/public/api/mfo/imprimirnook/' + mes +'/'+año;
+    var listado= await fetch(url, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(res => res.json())
+                                .catch(error => console.error('Error:', error))
+                                .then(response => {
+                                    if (response == "No se han encontrado resultados") {
+                                        alert(response);
+                                    } else {
+                                    return (response);
+                                    }
+                                })
+    
+    var url2 = 'http://172.27.120.120/gestin/public/api/mfo/imprimirnook/fechainspeccion/' + mes +'/'+año;
+    var countFechaInspeccion= await fetch(url2, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(res => res.json())
+                                .catch(error => console.error('Error:', error))
+                                .then(response => {
+                                    if (response == "No se han encontrado resultados") {
+                                        alert(response);
+                                    } else {
+                                    return (response);
+                                    }
+                                })
+  //  console.log(listado);
+
+    //calcular el precio total
+    var precioTotal=0;
+   
+    for (let index = 0; index < listado.length; index++) {
+       
+       var var1=parseFloat(precioTotal);
+       var var2=parseFloat(listado[index]['precio']);
+       // console.log(index+'- var1='+var1);
+       // console.log(index+'- var2='+var2);
+        precioTotal =parseFloat(var2+var1).toFixed(2);//parseFloat(precioTotal+listado[index]['precio']).toFixed(2);
+
+        // let var3=parseFloat('2.2').toFixed(2);
+        // let var4=parseFloat('1.1').toFixed(2);
+        // let var5=var3+var4;
+        // console.log('resultat var3+var4: '+var3+var4);
+        // console.log('resultat var5: '+var5);
+        // console.log('resultat parse: '+ parseFloat(var3+var4).toFixed(2));   
+        
+        
+    }
+    
+    var recuentoFechaActuacion= listado.length;
+   // console.log('precioTotal='+precioTotal);
+
+
+    col=[
+        {header: 'Cruce', dataKey: 'idInstalacion'},
+        {header: 'Ubicación', dataKey: 'ubicacion'},
+        {header: 'F. Actuación', dataKey: 'fechaActuacion'},
+        {header: 'F. Inspección', dataKey: 'fechaInspeccion'},
+        {header: 'Observaciones', dataKey: 'observaciones'},
+        {header: 'Precio', dataKey: 'precio'},
+    ]
+
+    var doc = new jsPDF('landscape');
+    let pageNumber = doc.getNumberOfPages();
+
+    doc.setFontSize(22);
+    doc.text("MFO de cruces No Ok",14,20);
+
+        doc.autoTable({
+            columns:col,
+            body:listado,
+            startY:32,
+            pageBreak: 'avoid',
+            theme : 'grid',
+            styles: {overflow: 'linebreak'},
+            cellWidth: 'wrap',
+            headStyles:{
+                0:{halign: 'right'}
+            },
+            columnStyles:{
+                0: {cellWidth:15,halign: 'right'},
+                1: {cellWidth: 70}, 
+                2: {cellWidth: 15},
+                3: {cellWidth: 15},
+                4: {cellWidth: 70},
+                5: {cellWidth: 1,halign: 'right'},             
+            },
+
+            
+
+        });
+    
+    doc.setPage(pageNumber);
+
+    doc.setFontSize(10);
+    doc.text("Precio Total: "+ precioTotal + "€",14,doc.autoTable.previous.finalY+4);
+    doc.text("Recuento Fecha Actuación: "+ recuentoFechaActuacion,14,doc.autoTable.previous.finalY+8);
+    doc.text("Recuento Fecha Inspección: "+ countFechaInspeccion[0][0],14,doc.autoTable.previous.finalY+12);
+
+    doc.setProperties({
+        title: 'MFO Cruces No Ok',
+        subject: 'Info',
+        author: 'Ajuntament de Palma',
+        keywords: 'generated, javascript, web 2.0, ajax',
+        creator: 'Departament de Mobilitat'
+    });
+
+    //abrir PDF en otra ventana nueva
+    var string=doc.output('datauristring');
+    var embed='<embed src="'+ string +'" type="application/pdf" width="100%" height="100%">'
+    var x=window.open();
+    x.document.open(); 
+    x.document.write(embed); 
+    x.document.close();
+
+
+}
+
 
 async function calcularPrecio() {
 
@@ -660,4 +829,58 @@ async function calcularPrecio2(param,id) {
     }
 
 
+}
+
+function rellenarPrecio() {
+
+    var c=document.getElementById("inputOk");
+    var p= document.getElementById("inputPrecio");
+    if (c.checked){
+      
+        var url = 'http://172.27.120.120/gestin/public/api/preciosmfo'
+        fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+
+                p.value=response[0]['preciomfocruce'];
+          
+            })
+    }else{          
+            p.value="0.00";
+
+           
+    }
+}
+
+function rellenarPrecio2(id) {
+
+    var c= document.getElementById("resolucion2"+id);
+
+    if (c.checked){
+    var p= document.getElementById("precio2"+id);
+    var url = 'http://172.27.120.120/gestin/public/api/preciosmfo'
+    fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+
+            p.value=response[0]['preciomfoacire'];
+      
+        })
+    }else{
+        var p= document.getElementById("precio2"+id);
+        p.value="0.00";
+        
+    }
 }

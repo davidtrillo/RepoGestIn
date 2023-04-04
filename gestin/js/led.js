@@ -1,66 +1,122 @@
-function nuevaLed() { //CAMBIO DE NOMENCLATURA
+
+
+
+
+
+async function nuevaLed() { //CAMBIO DE NOMENCLATURA
     var idInstalacion = document.getElementById('inputInstalacion').value;
     var color = document.getElementById('inputColor').value ? document.getElementById('inputColor').value :"";
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
-    var nid = document.getElementById('inputNID').value;
+    var nid = document.getElementById('inputNID').value ;
+    var idUsuario = document.getElementById('inputIdUsuario').value;
+    var nNID=99;
 
-    if (idInstalacion.value != "") {
+if(nid !="" && nid.length == 14){  //-COMPROBAR SI el campo NID está lleno
 
-        //validar fecha correcta
-        if (validarFormatoFechaLed(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
-            if (existeFechaLed(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+    nLeds=nid[10];//Si está lleno mirar el número de lentes máximos que puede tener 3 o 2 o 1
 
-            } else {
-                alert("La fecha introducida no existe.");
-                return;
-            }
-        } else {
-            alert("El formato de la fecha es incorrecto.");
+    //COMPROBAR cuantos registros tiene ese NID activos
+    var url = 'http://172.27.120.120/gestin/public/api/lednum2/nleds/'+nid;
+         vCount = await fetch(url, {
+                 method: 'GET',
+                 headers: {
+                     'Content-Type': 'application/json'
+                 }
+             })
+             .then(res => res.json())
+             .catch(error => console.error('Error:', error))
+             .then(response => {
+                 return response;
+             })
+          nNID = vCount[0]['c'];
 
-            return;
+        //Si son igual o superior a 3 o 2, según el número, sacar un aviso, borrar los datos de nuevo.
+             switch(true){
+                case(nLeds>nNID)://Cuando hay más lentes que NIDs dados de alta. Se puede dar de alta otra lente.
+            
+                        if (idInstalacion.value != "") { //AQUÍ SE DA DE ALTA EL NUEVO LED
+
+                            //validar fecha correcta
+                            if (validarFormatoFechaLed(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+                                if (existeFechaLed(fechaActuacion)) { //CAMBIO DE NOMENCLATURA
+
+                                } else {
+                                    alert("La fecha introducida no existe.");
+                                    return;
+                                }
+                            } else {
+                                alert("El formato de la fecha es incorrecto.");
+                                return;
+                            }
+                            var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :"0";  
+                            var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
+                            var tipo = document.getElementById('inputTipo').value ? document.getElementById('inputTipo').value :"";  
+                            var fabricacion = document.getElementById('inputFabricacion').value ? document.getElementById('inputFabricacion').value :"";  
+                            var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
+                            var activo = document.getElementById('inputActivo').checked;
+                            var almacen = document.getElementById('inputAlmacen').checked;
+                            var instalada = document.getElementById('inputInstalada').checked;
+                            var residuos = document.getElementById('inputResiduos').checked;
+
+                            
+                            activo = String(activo);
+                            instalada = String(instalada);
+                            almacen = String(almacen);
+                            residuos = String(residuos);
+                           
+
+                            var idUsuario = document.getElementById('inputIdUsuario').value;
+                            var url = 'http://172.27.120.120/gestin/public/api/led/nueva';
+
+                            fetch(url, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        idInstalacion: idInstalacion,
+                                        color: color,
+                                        idNumSerie: idNumSerie,
+                                        albaran: albaran,
+                                        nid: nid,
+                                        observaciones: observaciones,
+                                        fechaActuacion: fechaActuacion,
+                                        idUsuario: idUsuario,
+                                        tipo: tipo,
+                                        fabricacion: fabricacion,
+                                        activo: activo,
+                                        almacen:almacen,
+                                        residuos: residuos,
+                                        instalada: instalada
+                                    })
+                                })
+                                .then(res => res.json())
+                                .catch(error => console.error('Error:', error))
+                                .then(response => {
+                                    alert(response)
+                                })
+
+                        }                 
+
+                break;
+
+                case(nLeds<=nNID)://Cuando hay igual de lentes que NIDs dados de alta. No se puede dar de alta la lente, hay que desactivar una.
+                    if (nLeds>1){
+                        alert("No se puede crear un nuevo registro. El NID "+ nid + " ya tiene " + nLeds + " lentes activas en esta instalación");
+                    } else {
+                        alert("No se puede crear un nuevo registro. El NID "+ nid + " ya tiene " + nLeds + " lente activa en esta instalación");
+                    }
+                break;
+
+             }
+
+         
+}else{
+
+    alert("Para dar de alta una lente se debe seleccionar NID válido.");
+
         }
-        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value :"0";  
-        var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value :"0";  
-        var tipo = document.getElementById('inputTipo').value ? document.getElementById('inputTipo').value :"";  
-        var fabricacion = document.getElementById('inputFabricacion').value ? document.getElementById('inputFabricacion').value :"";  
-        var observaciones = document.getElementById('inputObservaciones').value ? document.getElementById('inputObservaciones').value :"";
-        var activo = document.getElementById('inputActivo').checked;
-        var almacen = document.getElementById('inputAlmacen').checked;
 
-        
-        activo = String(activo);
-        almacen = String(almacen);
-
-        var idUsuario = document.getElementById('inputIdUsuario').value;
-        var url = 'http://172.27.120.120/gestin/public/api/led/nueva';
-
-        fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    idInstalacion: idInstalacion,
-                    color: color,
-                    idNumSerie: idNumSerie,
-                    albaran: albaran,
-                    nid: nid,
-                    observaciones: observaciones,
-                    fechaActuacion: fechaActuacion,
-                    idUsuario: idUsuario,
-                    tipo: tipo,
-                    fabricacion: fabricacion,
-                    activo: activo,
-                    almacen:almacen
-                })
-            })
-            .then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => {
-                alert(response)
-            })
-
-    }
     setTimeout(() => {
         rellenarTodosLed(); //CAMBIO DE NOMENCLATURA
     }, 1000);
@@ -227,7 +283,11 @@ function leerNIDLed(NID) { //NID
                   Observaciones
               </div>
               <div class="col-1 pl-0">
-              <span>Act.</span>  <span class="ml-2">Almac.</span> 
+                <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Activa</span> 
+                <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Instalada</span>
+                <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almacén</span> 
+                <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Residuos</span> 
+  
               </div>
         </div>
         <!-- Fin Titulos -->
@@ -258,10 +318,12 @@ function leerNIDLed(NID) { //NID
                   <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
               </div>
               <div class="col-1  pl-0">
-                  <input type="checkbox" class="mt-3 ml-3 name="inputActivo" id="inputActivo">
-                  <input type="checkbox" class="mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
-
-              </div>
+              <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
+                    <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkTarjetaInstalada()"> 
+                    <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo" onclick="checkTarjetaActiva()">
+                    <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen2" id="inputAlmacen" onclick="checkTarjetaAlmacen()">
+                    <input type="checkbox" class=" mt-3 ml-2" name="inputResiduos" id="inputResiduos" onclick="checkTarjetaResiduos()">
+             </div>
               <div class="col-1  pl-0">
                 <div class="btn btn-primary ml-3" onclick="nuevaLed()"><i class="fas fa-save"></i></div>
               
@@ -342,6 +404,16 @@ async function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                         var almacen = "checked";
                     } else {
                         var almacen = "";
+                    }
+                    if (response[i]['residuos'] == "true") {
+                        var residuos = "checked";
+                    } else {
+                        var residuos = "";
+                    }
+                    if (response[i]['instalada'] == "true") {
+                        var instalada = "checked";
+                    } else {
+                        var instalada = "";
                     }
                     
                     p.innerHTML += `
@@ -442,8 +514,10 @@ async function rellenarTodosLed() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                             <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
                         </div>
                         <div class="col-1 pl-0">
-                          <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                          <input type="checkbox" class="mt-3 ml-3 name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
+                            <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}" onclick="checkTarjetaActiva(${response[i]['id']})" ${activo}>
+                            <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}" onclick="checkTarjetaInstalada(${response[i]['id']})"  ${instalada}>
+                            <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}" onclick="checkTarjetaAlmacen(${response[i]['id']})"  ${almacen}>
+                            <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTar${response[i]['id']}" onclick="checkTarjetaResiduos(${response[i]['id']})" ${residuos}>
                         </div>
                         <div class="col-1 pl-0">
                             <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
@@ -518,8 +592,16 @@ async function editarLed(param) {//CAMBIO DE NOMENCLATURA
     var inputTipoTar = document.getElementById('inputTipoTar' + param).value;
     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
     var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
+    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
+    var inputResiduosTar = document.getElementById('inputResiduosTar' + param).checked;
+
+
+
     inputActivoTar = String(inputActivoTar);
     inputAlmacenTar = String(inputAlmacenTar);
+    inputResiduosTar = String(inputResiduosTar);
+    inputInstaladaTar = String(inputInstaladaTar);
+
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     //  console.log(inputIdTar);
@@ -564,7 +646,9 @@ async function editarLed(param) {//CAMBIO DE NOMENCLATURA
                 fabricacion: inputFabricacionTar,
                 tipo: inputTipoTar,
                 activo: inputActivoTar,
-                almacen:inputAlmacenTar
+                almacen:inputAlmacenTar,                
+                instalada: inputInstaladaTar,
+                residuos: inputResiduosTar
             })
         })
         .then(res => res.json())
@@ -694,5 +778,143 @@ function comprobarNumSerieLed3(id,idNumSerie) {
                 }
 
             })
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", async function(event) {
+ 
+    await checkTarjetaInstalada();
+    await checkTarjetaActiva();
+    await checkTarjetaAlmacen();
+    await checkTarjetaResiduos();
+    // Aquí puedes escribir el código adicional que quieres que se ejecute cuando se dispara el evento DOMContentLoaded
+  });
+
+function checkTarjetaInstalada(id) {
+
+    if (id){
+
+        if (document.getElementById('inputInstaladaTar'+id).checked) {
+          //  document.getElementById('inputActivoTar'+id).checked=true;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+
+        }
+    }else{
+        if (document.getElementById('inputInstalada').checked) {
+            document.getElementById('inputActivo').checked=true;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+
+        }
+    }
+}
+function checkTarjetaActiva(id) {
+
+    if (id){
+
+
+        if (document.getElementById('inputActivoTar'+id).checked) {
+        
+            document.getElementById('inputInstaladaTar'+id).checked=true;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;      
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+
+
+    }else{
+
+        if (document.getElementById('inputActivo').checked) {
+        
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;      
+    
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        }
+    }
+}
+function checkTarjetaAlmacen(id) {
+
+    if (id){
+
+        if ( document.getElementById('inputAlmacenTar'+id).checked) {
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+    }else{
+            if ( document.getElementById('inputAlmacen').checked) {
+                document.getElementById('inputActivo').checked=false;
+                document.getElementById('inputInstalada').checked=false;
+                document.getElementById('inputResiduos').checked=false;
+        
+            }else{
+                document.getElementById('inputActivo').checked=false;
+                document.getElementById('inputInstalada').checked=false;
+                document.getElementById('inputAlmacen').checked=false;
+                document.getElementById('inputResiduos').checked=false;
+            }
+        }
+}
+function checkTarjetaResiduos(id) {
+
+    if (id){
+
+        if (document.getElementById('inputResiduosTar'+id).checked) {
+        
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+        //  document.getElementById('inputResiduos').checked=true;
+    
+        }else{
+            document.getElementById('inputActivoTar'+id).checked=false;
+            document.getElementById('inputInstaladaTar'+id).checked=false;
+            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputResiduosTar'+id).checked=false;
+        }
+    }else{
+        if (document.getElementById('inputResiduos').checked) {
+        
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+        //  document.getElementById('inputResiduos').checked=true;
+    
+        }else{
+            document.getElementById('inputActivo').checked=false;
+            document.getElementById('inputInstalada').checked=false;
+            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputResiduos').checked=false;
+        }
     }
 }

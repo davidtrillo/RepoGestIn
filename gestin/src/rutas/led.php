@@ -240,10 +240,12 @@ $app->post('/api/led/nueva', function (Request $request, Response $response) {
     $tipo = $request->getParam('tipo');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
+    $instalada = $request->getParam('instalada');
+    $residuos = $request->getParam('residuos');
     $nid = $request->getParam('nid');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO led (id, idInstalacion, color, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, fabricacion, tipo, activo, almacen, nid) VALUES (NULL, :idInstalacion, :color, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :fabricacion,:tipo, :activo, :almacen, :nid);';
+    $sql = 'INSERT INTO led (id, idInstalacion, color, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, fabricacion, tipo, activo, almacen, nid, instalada, residuos) VALUES (NULL, :idInstalacion, :color, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :fabricacion,:tipo, :activo, :almacen, :nid, :instalada, :residuos);';
     // $sql='INSERT INTO led (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -263,6 +265,8 @@ $app->post('/api/led/nueva', function (Request $request, Response $response) {
         $resultado->bindParam(':fabricacion', $fabricacion);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
+        $resultado->bindParam(':residuos', $residuos);
+        $resultado->bindParam(':instalada', $instalada);
         $resultado->bindParam(':nid', $nid);
 
         $resultado->execute();
@@ -323,11 +327,13 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
     $fabricacion = $request->getParam('fabricacion');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
+    $residuos = $request->getParam('residuos');
+    $instalada = $request->getParam('instalada');
     $nid = $request->getParam('nid');
     // echo "todas las instalaciones";
 
     //  $sql='UPDATE led SET color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE led SET albaran=:albaran,color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,tipo=:tipo,fabricacion=:fabricacion,activo=:activo,almacen=:almacen,nid=:nid WHERE id='. $id;
+    $sql = 'UPDATE led SET albaran=:albaran,color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,tipo=:tipo,fabricacion=:fabricacion,activo=:activo,almacen=:almacen,nid=:nid,instalada=:instalada,residuos=:residuos WHERE id='. $id;
 
     try {
         $db = new db();
@@ -346,6 +352,9 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
         $resultado->bindParam(':fabricacion', $fabricacion);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
+        $resultado->bindParam(':residuos', $residuos);
+        $resultado->bindParam(':instalada', $instalada);
+
         $resultado->bindParam(':nid', $nid);
 
         $resultado->execute();
@@ -443,3 +452,29 @@ $app->put('/api/led/sustituir/{id}', function (Request $request, Response $respo
 //         echo '{"error":{"text":'.$e->getMessage().'}';
 //     }
 // });
+
+$app->get('/api/lednum2/nleds/{nid}', function (Request $request, Response $response) {
+
+    $nid = $request->getAttribute('nid');
+    $sql = 'SELECT count(*) as c FROM led WHERE nid="' . $nid . '" and activo="true";';
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $allTarjetas = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($allTarjetas, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados2");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});

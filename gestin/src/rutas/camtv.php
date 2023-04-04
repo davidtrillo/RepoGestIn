@@ -5,9 +5,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //$app = new \Slim\App;
 
 //GET Todas las instalaciones SELECT
-$app->get('/api/CamTV', function (Request $request, Response $response) {
+$app->get('/api/camtv', function (Request $request, Response $response) {
 
-    $sql = 'SELECT t.id,  t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen  FROM CamTV t   order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen,t.residuos ,t.instalada FROM camtv t   order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -30,10 +30,10 @@ $app->get('/api/CamTV', function (Request $request, Response $response) {
 });
 
 //GET Tarjetas activas COUNT
-$app->get('/api/CamTV/activas/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/camtv/activas/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT count(id) AS c FROM CamTV WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
+    $sql = 'SELECT count(id) AS c FROM camtv WHERE activo="true" AND idInstalacion="' . $instalacion . '"';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -56,10 +56,10 @@ $app->get('/api/CamTV/activas/{instalacion}', function (Request $request, Respon
 });
 
 
-$app->get('/api/CamTV/{instalacion}', function (Request $request, Response $response) {
+$app->get('/api/camtv/{instalacion}', function (Request $request, Response $response) {
 
     $instalacion = $request->getAttribute('instalacion');
-    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen FROM CamTV t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
+    $sql = 'SELECT t.id,t.idTipoActuacion, t.idTipoActuacion,t.idNumSerie,t.albaran,t.observaciones,t.fechaActuacion,t.precio,t.activo,t.almacen ,t.residuos,t.instalada FROM camtv t   WHERE idInstalacion="' . $instalacion . '" order by t.activo desc,t.fechaActuacion desc';
     try {
         $db = new db();
         $db = $db->conectDB();
@@ -83,7 +83,7 @@ $app->get('/api/CamTV/{instalacion}', function (Request $request, Response $resp
 });
 
 // POST para crear una nueva instalación CREATE
-$app->post('/api/CamTV/nueva', function (Request $request, Response $response) {
+$app->post('/api/camtv/nueva', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
     // $id=$request->getParam('id');
     $idInstalacion = $request->getParam('idInstalacion');
@@ -96,10 +96,13 @@ $app->post('/api/CamTV/nueva', function (Request $request, Response $response) {
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
+    $residuos = $request->getParam('residuos');
+    $instalada = $request->getParam('instalada');
+
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO CamTV (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen);';
-    // $sql='INSERT INTO CamTV (idInstalacion) VALUES (:idInstalacion);';
+    $sql = 'INSERT INTO camtv (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo, almacen, residuos, instalada) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo, :almacen, :residuos, :instalada);';
+    // $sql='INSERT INTO camtv (idInstalacion) VALUES (:idInstalacion);';
 
     try {
         $db = new db();
@@ -117,6 +120,9 @@ $app->post('/api/CamTV/nueva', function (Request $request, Response $response) {
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
+        $resultado->bindParam(':residuos', $residuos);
+        $resultado->bindParam(':instalada', $instalada);
+
 
         $resultado->execute();
         echo json_encode("Cámara guardada con éxito", JSON_UNESCAPED_UNICODE);
@@ -132,11 +138,11 @@ $app->post('/api/CamTV/nueva', function (Request $request, Response $response) {
 
 //DELETE para borrar instalacion DELETE BY ID
 
-$app->delete('/api/CamTV/borrar/{id}', function (Request $request, Response $response) {
+$app->delete('/api/camtv/borrar/{id}', function (Request $request, Response $response) {
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
-    $sql = 'DELETE FROM CamTV WHERE id=' . $id;
+    $sql = 'DELETE FROM camtv WHERE id=' . $id;
 
     try {
         $db = new db();
@@ -162,7 +168,7 @@ $app->delete('/api/CamTV/borrar/{id}', function (Request $request, Response $res
 
 //POST para modificar instalacion UPDATE BY ID
 
-$app->put('/api/CamTV/modificar/{id}', function (Request $request, Response $response) {
+$app->put('/api/camtv/modificar/{id}', function (Request $request, Response $response) {
     //declaracion de las variables de recepcion desde FRONT
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
@@ -175,10 +181,13 @@ $app->put('/api/CamTV/modificar/{id}', function (Request $request, Response $res
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $almacen = $request->getParam('almacen');
+    $residuos = $request->getParam('residuos');
+    $instalada = $request->getParam('instalada');
+
     // echo "todas las instalaciones";
 
-    //  $sql='UPDATE CamTV SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE CamTV SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen WHERE id='. $id;
+    //  $sql='UPDATE camtv SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = 'UPDATE camtv SET albaran=:albaran,idTipoActuacion=:idTipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones, fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo,almacen=:almacen,residuos=:residuos,instalada=:instalada WHERE id='. $id;
 
     try {
         $db = new db();
@@ -196,6 +205,8 @@ $app->put('/api/CamTV/modificar/{id}', function (Request $request, Response $res
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':almacen', $almacen);
+        $resultado->bindParam(':residuos', $residuos);
+        $resultado->bindParam(':instalada', $instalada);
 
         $resultado->execute();
         echo json_encode("Cámara editada con éxito", JSON_UNESCAPED_UNICODE);
@@ -208,6 +219,31 @@ $app->put('/api/CamTV/modificar/{id}', function (Request $request, Response $res
     }
 });
 
+//GET camptv instaladas COUNT
+$app->get('/api/camtv/instaladas/{instalacion}', function (Request $request, Response $response) {
+
+    $instalacion = $request->getAttribute('instalacion');
+    $sql = 'SELECT count(id) AS c FROM camtv WHERE instalada="true" AND idInstalacion="' . $instalacion . '"';
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+        $resultado->execute();
+
+        if ($resultado->rowCount() > 0) {
+            $alltarjetascpu = $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($alltarjetascpu, JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode("No se han encontrado resultados");
+        }
+        $db = null;
+        $resultado = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+
+});
 // //DELETE para borrar instalacion DELETE BY ID
 
 // $app->delete('/api/instalaciones/borrar/{id}',function(Request $request, Response $response){

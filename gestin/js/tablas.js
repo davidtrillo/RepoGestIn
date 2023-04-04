@@ -13,16 +13,48 @@ var tipoCpu=[
             ];
 
 var precioMFOAcire=[
-'21.08'
-];
+//'21.08' Pliego 2018
+        '15.58' 
+        ];
 
+var precioMFOCruce=[
+        '38.93'
+        ];
 
 var precioMFOCargadores=[
-        '21.08'
+        //'21.08' Pliego 2018
+        '15.58'
+        ];
+
+var precioMFOCamaras=[
+        '15.58'
+        ];
+
+var precioMFOCentrales=[
+        '15.58'
+        ];
+       
+var precioMFONodos=[
+        '15.58'
         ];
         
+var precioMFORadar=[
+       '15.58'
+        ];
+
 var precioMFOPP=[
-        '22.18'
+        //'22.18' Pliego 2018
+        '19.49'
+        ];
+
+var precioMFOEspiras=[
+                //'6.66' Pliego 2018
+                '16.33'
+                ];
+
+var precioMFOSectores=[
+        //'6.66' Pliego 2018
+        '19.49'
         ];
         
 var regulador=[

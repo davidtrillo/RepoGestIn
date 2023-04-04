@@ -2,21 +2,6 @@
 
 include '../../public/login/session.php';
 include_once './getNID.php';
- // CÓDIGO PARA IMPORTAR DE INCA HACIA MYSQL TODOS LOS NIDS INTRODUCIDOS EN EL INCA QUE NO ESTÁN DE BAJA
-
-
-
-
-
-
-
-
-//}
-
-
-
-
-//include_once 'r_instalaciones.php';
 
 ?>
 <!doctype html>
@@ -46,58 +31,63 @@ include_once './getNID.php';
 
     <!-- Navbar -->
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-            <a class="navbar-brand" href="#">Gestión de Inventario del Servei de Regulació i Control del Trànsit</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-                <div class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Consultas
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="../../public/consultaTipo.php">Tipo Instalación</a>
-                            <a class="dropdown-item" href="../../public/consultaTotalesTipo.php">Totales Tipo Instalación</a>
-                            <a class="dropdown-item" href="../../public/consultaTotalesLeds.php">Totales Leds</a>
-                            <a class="dropdown-item" href="../../public/consultaTotalesElementos.php">Totales Elementos</a>
-                            <a class="dropdown-item" href="../../public/consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
-                            <a class="dropdown-item" href="#"></a>
-                        </div>
-                    </li>
-                    <a class="nav-item nav-link" href="../../public/welcome.php">Instalaciones</a>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+         <a class="navbar-brand" href="#">Gestión del inventario de las Instalaciones de Regulación y Control del Tráfico urbano de Palma</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Consultas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+                     <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
+                     <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
+                     <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+                     <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
+                     <a class="dropdown-item" href="#"></a>
+                     <a class="dropdown-item" href="#"></a> 
+                  </div>
+               </li>
+               <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
 
-                    <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            MFO
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="../../public/mfo.php">MFO Cruces</a>
-                            <a class="dropdown-item" href="../../public/mfoPP.php">MFO Paso Peatones</a>
-                            <a class="dropdown-item" href="../../public/mfoEspiras.php">MFO Espiras</a>
-                            <a class="dropdown-item" href="../../public/mfoCargadores.php">MFO Cargadores</a>
-                            <a class="dropdown-item" href="../../public/mfoAcires.php">MFO Acires</a>
-                        </div>
-                    </li>
+               <li class="nav-item dropdown ">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     MFO
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
+                     <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
+                     <a class="dropdown-item" href="./mfoEspiras.php">MFO PM</a>
+                     <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
+                     <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
+                     <a class="dropdown-item" href="./mfoCamaras.php">MFO Cámaras</a>
+                     <a class="dropdown-item" href="./mfoCentrales.php">MFO Centrales</a>
+                     <a class="dropdown-item" href="./mfoSectores.php">MFO Sectores</a>
+                     <a class="dropdown-item" href="./mfoNodos.php">MFO Nodos</a>
+                     <a class="dropdown-item" href="./mfoRadar.php">MFO Radar/Foto Rojo</a>
+                  </div>
+               </li>
 
-                    <a class="nav-item nav-link" href="../../public/pintura.php">Pintura</a>
-                    <a class="nav-item nav-link" href="../../public/preventivo.php">Preventivo</a>
-                    <a class="nav-item nav-link" href="../../public/totalLed.php">Leds</a>
+               <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
+               <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
+               <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
-                    <a class="nav-item nav-link active" href="./config.php" tabindex="-1"
-                        aria-disabled="true">Configuración</a>
-
-                    <a class="nav-item nav-link" href="../../public/login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
-                        Sesión</a>
-                </div>
-
+               <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"
+                  aria-disabled="true">Configuración</a>
+               <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
+                  Sesión</a>
             </div>
-        </nav>
-    </div>
+
+         </div>
+      </nav>
+   </div>
     <!-- Fin Navbar -->
 
 
@@ -114,7 +104,7 @@ include_once './getNID.php';
         <h3><b>Configuración</b></h3>
     </div>
     <hr class=" container- fluid mt-0">
-    <!-- Container de cabecera -->
+    <!-- Container de cabecera 
         <div class="container-fluid">
             <h4><b> Configuración de precios MFOs</b>
             <div class="btn btn-primary ml-1" id="editGrupo" onclick="editarPreciosMFO()"><i class="fas fa-pencil-alt"></i></div>
@@ -207,6 +197,7 @@ include_once './getNID.php';
         </div>
 
     </div>
+-->
     <!-- Fin botones de selección -->
     <hr>
     <!-- Formulario Introducir Nuevo-->
@@ -219,34 +210,18 @@ include_once './getNID.php';
     </div>
 
 
-    <hr>
-    <!-- Formulario Introducir Nuevo-->
+   
+    <!-- Cambiar configuración de precios
     <div class="mt-2 p-2">
             <h3><b>Cambiar Configuración Precios MFO<b></h3>
             <h5>Alterna entre facturar por Tarjetas de Salida o por Número de Grupos</h5>
-            <!-- <div class="form-check">
-                <input class="form-check-input" type="radio" value="" id="2018" onclick="o2018()">
-                <label class="form-check-label" for="2018">
-                    Pliego 2018
-                </label>
-             
-            </div>
-            <div class="form-check">
-                  <input class="form-check-input" type="radio" value="" id="2021" onclick="o2021()">
-                <label class="form-check-label" for="2021">
-                    Pliego 2021
-                </label> 
-            <div> -->
 
-
-
-            <!-- Default unchecked -->
             <div class="custom-control custom-radio">
             <input type="radio" class="custom-control-input" id="2018" name="defaultExampleRadios">
             <label class="custom-control-label" for="2018">Pliego 2018</label>
             </div>
 
-            <!-- Default checked -->
+           
             <div class="custom-control custom-radio">
             <input type="radio" class="custom-control-input" id="2021" name="defaultExampleRadios">
             <label class="custom-control-label" for="2021">Pliego 2021</label>
@@ -254,22 +229,13 @@ include_once './getNID.php';
 
             <div class="btn btn-primary ml-3 mt-2" id="" onclick="setPliego()">Guardar Pliego</div>
 
-            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="2018b" autocomplete="off" checked> Pliego 2018
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="2021b" autocomplete="off"> Pliego 2021
-                </label>
-
-            </div> -->
-    </div>
+    </div>-->
 
     <!-- fin formulario Nuevo-->
     <hr>
     <!-- Formulario Body Nuevo-->
-    <div class="mt-2 p-2" id="formBody">
-
+    <div class="mt-2 p-2" id="formTablaPrecios">
+            
     </div>
     <!-- fin formulario Body-->
     <hr>
@@ -329,8 +295,9 @@ function pintarContar(count) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+    <script src="..\..\js\tablas.js"></script>
     <script src="config.js"></script>
-
+   
 </body>
 
 </html>

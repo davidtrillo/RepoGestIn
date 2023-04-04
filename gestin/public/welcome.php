@@ -71,7 +71,7 @@ include './login/session.php';
                      <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
                      <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
                      <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
-              <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
+                     <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
                      <a class="dropdown-item" href="#"></a>
                      <a class="dropdown-item" href="#"></a> 
                   </div>
@@ -86,9 +86,14 @@ include './login/session.php';
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                      <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
                      <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
-                     <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>
+                     <a class="dropdown-item" href="./mfoEspiras.php">MFO PM</a>
                      <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
                      <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
+                     <a class="dropdown-item" href="./mfoCamaras.php">MFO Cámaras</a>
+                     <a class="dropdown-item" href="./mfoCentrales.php">MFO Centrales</a>
+                     <a class="dropdown-item" href="./mfoSectores.php">MFO Sectores</a>
+                     <a class="dropdown-item" href="./mfoNodos.php">MFO Nodos</a>
+                     <a class="dropdown-item" href="./mfoRadar.php">MFO Radar/Foto Rojo</a>
                   </div>
                </li>
 
@@ -182,6 +187,7 @@ include './login/session.php';
 
             </div>
          </div>
+        <!--
          <div class="col-1 mt-2 p-1">
             <div class="dropdown">
                <button class="btn btn-secondary dropdown-toggle" type="button" id="btnCruce" data-toggle="dropdown"
@@ -189,7 +195,7 @@ include './login/session.php';
                   Alimenta.
                </button>
                <div class="dropdown-menu" id="dropdownCruce" aria-labelledby="dropdownMenu2">
-                  <!-- Aquí se iyecta el código mediante JS -->
+          
                </div>
             </div>
             <input type="text" class="form-control mt-1 " placeholder="" id="inputCruce" aria-label="Cruce"
@@ -202,7 +208,7 @@ include './login/session.php';
                   CM
                </button>
                <div class="dropdown-menu" id="dropdownCM" aria-labelledby="dropdownCM">
-                  <!-- Aquí se iyecta el código mediante JS -->
+                    
                </div>
             </div>
             <input type="text" class="form-control mt-1" value="" id="inputIdCM">
@@ -211,21 +217,21 @@ include './login/session.php';
             <span>Ubicación sector A.P. (NyxPalma)</span>
             <input type="text" class="form-control mt-2 bg-light" value="" id="inputUbicacionNYXPalma">
          </div>
-         
+         -->          
          <div class="col-3 mt-3 p-1">
             <span>Observaciones</span>
             <input type="text" class="form-control mt-2" value="" id="inputObservaciones">
          </div>
-
+<!--
          <div class="col-1 mt-3 p-1">
             <span>Watios</span>
             <input type="text" class="form-control mt-2" value="" id="inputWatios">
          </div>
+-->                 
          <div class="col-1">
             <br>
             <br>
-            <button class="btn btn-primary mt-1" id="editInstalacion" onclick="editarInstalacion()" disabled><i class="fas fa-pencil-alt"></i>
-                              </button>
+            <button class="btn btn-primary mt-1" id="editInstalacion" onclick="editarInstalacion()" disabled><i class="fas fa-pencil-alt"></i> </button>
          </div>
          <!-- No se pueden poner links a archivos locales sin deshabilitar las funcionalidades o bajar los archivos -->
          <!-- Se podria usar Web Server for Chrome https://stackoverflow.com/questions/39007243/cannot-open-local-file-chrome-not-allowed-to-load-local-resource-->
@@ -251,40 +257,8 @@ include './login/session.php';
                      Elementos
                   </button>
                   <div class="dropdown-menu" id="dropdownElemento">
-                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS SALIDA')">TARJETAS SALIDA</button>
-                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasCpu('TARJETAS CPU')">TARJETAS CPU</button>
-                     <!-- <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasAmp('TARJETAS AMPLIACIÓN')">TARJETAS AMPLIACIÓN</button> -->
-                     <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasFa('TARJETAS F.A.')">TARJETAS F.A.</button>
-                     <button class="dropdown-item" type="button" id="btnBusTren" onclick="formBusTren('BUS/TREN')">BUS/TREN</button>
-                     <!-- <div class="dropdown-divider"></div>
-                     <button class="dropdown-item" type="button" id="btn11_200"  onclick="form11_200('11-200')">11-200</button>
-                     <button class="dropdown-item" type="button" id="btn11_300" onclick="form11_300('11-300')">11-300</button>
-                     <button class="dropdown-item" type="button" id="btn12_100"  onclick="form12_100('12-100')">12-100</button>
-                     <button class="dropdown-item" type="button" id="btn12_200"  onclick="form12_200('12-200')">12-200</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btn12_pp"  onclick="form12_pp('12-200 PEA')">12-200 PEA</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btn12_bici"  onclick="form12_bici('12-200 BICI')">12-200 BICI</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btn12_300" onclick="form12_300('12-300')">12-300</button>
-                     <button class="dropdown-item" type="button" id="btn13_200"  onclick="form13_200('13-200')">13-200</button>
-                     <button class="dropdown-item" type="button" id="btn13_322" onclick="form13_322('13-322')">13-322</button>
-                     <button class="dropdown-item" type="button" id="btn13_332" onclick="form13_332('13-332')">13-332</button> -->
-                     <div class="dropdown-divider"></div>
-                     <button class="dropdown-item" type="button" id="btnSoportes" onclick="formSoportes('SOPORTES')">SOPORTES</button>
-                     <button class="dropdown-item" type="button" id="btnOculta" onclick="formOculta('SEÑAL OCULTA')">SEÑAL OCULTA</button>
-                     <button class="dropdown-item" type="button" id="btnLed" onclick="formLed('LEDS')">LEDS</button>
-                     <!-- <button class="dropdown-item" type="button" id="btnInvidentes" onclick="formInvidentes('SONORO')">SONORO</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btnDescontadores" onclick="formDescontadores('DESCONTADORES')">DESCONTADORES</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btnBaculos" onclick="formBaculos('BÁCULOS')">BÁCULOS</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formColumnas('COLUMNAS')">COLUMNAS</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBrazos('BRAZOS')">BRAZOS</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formBajantes('BAJANTES')">BAJANTES</button> -->
-                     <!-- <button class="dropdown-item" type="button" id="btnColumnas" onclick="formAlargaderas('ALARGADERAS')">ALARGADERAS</button> -->
-                     <button class="dropdown-item" type="button" id="btnPulsadores" onclick="formPulsadores('PULSADORES')">PULSADORES</button>
-                     <button class="dropdown-item" type="button" id="btnDetectores" onclick="formDetectores('DETECTORES')">DETECTORES</button>
-                     <button class="dropdown-item" type="button" id="btnEspiras" onclick="formEspiras('ESPIRAS')">ESPIRAS DE DETECCIÓN</button>
-                     <!-- <button class="dropdown-item" type="button" id="btnPantallasCon" onclick="formPantallasCon('PANTALLAS CONTRASTE')">PANTALLAS CONTRASTE</button> -->
-                     <button class="dropdown-item" type="button" id="btnCCTV" onclick="formCamTV('CCTV')">CCTV</button>
-                     <button class="dropdown-item" type="button" id="btnCamIp" onclick="formCamIP('CAM. IP')">CAM. IP</button>
-                     <button class="dropdown-item" type="button" id="btnModulo" onclick="formModulo('MÓDULOS')">MÓDULOS</button>
+   
+                     
                      
                         <!-- <div class="dropdown-divider"></div>
                      <button class="dropdown-item" type="button">Something else here</button> -->
@@ -404,13 +378,12 @@ include './login/session.php';
 
    <script src="../js/funciones.js"></script>
    <script src="../js/tablas.js"></script>
-
    <script src="../js/tarjetas.js"></script>
    <script src="../js/tarjetasCPU.js"></script>
    <script src="../js/tarjetasAmp.js"></script>
    <script src="../js/tarjetasFA.js"></script>
    <script src="../js/bustren.js"></script>
-   <script src="../js/13_322.js"></script>
+  <!--  <script src="../js/13_322.js"></script>
    <script src="../js/13_332.js"></script>
    <script src="../js/11_300.js"></script>
    <script src="../js/12_300.js"></script>
@@ -418,7 +391,7 @@ include './login/session.php';
    <script src="../js/12_100.js"></script>
    <script src="../js/12_200.js"></script>
    <script src="../js/11_200.js"></script>
-   <!-- <script src="../js/12_pp.js"></script> -->
+   <script src="../js/12_pp.js"></script> -->
    <!-- <script src="../js/12_pea_bici.js"></script>
    <script src="../js/12_bici.js"></script>
    <script src="../js/invidentes.js"></script> -->
@@ -434,6 +407,17 @@ include './login/session.php';
    <script src="../js/camip.js"></script>
    <script src="../js/led.js"></script>
    <script src="../js/modulos.js"></script>
+   <script src="../js/cargadores.js"></script>
+   <script src="../js/centrales.js"></script>
+   <script src="../js/controlAccesos.js"></script>
+   <script src="../js/fotoRojo.js"></script>
+   <script src="../js/nodo.js"></script>
+   <script src="../js/panelInformativo.js"></script>
+   <script src="../js/puntoMedida.js"></script>
+   <script src="../js/radares.js"></script>
+   <script src="../js/sector.js"></script>
+   <script src="../js/señalesLuminosas.js"></script>
+   
    <!-- <script src="../js/brazos.js"></script> -->
    <!-- <script src="../js/bajantes.js"></script> -->
    <!-- <script src="../js/alargaderas.js"></script> -->

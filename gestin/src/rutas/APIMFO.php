@@ -150,7 +150,7 @@ $app->post('/api/mfo/nueva',function(Request $request, Response $response){
     $mes= $request->getAttribute('a');
     $año= $request->getAttribute('b');
 
-    $sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="'.$mes.'" AND year(m.fechaactuacion)="'.$año.'"';
+    $sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, fechaInspeccion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE resolucion="true" and month(m.fechaactuacion)="'.$mes.'" AND year(m.fechaactuacion)="'.$año.'" order by 1';
     //$sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="9" AND year(m.fechaactuacion)="2019"';
    
     try{
@@ -175,6 +175,92 @@ $app->post('/api/mfo/nueva',function(Request $request, Response $response){
     }
 });
 
+$app->get('/api/mfo/imprimirnook/{a}/{b}',function(Request $request, Response $response){
+    $mes= $request->getAttribute('a');
+    $año= $request->getAttribute('b');
+
+    $sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, fechaInspeccion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE resolucion="false" and month(m.fechaactuacion)="'.$mes.'" AND year(m.fechaactuacion)="'.$año.'" order by 1';
+    //$sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="9" AND year(m.fechaactuacion)="2019"';
+   
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+        if($resultado->rowCount()>0){
+            $inventario= $resultado->fetchAll();
+           //// echo json_encode($inventario);
+           $ret= json_encode($inventario);
+        
+           return $ret ;
+           // echo json_encode("No se han encontrado resultados");
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
+$app->get('/api/mfo/imprimirnook/fechainspeccion/{a}/{b}',function(Request $request, Response $response){
+    $mes= $request->getAttribute('a');
+    $año= $request->getAttribute('b');
+
+    $sql='SELECT count(fechaInspeccion) FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE resolucion="false" and month(m.fechaactuacion)="'.$mes.'" AND year(m.fechaactuacion)="'.$año.'" order by 1';
+    //$sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="9" AND year(m.fechaactuacion)="2019"';
+   
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+        if($resultado->rowCount()>0){
+            $inventario= $resultado->fetchAll();
+           //// echo json_encode($inventario);
+           $ret= json_encode($inventario);
+        
+           return $ret ;
+           // echo json_encode("No se han encontrado resultados");
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
+$app->get('/api/mfo/imprimir/fechainspeccion/{a}/{b}',function(Request $request, Response $response){
+    $mes= $request->getAttribute('a');
+    $año= $request->getAttribute('b');
+
+    $sql='SELECT count(fechaInspeccion) FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE resolucion="true" and month(m.fechaactuacion)="'.$mes.'" AND year(m.fechaactuacion)="'.$año.'" order by 1';
+    //$sql='SELECT idInstalacion, i.ubicacion, fechaActuacion, observaciones, precio FROM mfo m JOIN instalaciones i ON m.idInstalacion=i.id WHERE month(m.fechaactuacion)="9" AND year(m.fechaactuacion)="2019"';
+   
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+        if($resultado->rowCount()>0){
+            $inventario= $resultado->fetchAll();
+           //// echo json_encode($inventario);
+           $ret= json_encode($inventario);
+        
+           return $ret ;
+           // echo json_encode("No se han encontrado resultados");
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
 
 $app->get('/api/configuracionpliego',function(Request $request, Response $response){
 

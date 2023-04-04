@@ -72,9 +72,14 @@ include './login/session.php';
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                      <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
                      <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
-                     <a class="dropdown-item" href="./mfoEspiras.php">MFO Espiras</a>
+                     <a class="dropdown-item" href="./mfoEspiras.php">MFO PM</a>
                      <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
                      <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
+                  <a class="dropdown-item" href="./mfoCamaras.php">MFO Cámaras</a>
+                  <a class="dropdown-item" href="./mfoCentrales.php">MFO Centrales</a>
+                  <a class="dropdown-item" href="./mfoSectores.php">MFO Sectores</a>
+                  <a class="dropdown-item" href="./mfoNodos.php">MFO Nodos</a>
+                  <a class="dropdown-item" href="./mfoRadar.php">MFO Radar/Foto Rojo</a>
                   </div>
                </li>
 
@@ -112,6 +117,7 @@ include './login/session.php';
          </div>
          <div class="col">
             <button class="btn btn-primary" onclick="imprimir()">Imprimir</button>
+            <button class="btn btn-primary" onclick="imprimirNoOk()">Imprimir No Ok</button>
          </div>
          <div class="col">
             <div class="input-group ">
@@ -122,8 +128,8 @@ include './login/session.php';
                <div class="dropdown-menu" id="dropPasos">
                   <!-- inyectar código -->
                </div>
-               <input type="text" class="form-control bg-warning " name="" id="inputIdPasos" value="">
-               <div class="btn btn-primary ml-2" onclick="filtrarCruce()">Aplicar Filtro</i></div>
+               <input type="text" class="form-control bg-warning ml-2" name="" id="inputIdPasos" value="">
+              <!--  <div class="btn btn-primary ml-2" onclick="filtrarCruce()">Aplicar Filtro</i></div> -->
             </div>
          </div>
       </div>
@@ -131,7 +137,7 @@ include './login/session.php';
    <!-- Dropdowns Menus -->
    <hr class="mt-0 mb-0">
    <!-- Container de cabecera -->
-   <div class="container-fluid mt-1 ml-1">
+   <div class="container-fluid pb-3" style="background-color:#EDC2BF">
       <!-- FormGuardar -->
       <div class="container-fluid mt-1 ml-1 ">
 
@@ -141,14 +147,14 @@ include './login/session.php';
                <span><b>Instalación</b></span>
 
                <div class="input-group mt-2">
-                  <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
+                 <!-- <button type="button" class="btn btn-secondary dropdown-toggle" name="" value=""
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="rellenarCruceMFO()">
                      Inst
                   </button>
                   <div class="dropdown-menu" id="dropInstalacionPintura">
-                     <!-- inyectar código -->
-                  </div>
-                  <input type="text" class="form-control" name="" id="inputIdCruce" value="">
+                      inyectar código 
+                  </div>-->
+                  <input type="text" class="form-control" name="" id="inputIdCruce" value="" disabled>
 
                </div>
             </div>
@@ -172,7 +178,7 @@ include './login/session.php';
             </div>
             <div class="col-1 p-1">
                <span><b>Precio</b></span>
-               <input type="text" class="form-control mt-2" name="" id="inputPrecio" value="">
+               <input type="text" class="form-control mt-2" name="" id="inputPrecio" value="" disabled>
             </div>
             <div class="col-1 p-1">
                <span><b>Resolución Ok</b></span>
