@@ -37,7 +37,8 @@ include './login/session.php';
          overflow-y: auto;
          
       }
-      #dropdownNID{
+      #dropdownNID,
+      #dropdown-Almacen{
          overflow-y: auto;
          height: 400px;
       }
@@ -72,8 +73,8 @@ include './login/session.php';
                      <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
                      <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
                      <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
-                     <a class="dropdown-item" href="#"></a>
-                     <a class="dropdown-item" href="#"></a> 
+                     <a class="dropdown-item" href="./consultaIntroduccion.php">Consulta de Introducción de datos por mes</a>
+ 
                   </div>
                </li>
                <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
@@ -101,10 +102,8 @@ include './login/session.php';
                <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
                <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
 
-               <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"
-                  aria-disabled="true">Configuración</a>
-               <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
-                  Sesión</a>
+               <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"aria-disabled="true">Configuración</a>
+               <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
             </div>
 
          </div>
@@ -359,6 +358,120 @@ include './login/session.php';
    </div>
    <!-- fin formulario Footer-->
 
+   
+        <!-- Formulario Modal  -->
+
+        <div class="modal fade" id="staticBackdrop2" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Traspaso de Almacén</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalAlmacenBody">
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        
+                        <span class="mr-auto" >El elemento se dará de Alta en la nueva ubicación de y de baja de Almacén  </span>
+                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="traspasoAlmacen()">Grabar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <!-- Formulario Modal Fecha de Actuación almacen  -->
+
+         <div class="modal fade" id="staticBackdrop3" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                     <div class="modal-header">
+                           <h5 class="modal-title" id="staticBackdropLabel">Traspaso de Almacén</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                           </button>
+                     </div>
+                    <div class="modal-body" id="modalFechaAlmacenBody">
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        
+                        <span class="mr-auto" >  </span>
+                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="putfechaAlmacen2()">Grabar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+                        <!-- Formulario Modal Fecha de Actuación Residuos  -->
+
+                        <div class="modal fade" id="staticBackdrop4" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                     <div class="modal-header">
+                           <h5 class="modal-title" id="staticBackdropLabel">Traspaso de Residuos</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                           </button>
+                     </div>
+                    <div class="modal-body" id="modalFechaResiduosBody">
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        
+                        <span class="mr-auto" >  </span>
+                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="putfechaResiduos2()">Grabar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+
+                                <!-- Formulario Modal Fecha de Actuación de Almacén a Residuos  -->
+
+                                <div class="modal fade" id="staticBackdrop5" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                     <div class="modal-header">
+                           <h5 class="modal-title" id="staticBackdropLabel">Traspaso de Residuos</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                           </button>
+                     </div>
+                    <div class="modal-body" id="modalFechaAlmacenResiduosBody">
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        
+                        <span class="mr-auto" >  </span>
+                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="traspasoResiduos2()">Grabar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
    <!-- Optional JavaScript -->
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -417,6 +530,8 @@ include './login/session.php';
    <script src="../js/radares.js"></script>
    <script src="../js/sector.js"></script>
    <script src="../js/señalesLuminosas.js"></script>
+   <script src="../js/almacen.js"></script>
+   <script src="../js/residuos.js"></script>
    
    <!-- <script src="../js/brazos.js"></script> -->
    <!-- <script src="../js/bajantes.js"></script> -->

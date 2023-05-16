@@ -9,7 +9,7 @@
 
     
 
-        $sql = 'SELECT tipoInstalacion,count(id)  FROM gestin.instalaciones WHERE tipoInstalacion not like "AL%" group by tipoInstalacion order by 1;';
+        $sql = 'SELECT tipoInstalacion,count(id)  FROM gestin.instalaciones group by tipoInstalacion order by 1;';
   
     
      try{ 

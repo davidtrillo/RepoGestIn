@@ -23,20 +23,27 @@ function nuevaBusTren() {
 
             return;
         }
+
+        if (document.getElementById('inputNumSerie').value){
+            var idNumSerie = document.getElementById('inputNumSerie').value;
+        }else{
+            alert("No se ha introducido el número de serie")
+            return;
+        }
+
+
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
         var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
-        var activo = document.getElementById('inputActivo').checked;
-        var instalada = document.getElementById('inputInstalada').checked;
-        var almacen = document.getElementById('inputAlmacen').checked;
-        var residuos = document.getElementById('inputResiduos').checked;
+        var activo = document.getElementById('inputActivoBusTren').checked;
+        var instalada = document.getElementById('inputInstaladaBusTren').checked;
+
 
 
         activo = String(activo);
         instalada = String(instalada);
-        almacen = String(almacen);
-        residuos = String(residuos);
+ 
 
          //console.log(residuos);
         // console.log(idNumSerie);
@@ -63,9 +70,7 @@ function nuevaBusTren() {
                     idUsuario: idUsuario,
                     precio: precio,
                     activo: activo,
-                    instalada: instalada,
-                    almacen: almacen,
-                    residuos: residuos
+                    instalada: instalada
                 })
             })
             .then(res => res.json())
@@ -176,7 +181,7 @@ async function formBusTren(elemento) {
 
     //desactivarBotones();
 
-    // var ac=document.getElementById("btnTarjetas");
+    // var ac=document.getElementById("btnBusTrens");
     // ac.classList.add("active");
 
     
@@ -258,10 +263,8 @@ async function formBusTren(elemento) {
         </div>
         <div class="col-1">
         <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
-            <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkTarjetaInstalada()"> 
-            <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo" onclick="checkTarjetaActiva()">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen" onclick="checkTarjetaAlmacen()">
-            <input type="checkbox" class=" mt-3 ml-2" name="inputResiduos" id="inputResiduos" onclick="checkTarjetaResiduos()">
+            <input type="checkbox" class=" mt-3 ml-2" name="inputInstaladaBusTren" id="inputInstaladaBusTren" onclick="checkBusTrenInstalada()"> 
+            <input type="checkbox" class=" mt-3 ml-2" name="inputActivoBusTren" id="inputActivoBusTren" onclick="checkBusTrenActiva()">
         </div>  
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaBusTren()">Guardar</div>
@@ -361,14 +364,14 @@ async function rellenarTodosBusTren() { //Llamada a la API
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}" onclick="checkTarjetaActiva(${response[i]['id']})" ${activo}>
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}" onclick="checkTarjetaInstalada(${response[i]['id']})"  ${instalada}>
-                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}" onclick="checkTarjetaAlmacen(${response[i]['id']})"  ${almacen}>
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTar${response[i]['id']}" onclick="checkTarjetaResiduos(${response[i]['id']})" ${residuos}>                 
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoBusTrenTar${response[i]['id']}" onclick="checkBusTrenActiva(${response[i]['id']})" ${activo}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaBusTrenTar${response[i]['id']}" onclick="checkBusTrenInstalada(${response[i]['id']})"  ${instalada}>
+                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenBusTrenTar${response[i]['id']}" onclick="checkBusTrenAlmacen(${response[i]['id']})"  ${almacen}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosBusTrenTar${response[i]['id']}" onclick="checkBusTrenResiduos(${response[i]['id']})" ${residuos}>                 
                 </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarBusTren(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarBusTren(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarBusTren(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarBusTren(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
 
@@ -404,7 +407,7 @@ function rellenarFooterBusTren() {
                 // var p1 = document.getElementById('formFooter');
                 // p1.innerHTML = '';
                 // p1.innerHTML=`
-                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                // <span class="ml-1">Total de BusTrens Activas: ${response[0]['c']}</span>
                 // `
 
                 var p = document.getElementById('cabecera');
@@ -436,7 +439,7 @@ function borrarBusTren(param) {
     }, 500);
 }
 
-function editarBusTren(param) {
+function editarSimpleBusTren(param) {
 
  
 
@@ -447,15 +450,15 @@ function editarBusTren(param) {
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
-    var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
-    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
-    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-    var inputResiduosTar = document.getElementById('inputResiduosTar' + param).checked;
+    var inputActivoBusTrenTar = document.getElementById('inputActivoBusTrenTar' + param).checked;
+    var inputInstaladaBusTrenTar = document.getElementById('inputInstaladaBusTrenTar' + param).checked;
+    var inputAlmacenBusTrenTar = document.getElementById('inputAlmacenBusTrenTar' + param).checked;
+    var inputResiduosBusTrenTar = document.getElementById('inputResiduosBusTrenTar' + param).checked;
 
-    inputActivoTar = String(inputActivoTar);
-    inputInstaladaTar = String(inputInstaladaTar);
-    inputAlmacenTar = String(inputAlmacenTar);
-    inputResiduosTar = String(inputResiduosTar);
+    inputActivoBusTrenTar = String(inputActivoBusTrenTar);
+    inputInstaladaBusTrenTar = String(inputInstaladaBusTrenTar);
+    inputAlmacenBusTrenTar = String(inputAlmacenBusTrenTar);
+    inputResiduosBusTrenTar = String(inputResiduosBusTrenTar);
 
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
@@ -465,7 +468,7 @@ function editarBusTren(param) {
     // console.log(inputObservacionesTar);
     // console.log(inputNumSerieTar);
     // console.log(inputPrecioTar);
-    // console.log(inputActivoTar);
+    // console.log(inputActivoBusTrenTar);
     // console.log(idUsuario);
 
 
@@ -497,10 +500,10 @@ function editarBusTren(param) {
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
-                activo: inputActivoTar,
-                instalada: inputInstaladaTar,
-                almacen: inputAlmacenTar,
-                residuos: inputResiduosTar
+                activo: inputActivoBusTrenTar,
+                instalada: inputInstaladaBusTrenTar,
+                almacen: inputAlmacenBusTrenTar,
+                residuos: inputResiduosBusTrenTar
 
             })
         })
@@ -515,6 +518,92 @@ function editarBusTren(param) {
         rellenarTodosBusTren();
     }, 500);
 }
+
+
+
+
+
+
+
+
+
+async function editarBusTren(param) {
+
+
+    if  (document.getElementById('inputAlmacenBusTrenTar' + param).checked){
+        if (confirm("El registro actual se borrará de la instalación y pasará a Almacén.")){
+           
+            var c=document.getElementById("modalFechaAlmacenBody");
+            c.innerHTML=`
+                        <!-- Inicio body 1 -->
+                        <div class="row" id="">
+                            <div class="col">
+                                <b>F.Actuación</b>
+                            </div>                  
+                        </div>
+        
+                        <div class="row" id="">
+                            <div class="col p-3">
+                                Nueva Fecha de Actuación:
+                                <input type="date" class="form-control mt-1" name="inputFechaActuacionAlmacen" id="inputFechaActuacionAlmacen" placeholder="DD/MM/YYYY">
+                                <input type="hidden" id="claveid" value="${param}">
+                            </div>           
+                        </div>        
+                        <!-- fin body 1  -->
+                    `;  
+        
+            $('#staticBackdrop3').modal('show');
+        
+            return;
+
+        }else{
+            //alert("Es un no");
+            return;
+        }
+    
+    }else{
+        if  (document.getElementById('inputResiduosBusTrenTar' + param).checked){
+            if (confirm("El registro actual se borrará de la instalación y pasará a Residuos.")){
+               
+                var c=document.getElementById("modalFechaResiduosBody");
+                c.innerHTML=`
+                            <!-- Inicio body 1 -->
+                            <div class="row" id="">
+                                <div class="col">
+                                    <b>F.Actuación</b>
+                                </div>                  
+                            </div>
+            
+                            <div class="row" id="">
+                                <div class="col p-3">
+                                    Nueva Fecha de Actuación:
+                                    <input type="date" class="form-control mt-1" name="inputFechaActuacionResiduos" id="inputFechaActuacionResiduos" placeholder="DD/MM/YYYY">
+                                    <input type="hidden" id="claveid" value="${param}">
+                                </div>           
+                            </div>        
+                            <!-- fin body 1  -->
+                        `;  
+            
+                $('#staticBackdrop4').modal('show');
+            
+                return;
+                
+            }else{
+                //alert("Es un no");
+                return;
+            }
+        }else{
+           editarSimpleBusTren(param);
+        }
+
+    }
+}
+
+
+
+
+
+
 
 
 function comprobarNumSerieBusTren() {
@@ -581,7 +670,7 @@ function comprobarNumSerieBusTren() {
                             if (clase) {
                                 var id=response[i]['id'];
                                 var idNumSerie=response[i]['idNumSerie'];
-                                // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                // comprobarNumSerieBusTren3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
                                     // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
@@ -673,139 +762,134 @@ function comprobarNumSerieBusTren() {
     }
 }
 
+/*
 document.addEventListener("DOMContentLoaded", async function(event) {
  
-    await checkTarjetaInstalada();
-    await checkTarjetaActiva();
-    await checkTarjetaAlmacen();
-    await checkTarjetaResiduos();
+    await checkBusTrenInstalada();
+    await checkBusTrenActiva();
+    await checkBusTrenAlmacen();
+    await checkBusTrenResiduos();
     // Aquí puedes escribir el código adicional que quieres que se ejecute cuando se dispara el evento DOMContentLoaded
   });
+*/
 
-function checkTarjetaInstalada(id) {
+function checkBusTrenInstalada(id) {
 
     if (id){
 
-        if (document.getElementById('inputInstaladaTar'+id).checked) {
-          //  document.getElementById('inputActivoTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if (document.getElementById('inputInstaladaBusTrenTar'+id).checked) {
+          //  document.getElementById('inputActivoBusTrenTar'+id).checked=true;
+            document.getElementById('inputAlmacenBusTrenTar'+id).checked=false;
+            document.getElementById('inputResiduosBusTrenTar'+id).checked=false;
         
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoBusTrenTar'+id).checked=false;
+            document.getElementById('inputInstaladaBusTrenTar'+id).checked=false;
+            document.getElementById('inputAlmacenBusTrenTar'+id).checked=false;
+            document.getElementById('inputResiduosBusTrenTar'+id).checked=false;
 
         }
     }else{
-        if (document.getElementById('inputInstalada').checked) {
-            document.getElementById('inputActivo').checked=true;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+        if (document.getElementById('inputInstaladaBusTren').checked) {
+            document.getElementById('inputActivoBusTren').checked=true;
+
         
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoBusTren').checked=false;
+            document.getElementById('inputInstaladaBusTren').checked=false;
+
 
         }
     }
 }
-function checkTarjetaActiva(id) {
+function checkBusTrenActiva(id) {
 
     if (id){
 
 
-        if (document.getElementById('inputActivoTar'+id).checked) {
+        if (document.getElementById('inputActivoBusTrenTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;      
+            document.getElementById('inputInstaladaBusTrenTar'+id).checked=true;
+            document.getElementById('inputAlmacenBusTrenTar'+id).checked=false;
+            document.getElementById('inputResiduosBusTrenTar'+id).checked=false;      
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoBusTrenTar'+id).checked=false;
+            document.getElementById('inputInstaladaBusTrenTar'+id).checked=false;
+            document.getElementById('inputAlmacenBusTrenTar'+id).checked=false;
+            document.getElementById('inputResiduosBusTrenTar'+id).checked=false;
         }
 
 
     }else{
 
-        if (document.getElementById('inputActivo').checked) {
+        if (document.getElementById('inputActivoBusTren').checked) {
         
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;      
+
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoBusTren').checked=false;
+            document.getElementById('inputInstaladaBusTren').checked=false;
+
         }
     }
 }
-function checkTarjetaAlmacen(id) {
+function checkBusTrenAlmacen(id) {
 
     if (id){
 
-        if ( document.getElementById('inputAlmacenTar'+id).checked) {
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if ( document.getElementById('inputAlmacenBusTrenTar'+id).checked) {
+            document.getElementById('inputActivoBusTrenTar'+id).checked=false;
+            document.getElementById('inputInstaladaBusTrenTar'+id).checked=false;
+            document.getElementById('inputResiduosBusTrenTar'+id).checked=false;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoBusTrenTar'+id).checked=false;
+            document.getElementById('inputInstaladaBusTrenTar'+id).checked=false;
+            document.getElementById('inputAlmacenBusTrenTar'+id).checked=false;
+            document.getElementById('inputResiduosBusTrenTar'+id).checked=false;
         }
     }else{
             if ( document.getElementById('inputAlmacen').checked) {
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+                document.getElementById('inputActivoBusTren').checked=false;
+                document.getElementById('inputInstaladaBusTren').checked=false;
+
         
             }else{
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputAlmacen').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+                document.getElementById('inputActivoBusTren').checked=false;
+                document.getElementById('inputInstaladaBusTren').checked=false;
+
             }
         }
 }
-function checkTarjetaResiduos(id) {
+function checkBusTrenResiduos(id) {
 
     if (id){
 
-        if (document.getElementById('inputResiduosTar'+id).checked) {
+        if (document.getElementById('inputResiduosBusTrenTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputInstaladaBusTrenTar'+id).checked=false;
+            document.getElementById('inputActivoBusTrenTar'+id).checked=false;
+            document.getElementById('inputAlmacenBusTrenTar'+id).checked=false;
         //  document.getElementById('inputResiduos').checked=true;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoBusTrenTar'+id).checked=false;
+            document.getElementById('inputInstaladaBusTrenTar'+id).checked=false;
+            document.getElementById('inputAlmacenBusTrenTar'+id).checked=false;
+            document.getElementById('inputResiduosBusTrenTar'+id).checked=false;
         }
     }else{
         if (document.getElementById('inputResiduos').checked) {
         
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-        //  document.getElementById('inputResiduos').checked=true;
+            document.getElementById('inputInstaladaBusTren').checked=false;
+            document.getElementById('inputActivoBusTren').checked=false;
+   
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoBusTren').checked=false;
+            document.getElementById('inputInstaladaBusTren').checked=false;
+
         }
     }
 }

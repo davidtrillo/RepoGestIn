@@ -23,6 +23,17 @@ function nuevaTarjetaAmp() {
 
             return;
         }
+
+
+
+        if (document.getElementById('inputNumSerie').value){
+            var idNumSerie = document.getElementById('inputNumSerie').value;
+        }else{
+            alert("No se ha introducido el número de serie")
+            return;
+        }
+
+
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
         var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
@@ -351,8 +362,8 @@ async function rellenarTodosTarjetaAmp() { //Llamada a la API
                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                  </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarTarjetaAmp(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarTarjetaAmp(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarTarjetaAmp(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarTarjetaAmp(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
 

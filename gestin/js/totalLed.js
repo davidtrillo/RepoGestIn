@@ -89,6 +89,7 @@
 
 
  async function repes() {
+  
 
      //borrado de input del filtro
      document.getElementById('inputIdFiltroCruce').value = "";
@@ -146,6 +147,24 @@
 
 
  function rellenarRepes(param) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      var c = document.getElementById('repes');
 
 
@@ -170,6 +189,8 @@
 
              p.innerHTML += `
         <div class="row mt-1" id="">
+        
+
           
         <div class="col-1 mt-1 ml-0" >
              <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputIdCruceTar${param[i]['id']}" value="${param[i]['idInstalacion']}">
@@ -231,7 +252,26 @@
                         </div>
                     </div>
         </div>
+        <div class="col-1 mt-1 pl-2">
+                <div class="dropdown" >
+                
+                        <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" id="inputFabricacionTar${param[i]['id']}" value="${param[i]['fabricacion']}">
+                            <div class="input-group-append">
 
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+
+                                    <div class="dropdown-menu">
+                                    <button class="dropdown-item" onclick="escribirFabricacion2('Matricial',${param[i]['id']})" >Matricial</button>
+                                    <button class="dropdown-item" onclick="escribirFabricacion2('Alta Potencia',${param[i]['id']})" >Alta Potencia</button>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+        </div>
         <div class="col-1">
            <input type="text" class="form-control mt-1" name="" id="inputNumSerieTar${param[i]['id']}"  value="${param[i]['idNumSerie']}" >
         </div>
@@ -241,11 +281,10 @@
         <div class="col-2">
             <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${param[i]['id']}"  value="${param[i]['observaciones']}" data-toggle="tooltip" data-placement="top" title="${param[i]['observaciones']}" >
         </div>
-        <div class="col-auto">
-          <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${param[i]['id']}"  ${activo}>
-          <input type="checkbox" class=" mt-3 ml-2" name="" id="inputAlmacenTar${param[i]['id']}"  ${almacen}>
-          <div class="btn btn-primary ml-3" id="${param[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
-          <div class="btn btn-danger" id="${param[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
+        <div class="col-1">
+
+          <div class="btn btn-primary ml-3" id="${param[i]['id']}" onclick="editarLed(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+          <div class="btn btn-danger" title="Eliminar registro" id="${param[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
         </div>
 
         <div class="col-1">
@@ -659,7 +698,7 @@
                      p.innerHTML += `
                      <div class="row mt-1 ml-1" id="">
                      <div class="col text-right pl-0 mt-1">
-                        <div class="btn btn-primary " onclick="guardarIdLed(${response[i]['id']})" id="inputIdMod${response[i]['id']}" data-toggle="modal" data-target="#staticBackdrop" ><i class="icon-refresh"></i></div>
+                        <div class="btn btn-primary " title="Substituir Led" onclick="guardarIdLed(${response[i]['id']})" id="inputIdMod${response[i]['id']}" data-toggle="modal" data-target="#staticBackdrop" ><i class="icon-refresh"></i></div>
 
                      </div>
 
@@ -755,16 +794,12 @@
                             <div class="col-1 pl-2">
                                <input type="text" class="form-control mt-1" name="inputAlbaran" id="inputAlbaranTar${response[i]['id']}" value="${response[i]['albaran']}">
                             </div>
-                            <div class="col-1 pl-2">
+                            <div class="col-2 pl-2">
                                 <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}" data-toggle="tooltip" data-placement="top" title="${response[i]['observaciones']}">
                             </div>
-                            <div class="col-1 pl-2">
-                              <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
-                              <input type="checkbox" class="mt-3 ml-3 name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
-                            </div>
                             <div class="col-1 pl-0">
-                                <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarLed(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                                <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
+                                <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarLed(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                                <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarLed(this.id)"><i class="fas fa-trash-alt"></i></div>
                             </div>
     
                   </div>  
@@ -829,10 +864,10 @@
      var inputFabricacionTar = document.getElementById('inputFabricacionTar' + param).value ? document.getElementById('inputFabricacionTar' + param).value : "";
      var inputTipoTar = document.getElementById('inputTipoTar' + param).value ? document.getElementById('inputTipoTar' + param).value : "";
      var inputNIDTar = document.getElementById('inputNIDTar' + param).value ? document.getElementById('inputNIDTar' + param).value : "";
-     var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
-     var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-     inputActivoTar = String(inputActivoTar);
-     inputAlmacenTar = String(inputAlmacenTar);
+     var inputActivoTar = "true";
+     var inputAlmacenTar = "false";
+    // inputActivoTar = String(inputActivoTar);
+     //inputAlmacenTar = String(inputAlmacenTar);
      var idUsuario = document.getElementById('inputIdUsuario').value;
 
      // console.log(inputIdTar);
@@ -1108,7 +1143,11 @@ async function guardarIdLed(id) {
                         <b> Albarán</b>
                     </div>
                     <div class="col">
-                        <b> Almacén</b>
+                        <b>Almacén</b>
+                    </div>                    
+                    
+                    <div class="col">
+                        <b>Residuos</b>
                     </div>
 
                 </div>
@@ -1134,19 +1173,20 @@ async function guardarIdLed(id) {
                         <span id="inputFabricacionMod">${ledId[0].fabricacion}</span>
                     </div>
                     <div class="col">
-                        <span id="">${ledId[0].idNumSerie}</span>
+                        <span id="inputNumSerieAntiguo">${ledId[0].idNumSerie}</span>
                     </div>
                     <div class="col">
-                        <span id="">${ledId[0].albaran}</span>
+                        <span id="inputAlbaranAntiguo">${ledId[0].albaran}</span>
                     </div>
 
                     <div class="col mt-1">
-                    
-                        <input type="checkbox" class="mt-2 ml-3" name="" id="inputAlmacenMod">
+                        <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTotalLedTar" onclick="checkTotalLedAlmacen(${id})" checked>                                     
                     </div>
 
+                    <div class="col mt-1">
+                        <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTotalLedTar" onclick="checkTotalLedResiduos(${id})" >                                      
+                    </div>
                 </div>
-
 
 
             <div class="row" id="">
@@ -1178,24 +1218,121 @@ async function guardarIdLed(id) {
      
     }
 
+function checkTotalLedAlmacen(){
+    var a=document.getElementById('inputAlmacenTotalLedTar')
+    var r=document.getElementById('inputResiduosTotalLedTar')
+    if (a.checked){
+        r.checked=null;
+    }
+}
+
+function checkTotalLedResiduos(){
+    var a=document.getElementById('inputAlmacenTotalLedTar')
+    var r=document.getElementById('inputResiduosTotalLedTar')
+    if (r.checked){
+        a.checked=null;
+    }
+}
+
 async function sustituirLed() {
   
-    
-    var inputIdLed = document.getElementById('inputIdLed').value;
-    var inputIdCruceLed= document.getElementById('inputIdFiltroCruce').value;
+    var inputIdTar=document.getElementById('inputIdLed').value;
     var inputFechaActuacionLed = document.getElementById('inputFechaActuacionMod').value;
-    var inputColorLed = document.getElementById('inputColorMod').innerText;
     var inputObservacionesLed = document.getElementById('inputObservacionesMod').value ? document.getElementById('inputObservacionesMod').value : "";
-    var inputAlbaranLed = document.getElementById('inputAlbaranMod').value ? document.getElementById('inputAlbaranMod').value : 0;
     var inputNumSerieLed = document.getElementById('inputNumSerieMod').value ? document.getElementById('inputNumSerieMod').value : 0;
-    var inputFabricacionLed = document.getElementById('inputFabricacionMod').innerText ? document.getElementById('inputFabricacionMod').innerText : "";
-    var inputTipoLed = document.getElementById('inputTipoMod').innerText ? document.getElementById('inputTipoMod').innerText : "";
-    var inputNIDLed = document.getElementById('inputNIDMod').innerText ? document.getElementById('inputNIDMod').innerText : "";
-    //var inputActivoLed = document.getElementById('inputActivoMod').checked;
-    var inputAlmacenLed = document.getElementById('inputAlmacenMod').checked;
-    //inputActivoLed = String(inputActivoTar);
-    inputAlmacenLed = String(inputAlmacenLed);
+    var inputAlbaranLed = document.getElementById('inputAlbaranMod').value ? document.getElementById('inputAlbaranMod').value : 0;
+    var inputNumSerieLedAntiguo = document.getElementById('inputNumSerieAntiguo').innerText;
+    var inputResiduosTotalLed = document.getElementById('inputResiduosTotalLedTar').checked;
+    var inputAlmacenTotalLed = document.getElementById('inputAlmacenTotalLedTar').checked;
+        inputActivoLed = String(inputResiduosTotalLed);
+        inputAlmacenLed = String(inputAlmacenTotalLed);
     var idUsuario = document.getElementById('inputIdUsuario').value;
+
+    if (inputAlmacenTotalLed){
+                    //nuevaAlmacen
+
+                    var url = 'http://172.27.120.120/gestin/public/api/almacen/nueva';
+
+                    fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                idInstalacion: "ALMACÉN",
+                                idTipoInstalacion: "LED",
+                                idNumSerie: inputNumSerieLedAntiguo,
+                                observaciones: "",
+                                fechaActuacion: inputFechaActuacionLed,
+                                idUsuario: idUsuario
+                            })
+                        })
+                        .then(res => res.json())
+                        .catch(error => console.error('Error:', error))
+                        .then(response => {
+                            alert(response)
+                        })
+                      
+        }
+
+    if (inputResiduosTotalLed){
+        //nuevaAlmacen
+
+
+        var url = 'http://172.27.120.120/gestin/public/api/residuos/nueva';
+
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idInstalacion: "RESIDUOS",
+                    idTipoInstalacion: "LED",
+                    idNumSerie: inputNumSerieLedAntiguo,
+                    observaciones: "",
+                    fechaActuacion: inputFechaActuacionLed,
+                    idUsuario: idUsuario
+                })
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+                alert(response)
+            })
+
+            
+    }
+
+
+        var url = 'http://172.27.120.120/gestin/public/api/led/sustituir/' + inputIdTar;
+
+        await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: inputIdTar,
+                    idNumSerie:inputNumSerieLed,
+                    albaran:inputAlbaranLed,
+                    fechaActuacion: inputFechaActuacionLed,
+                    idUsuario: idUsuario
+                })
+            })
+            
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+                alert(response)
+                filtrarCruce();
+                $('#staticBackdrop').modal('hide');
+            })
+    
+
+}
+
+
 
     // console.log(inputIdTar);
     // console.log(inputFechaActuacionTar);
@@ -1208,50 +1345,27 @@ async function sustituirLed() {
 
 
     //validar fecha correcta
-    // if (validarFormatoFechaLed(inputFechaActuacionLed)) {
-    //     if (existeFechaLed(inputFechaActuacionLed)) {
+    /*
+     if (validarFormatoFechaLed(inputFechaActuacionLed)) {
+         if (existeFechaLed(inputFechaActuacionLed)) {
 
-    //     } else {
-    //         alert("La fecha introducida no existe.");
-    //         return;
-    //     }
-    // } else {
-    //     alert("El formato de la fecha es incorrecto.");
-    //     return;
-    // }
-
+         } else {
+             alert("La fecha introducida no existe.");
+             return;
+         }
+     } else {
+         alert("El formato de la fecha es incorrecto.");
+         return;
+     }
+*/
     
     //Aquí damos de baja activo=false el led sustituido y si almacen está activo o no
-    var url = 'http://172.27.120.120/gestin/public/api/led/sustituir/' + inputIdLed;
+  
 
-    await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                // id: inputIdTar,
-                //idInstalacion:inputIdCruceTar,
-                //color: inputColorTar,
-                //idNumSerie: inputNumSerieTar,
-                //albaran: inputAlbaranTar,
-                //nid: inputNIDTar,
-                //observaciones: inputObservacionesTar,
-                //fechaActuacion: inputFechaActuacionTar,
-                idUsuario: idUsuario,
-                //fabricacion: inputFabricacionTar,
-                //tipo: inputTipoTar,
-                //activo: "false",
-                almacen: inputAlmacenLed
-            })
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-           // alert(response)
-        })
+
+
 //Aquí damos de baja activo=false el led sustituido y si almacen está activo o no
-var url = 'http://172.27.120.120/gestin/public/api/led/nueva';
+/*var url = 'http://172.27.120.120/gestin/public/api/led/nueva';
 
 await fetch(url, {
         method: 'POST',
@@ -1279,8 +1393,7 @@ await fetch(url, {
         alert(response)
     })
 
-    filtrarCruce();
-    $('#staticBackdrop').modal('hide');
+*/
+
    
 
-}

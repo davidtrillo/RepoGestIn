@@ -328,7 +328,7 @@ function filtrarCruce() {
                           <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarPreventivo(this.id)"><i
                                    class="fas fa-pencil-alt"></i></div>
                           
-                          <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarPreventivo(this.id)"><i
+                          <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarPreventivo(this.id)"><i
                                    class="fas fa-trash-alt"></i></div>
                                   
                        </div>

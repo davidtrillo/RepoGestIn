@@ -342,8 +342,8 @@ function rellenarTodosBrazos() { //Llamada a la API  //CAMBIO DE NOMENCLATURA
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputActivoTar${response[i]['id']}"  ${activo}>
                  </div>
                  <div class="col-1 pl-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarBrazos(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarBrazos(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarBrazos(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarBrazos(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
                  

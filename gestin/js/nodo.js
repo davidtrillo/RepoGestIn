@@ -23,14 +23,26 @@ function nuevaNodo() {
 
             return;
         }
+
+
+        if (document.getElementById('inputNumSerie').value){
+            var idNumSerie = document.getElementById('inputNumSerie').value;
+        }else{
+            alert("No se ha introducido el número de serie")
+            return;
+        }
+
+
+
+
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
         var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
-        var activo = document.getElementById('inputActivo').checked;
-        var instalada = document.getElementById('inputInstalada').checked;
-        var almacen = document.getElementById('inputAlmacen').checked;
-        var residuos = document.getElementById('inputResiduos').checked;
+        var activo = document.getElementById('inputActivoNodo').checked;
+        var instalada = document.getElementById('inputInstaladaNodo').checked;
+        var almacen = null;
+        var residuos = null;
 
 
         activo = String(activo);
@@ -207,10 +219,8 @@ async function formNodo(elemento) {
         </div>
         <div class="col-1">
         <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
-            <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkTarjetaInstalada()"> 
-            <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo" onclick="checkTarjetaActiva()">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen" onclick="checkTarjetaAlmacen()">
-            <input type="checkbox" class=" mt-3 ml-2" name="inputResiduos" id="inputResiduos" onclick="checkTarjetaResiduos()">
+            <input type="checkbox" class=" mt-3 ml-2" name="inputInstaladaNodo" id="inputInstaladaNodo" onclick="checkNodoInstalada()"> 
+            <input type="checkbox" class=" mt-3 ml-2" name="inputActivoNodo" id="inputActivoNodo" onclick="checkNodoActiva()">
         </div>  
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaNodo()">Guardar</div>
@@ -317,14 +327,14 @@ async function rellenarTodosNodo() { //Llamada a la API
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}" onclick="checkTarjetaActiva(${response[i]['id']})" ${activo}>
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}" onclick="checkTarjetaInstalada(${response[i]['id']})"  ${instalada}>
-                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}" onclick="checkTarjetaAlmacen(${response[i]['id']})"  ${almacen}>
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTar${response[i]['id']}" onclick="checkTarjetaResiduos(${response[i]['id']})" ${residuos}>                 
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoNodoTar${response[i]['id']}" onclick="checkNodoActiva(${response[i]['id']})" ${activo}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaNodoTar${response[i]['id']}" onclick="checkNodoInstalada(${response[i]['id']})"  ${instalada}>
+                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenNodoTar${response[i]['id']}" onclick="checkNodoAlmacen(${response[i]['id']})"  ${almacen}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosNodoTar${response[i]['id']}" onclick="checkNodoResiduos(${response[i]['id']})" ${residuos}>                 
                 </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarNodo(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarNodo(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarNodo(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarNodo(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
 
@@ -392,7 +402,7 @@ function borrarNodo(param) {
     }, 500);
 }
 
-function editarNodo(param) {
+function editarSimpleNodo(param) {
 
  
 
@@ -403,15 +413,15 @@ function editarNodo(param) {
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
-    var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
-    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
-    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-    var inputResiduosTar = document.getElementById('inputResiduosTar' + param).checked;
+    var inputActivoNodoTar = document.getElementById('inputActivoNodoTar' + param).checked;
+    var inputInstaladaNodoTar = document.getElementById('inputInstaladaNodoTar' + param).checked;
+    var inputAlmacenNodoTar = document.getElementById('inputAlmacenNodoTar' + param).checked;
+    var inputResiduosNodoTar = document.getElementById('inputResiduosNodoTar' + param).checked;
 
-    inputActivoTar = String(inputActivoTar);
-    inputInstaladaTar = String(inputInstaladaTar);
-    inputAlmacenTar = String(inputAlmacenTar);
-    inputResiduosTar = String(inputResiduosTar);
+    inputActivoNodoTar = String(inputActivoNodoTar);
+    inputInstaladaNodoTar = String(inputInstaladaNodoTar);
+    inputAlmacenNodoTar = String(inputAlmacenNodoTar);
+    inputResiduosNodoTar = String(inputResiduosNodoTar);
 
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
@@ -421,7 +431,7 @@ function editarNodo(param) {
     // console.log(inputObservacionesTar);
     // console.log(inputNumSerieTar);
     // console.log(inputPrecioTar);
-    // console.log(inputActivoTar);
+    // console.log(inputActivoNodoTar);
     // console.log(idUsuario);
 
 
@@ -453,10 +463,10 @@ function editarNodo(param) {
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
-                activo: inputActivoTar,
-                instalada: inputInstaladaTar,
-                almacen: inputAlmacenTar,
-                residuos: inputResiduosTar
+                activo: inputActivoNodoTar,
+                instalada: inputInstaladaNodoTar,
+                almacen: inputAlmacenNodoTar,
+                residuos: inputResiduosNodoTar
 
             })
         })
@@ -470,6 +480,79 @@ function editarNodo(param) {
     setTimeout(() => {
         rellenarTodosNodo();
     }, 500);
+}
+
+
+async function editarNodo(param) {
+
+
+    if  (document.getElementById('inputAlmacenNodoTar' + param).checked){
+        if (confirm("El registro actual se borrará de la instalación y pasará a Almacén.")){
+           
+            var c=document.getElementById("modalFechaAlmacenBody");
+            c.innerHTML=`
+                        <!-- Inicio body 1 -->
+                        <div class="row" id="">
+                            <div class="col">
+                                <b>F.Actuación</b>
+                            </div>                  
+                        </div>
+        
+                        <div class="row" id="">
+                            <div class="col p-3">
+                                Nueva Fecha de Actuación:
+                                <input type="date" class="form-control mt-1" name="inputFechaActuacionAlmacen" id="inputFechaActuacionAlmacen" placeholder="DD/MM/YYYY">
+                                <input type="hidden" id="claveid" value="${param}">
+                            </div>           
+                        </div>        
+                        <!-- fin body 1  -->
+                    `;  
+        
+            $('#staticBackdrop3').modal('show');
+        
+            return;
+
+        }else{
+            //alert("Es un no");
+            return;
+        }
+    
+    }else{
+        if  (document.getElementById('inputResiduosNodoTar' + param).checked){
+            if (confirm("El registro actual se borrará de la instalación y pasará a Residuos.")){
+               
+                var c=document.getElementById("modalFechaResiduosBody");
+                c.innerHTML=`
+                            <!-- Inicio body 1 -->
+                            <div class="row" id="">
+                                <div class="col">
+                                    <b>F.Actuación</b>
+                                </div>                  
+                            </div>
+            
+                            <div class="row" id="">
+                                <div class="col p-3">
+                                    Nueva Fecha de Actuación:
+                                    <input type="date" class="form-control mt-1" name="inputFechaActuacionResiduos" id="inputFechaActuacionResiduos" placeholder="DD/MM/YYYY">
+                                    <input type="hidden" id="claveid" value="${param}">
+                                </div>           
+                            </div>        
+                            <!-- fin body 1  -->
+                        `;  
+            
+                $('#staticBackdrop4').modal('show');
+            
+                return;
+                
+            }else{
+                //alert("Es un no");
+                return;
+            }
+        }else{
+            editarSimpleNodo(param);
+        }
+
+    }
 }
 
 
@@ -628,140 +711,133 @@ function comprobarNumSerieNodo3(id,idNumSerie) {
             })
     }
 }
-
+/*
 document.addEventListener("DOMContentLoaded", async function(event) {
  
-   await checkTarjetaInstalada();
-   await checkTarjetaActiva();
-   await checkTarjetaAlmacen();
-   await checkTarjetaResiduos();
+   await checkNodoInstalada();
+   await checkNodoActiva();
+   await checkNodoAlmacen();
+   await checkNodoResiduos();
     // Aquí puedes escribir el código adicional que quieres que se ejecute cuando se dispara el evento DOMContentLoaded
   });
-
-function checkTarjetaInstalada(id) {
+*/
+function checkNodoInstalada(id) {
 
     if (id){
 
-        if (document.getElementById('inputInstaladaTar'+id).checked) {
-          //  document.getElementById('inputActivoTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if (document.getElementById('inputInstaladaNodoTar'+id).checked) {
+          //  document.getElementById('inputActivoNodoTar'+id).checked=true;
+            document.getElementById('inputAlmacenNodoTar'+id).checked=false;
+            document.getElementById('inputResiduosNodoTar'+id).checked=false;
         
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoNodoTar'+id).checked=false;
+            document.getElementById('inputInstaladaNodoTar'+id).checked=false;
+            document.getElementById('inputAlmacenNodoTar'+id).checked=false;
+            document.getElementById('inputResiduosNodoTar'+id).checked=false;
 
         }
     }else{
-        if (document.getElementById('inputInstalada').checked) {
-            document.getElementById('inputActivo').checked=true;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+        if (document.getElementById('inputInstaladaNodo').checked) {
+            document.getElementById('inputActivoNodo').checked=true;
+
         
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoNodo').checked=false;
+            document.getElementById('inputInstaladaNodo').checked=false;
+
 
         }
     }
 }
-function checkTarjetaActiva(id) {
+function checkNodoActiva(id) {
 
     if (id){
 
 
-        if (document.getElementById('inputActivoTar'+id).checked) {
+        if (document.getElementById('inputActivoNodoTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;      
+            document.getElementById('inputInstaladaNodoTar'+id).checked=true;
+            document.getElementById('inputAlmacenNodoTar'+id).checked=false;
+            document.getElementById('inputResiduosNodoTar'+id).checked=false;      
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoNodoTar'+id).checked=false;
+            document.getElementById('inputInstaladaNodoTar'+id).checked=false;
+            document.getElementById('inputAlmacenNodoTar'+id).checked=false;
+            document.getElementById('inputResiduosNodoTar'+id).checked=false;
         }
 
 
     }else{
 
-        if (document.getElementById('inputActivo').checked) {
+        if (document.getElementById('inputActivoNodo').checked) {
         
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;      
+   
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoNodo').checked=false;
+            document.getElementById('inputInstaladaNodo').checked=false;
+
         }
     }
 }
-function checkTarjetaAlmacen(id) {
+function checkNodoAlmacen(id) {
 
     if (id){
 
-        if ( document.getElementById('inputAlmacenTar'+id).checked) {
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if ( document.getElementById('inputAlmacenNodoTar'+id).checked) {
+            document.getElementById('inputActivoNodoTar'+id).checked=false;
+            document.getElementById('inputInstaladaNodoTar'+id).checked=false;
+            document.getElementById('inputResiduosNodoTar'+id).checked=false;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoNodoTar'+id).checked=false;
+            document.getElementById('inputInstaladaNodoTar'+id).checked=false;
+            document.getElementById('inputAlmacenNodoTar'+id).checked=false;
+            document.getElementById('inputResiduosNodoTar'+id).checked=false;
         }
     }else{
-            if ( document.getElementById('inputAlmacen').checked) {
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+            if ( document.getElementById('inputAlmacenNodo').checked) {
+                document.getElementById('inputActivoNodo').checked=false;
+
         
             }else{
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputAlmacen').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+                document.getElementById('inputActivoNodo').checked=false;
+                document.getElementById('inputInstaladaNodo').checked=false;
+
             }
         }
 }
-function checkTarjetaResiduos(id) {
+function checkNodoResiduos(id) {
 
     if (id){
 
-        if (document.getElementById('inputResiduosTar'+id).checked) {
+        if (document.getElementById('inputResiduosNodoTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-        //  document.getElementById('inputResiduos').checked=true;
+            document.getElementById('inputInstaladaNodoTar'+id).checked=false;
+            document.getElementById('inputActivoNodoTar'+id).checked=false;
+            document.getElementById('inputAlmacenNodoTar'+id).checked=false;
+        //  document.getElementById('inputResiduosNodo').checked=true;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoNodoTar'+id).checked=false;
+            document.getElementById('inputInstaladaNodoTar'+id).checked=false;
+            document.getElementById('inputAlmacenNodoTar'+id).checked=false;
+            document.getElementById('inputResiduosNodoTar'+id).checked=false;
         }
     }else{
-        if (document.getElementById('inputResiduos').checked) {
+        if (document.getElementById('inputResiduosNodo').checked) {
         
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-        //  document.getElementById('inputResiduos').checked=true;
+            document.getElementById('inputInstaladaNodo').checked=false;
+            document.getElementById('inputActivoNodo').checked=false;
+
+        //  document.getElementById('inputResiduosNodo').checked=true;
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoNodo').checked=false;
+            document.getElementById('inputInstaladaNodo').checked=false;
+
         }
     }
 }

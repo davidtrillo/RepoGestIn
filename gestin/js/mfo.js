@@ -127,14 +127,6 @@ async function nuevoMFO() {
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : 0;
         resolucion = String(resolucion);
 
-        console.log(idInstalacion);
-        console.log(fechaActuacion);
-        console.log(fechaInspeccion);
-        console.log(observaciones);
-        console.log(resolucion);
-        console.log(idUsuario);
-        console.log(precio);
-
 
         var url = 'http://172.27.120.120/gestin/public/api/mfo/nueva';
 
@@ -260,7 +252,7 @@ function filtrarCruce(id) {
                        <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarMFO(this.id)"><i
                                 class="fas fa-pencil-alt"></i></div>
                          
-                        <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarMFO(this.id)"><i
+                        <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarMFO(this.id)"><i
                                 class="fas fa-trash-alt"></i></div>
 
                        </div>

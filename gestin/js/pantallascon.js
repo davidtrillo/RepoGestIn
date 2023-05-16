@@ -380,8 +380,8 @@ function rellenarTodosPantallasCon() { //Llamada a la API  //CAMBIO DE NOMENCLAT
                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}"  ${almacen}>
                  </div>
                  <div class="col-1 pl-0">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarPantallasCon(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarPantallasCon(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarPantallasCon(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarPantallasCon(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
                  
               </div>  

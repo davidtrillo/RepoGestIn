@@ -177,7 +177,7 @@ function nuevaPintura() {
                        <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarPintura(this.id)"><i
                                 class="fas fa-pencil-alt"></i></div>
                          
-                        <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarPintura(this.id)"><i
+                        <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarPintura(this.id)"><i
                                 class="fas fa-trash-alt"></i></div>
 
                        </div>

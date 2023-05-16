@@ -177,7 +177,7 @@ $app->post('/api/tarjetascpu/nueva', function (Request $request, Response $respo
     $residuos = $request->getParam('residuos');
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO tarjetascpu (id, idInstalacion, idTipoActuacion, tipo, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,instalada,almacen,residuos) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :tipo, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo,:instalada,:almacen,:residuos);';
+    $sql = 'INSERT INTO tarjetascpu (id, idInstalacion, idTipoActuacion, tipo, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,instalada,almacen,residuos) VALUES (NULL, :idInstalacion, :idTipoActuacion, :tipo, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo,:instalada,:almacen,:residuos);';
     // $sql='INSERT INTO tarjetascpu (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -190,7 +190,7 @@ $app->post('/api/tarjetascpu/nueva', function (Request $request, Response $respo
         $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
         $resultado->bindParam(':albaran', $albaran);
         $resultado->bindParam(':idNumSerie', $idNumSerie);
-        $resultado->bindParam(':tipo', $idNumSerie);
+        $resultado->bindParam(':tipo', $tipo);
         $resultado->bindParam(':idUsuario', $idUsuario);
         $resultado->bindParam(':observaciones', $observaciones);
         $resultado->bindParam(':fechaActuacion', $fechaActuacion);

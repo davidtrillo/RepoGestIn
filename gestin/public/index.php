@@ -74,6 +74,10 @@ include_once '../src/rutas/puntoMedida.php';
 include_once '../src/rutas/radares.php';
 include_once '../src/rutas/sector.php';
 include_once '../src/rutas/señalesLuminosas.php';
+include_once '../src/rutas/APIConsultaIntroduccion.php';
+include_once '../src/rutas/residuos.php';
+include_once '../src/rutas/almacen.php';
+
 
 
 

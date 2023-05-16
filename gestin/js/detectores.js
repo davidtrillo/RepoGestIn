@@ -18,14 +18,25 @@ function nuevaDetectores() { //CAMBIO DE NOMENCLATURA
 
             return;
         }
+
+
+
+        if (document.getElementById('inputNumSerie').value){
+            var idNumSerie = document.getElementById('inputNumSerie').value;
+        }else{
+            alert("No se ha introducido el número de serie")
+            return;
+        }
+
+
         var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
         var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
-        var activo = document.getElementById('inputActivo').checked;
-        var instalada = document.getElementById('inputInstalada').checked;
-        var almacen = document.getElementById('inputAlmacen').checked;
-        var residuos = document.getElementById('inputResiduos').checked;
+        var activo = document.getElementById('inputActivoDetector').checked;
+        var instalada = document.getElementById('inputInstaladaDetector').checked;
+        var almacen = null;
+        var residuos = null;
 
         activo = String(activo);
         instalada = String(instalada);
@@ -193,10 +204,8 @@ async function formDetectores(elemento) { //CAMBIO DE NOMENCLATURA
         </div>
         <div class="col-1">
         <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
-        <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkTarjetaInstalada()"> 
-        <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo" onclick="checkTarjetaActiva()">
-        <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen2" id="inputAlmacen" onclick="checkTarjetaAlmacen()">
-        <input type="checkbox" class=" mt-3 ml-2" name="inputResiduos" id="inputResiduos" onclick="checkTarjetaResiduos()">
+        <input type="checkbox" class=" mt-3 ml-2" name="inputInstaladaDetector" id="inputInstaladaDetector" onclick="checkDetectorInstalada()"> 
+        <input type="checkbox" class=" mt-3 ml-2" name="inputActivoDetector" id="inputActivoDetector" onclick="checkDetectorActiva()">
         </div>
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaDetectores()">Guardar</div>
@@ -298,14 +307,14 @@ async function rellenarTodosDetectores() { //Llamada a la API  //CAMBIO DE NOMEN
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                     <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}" onclick="checkTarjetaActiva(${response[i]['id']})" ${activo}>
-                     <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}" onclick="checkTarjetaInstalada(${response[i]['id']})"  ${instalada}>
-                     <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}" onclick="checkTarjetaAlmacen(${response[i]['id']})"  ${almacen}>
-                     <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTar${response[i]['id']}" onclick="checkTarjetaResiduos(${response[i]['id']})" ${residuos}>
+                     <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoDetectorTar${response[i]['id']}" onclick="checkDetectorActiva(${response[i]['id']})" ${activo}>
+                     <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaDetectorTar${response[i]['id']}" onclick="checkDetectorInstalada(${response[i]['id']})"  ${instalada}>
+                     <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenDetectorTar${response[i]['id']}" onclick="checkDetectorAlmacen(${response[i]['id']})"  ${almacen}>
+                     <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosDetectorTar${response[i]['id']}" onclick="checkDetectorResiduos(${response[i]['id']})" ${residuos}>
                </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarDetectores(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarDetectores(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarDetectores(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarDetectores(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
                  
@@ -366,7 +375,7 @@ function borrarDetectores(param) {
     }, 1000);
 }
 
-function editarDetectores(param) {//CAMBIO DE NOMENCLATURA
+function editarSimpleDetectores(param) {//CAMBIO DE NOMENCLATURA
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
@@ -374,14 +383,14 @@ function editarDetectores(param) {//CAMBIO DE NOMENCLATURA
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
-    var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
-    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
-    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-    var inputResiduosTar = document.getElementById('inputResiduosTar' + param).checked;
-    inputActivoTar = String(inputActivoTar);
-    inputInstaladaTar = String(inputInstaladaTar);
-    inputAlmacenTar = String(inputAlmacenTar);
-    inputResiduosTar = String(inputResiduosTar);
+    var inputActivoDetectorTar = document.getElementById('inputActivoDetectorTar' + param).checked;
+    var inputInstaladaDetectorTar = document.getElementById('inputInstaladaDetectorTar' + param).checked;
+    var inputAlmacenDetectorTar = document.getElementById('inputAlmacenDetectorTar' + param).checked;
+    var inputResiduosDetectorTar = document.getElementById('inputResiduosDetectorTar' + param).checked;
+    inputActivoDetectorTar = String(inputActivoDetectorTar);
+    inputInstaladaDetectorTar = String(inputInstaladaDetectorTar);
+    inputAlmacenDetectorTar = String(inputAlmacenDetectorTar);
+    inputResiduosDetectorTar = String(inputResiduosDetectorTar);
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
     // console.log(inputIdTar);
@@ -390,7 +399,7 @@ function editarDetectores(param) {//CAMBIO DE NOMENCLATURA
     // console.log(inputObservacionesTar);
     // console.log(inputNumSerieTar);
     // console.log(inputPrecioTar);
-    // console.log(inputActivoTar);
+    // console.log(inputActivoDetectorTar);
     // console.log(idUsuario);
 
 
@@ -422,10 +431,10 @@ function editarDetectores(param) {//CAMBIO DE NOMENCLATURA
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
-                activo: inputActivoTar,
-                instalada: inputInstaladaTar,
-                almacen: inputAlmacenTar,
-                residuos: inputResiduosTar
+                activo: inputActivoDetectorTar,
+                instalada: inputInstaladaDetectorTar,
+                almacen: inputAlmacenDetectorTar,
+                residuos: inputResiduosDetectorTar
             })
         })
         .then(res => res.json())
@@ -439,6 +448,80 @@ function editarDetectores(param) {//CAMBIO DE NOMENCLATURA
         rellenarTodosDetectores(); //CAMBIO DE NOMENCLATURA
     }, 500);
 }
+
+async function editarDetectores(param) {
+
+
+    if  (document.getElementById('inputAlmacenDetectorTar' + param).checked){
+        if (confirm("El registro actual se borrará de la instalación y pasará a Almacén.")){
+           
+            var c=document.getElementById("modalFechaAlmacenBody");
+            c.innerHTML=`
+                        <!-- Inicio body 1 -->
+                        <div class="row" id="">
+                            <div class="col">
+                                <b>F.Actuación</b>
+                            </div>                  
+                        </div>
+        
+                        <div class="row" id="">
+                            <div class="col p-3">
+                                Nueva Fecha de Actuación:
+                                <input type="date" class="form-control mt-1" name="inputFechaActuacionAlmacen" id="inputFechaActuacionAlmacen" placeholder="DD/MM/YYYY">
+                                <input type="hidden" id="claveid" value="${param}">
+                            </div>           
+                        </div>        
+                        <!-- fin body 1  -->
+                    `;  
+        
+            $('#staticBackdrop3').modal('show');
+        
+            return;
+
+        }else{
+            //alert("Es un no");
+            return;
+        }
+    
+    }else{
+        if  (document.getElementById('inputResiduosDetectorTar' + param).checked){
+            if (confirm("El registro actual se borrará de la instalación y pasará a Residuos.")){
+               
+                var c=document.getElementById("modalFechaResiduosBody");
+                c.innerHTML=`
+                            <!-- Inicio body 1 -->
+                            <div class="row" id="">
+                                <div class="col">
+                                    <b>F.Actuación</b>
+                                </div>                  
+                            </div>
+            
+                            <div class="row" id="">
+                                <div class="col p-3">
+                                    Nueva Fecha de Actuación:
+                                    <input type="date" class="form-control mt-1" name="inputFechaActuacionResiduos" id="inputFechaActuacionResiduos" placeholder="DD/MM/YYYY">
+                                    <input type="hidden" id="claveid" value="${param}">
+                                </div>           
+                            </div>        
+                            <!-- fin body 1  -->
+                        `;  
+            
+                $('#staticBackdrop4').modal('show');
+            
+                return;
+                
+            }else{
+                //alert("Es un no");
+                return;
+            }
+        }else{
+            editarSimpledetectores(param);
+        }
+
+    }
+}
+
+
 
 
 function comprobarNumSerieDetectores() {
@@ -557,6 +640,7 @@ function comprobarNumSerieDetectores2() {
             })
     }
 }
+/*
 document.addEventListener("DOMContentLoaded", async function(event) {
  
     await checkTarjetaInstalada();
@@ -565,131 +649,123 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     await checkTarjetaResiduos();
     // Aquí puedes escribir el código adicional que quieres que se ejecute cuando se dispara el evento DOMContentLoaded
   });
-
-function checkTarjetaInstalada(id) {
+*/
+function checkDetectorInstalada(id) {
 
     if (id){
 
-        if (document.getElementById('inputInstaladaTar'+id).checked) {
-          //  document.getElementById('inputActivoTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if (document.getElementById('inputInstaladaDetectorTar'+id).checked) {
+          //  document.getElementById('inputActivoDetectorTar'+id).checked=true;
+            document.getElementById('inputAlmacenDetectorTar'+id).checked=false;
+            document.getElementById('inputResiduosDetectorTar'+id).checked=false;
         
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoDetectorTar'+id).checked=false;
+            document.getElementById('inputInstaladaDetectorTar'+id).checked=false;
+            document.getElementById('inputAlmacenDetectorTar'+id).checked=false;
+            document.getElementById('inputResiduosDetectorTar'+id).checked=false;
 
         }
     }else{
-        if (document.getElementById('inputInstalada').checked) {
-            document.getElementById('inputActivo').checked=true;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+        if (document.getElementById('inputInstaladaDetector').checked) {
+            document.getElementById('inputActivoDetector').checked=true;
+
         
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoDetector').checked=false;
+            document.getElementById('inputInstaladaDetector').checked=false;
+
 
         }
     }
 }
-function checkTarjetaActiva(id) {
+function checkDetectorActiva(id) {
 
     if (id){
 
 
-        if (document.getElementById('inputActivoTar'+id).checked) {
+        if (document.getElementById('inputActivoDetectorTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;      
+            document.getElementById('inputInstaladaDetectorTar'+id).checked=true;
+            document.getElementById('inputAlmacenDetectorTar'+id).checked=false;
+            document.getElementById('inputResiduosDetectorTar'+id).checked=false;      
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoDetectorTar'+id).checked=false;
+            document.getElementById('inputInstaladaDetectorTar'+id).checked=false;
+            document.getElementById('inputAlmacenDetectorTar'+id).checked=false;
+            document.getElementById('inputResiduosDetectorTar'+id).checked=false;
         }
 
 
     }else{
 
-        if (document.getElementById('inputActivo').checked) {
+        if (document.getElementById('inputActivoDetector').checked) {
         
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;      
+
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoDetector').checked=false;
+            document.getElementById('inputInstaladaDetector').checked=false;
+
         }
     }
 }
-function checkTarjetaAlmacen(id) {
+function checkDetectorAlmacen(id) {
 
     if (id){
 
-        if ( document.getElementById('inputAlmacenTar'+id).checked) {
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if ( document.getElementById('inputAlmacenDetectorTar'+id).checked) {
+            document.getElementById('inputActivoDetectorTar'+id).checked=false;
+            document.getElementById('inputInstaladaDetectorTar'+id).checked=false;
+            document.getElementById('inputResiduosDetectorTar'+id).checked=false;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoDetectorTar'+id).checked=false;
+            document.getElementById('inputInstaladaDetectorTar'+id).checked=false;
+            document.getElementById('inputAlmacenDetectorTar'+id).checked=false;
+            document.getElementById('inputResiduosDetectorTar'+id).checked=false;
         }
     }else{
             if ( document.getElementById('inputAlmacen').checked) {
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+                document.getElementById('inputActivoDetector').checked=false;
+
         
             }else{
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputAlmacen').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+                document.getElementById('inputActivoDetector').checked=false;
+                document.getElementById('inputInstaladaDetector').checked=false;
+
             }
         }
 }
-function checkTarjetaResiduos(id) {
+function checkDetectorResiduos(id) {
 
     if (id){
 
-        if (document.getElementById('inputResiduosTar'+id).checked) {
+        if (document.getElementById('inputResiduosDetectorTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputInstaladaDetectorTar'+id).checked=false;
+            document.getElementById('inputActivoDetectorTar'+id).checked=false;
+            document.getElementById('inputAlmacenDetectorTar'+id).checked=false;
         //  document.getElementById('inputResiduos').checked=true;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoDetectorTar'+id).checked=false;
+            document.getElementById('inputInstaladaDetectorTar'+id).checked=false;
+            document.getElementById('inputAlmacenDetectorTar'+id).checked=false;
+            document.getElementById('inputResiduosDetectorTar'+id).checked=false;
         }
     }else{
         if (document.getElementById('inputResiduos').checked) {
         
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-        //  document.getElementById('inputResiduos').checked=true;
+            document.getElementById('inputInstaladaDetector').checked=false;
+            document.getElementById('inputActivoDetector').checked=false;
+
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoDetector').checked=false;
+            document.getElementById('inputInstaladaDetector').checked=false;
+
         }
     }
 }

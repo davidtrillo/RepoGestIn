@@ -354,7 +354,6 @@ $app->put('/api/led/modificar/{id}', function (Request $request, Response $respo
         $resultado->bindParam(':almacen', $almacen);
         $resultado->bindParam(':residuos', $residuos);
         $resultado->bindParam(':instalada', $instalada);
-
         $resultado->bindParam(':nid', $nid);
 
         $resultado->execute();
@@ -376,40 +375,24 @@ $app->put('/api/led/sustituir/{id}', function (Request $request, Response $respo
     //declaracion de las variables de recepcion desde FRONT
 
     $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
-    // $color = $request->getParam('color');
-    // $idNumSerie = $request->getParam('idNumSerie');
-    // $albaran = $request->getParam('albaran');
-    // $observaciones = $request->getParam('observaciones');
-    // $fechaActuacion = $request->getParam('fechaActuacion');
-     $idUsuario = $request->getParam('idUsuario');
-    // $tipo = $request->getParam('tipo');
-    // $fabricacion = $request->getParam('fabricacion');
-    // $activo = $request->getParam('activo');
-    $almacen = $request->getParam('almacen');
-    // $nid = $request->getParam('nid');
-    // echo "todas las instalaciones";
+    $idNumSerie = $request->getParam('idNumSerie');
+    $albaran = $request->getParam('albaran');
+    $fechaActuacion = $request->getParam('fechaActuacion');
+    $idUsuario = $request->getParam('idUsuario');
 
     //  $sql='UPDATE led SET color=:color,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
-    $sql = 'UPDATE led SET idUsuario=:idUsuario,activo="false",almacen=:almacen WHERE id='. $id;
+    $sql = 'UPDATE led SET idNumSerie=:idNumSerie, albaran=:albaran, fechaActuacion=:fechaActuacion, idUsuario=:idUsuario WHERE id='. $id;
 
     try {
         $db = new db();
         $db = $db->conectDB();
         $resultado = $db->prepare($sql);
+        
+        $resultado->bindParam(':idNumSerie', $idNumSerie);
+        $resultado->bindParam(':albaran', $albaran);
+        $resultado->bindParam(':fechaActuacion', $fechaActuacion);
+        $resultado->bindParam(':idUsuario', $idUsuario);
 
-        //Asignar campos del SQL a las variables obtenidas
-       // $resultado->bindParam(':id',$id);
-        // $resultado->bindParam(':color', $color);
-        // $resultado->bindParam(':idNumSerie', $idNumSerie);
-        // $resultado->bindParam(':albaran', $albaran);
-        // $resultado->bindParam(':observaciones', $observaciones);
-        // $resultado->bindParam(':fechaActuacion', $fechaActuacion);
-         $resultado->bindParam(':idUsuario', $idUsuario);
-        // $resultado->bindParam(':tipo', $tipo);
-        // $resultado->bindParam(':fabricacion', $fabricacion);
-        // $resultado->bindParam(':activo', $activo);
-        $resultado->bindParam(':almacen', $almacen);
-        // $resultado->bindParam(':nid', $nid);
 
         $resultado->execute();
         echo json_encode("Led editado con éxito", JSON_UNESCAPED_UNICODE);

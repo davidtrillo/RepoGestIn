@@ -23,7 +23,23 @@ include_once './getNID.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <style> </style>
+        <style>
+      #dropdownIdInstalacion,
+      #dropdownIdInstalacionBorrar{
+         height: 500px;
+         overflow-y: auto;
+         
+      }
+      #dropdownNID,
+      #dropdown-Almacen{
+         overflow-y: auto;
+         height: 400px;
+      }
+      .btn-info{
+         min-height: 0px !important;         
+      }
+
+   </style>
     <title>Gestión de Inventario</title>
 </head>
 
@@ -45,16 +61,17 @@ include_once './getNID.php';
                      Consultas
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                     <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
-                     <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
-                     <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
-                     <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
-                     <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
-                     <a class="dropdown-item" href="#"></a>
-                     <a class="dropdown-item" href="#"></a> 
+                     <a class="dropdown-item" href="../../../gestin/public/consultaTipo.php">Tipo Instalación</a>
+                     <a class="dropdown-item" href="../../../gestin/public/consultaTotalesTipo.php">Totales Tipo Instalación</a>
+                     <a class="dropdown-item" href="../../../gestin/public/consultaTotalesLeds.php">Totales Leds</a>
+                     <a class="dropdown-item" href="../../../gestin/public/consultaTotalesElementos.php">Totales Elementos</a>
+                     <a class="dropdown-item" href="../../../gestin/public/consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
+                     <a class="dropdown-item" href="../../../gestin/public/consultaIntroduccion.php">Consulta de Introducción de datos por mes</a>
+
+ 
                   </div>
                </li>
-               <a class="nav-item nav-link active" href="./welcome.php">Instalaciones</a>
+               <a class="nav-item nav-link" href="../../../gestin/public/welcome.php">Instalaciones</a>
 
                <li class="nav-item dropdown ">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -62,26 +79,25 @@ include_once './getNID.php';
                      MFO
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                     <a class="dropdown-item" href="./mfo.php">MFO Cruces</a>
-                     <a class="dropdown-item" href="./mfoPP.php">MFO Paso Peatones</a>
-                     <a class="dropdown-item" href="./mfoEspiras.php">MFO PM</a>
-                     <a class="dropdown-item" href="./mfoCargadores.php">MFO Cargadores</a>
-                     <a class="dropdown-item" href="./mfoAcires.php">MFO Acires</a>
-                     <a class="dropdown-item" href="./mfoCamaras.php">MFO Cámaras</a>
-                     <a class="dropdown-item" href="./mfoCentrales.php">MFO Centrales</a>
-                     <a class="dropdown-item" href="./mfoSectores.php">MFO Sectores</a>
-                     <a class="dropdown-item" href="./mfoNodos.php">MFO Nodos</a>
-                     <a class="dropdown-item" href="./mfoRadar.php">MFO Radar/Foto Rojo</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfo.php">MFO Cruces</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoPP.php">MFO Paso Peatones</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoEspiras.php">MFO PM</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoCargadores.php">MFO Cargadores</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoAcires.php">MFO Acires</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoCamaras.php">MFO Cámaras</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoCentrales.php">MFO Centrales</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoSectores.php">MFO Sectores</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoNodos.php">MFO Nodos</a>
+                     <a class="dropdown-item" href="../../../gestin/public/mfoRadar.php">MFO Radar/Foto Rojo</a>
                   </div>
                </li>
 
-               <a class="nav-item nav-link" href="./pintura.php">Pintura</a>
-               <a class="nav-item nav-link" href="./preventivo.php">Preventivo</a>
-               <a class="nav-item nav-link" href="./totalLed.php">Leds</a>
+               <a class="nav-item nav-link" href="../../../gestin/public/pintura.php">Pintura</a>
+               <a class="nav-item nav-link" href="../../../gestin/public/preventivo.php">Preventivo</a>
+               <a class="nav-item nav-link" href="../../../gestin/public/totalLed.php">Leds</a>
 
-               <a class="nav-item nav-link" href="../src/config/config.php" tabindex="-1"
-                  aria-disabled="true">Configuración</a>
-               <a class="nav-item nav-link" href="./login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
+               <a class="nav-item nav-link active" href="./config.php" tabindex="-1" aria-disabled="true">Configuración</a>
+               <a class="nav-item nav-link" href="../../../gestin/public/login/logout.php" tabindex="-1" aria-disabled="true">Cerrar
                   Sesión</a>
             </div>
 
@@ -95,6 +111,7 @@ include_once './getNID.php';
     <div class="container-fluid mt-0 p-0">
         <!-- <h4>Bienvenido <?php echo ucwords($login_session); ?></h4> -->
         <input type="hidden" id="inputIdUsuario" value="<?php echo $login_session; ?>">
+        <input type="hidden" id="idAntiguo" value="">
       
     </div>
 
@@ -107,7 +124,7 @@ include_once './getNID.php';
     <!-- Container de cabecera 
         <div class="container-fluid">
             <h4><b> Configuración de precios MFOs</b>
-            <div class="btn btn-primary ml-1" id="editGrupo" onclick="editarPreciosMFO()"><i class="fas fa-pencil-alt"></i></div>
+            <div class="btn btn-primary ml-1" id="editGrupo" onclick="editarPreciosMFO()" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
         </h4>
         <hr>
     
@@ -237,8 +254,41 @@ include_once './getNID.php';
     <div class="mt-2 p-2" id="formTablaPrecios">
             
     </div>
+
+    <!--Nueva Instalació
+    Formulario igual que instalaciones
+        Tipo instalación - Elegir
+        id - input texto
+        ubicacion - Texto
+        tipoInstalacion - copiar de lo elegido
+    Dar de alta automática en Inventario
+    idInstalacíon
+-->
+
+
+
     <!-- fin formulario Body-->
     <hr>
+
+    <div class="mt-2 p-2" id="formAltaInstalacion">
+        
+   
+    </div>
+
+    <hr>
+
+    <div class="mt-2 p-2" id="formEditarInstalacion">
+        
+   
+    </div>
+
+    <hr>
+
+    <div class="mt-2 p-2" id="formBorrarInstalacion">
+        
+   
+    </div>
+
     <!-- Formulario footer Nuevo-->
     <div class="mt-2 p-2" id="formFooter">
 

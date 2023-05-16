@@ -5,6 +5,53 @@
 
 //GET Todas las pinturas SELECT
 
+
+
+$app->post('/api/instalacion/nueva',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+
+    $id=$request->getParam('id');
+    $ubicacion=$request->getParam('ubicacion');
+    $tipoInstalacion=$request->getParam('tipoInstalacion');
+    $idUsuario=$request->getParam('idUsuario');/*
+    $cont=$request->getParam('cont');*/
+
+
+   
+    $sql='INSERT INTO instalaciones(id,idUsuario,ubicacion,tipoInstalacion) VALUES (:id,:idUsuario,:ubicacion,:tipoInstalacion)';
+
+
+   try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+
+
+        //Asignar campos del SQL a las variables obtenidas
+        $resultado->bindParam(':id',$id);
+        $resultado->bindParam(':ubicacion',$ubicacion);
+        $resultado->bindParam(':tipoInstalación',$tipoInstalacion);
+        $resultado->bindParam(':idUsuario',$idUsuario);/*
+        $resultado->bindParam(':cont',$cont);*/
+       
+
+        $resultado->execute();
+        try {
+            echo json_encode(array("message" => "Registro guardado con éxito"), JSON_UNESCAPED_UNICODE);
+        } catch (Exception $e) {
+            echo '{"error":{"text":'.$e->getMessage().'}';
+        }
+        
+
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
+
  $app->get('/api/preciosmfo',function(Request $request, Response $response){
 
      $sql='SELECT * FROM preciosmfo';

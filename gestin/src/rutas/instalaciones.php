@@ -14,7 +14,7 @@
 
 $app->get('/api/tipoinstalacion',function(Request $request, Response $response){
     // echo "todas las instalaciones";
-    $sql="SELECT tipoInstalacion FROM instalaciones WHERE tipoInstalacion<>'ALMACÉN' AND tipoInstalacion<>'RESIDUOS' group by tipoInstalacion order by 1";
+    $sql="SELECT tipoInstalacion FROM instalaciones  group by tipoInstalacion order by 1";
     try{
         $db= new db();     
         $db=$db->conectDB();
@@ -39,9 +39,35 @@ $app->get('/api/tipoinstalacion',function(Request $request, Response $response){
 });
 
 
+$app->get('/api/tipoinstalacion/alta',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $sql="SELECT tipoInstalacion FROM instalaciones where tipoInstalacion<>'ALMACÉN' AND tipoInstalacion<>'RESIDUOS' AND tipoInstalacion<>'ESPIRAS'  group by tipoInstalacion order by 1";
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $tipoInstalacion= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($tipoInstalacion,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+
 $app->get('/api/cruces',function(Request $request, Response $response){
     // echo "todas las instalaciones";
-    $sql='SELECT id, ubicacion,cont FROM instalaciones where tipoInstalacion LIKE "CRUCE%" OR id="000" ORDER BY 3';
+    $sql='SELECT id, ubicacion,cont FROM instalaciones where tipoInstalacion LIKE "CRUCE%" OR id="ALMACÉN" ORDER BY 3';
     try{
         $db= new db();     
         $db=$db->conectDB();
@@ -280,34 +306,82 @@ $app->get('/api/instalaciones/{tipoInstalacion}',function(Request $request, Resp
     }
 });
 
-
-//POST para crear una nueva instalación CREATE
-
-$app->post('/api/instalaciones/nueva',function(Request $request, Response $response){
-    //declaracion de las variables de recepcion desde FRONT
-    $id=$request->getParam('id');
-    $ubicacion=$request->getParam('ubicacion');
-    $tipoInstalacion=$request->getParam('tipoInstalacion');
-    $idUsuario=$request->getParam('idUsuario');
-    
+$app->get('/api/instalaciones/consulta/{id}',function(Request $request, Response $response){
+    $id= $request->getAttribute('id');
     // echo "todas las instalaciones";
-    $sql='INSERT INTO instalaciones(id,ubicacion,tipoInstalacion,idUsuario) VALUES (:id,:ubicacion,:tipoInstalacion,:idUsuario)';
+    $sql='SELECT id,ubicacion,cont FROM instalaciones WHERE id="'.$id.'" ;';
     try{
         $db= new db();     
         $db=$db->conectDB();
         $resultado= $db->prepare($sql);
+        $resultado->execute();
 
+        if($resultado->rowCount()>0){
+            $instalaciones= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($instalaciones,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $dbConexion=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+//POST para crear una nueva instalación CREATE
+
+$app->post('/api/instalaciones2/nueva2',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+
+    $id=$request->getParam('id');
+    $ubicacion=$request->getParam('ubicacion');
+    $tipoInstalacion=$request->getParam('tipoInstalacion');
+    $cont=$request->getParam('cont');
+    $idUsuario=$request->getParam('idUsuario');
+ 
+    $sql='INSERT INTO instalaciones(id,ubicacion,tipoInstalacion,idUsuario,cont) VALUES (:id,:ubicacion,:tipoInstalacion,:idUsuario,:cont)';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
         //Asignar campos del SQL a las variables obtenidas
         $resultado->bindParam(':id',$id);
         $resultado->bindParam(':ubicacion',$ubicacion);
         $resultado->bindParam(':tipoInstalacion',$tipoInstalacion);
         $resultado->bindParam(':idUsuario',$idUsuario);
-
+        $resultado->bindParam(':cont',$cont);
+     
         $resultado->execute();
-        echo json_encode("Instalación guardada con éxito",JSON_UNESCAPED_UNICODE);
-
+            echo json_encode("Instalación2 guardada con éxito",JSON_UNESCAPED_UNICODE);
         $resultado=null;
-        $dbConexion=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
+$app->post('/api/inventario/nueva2',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+
+    $idInstalacion=$request->getParam('idInstalacion');
+    $idUsuario=$request->getParam('idUsuario');
+ 
+    $sql='INSERT INTO inventario(idInstalacion,idUsuario) VALUES (:idInstalacion,:idUsuario)';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        //Asignar campos del SQL a las variables obtenidas
+        $resultado->bindParam(':idInstalacion',$idInstalacion);
+        $resultado->bindParam(':idUsuario',$idUsuario);
+     
+        $resultado->execute();
+            echo json_encode("Inventario guardado con éxito",JSON_UNESCAPED_UNICODE);
+        $resultado=null;
+        $db=null;
 
     }catch(PDOException $e){
         echo '{"error":{"text":'.$e->getMessage().'}';
@@ -316,27 +390,32 @@ $app->post('/api/instalaciones/nueva',function(Request $request, Response $respo
 
 //POST para modificar instalacion UPDATE BY ID
 
-$app->put('/api/instalaciones/modificar/{id}',function(Request $request, Response $response){
+$app->put('/api/instalaciones2/modificar2/{id}',function(Request $request, Response $response){
     //declaracion de las variables de recepcion desde FRONT
-
     $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
-
+    $idNueva= $request->getParam('idNueva'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+    $cont=$request->getParam('cont');
     $ubicacion=$request->getParam('ubicacion');
     $tipoInstalacion=$request->getParam('tipoInstalacion');
     $idUsuario=$request->getParam('idUsuario');
+
     
     // echo "todas las instalaciones";
-    $sql='UPDATE instalaciones SET id=:id,ubicacion=:ubicacion,tipoInstalacion=:tipoInstalacion,idUsuario=:idUsuario WHERE id="'.$id.'"';
-
-    try{
+//    $sql='UPDATE instalaciones SET id=:id,ubicacion=:ubicacion,tipoInstalacion=:tipoInstalacion,idUsuario=:idUsuario,cont=:cont WHERE id="'.$id.'"';
+   $sql="UPDATE instalaciones SET id=:idNueva,ubicacion=:ubicacion,tipoInstalacion=:tipoInstalacion,idUsuario=:idUsuario,cont=:cont WHERE id = '". $id ."'";
+  //echo $sql;
+  
+  
+   try{
         $db= new db();     
         $db=$db->conectDB();
         $resultado= $db->prepare($sql);
-        $resultado->execute();
+        
 
-        //Asignar campos del SQL a las variables obtenidas
-        $resultado->bindParam(':id',$id);
+    //Asignar campos del SQL a las variables obtenidas
+        $resultado->bindParam(':idNueva',$idNueva);
         $resultado->bindParam(':ubicacion',$ubicacion);
+        $resultado->bindParam(':cont',$cont);
         $resultado->bindParam(':tipoInstalacion',$tipoInstalacion);
         $resultado->bindParam(':idUsuario',$idUsuario);
 
@@ -351,12 +430,46 @@ $app->put('/api/instalaciones/modificar/{id}',function(Request $request, Respons
     }
 });
 
+$app->put('/api/inventario2/modificar2/{id}',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+    $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+    $idNueva= $request->getParam('idNueva'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+    $idUsuario=$request->getParam('idUsuario');
+
+    
+    // echo "todas las instalaciones";
+//    $sql='UPDATE instalaciones SET id=:id,ubicacion=:ubicacion,tipoInstalacion=:tipoInstalacion,idUsuario=:idUsuario,cont=:cont WHERE id="'.$id.'"';
+   $sql="UPDATE inventario SET idinstalacion=:idNueva,idUsuario=:idUsuario WHERE idInstalacion = '". $id ."'";
+  //echo $sql;
+  
+  
+   try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        
+
+    //Asignar campos del SQL a las variables obtenidas
+        $resultado->bindParam(':idNueva',$idNueva);
+        $resultado->bindParam(':idUsuario',$idUsuario);
+
+        $resultado->execute();
+        echo json_encode("Inventario editado con éxito",JSON_UNESCAPED_UNICODE);
+
+        $resultado=null;
+        $dbConexion=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
+
 
 //DELETE para borrar instalacion DELETE BY ID
 
 $app->delete('/api/instalaciones/borrar/{id}',function(Request $request, Response $response){
-    //declaracion de las variables de recepcion desde FRONT
-
+  
     $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
 
     
@@ -372,6 +485,41 @@ $app->delete('/api/instalaciones/borrar/{id}',function(Request $request, Respons
         if($resultado->rowCount()>0){
 
             echo json_encode("Instalación eliminada con éxito",JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados con el ID".$id,JSON_UNESCAPED_UNICODE);
+        }
+     
+ 
+
+        $resultado=null;
+        $dbConexion=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
+//DELETE para borrar instalacion DELETE BY ID
+
+$app->delete('/api/inventario2/borrar2/{id}',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+
+    $id= $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+
+    
+    // echo "todas las instalaciones";
+    $sql='DELETE FROM inventario WHERE idInventario="'.$id.'"';
+
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+        
+        if($resultado->rowCount()>0){
+
+            echo json_encode("Inventario eliminada con éxito",JSON_UNESCAPED_UNICODE);
             
         }else{
             echo json_encode("No se han encontrado resultados con el ID".$id,JSON_UNESCAPED_UNICODE);

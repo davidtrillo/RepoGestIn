@@ -2,7 +2,32 @@
 $("#dropdown-menu1 button").click(function () {
     var a = $(this).text();
     $("#inputTipologia").val($(this).text());
+
+
+
+
     var datoInput = document.getElementById('inputTipologia').value;
+    document.getElementById('inputInstalacion').value=null;
+    document.getElementById('inputUbicacion').value=null;
+    document.getElementById('inputRegulador').value=null;
+    document.getElementById('inputObservaciones').value=null;
+    document.getElementById('inputElemento').value=null;
+    document.getElementById("formIntroducir").innerHTML=` `;
+    document.getElementById("formBody").innerHTML=` `;
+
+
+    if (datoInput=="ALMACÉN"){
+        var a = document.getElementById('inputInstalacion');
+        a.value="ALMACÉN";
+        formAlmacen('ALMACÉN');
+    }
+
+    if (datoInput=="RESIDUOS"){
+        var a = document.getElementById('inputInstalacion');
+        a.value="RESIDUOS";
+        formResiduos('RESIDUOS');
+    }
+
     enviarInput(datoInput);
 })
 
@@ -81,6 +106,13 @@ function rellenarElementos(){
     var elementoBtn=document.getElementById("dropdownElemento");
 
     switch(idTipoInstalacion){
+
+        case "ALMACÉN":
+            console.log("Estoy en ALMACÉN");
+            elementoBtn.innerHTML= `
+            <button class="dropdown-item" type="button" id="btnAlmacen" onclick="formAlmacen('ALMACÉN')">ALMACÉN</button>
+                `
+            break;
 
         case "CÁMARAS":
             console.log("Estoy en CÁMARAS");

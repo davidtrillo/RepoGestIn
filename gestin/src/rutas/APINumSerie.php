@@ -6,8 +6,11 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/numserierepetidos/{param}', function (Request $request, Response $response) {
     
     $param = $request->getAttribute('param');
+        //12/04/2023 se elimina del select si está o no instalada o activa ya que cuando no esté ni instalada o activa pasa directamente a Almacén o Residuo
     
-    $sql = "SELECT id,idInstalacion, idNumSerie FROM ".$param." WHERE idNumSerie in (SELECT idNumSerie FROM ".$param." WHERE idNumSerie<>0 and activo='true'  GROUP BY idNumSerie HAVING COUNT(idNumSerie)>1)  AND activo='true';";
+    $sql = "SELECT id,idInstalacion, idNumSerie FROM ".$param." WHERE idNumSerie in (SELECT idNumSerie FROM ".$param." WHERE idNumSerie<>0 GROUP BY idNumSerie HAVING COUNT(idNumSerie)>1);";
+//    $sql = "SELECT id,idInstalacion, idNumSerie FROM ".$param." WHERE idNumSerie in (SELECT idNumSerie FROM ".$param." WHERE idNumSerie<>0 and activo='true'  GROUP BY idNumSerie HAVING COUNT(idNumSerie)>1)  AND activo='true';";
+
     
     
     try {
@@ -39,9 +42,10 @@ $app->get('/api/numserierepetidos/{param}/{idNumSerie}', function (Request $requ
     $param = $request->getAttribute('param');
 
     if ($param=='tarjetas') {
-         $sql = 'SELECT id ,idInstalacion, idNumSerie FROM '.$param.' WHERE instalada="true" AND idNumSerie="'. $idNumSerie .'";';
+        //12/04/2023 se elimina del select si está o no instalada o activa ya que cuando no esté ni instalada o activa pasa directamente a Almacén o Residuo
+         $sql = 'SELECT id ,idInstalacion, idNumSerie FROM '.$param.' WHERE idNumSerie="'. $idNumSerie .'";';
     }else{
-         $sql = 'SELECT id ,idInstalacion, idNumSerie FROM '.$param.' WHERE activo="true" AND idNumSerie="'. $idNumSerie .'";';
+         $sql = 'SELECT id ,idInstalacion, idNumSerie FROM '.$param.' WHERE idNumSerie="'. $idNumSerie .'";';
     }
 
     

@@ -27,10 +27,10 @@ function nuevaSeñalesLuminosas() {
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
         var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
-        var activo = document.getElementById('inputActivo').checked;
-        var instalada = document.getElementById('inputInstalada').checked;
-        var almacen = document.getElementById('inputAlmacen').checked;
-        var residuos = document.getElementById('inputResiduos').checked;
+        var activo = document.getElementById('inputActivoSeñales').checked;
+        var instalada = document.getElementById('inputInstaladaSeñales').checked;
+        var almacen = null;
+        var residuos = null;
 
 
         activo = String(activo);
@@ -207,10 +207,8 @@ async function formSeñalesLuminosas(elemento) {
         </div>
         <div class="col-1">
         <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
-            <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkTarjetaInstalada()"> 
-            <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo" onclick="checkTarjetaActiva()">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen" onclick="checkTarjetaAlmacen()">
-            <input type="checkbox" class=" mt-3 ml-2" name="inputResiduos" id="inputResiduos" onclick="checkTarjetaResiduos()">
+            <input type="checkbox" class=" mt-3 ml-2" name="inputInstaladaSeñales" id="inputInstaladaSeñales" onclick="checkSeñalesInstalada()"> 
+            <input type="checkbox" class=" mt-3 ml-2" name="inputActivoSeñales" id="inputActivoSeñales" onclick="checkSeñalesActiva()">
         </div>  
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaSeñalesLuminosas()">Guardar</div>
@@ -317,14 +315,14 @@ async function rellenarTodosSeñalesLuminosas() { //Llamada a la API
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}" onclick="checkTarjetaActiva(${response[i]['id']})" ${activo}>
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}" onclick="checkTarjetaInstalada(${response[i]['id']})"  ${instalada}>
-                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}" onclick="checkTarjetaAlmacen(${response[i]['id']})"  ${almacen}>
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTar${response[i]['id']}" onclick="checkTarjetaResiduos(${response[i]['id']})" ${residuos}>                 
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoSeñalesTar${response[i]['id']}" onclick="checkSeñalesActiva(${response[i]['id']})" ${activo}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaSeñalesTar${response[i]['id']}" onclick="checkSeñalesInstalada(${response[i]['id']})"  ${instalada}>
+                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenSeñalesTar${response[i]['id']}" onclick="checkSeñalesAlmacen(${response[i]['id']})"  ${almacen}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosSeñalesTar${response[i]['id']}" onclick="checkSeñalesResiduos(${response[i]['id']})" ${residuos}>                 
                 </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarSeñalesLuminosas(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarSeñalesLuminosas(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarSeñalesLuminosas(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarSeñalesLuminosas(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
 
@@ -392,7 +390,7 @@ function borrarSeñalesLuminosas(param) {
     }, 500);
 }
 
-function editarSeñalesLuminosas(param) {
+function editarSimpleSeñalesLuminosas(param) {
 
  
 
@@ -403,10 +401,10 @@ function editarSeñalesLuminosas(param) {
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
-    var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
-    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
-    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-    var inputResiduosTar = document.getElementById('inputResiduosTar' + param).checked;
+    var inputActivoTar = document.getElementById('inputActivoSeñalesTar' + param).checked;
+    var inputInstaladaTar = document.getElementById('inputInstaladaSeñalesTar' + param).checked;
+    var inputAlmacenTar = document.getElementById('inputAlmacenSeñalesTar' + param).checked;
+    var inputResiduosTar = document.getElementById('inputResiduosSeñalesTar' + param).checked;
 
     inputActivoTar = String(inputActivoTar);
     inputInstaladaTar = String(inputInstaladaTar);
@@ -472,6 +470,80 @@ function editarSeñalesLuminosas(param) {
     }, 500);
 }
 
+async function editarSeñalesLuminosas(param) {
+
+
+    if  (document.getElementById('inputAlmacenSeñalesTar' + param).checked){
+        if (confirm("El registro actual se borrará de la instalación y pasará a Almacén.")){
+           
+            var c=document.getElementById("modalFechaAlmacenBody");
+            c.innerHTML=`
+                        <!-- Inicio body 1 -->
+                        <div class="row" id="">
+                            <div class="col">
+                                <b>F.Actuación</b>
+                            </div>                  
+                        </div>
+        
+                        <div class="row" id="">
+                            <div class="col p-3">
+                                Nueva Fecha de Actuación:
+                                <input type="date" class="form-control mt-1" name="inputFechaActuacionAlmacen" id="inputFechaActuacionAlmacen" placeholder="DD/MM/YYYY">
+                                <input type="hidden" id="claveid" value="${param}">
+                            </div>           
+                        </div>        
+                        <!-- fin body 1  -->
+                    `;  
+        
+            $('#staticBackdrop3').modal('show');
+        
+            return;
+
+        }else{
+            //alert("Es un no");
+            return;
+        }
+    
+    }else{
+        if  (document.getElementById('inputResiduosSeñalesTar' + param).checked){
+            if (confirm("El registro actual se borrará de la instalación y pasará a Residuos.")){
+               
+                var c=document.getElementById("modalFechaResiduosBody");
+                c.innerHTML=`
+                            <!-- Inicio body 1 -->
+                            <div class="row" id="">
+                                <div class="col">
+                                    <b>F.Actuación</b>
+                                </div>                  
+                            </div>
+            
+                            <div class="row" id="">
+                                <div class="col p-3">
+                                    Nueva Fecha de Actuación:
+                                    <input type="date" class="form-control mt-1" name="inputFechaActuacionResiduos" id="inputFechaActuacionResiduos" placeholder="DD/MM/YYYY">
+                                    <input type="hidden" id="claveid" value="${param}">
+                                </div>           
+                            </div>        
+                            <!-- fin body 1  -->
+                        `;  
+            
+                $('#staticBackdrop4').modal('show');
+            
+                return;
+                
+            }else{
+                //alert("Es un no");
+                return;
+            }
+        }else{
+            editarSimpleSeñalesLuminosas(param);
+        }
+
+    }
+}
+
+
+
 
 function comprobarNumSerieSeñalesLuminosas() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
@@ -479,7 +551,7 @@ function comprobarNumSerieSeñalesLuminosas() {
 
     if (idNumSerie) {
 
-        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/luminosas/' + idNumSerie;
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/señalesluminosas/' + idNumSerie;
         fetch(url, {
                 method: 'GET',
                 headers: {
@@ -516,7 +588,7 @@ function comprobarNumSerieSeñalesLuminosas() {
   
     if (idInstalacion) {
 
-        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/luminosas';
+        var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/señalesluminosas';
      fetch(url, {
                 method: 'GET',
                 headers: {
@@ -541,7 +613,7 @@ function comprobarNumSerieSeñalesLuminosas() {
                                 if (idNumSerie) {
 
                                     // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
-                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/luminosas/' + idNumSerie;
+                                     var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/señalesluminosas/' + idNumSerie;
                                      fetch(url, {
                                              method: 'GET',
                                              headers: {
@@ -629,139 +701,133 @@ function comprobarNumSerieSeñalesLuminosas3(id,idNumSerie) {
     }
 }
 
+/*
 document.addEventListener("DOMContentLoaded", async function(event) {
  
-   await checkTarjetaInstalada();
-   await checkTarjetaActiva();
-   await checkTarjetaAlmacen();
-   await checkTarjetaResiduos();
+   await checkSeñalesInstalada();
+   await checkSeñalesActiva();
+   await checkSeñalesAlmacen();
+   await checkSeñalesResiduos();
     // Aquí puedes escribir el código adicional que quieres que se ejecute cuando se dispara el evento DOMContentLoaded
-  });
+  });*/
 
-function checkTarjetaInstalada(id) {
+function checkSeñalesInstalada(id) {
 
     if (id){
 
-        if (document.getElementById('inputInstaladaTar'+id).checked) {
+        if (document.getElementById('inputInstaladaSeñalesTar'+id).checked) {
           //  document.getElementById('inputActivoTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputAlmacenSeñalesTar'+id).checked=false;
+            document.getElementById('inputResiduosSeñalesTar'+id).checked=false;
         
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoSeñalesTar'+id).checked=false;
+            document.getElementById('inputInstaladaSeñalesTar'+id).checked=false;
+            document.getElementById('inputAlmacenSeñalesTar'+id).checked=false;
+            document.getElementById('inputResiduosSeñalesTar'+id).checked=false;
 
         }
     }else{
-        if (document.getElementById('inputInstalada').checked) {
-            document.getElementById('inputActivo').checked=true;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+        if (document.getElementById('inputInstaladaSeñales').checked) {
+            document.getElementById('inputActivoSeñales').checked=true;
+
         
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoSeñales').checked=false;
+            document.getElementById('inputInstaladaSeñales').checked=false;
+
 
         }
     }
 }
-function checkTarjetaActiva(id) {
+function checkSeñalesActiva(id) {
 
     if (id){
 
 
-        if (document.getElementById('inputActivoTar'+id).checked) {
+        if (document.getElementById('inputActivoSeñalesTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;      
+            document.getElementById('inputInstaladaSeñalesTar'+id).checked=true;
+            document.getElementById('inputAlmacenSeñalesTar'+id).checked=false;
+            document.getElementById('inputResiduosSeñalesTar'+id).checked=false;      
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoSeñalesTar'+id).checked=false;
+            document.getElementById('inputInstaladaSeñalesTar'+id).checked=false;
+            document.getElementById('inputAlmacenSeñalesTar'+id).checked=false;
+            document.getElementById('inputResiduosSeñalesTar'+id).checked=false;
         }
 
 
     }else{
 
-        if (document.getElementById('inputActivo').checked) {
+        if (document.getElementById('inputActivoSeñales').checked) {
         
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;      
+    
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoSeñales').checked=false;
+            document.getElementById('inputInstaladaSeñales').checked=false;
+
         }
     }
 }
-function checkTarjetaAlmacen(id) {
+function checkSeñalesAlmacen(id) {
 
     if (id){
 
-        if ( document.getElementById('inputAlmacenTar'+id).checked) {
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if ( document.getElementById('inputAlmacenSeñalesTar'+id).checked) {
+            document.getElementById('inputActivoSeñalesTar'+id).checked=false;
+            document.getElementById('inputInstaladaSeñalesTar'+id).checked=false;
+            document.getElementById('inputResiduosSeñalesTar'+id).checked=false;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoSeñalesTar'+id).checked=false;
+            document.getElementById('inputInstaladaSeñalesTar'+id).checked=false;
+            document.getElementById('inputAlmacenSeñalesTar'+id).checked=false;
+            document.getElementById('inputResiduosSeñalesTar'+id).checked=false;
         }
     }else{
-            if ( document.getElementById('inputAlmacen').checked) {
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+            if ( document.getElementById('inputAlmacenSeñales').checked) {
+                document.getElementById('inputActivoSeñales').checked=false;
+                document.getElementById('inputInstaladaSeñales').checked=false;
+
         
             }else{
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputAlmacen').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+                document.getElementById('inputActivoSeñales').checked=false;
+                document.getElementById('inputInstaladaSeñales').checked=false;
+
             }
         }
 }
-function checkTarjetaResiduos(id) {
+function checkSeñalesResiduos(id) {
 
     if (id){
 
-        if (document.getElementById('inputResiduosTar'+id).checked) {
+        if (document.getElementById('inputResiduosSeñalesTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputInstaladaSeñalesTar'+id).checked=false;
+            document.getElementById('inputActivoSeñalesTar'+id).checked=false;
+            document.getElementById('inputAlmacenSeñalesTar'+id).checked=false;
         //  document.getElementById('inputResiduos').checked=true;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoSeñalesTar'+id).checked=false;
+            document.getElementById('inputInstaladaSeñalesTar'+id).checked=false;
+            document.getElementById('inputAlmacenSeñalesTar'+id).checked=false;
+            document.getElementById('inputResiduosSeñalesTar'+id).checked=false;
         }
     }else{
-        if (document.getElementById('inputResiduos').checked) {
+        if (document.getElementById('inputResiduosSeñales').checked) {
         
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputInstaladaSeñales').checked=false;
+            document.getElementById('inputActivoSeñales').checked=false;
         //  document.getElementById('inputResiduos').checked=true;
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoSeñales').checked=false;
+            document.getElementById('inputInstaladaSeñales').checked=false;
+
         }
     }
 }

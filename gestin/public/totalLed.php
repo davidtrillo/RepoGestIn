@@ -87,12 +87,13 @@ include './login/session.php';
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
-              <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
-              <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
-              <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
-              <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
-                            <a class="dropdown-item" href="#"></a>
-                            <a class="dropdown-item" href="#"></a>
+                            <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
+                            <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
+                            <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
+                            <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
+                            <a class="dropdown-item" href="./consultaIntroduccion.php">Consulta de Introducción de datos por mes</a>
+
+
                         </div>
                     </li>
                     <a class="nav-item nav-link" href="./welcome.php">Instalaciones</a>
@@ -191,98 +192,26 @@ include './login/session.php';
 
     <hr class="mt-0 mb-0 bg-dark">
     <!-- Container de cabecera -->
-    <div class="container-fluid mt-2">
-        <!-- FormGuardar -->
-        <!-- Títulos Form Nuevo-->
-
-        <!-- Fin Titulos -->
-        <!-- Form Introducir Nuevo -->
-
-        <!-- Títulos Form Nuevo-->
+    <div class="container-fluid mt-2" id="repesTitle">
         <div class="row ml-1">
             <div class="col-1 pl-0">
 
             </div>
             <div class="col-1 pl-0">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnNID" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        NID
-                    </button>
-                    <div class="dropdown-menu" id="dropdownNIDTotalLed" aria-labelledby="dropdownNID">
-                        <!-- Aquí se iyecta el código mediante JS -->
-                    </div>
-
-                </div>
+                NID
             </div>
 
             <div class="col-2 pl-0">
                 F.Actuación
             </div>
             <div class="col-1 pl-0">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipo" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Tipo
-                    </button>
-                    <div class="dropdown-menu" id="dropdownTipo" aria-labelledby="dropdownTipo">
-                        <button class="dropdown-item" onclick="escribirTipo('100 mm')">100 mm</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200 mm')">200 mm</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200 mm Peatón')">200 mm Peatón</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200 mm Bici')">200 mm Bici</button>
-                        <button class="dropdown-item" onclick="escribirTipo('300 mm')">300 mm</button>
-                        <div class="dropdown-divider"></div>
-                        <button class="dropdown-item" onclick="escribirTipo('200x200 Peatón')">200x200 Peatón</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200x200 Bici')">200x200 Bici</button>
-                        <button class="dropdown-item" onclick="escribirTipo('200x200 Peatón/Bici')">200x200
-                            Bici/Peatón</button>
-                        <div class="dropdown-divider"></div>
-                        <button class="dropdown-item" onclick="escribirTipo('Descontador Verde')">Descontador
-                            Verde</button>
-                        <button class="dropdown-item" onclick="escribirTipo('Descontador Rojo/Verde')">Descontador
-                            Rojo/Verde</button>
-                        <div class="dropdown-divider"></div>
-                        <button class="dropdown-item" onclick="escribirTipo('CyberPass')">CyberPass</button>
-                        <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón')">PassBlue Peatón</button>
-                        <button class="dropdown-item" onclick="escribirTipo('PassBlue Peatón/Bici')">PassBlue
-                            Peatón/Bici</button>
-                    </div>
-                </div>
+                Tipo
             </div>
             <div class="col-1 pl-0">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoActuacion"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Color
-                    </button>
-                    <div class="dropdown-menu" id="dropdownTipoActuacion" aria-labelledby="dropdownTipoActuacion">
-                        <button class="dropdown-item" onclick="escribirColor('Rojo')">Rojo</button>
-                        <button class="dropdown-item" onclick="escribirColor('Ámbar')">Ámbar</button>
-                        <button class="dropdown-item" onclick="escribirColor('Verde')">Verde</button>
-                        <button class="dropdown-item" onclick="escribirColor('Rojo Flecha')">Rojo Flecha</button>
-                        <button class="dropdown-item" onclick="escribirColor('Ámbar Flecha')">Ámbar Flecha</button>
-                        <button class="dropdown-item" onclick="escribirColor('Verde Flecha')">Verde Flecha</button>
-                        <button class="dropdown-item" onclick="escribirColor('Blanco Horizontal')">Blanco
-                            Horizontal</button>
-                        <button class="dropdown-item" onclick="escribirColor('Blanco Vertical')">Blanco
-                            Vertical</button>
-                        <button class="dropdown-item" onclick="escribirColor('Blanco Triángulo')">Blanco
-                            Triángulo</button>
-                    </div>
-                </div>
+                Color
             </div>
             <div class="col-1 pl-0">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnFabricacion"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Fabricacion
-                    </button>
-                    <div class="dropdown-menu" id="dropdownFabricacion" aria-labelledby="dropdownFabricacion">
-                        <button class="dropdown-item" onclick="escribirFabricacion('Matricial')">Matricial</button>
-                        <button class="dropdown-item" onclick="escribirFabricacion('Alta Potencia')">Alta
-                            Potencia</button>
-                    </div>
-                </div>
+                Fabricacion
             </div>
             <div class="col-1 pl-0">
                 Num. Serie
@@ -293,12 +222,10 @@ include './login/session.php';
             <div class="col-1 pl-0">
                 Observaciones
             </div>
-            <div class="col-1 pl-0">
-                <span>Act.</span> <span class="ml-2">Almac.</span>
-            </div>
+
         </div>
         <!-- Fin Titulos -->
-        <!-- Form Introducir Nuevo -->
+        <!-- Form Introducir Nuevo 
         <div class="row mt-1 ml-1" id="formGuardar">
             <div class="col-1  pl-0">
             </div>
@@ -329,8 +256,8 @@ include './login/session.php';
                 <input type="text" class="form-control mt-1" name="inputObservaciones" id="inputObservaciones">
             </div>
             <div class="col-1  pl-0">
-                <input type="checkbox" class="mt-3 ml-3 name=" inputActivo" id="inputActivo">
-                <input type="checkbox" class="mt-3 ml-3" name="inputAlmacen" id="inputAlmacen">
+            <input type="checkbox" class="mt-3 ml-3 name=" inputActivo" id="inputActivo">
+                <input type="checkbox" class="mt-3 ml-3" name="inputAlmacen" id="inputAlmacen"> 
 
             </div>
             <div class="col-1  pl-0">
@@ -338,7 +265,7 @@ include './login/session.php';
 
             </div>
         </div>
-        <!-- Fin Form Introducir nuevo -->
+         Fin Form Introducir nuevo -->
         <!-- Fin FormGuardar -->
 
         <div class="container-fluid">
@@ -449,6 +376,8 @@ include './login/session.php';
         </script>
         <script src="../js/funciones.js"></script>
         <script src="../js/totalLed.js"></script>
+        <script src="../js/almacen.js"></script>
+        <script src="../js/residuos.js"></script>
 
 
 </body>

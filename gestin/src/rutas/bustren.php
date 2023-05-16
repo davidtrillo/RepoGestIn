@@ -172,11 +172,10 @@ $app->post('/api/bustren/nueva', function (Request $request, Response $response)
     $precio = $request->getParam('precio');
     $activo = $request->getParam('activo');
     $instalada = $request->getParam('instalada');
-    $almacen = $request->getParam('almacen');
-    $residuos = $request->getParam('residuos');
+
 
     // echo "todas las instalaciones";
-    $sql = 'INSERT INTO bustren (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,instalada,almacen,residuos) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo,:instalada,:almacen,:residuos);';
+    $sql = 'INSERT INTO bustren (id, idInstalacion, idTipoActuacion, idNumSerie, idUsuario,albaran, observaciones, fechaActuacion, precio, activo,instalada) VALUES (NULL, :idInstalacion, :idTipoActuacion, :idNumSerie, :idUsuario,:albaran ,:observaciones, :fechaActuacion, :precio, :activo,:instalada);';
     // $sql='INSERT INTO bustren (idInstalacion) VALUES (:idInstalacion);';
 
     try {
@@ -195,8 +194,7 @@ $app->post('/api/bustren/nueva', function (Request $request, Response $response)
         $resultado->bindParam(':precio', $precio);
         $resultado->bindParam(':activo', $activo);
         $resultado->bindParam(':instalada', $instalada);
-        $resultado->bindParam(':almacen', $almacen);
-        $resultado->bindParam(':residuos', $residuos);
+
 
         $resultado->execute();
         echo json_encode("Tarjeta guardada con éxito", JSON_UNESCAPED_UNICODE);

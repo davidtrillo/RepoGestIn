@@ -23,20 +23,29 @@ function nuevaCamTv() {
 
             return;
         }
-        var idNumSerie = document.getElementById('inputNumSerie').value ? document.getElementById('inputNumSerie').value : "0";
+
+        if (document.getElementById('inputNumSerie').value){
+            var idNumSerie = document.getElementById('inputNumSerie').value;
+        }else{
+            alert("No se ha introducido el número de serie")
+            return;
+        }
+
+
+        var idNumSerie = document.getElementById('inputNumSerie').value;
         var albaran = document.getElementById('inputAlbaran').value ? document.getElementById('inputAlbaran').value : "0";
         var observaciones = document.getElementById('inputObservaciones2').value ? document.getElementById('inputObservaciones2').value : "";
         var precio = document.getElementById('inputPrecio').value ? document.getElementById('inputPrecio').value : "0";
-        var activo = document.getElementById('inputActivo').checked;
-        var instalada = document.getElementById('inputInstalada').checked;
-        var almacen = document.getElementById('inputAlmacen').checked;
-        var residuos = document.getElementById('inputResiduos').checked;
+        var activo = document.getElementById('inputActivoCamara').checked;
+        var instalada = document.getElementById('inputInstaladaCamara').checked;
+       // var almacen = document.getElementById('inputAlmacen').checked;
+       // var residuos = document.getElementById('inputResiduos').checked;
 
 
         activo = String(activo);
         instalada = String(instalada);
-        almacen = String(almacen);
-        residuos = String(residuos);
+        //almacen = String(almacen);
+        //residuos = String(residuos);
 
          //console.log(residuos);
         // console.log(idNumSerie);
@@ -63,9 +72,7 @@ function nuevaCamTv() {
                     idUsuario: idUsuario,
                     precio: precio,
                     activo: activo,
-                    instalada: instalada,
-                    almacen: almacen,
-                    residuos: residuos
+                    instalada: instalada
                 })
             })
             .then(res => res.json())
@@ -125,7 +132,7 @@ async function formCamTv(elemento) {
 
     //desactivarBotones();
 
-    // var ac=document.getElementById("btnTarjetas");
+    // var ac=document.getElementById("btnCamaras");
     // ac.classList.add("active");
 
     
@@ -181,7 +188,8 @@ async function formCamTv(elemento) {
             <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Activa</span> 
             <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Instalada</span>
             <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Almacén</span> 
-            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Residuos</span> 
+            <span class="ml-0 mb-0" style="writing-mode: vertical-lr;transform: rotate(180deg);">Residuos</span>
+
         </div>
         </div>
         <!-- Fin Titulos -->
@@ -207,10 +215,9 @@ async function formCamTv(elemento) {
         </div>
         <div class="col-1">
         <!-- ALERTAAAAA ESTÁ AL REVES PERO FUNCIONA ASÍ POR NO CAMBIAR TODO EL CÓDIGO!!! INSTALADA ES ACTIVO Y ACTIVO ES INSTALADA -->
-            <input type="checkbox" class=" mt-3 ml-2" name="inputInstalada" id="inputInstalada" onclick="checkTarjetaInstalada()"> 
-            <input type="checkbox" class=" mt-3 ml-2" name="inputActivo" id="inputActivo" onclick="checkTarjetaActiva()">
-            <input type="checkbox" class=" mt-3 ml-3" name="inputAlmacen" id="inputAlmacen" onclick="checkTarjetaAlmacen()">
-            <input type="checkbox" class=" mt-3 ml-2" name="inputResiduos" id="inputResiduos" onclick="checkTarjetaResiduos()">
+            <input type="checkbox" class=" mt-3 ml-2" name="inputInstaladaCamara" id="inputInstaladaCamara" onclick="checkCamaraInstalada()"> 
+            <input type="checkbox" class=" mt-3 ml-2" name="inputActivoCamara" id="inputActivoCamara" onclick="checkCamaraActiva()">
+
         </div>  
         <div class="col-1">
             <div class="btn btn-primary" onclick="nuevaCamTv()">Guardar</div>
@@ -317,14 +324,14 @@ async function rellenarTodosCamTv() { //Llamada a la API
                  <input type="text" class="form-control mt-1" name="" id="inputPrecioTar${response[i]['id']}"  value="${response[i]['precio']}">
                  </div>
                  <div class="col-1">
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoTar${response[i]['id']}" onclick="checkTarjetaActiva(${response[i]['id']})" ${activo}>
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaTar${response[i]['id']}" onclick="checkTarjetaInstalada(${response[i]['id']})"  ${instalada}>
-                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenTar${response[i]['id']}" onclick="checkTarjetaAlmacen(${response[i]['id']})"  ${almacen}>
-                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosTar${response[i]['id']}" onclick="checkTarjetaResiduos(${response[i]['id']})" ${residuos}>                 
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputActivoCamaraTar${response[i]['id']}" onclick="checkCamaraActiva(${response[i]['id']})" ${activo}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputInstaladaCamaraTar${response[i]['id']}" onclick="checkCamaraInstalada(${response[i]['id']})"  ${instalada}>
+                    <input type="checkbox" class=" mt-3 ml-3" name="" id="inputAlmacenCamaraTar${response[i]['id']}" onclick="checkCamaraAlmacen(${response[i]['id']})"  ${almacen}>
+                    <input type="checkbox" class=" mt-3 ml-2" name="" id="inputResiduosCamaraTar${response[i]['id']}" onclick="checkCamaraResiduos(${response[i]['id']})" ${residuos}>                 
                 </div>
                  <div class="col-1">
-                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarCamTv(this.id)"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="btn btn-danger" id="${response[i]['id']}" onclick="borrarCamTv(this.id)"><i class="fas fa-trash-alt"></i></div>
+                    <div class="btn btn-primary" id="${response[i]['id']}" onclick="editarCamTv(this.id)" title="Guardar edición"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="btn btn-danger" title="Eliminar registro" id="${response[i]['id']}" onclick="borrarCamTv(this.id)"><i class="fas fa-trash-alt"></i></div>
                  </div>
               </div>  
 
@@ -360,7 +367,7 @@ function rellenarFooterCamTv() {
                 // var p1 = document.getElementById('formFooter');
                 // p1.innerHTML = '';
                 // p1.innerHTML=`
-                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
+                // <span class="ml-1">Total de Camaras Activas: ${response[0]['c']}</span>
                 // `
 
                 var p = document.getElementById('cabecera');
@@ -392,10 +399,8 @@ function borrarCamTv(param) {
     }, 500);
 }
 
-function editarCamTv(param) {
 
- 
-
+function editarSimpleCamTv(param){
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoActuacionTar = document.getElementById('inputTipoActuacionTar' + param).value;
@@ -403,15 +408,15 @@ function editarCamTv(param) {
     var inputAlbaranTar = document.getElementById('inputAlbaranTar' + param).value;
     var inputNumSerieTar = document.getElementById('inputNumSerieTar' + param).value;
     var inputPrecioTar = document.getElementById('inputPrecioTar' + param).value;
-    var inputActivoTar = document.getElementById('inputActivoTar' + param).checked;
-    var inputInstaladaTar = document.getElementById('inputInstaladaTar' + param).checked;
-    var inputAlmacenTar = document.getElementById('inputAlmacenTar' + param).checked;
-    var inputResiduosTar = document.getElementById('inputResiduosTar' + param).checked;
+    var inputActivoCamaraTar = document.getElementById('inputActivoCamaraTar' + param).checked;
+    var inputInstaladaCamaraTar = document.getElementById('inputInstaladaCamaraTar' + param).checked;
+    var inputAlmacenCamaraTar = document.getElementById('inputAlmacenCamaraTar' + param).checked;
+    var inputResiduosCamaraTar = document.getElementById('inputResiduosCamaraTar' + param).checked;
 
-    inputActivoTar = String(inputActivoTar);
-    inputInstaladaTar = String(inputInstaladaTar);
-    inputAlmacenTar = String(inputAlmacenTar);
-    inputResiduosTar = String(inputResiduosTar);
+    inputActivoCamaraTar = String(inputActivoCamaraTar);
+    inputInstaladaCamaraTar = String(inputInstaladaCamaraTar);
+    inputAlmacenCamaraTar = String(inputAlmacenCamaraTar);
+    inputResiduosCamaraTar = String(inputResiduosCamaraTar);
 
     var idUsuario = document.getElementById('inputIdUsuario').value;
 
@@ -421,7 +426,7 @@ function editarCamTv(param) {
     // console.log(inputObservacionesTar);
     // console.log(inputNumSerieTar);
     // console.log(inputPrecioTar);
-    // console.log(inputActivoTar);
+    // console.log(inputActivoCamaraTar);
     // console.log(idUsuario);
 
 
@@ -453,10 +458,10 @@ function editarCamTv(param) {
                 fechaActuacion: inputFechaActuacionTar,
                 idUsuario: idUsuario,
                 precio: inputPrecioTar,
-                activo: inputActivoTar,
-                instalada: inputInstaladaTar,
-                almacen: inputAlmacenTar,
-                residuos: inputResiduosTar
+                activo: inputActivoCamaraTar,
+                instalada: inputInstaladaCamaraTar,
+                almacen: inputAlmacenCamaraTar,
+                residuos: inputResiduosCamaraTar
 
             })
         })
@@ -470,8 +475,81 @@ function editarCamTv(param) {
     setTimeout(() => {
         rellenarTodosCamTv();
     }, 500);
+
 }
 
+
+
+
+
+async function editarCamTv(param) {
+    if  (document.getElementById('inputAlmacenCamaraTar' + param).checked){
+        if (confirm("El registro actual se borrará de la instalación y pasará a Almacén.")){
+            var c=document.getElementById("modalFechaAlmacenBody");
+            c.innerHTML=`
+                        <!-- Inicio body 1 -->
+                        <div class="row" id="">
+                            <div class="col">
+                                <b>F.Actuación</b>
+                            </div>                  
+                        </div>
+        
+                        <div class="row" id="">
+                            <div class="col p-3">
+                                Nueva Fecha de Actuación:
+                                <input type="date" class="form-control mt-1" name="inputFechaActuacionAlmacen" id="inputFechaActuacionAlmacen" placeholder="DD/MM/YYYY">
+                                <input type="hidden" id="claveid" value="${param}">
+                            </div>           
+                        </div>        
+                        <!-- fin body 1  -->
+                    `;  
+        
+            $('#staticBackdrop3').modal('show');
+        
+            return;
+
+        }else{
+            //alert("Es un no");
+            return;
+        }
+    
+    }else{
+        if  (document.getElementById('inputResiduosCamaraTar' + param).checked){
+            if (confirm("El registro actual se borrará de la instalación y pasará a Residuos.")){
+               
+                var c=document.getElementById("modalFechaResiduosBody");
+                c.innerHTML=`
+                            <!-- Inicio body 1 -->
+                            <div class="row" id="">
+                                <div class="col">
+                                    <b>F.Actuación</b>
+                                </div>                  
+                            </div>
+            
+                            <div class="row" id="">
+                                <div class="col p-3">
+                                    Nueva Fecha de Actuación:
+                                    <input type="date" class="form-control mt-1" name="inputFechaActuacionResiduos" id="inputFechaActuacionResiduos" placeholder="DD/MM/YYYY">
+                                    <input type="hidden" id="claveid" value="${param}">
+                                </div>           
+                            </div>        
+                            <!-- fin body 1  -->
+                        `;  
+            
+                $('#staticBackdrop4').modal('show');
+            
+                return;
+                
+            }else{
+                //alert("Es un no");
+                return;
+            }
+        }else{
+            editarSimpleCamTv(param);
+        }
+
+    }
+}
 
 function comprobarNumSerieCamTv() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
@@ -537,7 +615,7 @@ function comprobarNumSerieCamTv() {
                             if (clase) {
                                 var id=response[i]['id'];
                                 var idNumSerie=response[i]['idNumSerie'];
-                                // comprobarNumSerieTarjeta3(response[i]['id'],response[i]['idNumSerie']);
+                                // comprobarNumSerieCamara3(response[i]['id'],response[i]['idNumSerie']);
                                 if (idNumSerie) {
 
                                     // var url = 'http://172.27.120.120/gestin/public/api/numserierepetidos/' + idNumSerie;
@@ -628,140 +706,136 @@ function comprobarNumSerieCamTv3(id,idNumSerie) {
             })
     }
 }
-
+/*
 document.addEventListener("DOMContentLoaded", async function(event) {
  
-   await checkTarjetaInstalada();
-   await checkTarjetaActiva();
-   await checkTarjetaAlmacen();
-   await checkTarjetaResiduos();
+   await checkCamaraInstalada();
+   await checkCamaraActiva();
+   await checkCamaraAlmacen();
+   await checkCamaraResiduos();
     // Aquí puedes escribir el código adicional que quieres que se ejecute cuando se dispara el evento DOMContentLoaded
   });
+*/
 
-function checkTarjetaInstalada(id) {
+
+function checkCamaraInstalada(id) {
 
     if (id){
 
-        if (document.getElementById('inputInstaladaTar'+id).checked) {
-          //  document.getElementById('inputActivoTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if (document.getElementById('inputInstaladaCamaraTar'+id).checked) {
+          //  document.getElementById('inputActivoCamaraTar'+id).checked=true;
+            document.getElementById('inputAlmacenCamaraTar'+id).checked=false;
+            document.getElementById('inputResiduosCamaraTar'+id).checked=false;
         
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoCamaraTar'+id).checked=false;
+            document.getElementById('inputInstaladaCamaraTar'+id).checked=false;
+            document.getElementById('inputAlmacenCamaraTar'+id).checked=false;
+            document.getElementById('inputResiduosCamaraTar'+id).checked=false;
 
         }
     }else{
-        if (document.getElementById('inputInstalada').checked) {
-            document.getElementById('inputActivo').checked=true;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+        if (document.getElementById('inputInstaladaCamara').checked) {
+            document.getElementById('inputActivoCamara').checked=true;
+
         
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoCamara').checked=false;
+            document.getElementById('inputInstaladaCamara').checked=false;
+
 
         }
     }
 }
-function checkTarjetaActiva(id) {
+function checkCamaraActiva(id) {
 
     if (id){
 
 
-        if (document.getElementById('inputActivoTar'+id).checked) {
+        if (document.getElementById('inputActivoCamaraTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=true;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;      
+            document.getElementById('inputInstaladaCamaraTar'+id).checked=true;
+            document.getElementById('inputAlmacenCamaraTar'+id).checked=false;
+            document.getElementById('inputResiduosCamaraTar'+id).checked=false;      
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoCamaraTar'+id).checked=false;
+            document.getElementById('inputInstaladaCamaraTar'+id).checked=false;
+            document.getElementById('inputAlmacenCamaraTar'+id).checked=false;
+            document.getElementById('inputResiduosCamaraTar'+id).checked=false;
         }
 
 
     }else{
 
-        if (document.getElementById('inputActivo').checked) {
+        if (document.getElementById('inputActivoCamara').checked) {
         
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;      
+   
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoCamara').checked=false;
+            document.getElementById('inputInstaladaCamara').checked=false;
+
         }
     }
 }
-function checkTarjetaAlmacen(id) {
+function checkCamaraAlmacen(id) {
 
     if (id){
 
-        if ( document.getElementById('inputAlmacenTar'+id).checked) {
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+        if ( document.getElementById('inputAlmacenCamaraTar'+id).checked) {
+            document.getElementById('inputActivoCamaraTar'+id).checked=false;
+            document.getElementById('inputInstaladaCamaraTar'+id).checked=false;
+            document.getElementById('inputResiduosCamaraTar'+id).checked=false;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoCamaraTar'+id).checked=false;
+            document.getElementById('inputInstaladaCamaraTar'+id).checked=false;
+            document.getElementById('inputAlmacenCamaraTar'+id).checked=false;
+            document.getElementById('inputResiduosCamaraTar'+id).checked=false;
         }
     }else{
             if ( document.getElementById('inputAlmacen').checked) {
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+                document.getElementById('inputActivoCamara').checked=false;
+                document.getElementById('inputInstaladaCamara').checked=false;
+
         
             }else{
-                document.getElementById('inputActivo').checked=false;
-                document.getElementById('inputInstalada').checked=false;
-                document.getElementById('inputAlmacen').checked=false;
-                document.getElementById('inputResiduos').checked=false;
+                document.getElementById('inputActivoCamara').checked=false;
+                document.getElementById('inputInstaladaCamara').checked=false;
+
             }
         }
 }
-function checkTarjetaResiduos(id) {
+function checkCamaraResiduos(id) {
 
     if (id){
 
-        if (document.getElementById('inputResiduosTar'+id).checked) {
+        if (document.getElementById('inputResiduosCamaraTar'+id).checked) {
         
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
+            document.getElementById('inputInstaladaCamaraTar'+id).checked=false;
+            document.getElementById('inputActivoCamaraTar'+id).checked=false;
+            document.getElementById('inputAlmacenCamaraTar'+id).checked=false;
         //  document.getElementById('inputResiduos').checked=true;
     
         }else{
-            document.getElementById('inputActivoTar'+id).checked=false;
-            document.getElementById('inputInstaladaTar'+id).checked=false;
-            document.getElementById('inputAlmacenTar'+id).checked=false;
-            document.getElementById('inputResiduosTar'+id).checked=false;
+            document.getElementById('inputActivoCamaraTar'+id).checked=false;
+            document.getElementById('inputInstaladaCamaraTar'+id).checked=false;
+            document.getElementById('inputAlmacenCamaraTar'+id).checked=false;
+            document.getElementById('inputResiduosCamaraTar'+id).checked=false;
         }
     }else{
         if (document.getElementById('inputResiduos').checked) {
         
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
+            document.getElementById('inputInstaladaCamara').checked=false;
+            document.getElementById('inputActivoCamara').checked=false;
+
         //  document.getElementById('inputResiduos').checked=true;
     
         }else{
-            document.getElementById('inputActivo').checked=false;
-            document.getElementById('inputInstalada').checked=false;
-            document.getElementById('inputAlmacen').checked=false;
-            document.getElementById('inputResiduos').checked=false;
+            document.getElementById('inputActivoCamara').checked=false;
+            document.getElementById('inputInstaladaCamara').checked=false;
+
         }
     }
 }
