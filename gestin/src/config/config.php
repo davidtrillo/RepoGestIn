@@ -289,6 +289,15 @@ include_once './getNID.php';
    
     </div>
 
+    <hr>
+
+    <div class="mt-2 p-2" id="logs">
+
+    <h3>Versiones</h3>
+        <p>Versión 1.1 - 12/07/2023 - Separación por elementos de Almacén.</p>
+
+    </div>
+
     <!-- Formulario footer Nuevo-->
     <div class="mt-2 p-2" id="formFooter">
 
