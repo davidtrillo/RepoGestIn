@@ -1260,7 +1260,7 @@ async function sustituirLed() {
                             },
                             body: JSON.stringify({
                                 idInstalacion: "ALMACÉN",
-                                idTipoInstalacion: "LED",
+                                idTipoInstalacion: "LEDS",
                                 idNumSerie: inputNumSerieLedAntiguo,
                                 observaciones: "",
                                 fechaActuacion: inputFechaActuacionLed,
@@ -1288,7 +1288,7 @@ async function sustituirLed() {
                 },
                 body: JSON.stringify({
                     idInstalacion: "RESIDUOS",
-                    idTipoInstalacion: "LED",
+                    idTipoInstalacion: "LEDS",
                     idNumSerie: inputNumSerieLedAntiguo,
                     observaciones: "",
                     fechaActuacion: inputFechaActuacionLed,

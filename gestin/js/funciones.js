@@ -3,9 +3,6 @@ $("#dropdown-menu1 button").click(function () {
     var a = $(this).text();
     $("#inputTipologia").val($(this).text());
 
-
-
-
     var datoInput = document.getElementById('inputTipologia').value;
     document.getElementById('inputInstalacion').value=null;
     document.getElementById('inputUbicacion').value=null;
@@ -15,11 +12,11 @@ $("#dropdown-menu1 button").click(function () {
     document.getElementById("formIntroducir").innerHTML=` `;
     document.getElementById("formBody").innerHTML=` `;
 
-
     if (datoInput=="ALMACÉN"){
         var a = document.getElementById('inputInstalacion');
         a.value="ALMACÉN";
-        formAlmacen('ALMACÉN');
+        rellenarElementos();
+      // formAlmacen('ALMACÉN');
     }
 
     if (datoInput=="RESIDUOS"){
@@ -96,6 +93,11 @@ async function leerInstalacion(idInstalacion, ubicacion) {
  // await  rellenarCM();
   await  rellenarCruce();
   await rellenarElementos();
+
+
+if(idInstalacion)
+
+
   
   document.getElementById("editInstalacion").disabled=false;
 }
@@ -105,13 +107,34 @@ function rellenarElementos(){
     var idTipoInstalacion=document.getElementById('inputTipologia').value;
     var elementoBtn=document.getElementById("dropdownElemento");
 
+
     switch(idTipoInstalacion){
 
         case "ALMACÉN":
             console.log("Estoy en ALMACÉN");
             elementoBtn.innerHTML= `
-            <button class="dropdown-item" type="button" id="btnAlmacen" onclick="formAlmacen('ALMACÉN')">ALMACÉN</button>
-                `
+            <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formAlmacen('TARJETAS SALIDA')">TARJETAS SALIDA</button>
+            <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formAlmacen('TARJETAS CPU')">TARJETAS CPU</button>
+            <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formAlmacen('TARJETAS F.A.')">TARJETAS F.A.</button>
+            <button class="dropdown-item" type="button" id="btnBusTren" onclick="formAlmacen('BUSTREN')">BUSTREN</button>
+            <button class="dropdown-item" type="button" id="btnOculta" onclick="formAlmacen('SEÑAL OCULTA')">SEÑAL OCULTA</button>
+            <button class="dropdown-item" type="button" id="btnLed" onclick="formAlmacen('LEDS')">LEDS</button>
+            <button class="dropdown-item" type="button" id="btnDetectores" onclick="formAlmacen('DETECTORES')">DETECTORES</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('MÓDULOS')">MÓDULOS</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('CÁMARAS')">CÁMARAS</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('CARGADORES ELÉCTRICOS')">CARGADORES ELÉCTRICOS</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('CENTRAL')">CENTRAL</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('CONTROL DE ACCESOS')">CONTROL DE ACCESOS</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('FOTO ROJO')">FOTO ROJO</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('NODO')">NODO</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('PANEL INFORMATIVO')">PANEL INFORMATIVO</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('PUNTO DE MEDIDA')">PUNTO DE MEDIDA</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('SECTOR')">SECTOR</button>
+            <button class="dropdown-item" type="button" id="btnModulos" onclick="formAlmacen('SEÑALES LUMINOSAS')">SEÑALES LUMINOSAS</button>
+
+              `
+
+
             break;
 
         case "CÁMARAS":
@@ -144,7 +167,7 @@ function rellenarElementos(){
                 <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetas('TARJETAS SALIDA')">TARJETAS SALIDA</button>
                 <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasCpu('TARJETAS CPU')">TARJETAS CPU</button>
                 <button class="dropdown-item" type="button" id="btnTarjetas" onclick="formTarjetasFa('TARJETAS F.A.')">TARJETAS F.A.</button>
-                <button class="dropdown-item" type="button" id="btnBusTren" onclick="formBusTren('BUS/TREN')">BUS/TREN</button>
+                <button class="dropdown-item" type="button" id="btnBusTren" onclick="formBusTren('BUSTREN')">BUSTREN</button>
                 <div class="dropdown-divider"></div>
                 <button class="dropdown-item" type="button" id="btnOculta" onclick="formOculta('SEÑAL OCULTA')">SEÑAL OCULTA</button>
                 <button class="dropdown-item" type="button" id="btnLed" onclick="formLed('LEDS')">LEDS</button>

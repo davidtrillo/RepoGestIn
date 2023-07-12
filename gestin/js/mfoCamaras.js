@@ -398,7 +398,7 @@ async function imprimir() {
     let pageNumber = doc.getNumberOfPages();
 
     doc.setFontSize(22);
-    doc.text("MFO de Pasos de Peatones",14,20);
+    doc.text("MFO de Cámaras",14,20);
 
         doc.autoTable({
             columns:col,

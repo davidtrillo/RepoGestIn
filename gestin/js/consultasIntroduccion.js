@@ -29,13 +29,24 @@
     await   pintarResultados("sector", mes,año);
     await   pintarResultados("señalesluminosas", mes,año);
     await   pintarResultados("almacen", mes,año);
-    await   pintarResultados("residuos", mes,año);
-
-
+    await   pintarResultados("residuos", mes,año); 
     
 }
 
+function imprimir2(){
+    var doc = new jsPDF('p', 'pt', 'a1');
+    var options = {
+        pagesplit: false
+   };
+ 
+  // All units are in the set measurement for the document
+  // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
+  
+  doc.addHTML(document.getElementById('titulo')[0],  options, function(){
+  doc.save('ConsultaIntroduccionDatos.pdf');
+    })
 
+}
 
 
 
@@ -69,141 +80,273 @@ async function pintarResultados(tipo, mes, año) {
         .then(response => {
                         if (response!=='No se han encontrado resultados'){
                            // console.log(response[0]['id']);
-                            // Para Leds;
-                            if(tipo!=='led'){
-                                        var t = document.getElementById('titulo');
-                                        t.innerHTML += `        
-                                        <!-- Títulos Form Nuevo-->
-                                        <h4 class="mt-1"><b>${tipo.toUpperCase()}(${count[0][0]})</b></h4>
-                                        <div class="row ml-1">
-                                            <div class="col-1">
-                                                Instalación
-                                             </div>
-                                             <div class="col-1">
-                                                 Usuario
-                                            </div>
-                                            <div class="col-2">
-                                                F.Actuación
-                                            </div>
-                                            <div class="col-2">
-                                                Tipo Actuación
-                                            </div>
-                                            <div class="col-3">
-                                                Observaciones
-                                            </div>
-                                            <div class="col-1">
-                                                Albarán
-                                            </div>
-                                            <div class="col-1">
-                                                Num. Serie
-                                            </div>
-                                            <div class="col-1">
-                                                Precio
-                                            </div>
-            
-                                        </div>
-                                    <!-- Fin Titulos -->
-                                    `;
-                                    for (var i in response) {
-                                        t.innerHTML += `
-                                        <div class="row mt-0" id="">
-                                            <div class="col-1">
-                                               <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idInstalacion']}" disabled>
-                                            </div>
-                                            <div class="col-1">
-                                                <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idUsuario']}" disabled>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['fechaActuacion']}" disabled>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="text" class="form-control mt-1" name="inputTipoActuacion"   value="${response[i]['idTipoActuacion']}"  disabled>
-                                            </div>
-                                            <div class="col-3">
-                                                <input type="text" class="form-control mt-1" name="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
-                                            </div>
-                                            <div class="col-1">
-                                                <input type="text" class="form-control mt-1" name="inputAlbaran"   value="${response[i]['albaran']}" disabled>
-                                            </div>
-                                            <div class="col-1">
-                                                <input type="text" class="form-control mt-1" name="inputNumSerie"   value="${response[i]['idNumSerie']}" disabled>
-                                            </div>
-                                            <div class="col-1">
-                                                <input type="text" class="form-control mt-1" name="inputPrecio"  value="${response[i]['precio']}"  disabled>
-                                            </div>
-
-                                        </div>  
-                                            
-                                            `
-                                        }
-                                    }else{
-                                            var t = document.getElementById('titulo');
-                                            t.innerHTML += `        
-                                            <!-- Títulos Form Nuevo-->
-                                            <h4 class="mt-1"><b>${tipo.toUpperCase()}(${count[0][0]})</b></h4>
-                                            <div class="row ml-1">
-                                                <div class="col-1">
-                                                    Instalación
-                                                </div>
-                                                <div class="col-1">
-                                                    Usuario
-                                                </div>
-                                                <div class="col-2">
-                                                    F.Actuación
-                                                </div>
-                                                <div class="col-2">
-                                                    NID
-                                                </div>
-                                                <div class="col-2">
-                                                    Color
-                                                </div>
-                                                <div class="col-2">
-                                                    Observaciones
-                                                </div>
-                                                <div class="col-1">
-                                                    Albarán
-                                                </div>
-                                                <div class="col-1">
-                                                    Num. Serie
-                                                </div>
-                                                
-                
-                                            </div>
-                                        <!-- Fin Titulos -->
-                                        `;
-                                        for (var i in response) {
-                                            t.innerHTML += `
-                                            <div class="row mt-0" id="">
-                                               <div class="col-1">
-                                                   <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idInstalacion']}" disabled>
-                                               </div>
-                                                <div class="col-1">
-                                                   <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idUsuario']}" disabled>
-                                                </div>
-                                                <div class="col-2">
-                                                    <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['fechaActuacion']}" disabled>
-                                                </div>
-                                                <div class="col-2">
-                                                    <input type="text" class="form-control mt-1" name="nid"   value="${response[i]['nid']}"  disabled>
-                                                </div>
-                                                <div class="col-2">
-                                                    <input type="text" class="form-control mt-1" name="color"   value="${response[i]['color']}"  disabled>
-                                                </div>
-                                                <div class="col-2">
-                                                    <input type="text" class="form-control mt-1" name="inputObservaciones"   value="${response[i]['observaciones']}"  disabled>
-                                                </div>
-                                                <div class="col-1">
-                                                    <input type="text" class="form-control mt-1" name="inputAlbaran"   value="${response[i]['albaran']}" disabled>
-                                                </div>
-                                                <div class="col-1">
-                                                    <input type="text" class="form-control mt-1" name="inputNumSerie"   value="${response[i]['idNumSerie']}" disabled>
-                                                </div>
+                            
+                           switch (tipo) {
+                                case "led":
+                                var t = document.getElementById('titulo');
+                                t.innerHTML += `        
+                                <!-- Títulos Form Nuevo-->
+                                <h4 class="mt-1"><b>${tipo.toUpperCase()}(${count[0][0]})</b></h4>
+                                <div class="row ml-1">
+                                    <div class="col-1">
+                                        Instalación
+                                    </div>
+                                    <div class="col-1">
+                                        Usuario
+                                    </div>
+                                    <div class="col-2">
+                                        F.Actuación
+                                    </div>
+                                    <div class="col-2">
+                                        NID
+                                    </div>
+                                    <div class="col-2">
+                                        Color
+                                    </div>
+                                    <div class="col-2">
+                                        Observaciones
+                                    </div>
+                                    <div class="col-1">
+                                        Albarán
+                                    </div>
+                                    <div class="col-1">
+                                        Num. Serie
+                                    </div>
+                                    
     
-                                            </div>  
-                                                
-                                                `
-                                            }
+                                </div>
+                            <!-- Fin Titulos -->
+                            `;
+                            for (var i in response) {
+                                t.innerHTML += `
+                                <div class="row mt-0" id="">
+                                   <div class="col-1">
+                                       <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idInstalacion']}" disabled>
+                                   </div>
+                                    <div class="col-1">
+                                       <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idUsuario']}" disabled>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['fechaActuacion']}" disabled>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" class="form-control mt-1" name="nid"   value="${response[i]['nid']}"  disabled>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" class="form-control mt-1" name="color"   value="${response[i]['color']}"  disabled>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" class="form-control mt-1" name="inputObservaciones"   value="${response[i]['observaciones']}"  disabled>
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="text" class="form-control mt-1" name="inputAlbaran"   value="${response[i]['albaran']}" disabled>
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="text" class="form-control mt-1" name="inputNumSerie"   value="${response[i]['idNumSerie']}" disabled>
+                                    </div>
+
+                                </div>  
+                                    
+                                    `
+                                }
+                                
+                                break;
+
+                                case "tarjetascpu":
+                                    var t = document.getElementById('titulo');
+                                    t.innerHTML += `        
+                                    <!-- Títulos Form Nuevo-->
+                                    <h4 class="mt-1"><b>${tipo.toUpperCase()}(${count[0][0]})</b></h4>
+                                    <div class="row ml-1">
+                                        <div class="col-1">
+                                            Instalación
+                                         </div>
+                                         <div class="col-1">
+                                             Usuario
+                                        </div>
+                                        <div class="col-2">
+                                            F.Actuación
+                                        </div>
+                                        <div class="col-2">
+                                            Tipo Actuación
+                                        </div>
+                                        <div class="col-1">
+                                            Tipo Tarjeta
+                                        </div>
+                                        <div class="col-3">
+                                            Observaciones
+                                        </div>
+                                        <div class="col-1">
+                                            Num. Serie
+                                        </div>
+
+        
+                                    </div>
+                                <!-- Fin Titulos -->
+                                `;
+                                for (var i in response) {
+                                    t.innerHTML += `
+                                    <div class="row mt-0" id="">
+                                        <div class="col-1">
+                                           <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idInstalacion']}" disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idUsuario']}" disabled>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['fechaActuacion']}" disabled>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="text" class="form-control mt-1" name="inputTipoActuacion"   value="${response[i]['idTipoActuacion']}"  disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputTipoActuacion"   value="${response[i]['tipo']}"  disabled>
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="text" class="form-control mt-1" name="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputNumSerie"   value="${response[i]['idNumSerie']}" disabled>
+                                        </div>
+
+
+                                    </div>  
+                                        
+                                        `}
+                                    break;
+                                
+                                case "almacen":
+
+                                case "residuos":
+                                    var t = document.getElementById('titulo');
+                                    t.innerHTML += `        
+                                    <!-- Títulos Form Nuevo-->
+                                    <h4 class="mt-1"><b>${tipo.toUpperCase()}(${count[0][0]})</b></h4>
+                                    <div class="row ml-1">
+                                        <div class="col-1">
+                                            Instalación
+                                         </div>
+                                         <div class="col-1">
+                                             Usuario
+                                        </div>
+                                        <div class="col-2">
+                                            F.Actuación
+                                        </div>
+                                        <div class="col-2">
+                                            Tipo Instalación
+                                        </div>
+                                        <div class="col-3">
+                                            Observaciones
+                                        </div>
+                                        <div class="col-1">
+                                            Num. Serie
+                                        </div>
+
+        
+                                    </div>
+                                <!-- Fin Titulos -->
+                                `;
+                                for (var i in response) {
+                                    t.innerHTML += `
+                                    <div class="row mt-0" id="">
+                                        <div class="col-1">
+                                           <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idInstalacion']}" disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idUsuario']}" disabled>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['fechaActuacion']}" disabled>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="text" class="form-control mt-1" name="inputTipoActuacion"   value="${response[i]['idTipoInstalacion']}"  disabled>
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="text" class="form-control mt-1" name="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputNumSerie"   value="${response[i]['idNumSerie']}" disabled>
+                                        </div>
+
+
+                                    </div>  
+                                        
+                                        `
                                     }
+                                    break;
+
+                                default:
+                                    var t = document.getElementById('titulo');
+                                    t.innerHTML += `        
+                                    <!-- Títulos Form Nuevo-->
+                                    <h4 class="mt-1"><b>${tipo.toUpperCase()}(${count[0][0]})</b></h4>
+                                    <div class="row ml-1">
+                                        <div class="col-1">
+                                            Instalación
+                                         </div>
+                                         <div class="col-1">
+                                             Usuario
+                                        </div>
+                                        <div class="col-2">
+                                            F.Actuación
+                                        </div>
+                                        <div class="col-2">
+                                            Tipo Actuación
+                                        </div>
+                                        <div class="col-3">
+                                            Observaciones
+                                        </div>
+                                        <div class="col-1">
+                                            Albarán
+                                        </div>
+                                        <div class="col-1">
+                                            Num. Serie
+                                        </div>
+                                        <div class="col-1">
+                                            Precio
+                                        </div>
+        
+                                    </div>
+                                <!-- Fin Titulos -->
+                                `;
+                                for (var i in response) {
+                                    t.innerHTML += `
+                                    <div class="row mt-0" id="">
+                                        <div class="col-1">
+                                           <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idInstalacion']}" disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['idUsuario']}" disabled>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="text" class="form-control mt-1" name="inputFechaActuacion"  value="${response[i]['fechaActuacion']}" disabled>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="text" class="form-control mt-1" name="inputTipoActuacion"   value="${response[i]['idTipoActuacion']}"  disabled>
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="text" class="form-control mt-1" name="inputObservaciones"  value="${response[i]['observaciones']}"  disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputAlbaran"   value="${response[i]['albaran']}" disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputNumSerie"   value="${response[i]['idNumSerie']}" disabled>
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" class="form-control mt-1" name="inputPrecio"  value="${response[i]['precio']}"  disabled>
+                                        </div>
+
+                                    </div>  
+                                        
+                                        `
+                                    }
+                                    break;
+                                  
+                                
+                           }
+                           
+
                         }
 
         })
@@ -227,41 +370,8 @@ function getJsonAPI(tipo,id) {
 }
 
 
-async function imprimir() {
+//async function imprimir() {
 
-/*
-    var id=document.getElementById("inputInstalacion").value;
-    //conseguir el json
-    var rowTarjetas= await getJsonAPI('tarjetas',id);
-    var rowTarjetasCPU= await getJsonAPI('tarjetascpu',id);
-   // var rowTarjetasAmp= await getJsonAPI('tarjetasamp',id);
-    var rowTarjetasFA= await getJsonAPI('tarjetasFA',id);
-    var rowBusTren= await getJsonAPI('bustren',id);
-
-    // var row11_200= await getJsonAPI('11_200',id);
-    // var row11_300= await getJsonAPI('11_300',id);
-
-    // var row12_100= await getJsonAPI('12_100',id);
-    // var row12_200= await getJsonAPI('12_200',id);
-    // var row12_300= await getJsonAPI('12_300',id);
-
-    // var row13_200= await getJsonAPI('13_200',id);
-    // var row13_322= await getJsonAPI('13_322',id);
-    // var row13_332= await getJsonAPI('13_332',id);
-
-    var rowOculta= await getJsonAPI('oculta',id);
-    var rowLed= await getJsonAPI('led',id);
-    // // var rowInvidentes= await getJsonAPI('invidentes',id);
-    // var rowDescontadores= await getJsonAPI('descontadores',id);
-    // var rowBaculos= await getJsonAPI('baculos',id);
-    // var rowColumnas= await getJsonAPI('columnas',id);
-    // var rowBrazos= await getJsonAPI('brazos',id);
-    // var rowBajantes= await getJsonAPI('bajantes',id);
-    // var rowAlargaderas= await getJsonAPI('alargaderas',id);
-    // var rowPulsadores= await getJsonAPI('pulsadores',id);
-    var rowEspiras= await getJsonAPI('espiras',id);
-    // var rowPantallascon= await getJsonAPI('pantallascon',id);
-*/
     colLed=[
         {header: 'NID', dataKey: 'NID'},
         {header: 'Fecha Actuacion', dataKey: 'fechaActuacion'},
@@ -282,17 +392,7 @@ async function imprimir() {
         {header: 'Precio', dataKey: 'precio'}
     ];
 
-    colCarcasa[
-        {header: 'NID', dataKey: 'NID'},
-        {header: 'Fecha Actuacion', dataKey: 'fechaActuacion'},
-        {header: 'Tipo Actuación', dataKey: 'descripcion'},
-        {header: 'Observaciones', dataKey: 'observaciones'},
-        {header: 'Albaran', dataKey: 'albaran'},
-        {header: 'Num. Serie', dataKey: 'idNumSerie'},
-        {header: 'Precio', dataKey: 'precio'}
-    ];
 
-////////////////////////////////////////////////////////////////////////////////////////////////// ME HE QUEDADO AQUÍ PARA INSERTAR UN NUEVO CAMPO FABRICACIÓN EN LED
 
     var doc = new jsPDF();
     let pageNumber = doc.getNumberOfPages();
@@ -354,109 +454,7 @@ async function imprimir() {
         });
     }
 
-//-----------------------------------------------------------
-doc.setFontSize(18);
-doc.text("Cuerpos",14,30);
 
-
-    // if (row11_200!='No se han encontrado resultados') {
-
-    //     doc.text("11_200",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:row11_200,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
-
-    // if (row11_300!='No se han encontrado resultados') {
-
-    //     doc.text("11_300",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:row11_300,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
-
-
-
-
-    // if (row12_100!='No se han encontrado resultados') {
-
-    //     doc.text("12_100",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:row12_100,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
-
-    // if (row12_200!='No se han encontrado resultados') {
-
-    //     doc.text("12_200",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:row12_200,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
-
-
-    // if (row12_300!='No se han encontrado resultados') {
-
-    //     doc.text("12_300",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:row12_300,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
-
-
-
-
-
-    // if (row13_200!='No se han encontrado resultados') {
-
-    //     doc.text("13_200",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:row13_200,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
-
-    // if (row13_322!='No se han encontrado resultados') {
-
-    //     doc.text("13_322",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:row13_322,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
-
-
-    // if (row13_332!='No se han encontrado resultados') {
-
-    //     doc.text("13_332",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:row13_332,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
-
-//-----------------------------------------------------------
 doc.setFontSize(18);
 doc.text("Elementos",14,30);
 
@@ -563,15 +561,6 @@ doc.text("Elementos",14,30);
         });
     }
 
-    // if (rowPantallascon!='No se han encontrado resultados') {
-    //     doc.text("Pantallascon",14,doc.autoTable.previous.finalY + 10);
-    //     doc.autoTable({
-    //         columns:col,
-    //         body:rowPantallascon,
-    //         startY: doc.autoTable.previous.finalY + 12,
-    //         pageBreak: 'avoid',
-    //     });
-    // }
 
     if (rowLed!='No se han encontrado resultados') {
         doc.text("Leds",14,doc.autoTable.previous.finalY + 10);
@@ -592,5 +581,5 @@ doc.text("Elementos",14,30);
         x.document.open(); 
         x.document.write(embed); 
         x.document.close();
-    }
+//    }
 

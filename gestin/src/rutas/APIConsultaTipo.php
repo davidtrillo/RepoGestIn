@@ -112,7 +112,7 @@ $app->get('/api/consultatipo/inca/',function(Request $request, Response $respons
             union all
             SELECT '12-200',count(Modelo)as Total FROM [Palma].[dbo].[INCA030_Semáforos] WHERE Modelo LIKE '%12-200%' and [Fecha de Baja de Elemento]='9999-12-31 00:00:00.000'
             union all
-            SELECT '12-300',count(Modelo)as Total FROM [Palma].[dbo].[INCA030_Semáforos] WHERE Modelo LIKE '%12/300%' and [Fecha de Baja de Elemento]='9999-12-31 00:00:00.000'
+            SELECT '12-300',count(Modelo)as Total FROM [Palma].[dbo].[INCA030_Semáforos] WHERE Modelo LIKE '%12-300%' and [Fecha de Baja de Elemento]='9999-12-31 00:00:00.000'
             union all
             SELECT '13-200',count(Modelo)as Total FROM [Palma].[dbo].[INCA030_Semáforos] WHERE Modelo LIKE '%13-200%' and [Fecha de Baja de Elemento]='9999-12-31 00:00:00.000'
             union all

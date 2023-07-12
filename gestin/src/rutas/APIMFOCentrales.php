@@ -5,7 +5,33 @@
 
 //GET Todas las pinturas SELECT
 
+//GET Todas las pinturas SELECT
 
+$app->get('/api/mfocentrales',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $sql='SELECT id, ubicacion FROM instalaciones where tipoInstalacion LIKE "CENTRAL%" ORDER BY 1';
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $cruces= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($cruces,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
 
 
 $app->get('/api/mfoCentrales/{cruce}',function(Request $request, Response $response){

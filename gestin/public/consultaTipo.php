@@ -55,12 +55,13 @@ require '../vendor/autoload.php';
               Consultas
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTipo.php">Todos elementos de Cruce</a>
               <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
               <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
               <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
               <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
-              <a class="dropdown-item" href="./consultaIntroduccion.php">Consulta de Introducción de datos por mes</a>
+                            <a class="dropdown-item" href="./consultaIntroduccion.php">Consulta de Introducción de datos por mes</a>
+              <a class="dropdown-item" href="./consultaAlmacen.php">Consulta de todos elementos de Almacén</a>
 
             </div>
           </li>
@@ -118,33 +119,12 @@ require '../vendor/autoload.php';
    <!-- Form de Consulta -->
    <div class="container-fluid p-2 bg-warning">
       <div class="row ml-1 ">
-      <div class="col-2 p-1">
-            <div class="dropdown">
-               <button class="btn btn-secondary dropdown-toggle" type="button" id="btnInstalacion"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Tipo Instalación
-               </button>
-               <div class="dropdown-menu" id="dropdown-menu1" aria-labelledby="dropdownMenu2">
-                  <?php
-                              $apiUrl = "http://172.27.120.120/gestin/public/api/tipoinstalacion"; //llamamos al EndPoint de la API
-                              $json = file_get_contents($apiUrl); //capturamos la informacion
-                              $datosAPI = json_decode($json, true); //transformamos el json a array
-                              for ($i = 0; $i < count($datosAPI); ++$i) {?>
-                  <button class="dropdown-item" type="submit" id="dropBtnTipoInstalacion" name="drop_tipoInstalacion"
-                     value="<?php echo ($datosAPI[$i]['tipoInstalacion']); ?>"><?php echo ($datosAPI[$i]['tipoInstalacion']); ?></button>
-                  <?php }?>
-               </div>
-            </div>
-            <form method="post" action="">
-               <input type="text" class="form-control mt-1 " id="inputTipologia" placeholder=""
-                  aria-label="Tipologia" aria-describedby="basic-addon1">
-            </form>
-         </div>
+
             <div class="col-2 p-1">
                <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="btnInstalacion"
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Instalación
+                     Cruce
                   </button>
                   <div class="dropdown-menu" id="dropdownInstalacion" aria-labelledby="dropdownMenu2">
                      <!-- Aquí se inyecta el código mediante JS -->
@@ -165,8 +145,8 @@ require '../vendor/autoload.php';
                <!-- </form> -->
             </div>
 
-         </div>
       </div>
+   </div>
    <!-- Fin Form Consulta -->
 
    <hr  class="mt-0 p-1 bg-dark">

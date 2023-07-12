@@ -7,6 +7,9 @@ function nuevaAlmacen() {
     var idInstalacion = "ALMACÉN";
     var idTipoInstalacion = document.getElementById('inputTipoInstalacion').value;
     var fechaActuacion = document.getElementById('inputFechaActuacion').value;
+    var cruce = document.getElementById('inputCruce').value;
+
+
 
     if (idInstalacion.value != "") {
 
@@ -51,6 +54,7 @@ function nuevaAlmacen() {
                 body: JSON.stringify({
                     idInstalacion: idInstalacion,
                     idTipoInstalacion: idTipoInstalacion,
+                    cruce: cruce,
                     idNumSerie: idNumSerie,
                     observaciones: observaciones,
                     fechaActuacion: fechaActuacion,
@@ -101,8 +105,6 @@ function existeFecha2Almacen(fecha) {
     return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
 }
 
-
-
 function leerTipoInstalacion(descripcionTipoActuacion) {
  
     var p1 = document.getElementById('inputTipoInstalacion');
@@ -117,76 +119,9 @@ function leerTipoInstalacionTar(descripcionTipoActuacion,param ) {
 
 }
 
-
 async function formAlmacen(elemento) {
 
-    //desactivarBotones();
-
-    // var ac=document.getElementById("btnTarjetas");
-    // ac.classList.add("active");
-
-    var url = 'http://172.27.120.120/gestin/public/api/tipoinstalacion'
-   var tipoInstalacion= await    fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            if (response == "No se han encontrado resultados") {
-                alert(response);
-
-            } else {
-
-                // var p1 = document.getElementById('formFooter');
-                // p1.innerHTML = '';
-                // p1.innerHTML=`
-                // <span class="ml-1">Total de Tarjetas Activas: ${response[0]['c']}</span>
-                // `
-               
-
-
-                /*var p = document.getElementById('cabecera');
-                p.innerHTML = '';
-                p.innerHTML = `
-                <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>Almacén</b> Instaladas: ${response[0]['c']}</span>
-                `*/
-                return(response);
-            }
-        })
-    var tipoInst='';
-
-    // for (i = 0; i < tipoInstalacion.length; i++) {
-    //    console.log(tipoInstalacion[i]);
-    //   tipoInst += '<button class="dropdown-item" type="submit" value="'+  tipoInstalacion[i].tipoInstalacion  +'" onclick="leerTipoInstalacion(this.value)" >'+ tipoInstalacion[i].tipoInstalacion  +'</button>';
-    //} 
-
-    //AÑADIMOS LOS ELEMENTOS ESPECÍFICOS DE CRUCE
-        
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CÁMARA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CÁMARA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CARGADOR ELÉCTRICO"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CARGADOR ELÉCTRICO"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CENTRAL"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CENTRAL"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "COLUMNA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "COLUMNA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CONTROL DE ACCESOS"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CONTROL DE ACCESOS"  +'</button>';
-        //tipoInst += '<button class="dropdown-item" type="submit" value="'+  "ESPIRA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "ESPIRA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "FOTO ROJO"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "FOTO ROJO"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "NODO"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "NODO"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "PANEL INFORMATIVO"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "PANEL INFORMATIVO"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "RADAR"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "RADAR"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "SEÑAL LUMINOSA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "SEÑAL LUMINOSA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "PUNTO DE MEDIDA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "PUNTO DE MEDIDA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "LED"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "LED"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "TARJETAS SALIDA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "TARJETAS SALIDA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "TARJETAS CPU"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "TARJETAS CPU"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "TARJETAS F.A."  +'" onclick="leerTipoInstalacion(this.value)" >'+ "TARJETAS F.A."  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "BUS/TREN"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "BUS/TREN"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "SEÑAL OCULTA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "SEÑAL OCULTA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "DETECTOR"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "DETECTOR"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "MÓDULOS"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "MÓDULOS"  +'</button>';
- 
+   
     
     var instalacion = document.getElementById("inputInstalacion");
     
@@ -201,20 +136,14 @@ async function formAlmacen(elemento) {
         <!-- Títulos Form Nuevo-->
         <div class="row ml-1">
         <div class="col-2">
-            F.Actuación
+            F. Actuación
         </div>
         <div class="col-2">
-        <div class="dropdown" >
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="btnTipoInstalacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tipo Inst.
-                    </button>
-                    <div class="dropdown-menu" id="dropdownTipoInstalacion" aria-labelledby="dropdownTipoInstalacion">
-                    `+ 
-                   tipoInst                   
-                    +`
-                    </div>
-            
-                </div>
+            Tipo Instalación
+        </div>
+
+        <div class="col-2">
+           Procedencia
         </div>
 
         <div class="col-3">
@@ -232,7 +161,10 @@ async function formAlmacen(elemento) {
             <input type="date" class="form-control mt-1" name="inputFechaActuacion" id="inputFechaActuacion" placeholder="DD/MM/YYYY">
         </div>
         <div class="col-2">
-            <input type="text" class="form-control mt-1" name="inputTipoInstalacion" id="inputTipoInstalacion">
+            <input type="text" class="form-control mt-1" name="inputTipoInstalacion" id="inputTipoInstalacion" value="`+ elemento +`" disabled>
+        </div>
+        <div class="col-2">
+            <input type="text" class="form-control mt-1" name="inputCruce" id="inputCruce" >
         </div>
         <div class="col-3">
             <input type="text" class="form-control mt-1" name="inputObservaciones2" id="inputObservaciones2">
@@ -252,15 +184,12 @@ async function formAlmacen(elemento) {
  
 
         // rellenar todos los registros 
-        await rellenarTodosAlmacen();
+         rellenarTodosAlmacen();
     }
 }
 
-
-
 async function rellenarTodosAlmacen() {//Llamada a la API 
-    var idInstalacion = document.getElementById('inputInstalacion').value;
-
+    var idInstalacion = document.getElementById('inputTipoInstalacion').value;
     var tipoInst='';
 
     // for (i = 0; i < tipoInstalacion.length; i++) {
@@ -269,7 +198,8 @@ async function rellenarTodosAlmacen() {//Llamada a la API
     //} 
 
     //AÑADIMOS LOS ELEMENTOS ESPECÍFICOS DE CRUCE
-        
+
+  
 
 
 
@@ -300,36 +230,12 @@ async function rellenarTodosAlmacen() {//Llamada a la API
 
                 for (var i in response) {
                     
-                    if(response[i]['idTipoInstalacion']=="LED"){
+                    if(response[i]['idTipoInstalacion']=="LEDS"){
                        var linea='<div class="btn btn-info " title="Reubicar elemento" id="inputIdMod'+response[i]['id']+'" onclick="cambiarAlmacen('+response[i]['id']+')"  data-toggle="modal" ><i class="fas fa-recycle"></i></div>'
                      }else{
                         var linea='<div class="btn btn-info " title="Reubicar elemento" id="inputIdMod'+response[i]['id']+'" onclick="cambiarAlmacen('+response[i]['id']+')"  data-toggle="modal" data-target="#staticBackdrop2" ><i class="fas fa-recycle"></i></div>'
                      }
                     
-                    tipoInst='';
-
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '" value="' +  "CÁMARA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CÁMARA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "CARGADOR ELÉCTRICO"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CARGADOR ELÉCTRICO"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "CENTRAL"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CENTRAL"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "COLUMNA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "COLUMNA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "CONTROL DE ACCESOS"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CONTROL DE ACCESOS"  +'</button>';
-               //     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "ESPIRA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "ESPIRA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "FOTO ROJO"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "FOTO ROJO"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "NODO"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "NODO"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "PANEL INFORMATIVO"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "PANEL INFORMATIVO"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "RADAR"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "RADAR"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "SEÑAL LUMINOSA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "SEÑAL LUMINOSA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "PUNTO DE MEDIDA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "PUNTO DE MEDIDA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "LED"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "LED"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "TARJETAS SALIDA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "TARJETAS SALIDA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "TARJETAS CPU"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "TARJETAS CPU"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "TARJETAS F.A."  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "TARJETAS F.A."  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "BUS/TREN"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "BUS/TREN"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "SEÑAL OCULTA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "SEÑAL OCULTA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "DETECTOR"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "DETECTOR"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "MÓDULOS"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "MÓDULOS"  +'</button>';
-
-
                     p.innerHTML += `
                  <div class="row mt-1 ml-1" id="">
                  <div class="col-2">
@@ -348,6 +254,9 @@ async function rellenarTodosAlmacen() {//Llamada a la API
                         </div>
                     </div>
                    
+                 </div>
+                 <div class="col-2">
+                     <input type="text" class="form-control mt-1" name="" id="inputCruceTar${response[i]['id']}"  value="${response[i]['cruce']}">
                  </div>
                  <div class="col-3">
                     <input type="text" class="form-control mt-1" name="" id="inputObservacionesTar${response[i]['id']}"  value="${response[i]['observaciones']}">
@@ -448,9 +357,8 @@ function traspasoResiduos(id){
 
 }
 
-
 function rellenarFooterAlmacen() {
-    var idInstalacion = document.getElementById('inputInstalacion').value;
+    var idInstalacion = document.getElementById('inputElemento').value;
     var url = 'http://172.27.120.120/gestin/public/api/almacen/instaladas/' + idInstalacion
     fetch(url, {
             method: 'GET',
@@ -476,13 +384,12 @@ function rellenarFooterAlmacen() {
                 p.innerHTML = '';
                 p.innerHTML = `
                 <h3><b>Instalaciones</b></h3>
-                <span class="ml-1">Total de <b>Almacen</b> Instaladas: ${response[0]['c']}</span>
+                <span class="ml-1">Total en <b>Almacen</b>: ${response[0]['c']}</span>
                 `
             }
         })
 
 }
-
 
 function borrarAlmacen(param) {
     //Llamada a la API según el dato obtenido del primer combo
@@ -503,12 +410,12 @@ function borrarAlmacen(param) {
 
 function editarAlmacen(param) {
 
- 
 
     var inputIdTar = param;
     var inputFechaActuacionTar = document.getElementById('inputFechaActuacionTar' + param).value;
     var inputTipoInstalacionTar = document.getElementById('inputTipoInstalacionTar' + param).value;
     var inputObservacionesTar = document.getElementById('inputObservacionesTar' + param).value;
+    var inputCruceTar = document.getElementById('inputCruceTar' + param).value;
 
     
     if (document.getElementById('inputNumSerieTar' + param).value){
@@ -557,7 +464,8 @@ function editarAlmacen(param) {
                 idNumSerie: inputNumSerieTar,
                 observaciones: inputObservacionesTar,
                 fechaActuacion: inputFechaActuacionTar,
-                idUsuario: idUsuario
+                idUsuario: idUsuario,
+                cruce: inputCruceTar
 
             })
         })
@@ -573,10 +481,9 @@ function editarAlmacen(param) {
     }, 500);
 }
 
-
 function comprobarNumSerieAlmacen() {
     var idNumSerie = document.getElementById('inputNumSerie').value;
-    console.log(idNumSerie);
+    
 
     if (idNumSerie) {
 
@@ -609,8 +516,7 @@ function comprobarNumSerieAlmacen() {
     }
 }
 
-
- function comprobarNumSerieAlmacen2() {
+function comprobarNumSerieAlmacen2() {
     var idInstalacion = document.getElementById('inputInstalacion').value;
   
     if (idInstalacion) {
@@ -692,7 +598,6 @@ function comprobarNumSerieAlmacen() {
     }
 }
 
-
 function comprobarNumSerieAlmacen3(id,idNumSerie) {
     
     if (idNumSerie) {
@@ -728,8 +633,7 @@ function comprobarNumSerieAlmacen3(id,idNumSerie) {
     }
 }
 
-
-function insertarEnAlmacen(param,fecha){
+function insertarEnAlmacen(param,fecha,instalacion){
   
     var idInstalacion="ALMACÉN";
     var inputFechaActuacionTar = fecha;//document.getElementById('inputFechaActuacionTar'+param).value;
@@ -752,6 +656,7 @@ function insertarEnAlmacen(param,fecha){
             body: JSON.stringify({
                 idInstalacion: idInstalacion,
                 idTipoInstalacion: idTipoInstalacion,
+                cruce:instalacion,
                 idNumSerie: idNumSerie,
                 observaciones: observaciones,
                 fechaActuacion: inputFechaActuacionTar,
@@ -778,7 +683,8 @@ function leerInstalacionAlmacen(value,name){
 }
 
 async function cambiarAlmacen(id) {
-  
+
+  console.log(id);
   
 var fechaActuacionCambiar= document.getElementById('inputFechaActuacionTar'+id).value;
 var tipoInstalacionCambiar= document.getElementById('inputTipoInstalacionTar'+id).value;
@@ -789,7 +695,7 @@ switch(tipoInstalacionCambiar){
 
         case "CÁMARAS":
         
-            var url = 'http://172.27.120.120/gestin/public/api/instalaciones/camaras';
+            var url = 'http://172.27.120.120/gestin/public/api/instalaciones/CAMARAS';
             fetch(url, {
                 method: 'GET',
                
@@ -813,7 +719,7 @@ switch(tipoInstalacionCambiar){
         break;
 
         case "CARGADORES ELÉCTRICOS":
-        var url = 'http://172.27.120.120/gestin/public/api/instalaciones/'+"CARGADORES ELÉCTRICOS";
+        var url = 'http://172.27.120.120/gestin/public/api/instalaciones/'+"CARGADORES ELECTRICOS";
         fetch(url, {
             method: 'GET',
            
@@ -864,7 +770,7 @@ switch(tipoInstalacionCambiar){
             break;
         
         case "CONTROL DE ACCESOS":
-            var url = 'http://172.27.120.120/gestin/public/api/instalaciones/'+tipoInstalacionCambiar;
+            var url = 'http://172.27.120.120/gestin/public/api/instalaciones/CONTROL DE ACCESOS';
             fetch(url, {
                 method: 'GET',
                
@@ -912,7 +818,7 @@ switch(tipoInstalacionCambiar){
                 break;
 
         case "NODO":
-                    var url = 'http://172.27.120.120/gestin/public/api/instalaciones/'+tipoInstalacionCambiar;
+                    var url = 'http://172.27.120.120/gestin/public/api/instalaciones/NODO';
                     fetch(url, {
                         method: 'GET',
                        
@@ -1031,11 +937,12 @@ switch(tipoInstalacionCambiar){
                 }) 
             break;
 
-        case "LED":            
+        case "LEDS":            
             alert ("Se debe copiar el número de serie, dar de baja en Almacén y pegar el número de serie en el nuevo NID");
         break;
 
         case "TARJETAS SALIDA":
+            console.log("He entrado en tarjetas de salida cruce");
             var url = 'http://172.27.120.120/gestin/public/api/instalaciones/cruces';
             fetch(url, {
                 method: 'GET',
@@ -1107,7 +1014,7 @@ switch(tipoInstalacionCambiar){
                 }) 
             break;
 
-        case "BUS/TREN":
+        case "BUSTREN":
             var url = 'http://172.27.120.120/gestin/public/api/instalaciones/cruces';
             fetch(url, {
                 method: 'GET',
@@ -1203,9 +1110,33 @@ switch(tipoInstalacionCambiar){
                     }) 
                 break;
 
+                case "SECTOR":
+                    var url = 'http://172.27.120.120/gestin/public/api/instalaciones/SECTOR';
+                    fetch(url, {
+                        method: 'GET',
+                        
+                            headers: {
+                                'Access-Control-Allow-Origin': 'http://172.27.120.120',
+                                'Content-Type': 'application/json'
+                            },
+                            
+                        })
+                        .then(res => res.json())
+                        .catch(error => console.error('Error:', error))
+                        .then(response => {
+                            var p = document.getElementById('dropdown-Almacen');
+                            p.innerHTML = '';
+                            for (var i in response) {
+                                p.innerHTML += `
+                                <button class="dropdown-item" type="submit" id="dropBtnInstalacion${[i]}" name="${response[i]['ubicacion']}" onclick="leerInstalacionAlmacen(this.value,this.name)" value="${response[i]['id']}" value2="${response[i]['ubicacion']}">${response[i]['id']} - ${response[i]['ubicacion']}</button>
+                                `
+                            }
+                        }) 
+                    break;
+
 }
 
-if (tipoInstalacionCambiar!="LED"){
+if (tipoInstalacionCambiar!="LEDS"){
         var c=document.getElementById("modalAlmacenBody");
             c.innerHTML=`
                         <!-- Inicio body 1 -->
@@ -1282,7 +1213,6 @@ if (tipoInstalacionCambiar!="LED"){
         }
 }
 
-
 async function traspasoAlmacen() {
 
 
@@ -1299,6 +1229,7 @@ async function traspasoAlmacen() {
 
     switch(tipoInstalacionCambiar){
 
+        
         case "CÁMARAS":
             console.log("Estoy en cámara");
             var idUsuario = document.getElementById('inputIdUsuario').value;
@@ -1596,7 +1527,7 @@ async function traspasoAlmacen() {
                 $('#staticBackdrop2').modal('hide');
             break;
     
-        case "LED":
+        case "LEDS":
                 alert ("Se debe copiar el número de serie, dar de baja en Almacén y pegar el número de serie en el nuevo NID");
             break;
 
@@ -1701,7 +1632,7 @@ async function traspasoAlmacen() {
             $('#staticBackdrop2').modal('hide');
         break;
 
-        case "BUS/TREN":
+        case "BUSTREN":
             var idUsuario = document.getElementById('inputIdUsuario').value;
             var url = 'http://172.27.120.120/gestin/public/api/bustren/nueva';
 
@@ -1833,12 +1764,75 @@ async function traspasoAlmacen() {
             $('#staticBackdrop2').modal('hide');
         break;
 
+        case "NODO":
+        var idUsuario = document.getElementById('inputIdUsuario').value;
+        var url = 'http://172.27.120.120/gestin/public/api/nodo/nueva';
 
+        await  fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idInstalacion: inputNuevaInstalacion,
+                    idTipoActuacion: "Reposición Almacén",
+                    idNumSerie: inputNumSerieCambiar,
+                    albaran: "0",
+                    observaciones: observacionesCambiar,
+                    fechaActuacion: inputNuevaFecha,
+                    idUsuario: idUsuario,
+                    precio: "0",
+                    activo: "true",
+                    instalada: "true",
+                    almacen: "false",
+                    residuos: "false"
+                })
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+                alert(response)
+            })
+            borrarAlmacen(clave);
+            $('#staticBackdrop2').modal('hide');
+        break;
+
+    case "SECTOR":
+        var idUsuario = document.getElementById('inputIdUsuario').value;
+        var url = 'http://172.27.120.120/gestin/public/api/sector/nueva';
+
+        await  fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idInstalacion: inputNuevaInstalacion,
+                    idTipoActuacion: "Reposición Almacén",
+                    idNumSerie: inputNumSerieCambiar,
+                    albaran: "0",
+                    observaciones: observacionesCambiar,
+                    fechaActuacion: inputNuevaFecha,
+                    idUsuario: idUsuario,
+                    precio: "0",
+                    activo: "true",
+                    instalada: "true",
+                    almacen: "false",
+                    residuos: "false"
+                })
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+                alert(response)
+            })
+            borrarAlmacen(clave);
+            $('#staticBackdrop2').modal('hide');
+        break;
 
 }
 
 }
-
 
 function borrarElemento(tipoInstalacionCambiar,id){
     switch(tipoInstalacionCambiar){
@@ -1863,7 +1857,7 @@ function borrarElemento(tipoInstalacionCambiar,id){
         case "TARJETAS F.A.":
             borrarTarjetaFa(id);
             break;
-        case "BUS/TREN":
+        case "BUSTREN":
             borrarBusTren(id);
             break;
         case "SEÑAL OCULTA":
@@ -1904,20 +1898,16 @@ function borrarElemento(tipoInstalacionCambiar,id){
     }
 }
 
-
-
-
-
-
 async function putfechaAlmacen2(){
        
     var id=document.getElementById('claveid').value;
     var fechaNueva=document.getElementById('inputFechaActuacionAlmacen').value;
     var tipoInstalacionCambiar= document.getElementById('inputElemento').value;
+    var instalacionCambiar= document.getElementById('inputInstalacion').value;
 
     
     if (fechaNueva){
-        await insertarEnAlmacen(id,fechaNueva);
+        await insertarEnAlmacen(id,fechaNueva,instalacionCambiar);
         await borrarElemento(tipoInstalacionCambiar,id);
     }else{
         alert("No se ha introducido fecha");

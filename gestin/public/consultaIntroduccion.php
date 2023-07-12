@@ -55,12 +55,14 @@ require '../vendor/autoload.php';
               Consultas
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="./consultaTipo.php">Tipo Instalación</a>
+              <a class="dropdown-item" href="./consultaTipo.php">Todos elementos de Cruce</a>
               <a class="dropdown-item" href="./consultaTotalesTipo.php">Totales Tipo Instalación</a>
               <a class="dropdown-item" href="./consultaTotalesLeds.php">Totales Leds</a>
               <a class="dropdown-item" href="./consultaTotalesElementos.php">Totales Elementos</a>
               <a class="dropdown-item" href="./consultaTotalesGrupos.php">Consulta de Cruce y total de Leds activos</a>
               <a class="dropdown-item" href="./consultaIntroduccion.php">Consulta de Introducción de datos por mes</a>
+              <a class="dropdown-item" href="./consultaAlmacen.php">Consulta de todos elementos de Almacén</a>
+              
 
             </div>
           </li>
@@ -127,7 +129,12 @@ require '../vendor/autoload.php';
 
          <div class="col">
             <button class="btn btn-primary" onclick="consulta()">Consulta</button>
+            <button class="btn btn-primary" onclick="imprimir2()">Imprimir</button>
+
          </div>
+
+      
+         
       </div>
    </div>
    <!-- Fin Form Consulta -->

@@ -44,7 +44,7 @@
     $año= $request->getAttribute('var3');
     
     if ($tipo=='led') {
-        $sql = 'SELECT count(*) FROM led WHERE idInstalacion="' . $mes . '" and activo="true" order by fechaActuacion asc;';
+        $sql = 'SELECT count(*) FROM led where month(fechaActuacion)='. $mes .' and year(fechaActuacion)='. $año .' and activo="true" order by fechaActuacion asc;';
     }else{
         $sql='SELECT count(id) from '. $tipo .'  where month(fechaActuacion)='. $mes .' and year(fechaActuacion)='. $año .' order by fechaActuacion asc;';
     }

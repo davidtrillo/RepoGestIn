@@ -77,6 +77,8 @@ include_once '../src/rutas/señalesLuminosas.php';
 include_once '../src/rutas/APIConsultaIntroduccion.php';
 include_once '../src/rutas/residuos.php';
 include_once '../src/rutas/almacen.php';
+include_once '../src/rutas/APIConsultaAlmacen.php';
+
 
 
 

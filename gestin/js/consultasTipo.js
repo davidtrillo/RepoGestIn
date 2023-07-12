@@ -1,24 +1,9 @@
-// Detect when dorpdownList is changing jquery
-$("#dropdown-menu1 button").click(function () {
-    var a = $(this).text();
-    $("#inputTipologia").val($(this).text());
-    var datoInput = document.getElementById('inputTipologia').value;
-    enviarInput(datoInput);
 
-})
+    enviarInput();
 
 
-
-
-
-
-
-
-
-
-
-function enviarInput(datoInput) { //Llamada a la API según el dato obtenido del primer combo
-    var url = 'http://172.27.120.120/gestin/public/api/instalaciones/' + datoInput;
+function enviarInput() { //Llamada a la API según el dato obtenido del primer combo
+    var url = 'http://172.27.120.120/gestin/public/api/instalaciones/cruces';
     fetch(url, {
             method: 'GET',
             headers: {
@@ -76,50 +61,21 @@ function leerCruce(idCruce) {
      // aquí poner el codigo para ejecutar la consulta
      var t = document.getElementById('titulo');
      t.innerHTML='';
-
+     
+     
+     
     await   pintarResultados("tarjetas", idInstalacion);
     await   pintarResultados("tarjetascpu", idInstalacion);
-   // await   pintarResultados("tarjetasamp", idInstalacion);
     await   pintarResultados("tarjetasfa", idInstalacion);
     await   pintarResultados("bustren", idInstalacion);
-       
-
-
-   // Se procesa con INCA
-    // await   pintarResultados("11_200", idInstalacion);
-    // await   pintarResultados("11_300", idInstalacion);
-
-    // await   pintarResultados("12_100", idInstalacion);
-    // await   pintarResultados("12_200", idInstalacion);
-    // await   pintarResultados("12_300", idInstalacion);
-
-    // await   pintarResultados("13_200", idInstalacion);
-    // await   pintarResultados("13_322", idInstalacion);
-    // await   pintarResultados("13_332", idInstalacion);
-
-
     await   pintarResultados("oculta", idInstalacion);
     await   pintarResultados("led", idInstalacion);
-    await   pintarResultados("soportes", idInstalacion);
-//  await   pintarResultados("descontadores", idInstalacion);
-//  await   pintarResultados("baculos", idInstalacion);
-//  await   pintarResultados("columnas", idInstalacion);
-//  await   pintarResultados("brazos", idInstalacion);
-//  await   pintarResultados("bajantes", idInstalacion);
-//  await   pintarResultados("alargaderas", idInstalacion);
-//    await   pintarResultados("pulsadores", idInstalacion); //Se procesa con INCA
     await   pintarResultados("detectores", idInstalacion);
-    await   pintarResultados("espiras", idInstalacion);
- //   await   pintarResultados("pantallascon", idInstalacion);//Se procesa con INCA//
-    
+    await   pintarResultados("modulos", idInstalacion);
+  
 }
 
 
-// function lista(id) {
-
-//     pintarResultados("tarjetas", id);
-
-// }
 
 
 async function pintarResultados(tipo, id) {
@@ -137,7 +93,7 @@ async function pintarResultados(tipo, id) {
      .then(response => {return response});
      
 
-    //console.log(count[0][0]);
+    console.log(count[0][0]);
 //calcula los registros
     var url = 'http://172.27.120.120/gestin/public/api/consultatipo/' + tipo + '/' + id;
     await fetch(url, {
@@ -317,7 +273,7 @@ async function imprimir() {
     // var rowBajantes= await getJsonAPI('bajantes',id);
     // var rowAlargaderas= await getJsonAPI('alargaderas',id);
     // var rowPulsadores= await getJsonAPI('pulsadores',id);
-    var rowEspiras= await getJsonAPI('espiras',id);
+    //var rowEspiras= await getJsonAPI('espiras',id);
     // var rowPantallascon= await getJsonAPI('pantallascon',id);
 
     colLed=[

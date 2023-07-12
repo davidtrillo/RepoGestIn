@@ -361,7 +361,7 @@ async function imprimir() {
                                     }
                                 })
    // console.log(listado);
-   var url2 = 'http://172.27.120.120/gestin/public/api/mfopp/imprimir/fechainspeccion/' + mes +'/'+año;
+   var url2 = 'http://172.27.120.120/gestin/public/api/mfoacires/imprimir/fechainspeccion/' + mes +'/'+año;
    var recuentoFechaInspeccion= await fetch(url2, {
                                    method: 'GET',
                                    headers: {

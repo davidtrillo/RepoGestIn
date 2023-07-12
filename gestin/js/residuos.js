@@ -168,7 +168,7 @@ async function formResiduos(elemento) {
     //AÑADIMOS LOS ELEMENTOS ESPECÍFICOS DE CRUCE
         
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CÁMARA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CÁMARA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CARGADOR ELÉCTRICO"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CARGADOR ELÉCTRICO"  +'</button>';
+        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CARGADORES ELÉCTRICOS"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CARGADORES ELÉCTRICOS"  +'</button>';
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CENTRAL"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CENTRAL"  +'</button>';
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "COLUMNA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "COLUMNA"  +'</button>';
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "CONTROL DE ACCESOS"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "CONTROL DE ACCESOS"  +'</button>';
@@ -177,15 +177,15 @@ async function formResiduos(elemento) {
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "NODO"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "NODO"  +'</button>';
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "PANEL INFORMATIVO"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "PANEL INFORMATIVO"  +'</button>';
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "RADAR"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "RADAR"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "SEÑAL LUMINOSA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "SEÑAL LUMINOSA"  +'</button>';
+        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "SEÑALES LUMINOSAS"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "SEÑALES LUMINOSAS"  +'</button>';
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "PUNTO DE MEDIDA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "PUNTO DE MEDIDA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "LED"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "LED"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "TARJETA SALIDA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "TARJETA SALIDA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "TARJETA CPU"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "TARJETA CPU"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "TARJETA BUS/TREN"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "TARJETA BUS/TREN"  +'</button>';
+        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "LEDS"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "LEDS"  +'</button>';
+        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "TARJETAS SALIDA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "TARJETAS SALIDA"  +'</button>';
+        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "TARJETAS CPU"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "TARJETAS CPU"  +'</button>';
+        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "BUSTREN"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "BUSTREN"  +'</button>';
         tipoInst += '<button class="dropdown-item" type="submit" value="'+  "SEÑAL OCULTA"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "SEÑAL OCULTA"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "DETECTOR"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "DETECTOR"  +'</button>';
-        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "MÓDULO"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "MÓDULO"  +'</button>';
+        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "DETECTORES"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "DETECTORES"  +'</button>';
+        tipoInst += '<button class="dropdown-item" type="submit" value="'+  "MÓDULOS"  +'" onclick="leerTipoInstalacion(this.value)" >'+ "MÓDULOS"  +'</button>';
  
     
     var instalacion = document.getElementById("inputInstalacion");
@@ -301,7 +301,7 @@ async function rellenarTodosResiduos() {//Llamada a la API
                tipoInst='';
                 for (var i in response) {
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '" value="'+  "CÁMARA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CÁMARA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "CARGADOR ELÉCTRICO"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CARGADOR ELÉCTRICO"  +'</button>';
+                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "CARGADORES ELÉCTRICOS"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CARGADORES ELÉCTRICOS"  +'</button>';
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "CENTRAL"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CENTRAL"  +'</button>';
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "COLUMNA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "COLUMNA"  +'</button>';
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "CONTROL DE ACCESOS"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "CONTROL DE ACCESOS"  +'</button>';
@@ -310,15 +310,15 @@ async function rellenarTodosResiduos() {//Llamada a la API
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "NODO"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "NODO"  +'</button>';
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "PANEL INFORMATIVO"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "PANEL INFORMATIVO"  +'</button>';
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "RADAR"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "RADAR"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "SEÑAL LUMINOSA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "SEÑAL LUMINOSA"  +'</button>';
+                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "SEÑALES LUMINOSAS"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "SEÑALES LUMINOSAS"  +'</button>';
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "PUNTO DE MEDIDA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "PUNTO DE MEDIDA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "LED"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "LED"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "TARJETA SALIDA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "TARJETA SALIDA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "TARJETA CPU"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "TARJETA CPU"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "TARJETA BUS/TREN"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "TARJETA BUS/TREN"  +'</button>';
+                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "LEDS"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "LEDS"  +'</button>';
+                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "TARJETAS SALIDA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "TARJETAS SALIDA"  +'</button>';
+                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "TARJETAS CPU"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "TARJETAS CPU"  +'</button>';
+                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "BUSTREN"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "BUSTREN"  +'</button>';
                     tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "SEÑAL OCULTA"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "SEÑAL OCULTA"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "DETECTOR"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "DETECTOR"  +'</button>';
-                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "MÓDULO"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "MÓDULO"  +'</button>';
+                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "DETECTORES"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "DETECTORES"  +'</button>';
+                    tipoInst += '<button class="dropdown-item" type="submit" id="'+ response[i]['id'] + '"  value="'+  "MÓDULOS"  +'" onclick="leerTipoInstalacionTar(this.value,this.id)" >'+ "MÓDULOS"  +'</button>';
 
 
 
